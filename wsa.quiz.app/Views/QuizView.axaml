@@ -1,0 +1,191 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:state="using:Wsa.Quiz.App.State"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.QuizView"
+             x:Name="Root"
+             x:DataType="state:SessioneQuiz">
+
+    <UserControl.Styles>
+        <!-- Bottoni risposta: stato neutra (default) -->
+        <Style Selector="Button.risposta">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="14,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="Button.risposta.corretta">
+            <Setter Property="Background" Value="#1F7A4D"/>
+            <Setter Property="BorderBrush" Value="#155A38"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.risposta.corretta:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1F7A4D"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.risposta.corretta:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1F7A4D"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Button.risposta.sbagliata">
+            <Setter Property="Background" Value="#B85450"/>
+            <Setter Property="BorderBrush" Value="#8C3B38"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.risposta.sbagliata:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#B85450"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.risposta.sbagliata:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#B85450"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <!-- Feedback box, colore dipende da UltimaRispostaCorretta -->
+        <Style Selector="Border.feedbackOk">
+            <Setter Property="Background" Value="#E5F4EC"/>
+            <Setter Property="BorderBrush" Value="#1F7A4D"/>
+        </Style>
+        <Style Selector="Border.feedbackKo">
+            <Setter Property="Background" Value="#F9E7E6"/>
+            <Setter Property="BorderBrush" Value="#B85450"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto" Margin="20">
+
+        <!-- HEADER -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource SystemRegionBrush}"
+                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="14,10"
+                Margin="0,0,0,12">
+            <Grid ColumnDefinitions="*,Auto,Auto" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" Spacing="2">
+                    <TextBlock FontSize="13" FontWeight="SemiBold">
+                        <Run Text="Domanda"/>
+                        <Run Text="{Binding NumeroDomandaCorrente}"/>
+                        <Run Text="di"/>
+                        <Run Text="{Binding TotalePrevisto}"/>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="{Binding MateriaCorrente}"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        <TextBlock Text="·"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        <TextBlock Text="{Binding CategoriaCorrente}"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Tempo}"
+                           FontFamily="Consolas, monospace"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           Margin="20,0,12,0"
+                           IsVisible="{Binding MostraTempo}"/>
+
+                <Button Grid.Column="2"
+                        Content="Abbandona"
+                        Click="OnAbbandonaClick"
+                        Padding="12,5"
+                        FontSize="12"/>
+            </Grid>
+        </Border>
+
+        <!-- DOMANDA + RISPOSTE -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="14">
+
+                <Border Background="{DynamicResource SystemRegionBrush}"
+                        BorderBrush="{DynamicResource SystemBaseLowColor}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="18,16">
+                    <TextBlock Text="{Binding DomandaTesto}"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               LineHeight="22"/>
+                </Border>
+
+                <ItemsControl ItemsSource="{Binding Risposte}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="state:RispostaItem">
+                            <Button Classes="risposta"
+                                    Classes.corretta="{Binding IsCorretta}"
+                                    Classes.sbagliata="{Binding IsSbagliata}"
+                                    Click="OnRispostaClick"
+                                    IsEnabled="{Binding IsNeutra}">
+                                <Grid ColumnDefinitions="32,*">
+                                    <TextBlock Text="{Binding EtichettaLettera}"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Top"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Testo}"
+                                               TextWrapping="Wrap"/>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- FEEDBACK -->
+        <Border Grid.Row="2"
+                Padding="14,12"
+                CornerRadius="6"
+                BorderThickness="1"
+                Margin="0,12,0,0"
+                IsVisible="{Binding RispostaInviata}"
+                Classes.feedbackOk="{Binding UltimaRispostaCorretta}"
+                Classes.feedbackKo="{Binding !UltimaRispostaCorretta}">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="{Binding FeedbackTitolo}"
+                           FontWeight="Bold"
+                           FontSize="14"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="{Binding SpiegazioneTesto}"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           Margin="0,4,0,0"
+                           Foreground="{DynamicResource SystemBaseHighColor}"
+                           IsVisible="{Binding SpiegazioneTesto, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                <Button Grid.RowSpan="2" Grid.Column="1"
+                        Content="Prossima domanda"
+                        Click="OnAvanzaClick"
+                        Padding="16,8"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        Margin="14,0,0,0"
+                        Background="{DynamicResource SystemAccentColorBrush}"
+                        Foreground="White"/>
+            </Grid>
+        </Border>
+
+        <!-- PROGRESSO -->
+        <ProgressBar Grid.Row="3"
+                     Margin="0,12,0,0"
+                     Minimum="0" Maximum="100"
+                     Value="{Binding ProgressoPercentuale}"
+                     Height="6"/>
+
+    </Grid>
+
+</UserControl>

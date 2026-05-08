@@ -1,0 +1,175 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:Wsa.Quiz.Core.Models"
+             xmlns:views="using:Wsa.Quiz.App.Views"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.RiepilogoView"
+             x:DataType="views:RiepilogoView">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="20">
+
+        <!-- TITOLO -->
+        <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,12">
+            <TextBlock Text="{Binding Titolo}"
+                       FontSize="24" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Sottotitolo}"
+                       FontSize="13"
+                       Foreground="{DynamicResource SystemBaseMediumColor}"/>
+        </StackPanel>
+
+        <!-- STATISTICHE -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource SystemRegionBrush}"
+                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="20"
+                Margin="0,0,0,16">
+            <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="Auto,Auto">
+
+                <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Spacing="2">
+                    <TextBlock Text="{Binding PercentualeFormattata}"
+                               FontSize="38" FontWeight="Bold"
+                               Foreground="{Binding ColorePercentuale}"/>
+                    <TextBlock Text="corrette"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="2">
+                    <TextBlock Text="Totale"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                    <TextBlock Text="{Binding TotaleDomande}"
+                               FontSize="18" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="0" Spacing="2">
+                    <TextBlock Text="Corrette"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                    <TextBlock Text="{Binding RisposteCorrette}"
+                               FontSize="18" FontWeight="SemiBold"
+                               Foreground="#1F7A4D"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Grid.Row="0" Spacing="2">
+                    <TextBlock Text="Errate"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                    <TextBlock Text="{Binding RisposteErrate}"
+                               FontSize="18" FontWeight="SemiBold"
+                               Foreground="#B85450"/>
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0" Spacing="2">
+                    <TextBlock Text="Punteggio"
+                               FontSize="11"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                    <TextBlock Text="{Binding Punteggio}"
+                               FontSize="18" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"
+                            Orientation="Horizontal" Spacing="20" Margin="0,12,0,0">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Durata:"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        <TextBlock Text="{Binding DurataFormattata}"
+                                   FontSize="12" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Modalita':"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        <TextBlock Text="{Binding Modalita}"
+                                   FontSize="12" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- LISTA SBAGLIATE -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding TitoloLista}"
+                           FontWeight="SemiBold"
+                           FontSize="14"/>
+
+                <TextBlock Text="Tutte le risposte sono corrette. Bravo!"
+                           IsVisible="{Binding NessunaSbagliata}"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"
+                           FontStyle="Italic"/>
+
+                <ItemsControl ItemsSource="{Binding Sbagliate}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="models:DettaglioRisposta">
+                            <Border Background="{DynamicResource SystemRegionBrush}"
+                                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="14,10"
+                                    Margin="0,0,0,6">
+                                <StackPanel Spacing="4">
+                                    <TextBlock FontSize="11"
+                                               Foreground="{DynamicResource SystemBaseMediumColor}">
+                                        <Run Text="{Binding MateriaNome}"/>
+                                        <Run Text="·"/>
+                                        <Run Text="{Binding Categoria}"/>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding TestoDomanda}"
+                                               TextWrapping="Wrap"
+                                               FontWeight="SemiBold"/>
+                                    <Grid ColumnDefinitions="Auto,*" Margin="0,4,0,0">
+                                        <TextBlock Text="Tu hai risposto:"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   Margin="0,0,8,0"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding RispostaData}"
+                                                   FontSize="12"
+                                                   Foreground="#B85450"
+                                                   TextWrapping="Wrap"/>
+                                    </Grid>
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <TextBlock Text="Corretta:"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   Margin="0,0,8,0"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding RispostaCorretta}"
+                                                   FontSize="12"
+                                                   Foreground="#1F7A4D"
+                                                   TextWrapping="Wrap"/>
+                                    </Grid>
+                                    <TextBlock Text="{Binding Spiegazione}"
+                                               FontSize="11"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"
+                                               IsVisible="{Binding Spiegazione, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                               Foreground="{DynamicResource SystemBaseMediumHighColor}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- TORNA ALLA HOME -->
+        <Button Grid.Row="3"
+                Content="Torna alla Home"
+                Click="OnTornaClick"
+                Padding="22,10"
+                FontSize="14"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Right"
+                Margin="0,16,0,0"
+                Background="{DynamicResource SystemAccentColorBrush}"
+                Foreground="White"/>
+
+    </Grid>
+
+</UserControl>

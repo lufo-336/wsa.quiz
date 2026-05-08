@@ -1,0 +1,1315 @@
+[
+  {
+    "id": 500,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale simbolo si usa in C# per indicare che una classe eredita da un'altra?",
+    "risposte": [
+      "extends",
+      "->",
+      "inherits",
+      ":"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "In C# si usa il simbolo `:` (due punti) per indicare l'ereditarietà: `class Cane : Animale` significa che Cane eredita da Animale. La parola chiave `extends` è di Java, `inherits` di VB.NET. Il `:` è anche usato per implementare interfacce."
+  },
+  {
+    "id": 501,
+    "categoria": "Ereditarietà",
+    "domanda": "Una classe in C# da quante classi base può ereditare direttamente?",
+    "risposte": [
+      "Una sola",
+      "Massimo due",
+      "Quante se ne vuole",
+      "Nessuna se ha campi"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "C# supporta solo l'ereditarietà singola: una classe può ereditare da UNA SOLA classe base. Per combinare più comportamenti si usano le interfacce (di cui se ne possono implementare quante se ne vogliono). Questa scelta evita problemi come il 'diamond problem' del C++."
+  },
+  {
+    "id": 502,
+    "categoria": "Ereditarietà",
+    "domanda": "Cosa significa la dichiarazione `public class Cane : Animale`?",
+    "risposte": [
+      "Cane è un alias di Animale",
+      "Cane eredita da Animale",
+      "Animale eredita da Cane",
+      "Cane è una copia di Animale"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La sintassi `class Figlia : Padre` indica che Figlia eredita da Padre: Cane è un Animale (relazione 'is-a'). Cane riceve automaticamente tutti i membri pubblici e protected di Animale. Il padre (Animale) è definito PRIMA del figlio (Cane) e non sa nulla dei suoi figli."
+  },
+  {
+    "id": 503,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale modificatore d'accesso permette di accedere a un membro dalla classe stessa e dalle classi figlie, ma non dall'esterno?",
+    "risposte": [
+      "private",
+      "public",
+      "protected",
+      "internal"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`protected` rende il membro visibile alla classe stessa e a tutte le classi che ne ereditano, ma non al codice esterno. È spesso usato per i campi delle classi base che le classi figlie devono poter accedere direttamente. `private` blocca anche le figlie, `public` apre a tutti."
+  },
+  {
+    "id": 504,
+    "categoria": "Ereditarietà",
+    "domanda": "Come si chiama il costruttore della classe base da una classe figlia?",
+    "risposte": [
+      "parent()",
+      ": base(parametri)",
+      "super()",
+      "base.New()"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per chiamare il costruttore della classe base si scrive `: base(parametri)` dopo la firma del costruttore figlio: `public Cane(string nome, string razza) : base(nome) { this.razza = razza; }`. La sintassi `super()` è di Java. Senza `: base(...)` il C# chiama automaticamente il costruttore senza parametri della base."
+  },
+  {
+    "id": 505,
+    "categoria": "Ereditarietà",
+    "domanda": "Se Cane eredita da Animale, e Animale ha un metodo pubblico `Mangia()`, può Cane usarlo senza ridichiarazione?",
+    "risposte": [
+      "No, mai",
+      "Sì, lo eredita automaticamente",
+      "Solo se è static",
+      "Solo dopo cast esplicito"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Tutti i membri pubblici e protected della classe base vengono ereditati automaticamente: un oggetto Cane può chiamare `Mangia()` come se fosse suo. Solo i membri private della base NON sono accessibili dalla figlia. Questo è il riuso del codice tipico dell'ereditarietà."
+  },
+  {
+    "id": 506,
+    "categoria": "Ereditarietà",
+    "domanda": "In C#, ogni classe eredita implicitamente da quale classe base?",
+    "risposte": [
+      "object",
+      "Class",
+      "System",
+      "Type"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Ogni classe in C# eredita implicitamente da `object` (alias di `System.Object`), anche se non viene specificato. Questo significa che ogni oggetto possiede metodi come `ToString()`, `Equals()`, `GetHashCode()` ereditati da object. La gerarchia ha sempre object come radice."
+  },
+  {
+    "id": 507,
+    "categoria": "Ereditarietà",
+    "domanda": "Cosa fa la parola chiave `sealed` applicata a una classe?",
+    "risposte": [
+      "Rende la classe astratta e quindi non istanziabile dall'utente",
+      "Rende automaticamente privati tutti i suoi campi e metodi pubblici",
+      "Impedisce che la classe possa essere ereditata",
+      "Blocca completamente la creazione di nuove istanze pubbliche dell'oggetto"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`sealed class` impedisce ad altre classi di ereditare da essa. È utile quando si vuole 'chiudere' una gerarchia o garantire che il comportamento non venga modificato dalle figlie. La classe `String` di .NET è sealed. Si può applicare anche a singoli metodi override per impedire ulteriori override."
+  },
+  {
+    "id": 508,
+    "categoria": "Ereditarietà",
+    "domanda": "Cosa fa `: base(nome)` nella firma `public Cane(string nome) : base(nome)`?",
+    "risposte": [
+      "Imposta il nome della classe Cane a runtime nella memoria allocata",
+      "Crea un nuovo campo privato chiamato nome direttamente nella classe Cane",
+      "Chiama il costruttore della classe base passandogli nome",
+      "Crea un alias del parametro nome con visibilità globale per tutto il programma"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`: base(nome)` chiama il costruttore della classe base (Animale) passando il valore di `nome`. Questo permette alla classe base di inizializzare la propria parte dell'oggetto. Senza `: base(...)`, C# chiama il costruttore senza parametri della base — se non esiste, errore di compilazione."
+  },
+  {
+    "id": 509,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale parola chiave permette di chiamare un metodo della classe base da una classe figlia?",
+    "risposte": [
+      "super",
+      "parent",
+      "base",
+      "this"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In C# si usa `base.NomeMetodo()` per chiamare la versione del metodo della classe base. Tipico esempio: in un metodo override si chiama `base.Metodo()` per estendere (non sostituire) il comportamento del padre. `super` è di Java, `parent` di altri linguaggi."
+  },
+  {
+    "id": 510,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale dei seguenti NON è un beneficio dell'ereditarietà?",
+    "risposte": [
+      "Il riuso del codice tra classi correlate nello stesso progetto",
+      "L'organizzazione gerarchica del modello dati per concetti correlati",
+      "L'eliminazione automatica di tutti gli errori a runtime",
+      "La specializzazione del comportamento nelle classi figlie tramite override"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'ereditarietà offre riuso del codice (la figlia eredita dalla base), organizzazione gerarchica (modello tassonomico) e specializzazione (override). NON elimina errori a runtime: anzi, abusi dell'ereditarietà possono complicare il debug. Per questo si raccomanda spesso 'composizione invece di ereditarietà'."
+  },
+  {
+    "id": 511,
+    "categoria": "Ereditarietà",
+    "domanda": "Se Manager eredita da Dipendente, qual è la classe base e quale la derivata?",
+    "risposte": [
+      "Sono allo stesso livello",
+      "Manager è la base, Dipendente è la derivata",
+      "Dipendente è la base, Manager è la derivata",
+      "Dipende dalla visibilità"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In `class Manager : Dipendente`, Dipendente è la classe base (o padre, o superclasse) e Manager è la classe derivata (o figlia, o sottoclasse). La derivata è una specializzazione della base: ogni Manager è anche un Dipendente, ma non viceversa."
+  },
+  {
+    "id": 512,
+    "categoria": "Ereditarietà",
+    "domanda": "Cosa stampa questo codice? `Animale a = new Cane(); Console.WriteLine(a is Cane);`",
+    "risposte": [
+      "true",
+      "false",
+      "null",
+      "Errore"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'operatore `is` verifica il tipo REALE dell'oggetto, non quello dichiarato. Anche se `a` è dichiarata come Animale, l'oggetto effettivo è un Cane: `a is Cane` restituisce `true`. È molto usato per testare se un upcast può essere reversed con sicurezza."
+  },
+  {
+    "id": 513,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale relazione descrive correttamente l'ereditarietà?",
+    "risposte": [
+      "Una composizione bidirezionale tra classi concrete e astratte diverse",
+      "Una relazione 'is-a' (es. Cane è-un Animale)",
+      "Una relazione 'has-a' tra classe contenitore e classe contenuta come campo",
+      "Due classi totalmente indipendenti che condividono solo lo stesso namespace"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'ereditarietà rappresenta la relazione 'is-a' (è-un): Cane è-un Animale, Auto è-un Veicolo. Quando invece una classe contiene un'istanza di un'altra come campo, si parla di 'has-a' (composizione): Auto ha-un Motore. La scelta tra ereditarietà e composizione è una decisione di design importante."
+  },
+  {
+    "id": 514,
+    "categoria": "Ereditarietà",
+    "domanda": "Cosa indica la sigla DRY nel principio di design legato all'ereditarietà?",
+    "risposte": [
+      "Don't Repeat Yourself (non ripeterti): metti il codice comune nella base",
+      "Data Resource Yield, un sistema di gestione automatica delle risorse",
+      "Direct Resource Yield, un'ottimizzazione del runtime per la memoria",
+      "Defer, Repeat, Yield: un pattern classico di iterazione su collezioni"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "DRY = Don't Repeat Yourself. È un principio fondamentale: ogni pezzo di logica dovrebbe esistere in un solo posto. L'ereditarietà aiuta a rispettarlo mettendo il codice comune nella classe base. Se ti ritrovi a copiare lo stesso codice in più classi, considera se possono condividere una base comune."
+  },
+  {
+    "id": 515,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa significa letteralmente 'polimorfismo'?",
+    "risposte": [
+      "Senza forma",
+      "Una sola forma",
+      "Molte forme",
+      "Forma fissa"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Polimorfismo deriva dal greco 'poli' (molti) + 'morphé' (forma) = 'molte forme'. In OOP indica la capacità di un oggetto di rispondere allo stesso messaggio (chiamata di metodo) in modi diversi a seconda del suo tipo reale. È uno dei quattro pilastri della OOP."
+  },
+  {
+    "id": 516,
+    "categoria": "Polimorfismo",
+    "domanda": "Quale combinazione di parole chiave abilita il polimorfismo classico in C#?",
+    "risposte": [
+      "static + final",
+      "abstract + new",
+      "public + private",
+      "virtual + override"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Per abilitare il polimorfismo: nella classe base si dichiara il metodo con `virtual`, nella classe figlia si sovrascrive con `override`. Esempio: `public virtual void FaiVerso() {...}` nella base, `public override void FaiVerso() {...}` nella figlia. Senza `virtual` non c'è polimorfismo (binding statico)."
+  },
+  {
+    "id": 517,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa è l'upcasting in C#?",
+    "risposte": [
+      "Convertire un tipo derivato in un riferimento di tipo base (sempre sicuro)",
+      "Aumentare la dimensione di un array dinamicamente in fase di esecuzione",
+      "Convertire un valore numerico int in un double con maggiore precisione",
+      "Spostare un oggetto dall'heap allo stack per ottimizzare le prestazioni"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'upcasting è assegnare un oggetto di tipo derivato a una variabile di tipo base: `Animale a = new Cane();`. È sempre sicuro perché un Cane È-UN Animale. Il contrario (downcasting `Cane c = (Cane)a;`) può fallire se l'oggetto reale non è un Cane, lanciando InvalidCastException."
+  },
+  {
+    "id": 518,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa significa 'binding dinamico'?",
+    "risposte": [
+      "L'allocazione dinamica della memoria sull'heap durante l'esecuzione del programma",
+      "Il legame con un database SQL stabilito dinamicamente al momento della query",
+      "Una connessione di rete con riconnessione automatica gestita a livello di runtime",
+      "Il compilatore decide a runtime quale versione del metodo chiamare in base al tipo reale dell'oggetto"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il binding dinamico (o late binding) significa che la versione del metodo da eseguire viene scelta a RUNTIME, non a compile time. Con `virtual/override`, anche se chiami il metodo su una variabile di tipo base, viene eseguita la versione del tipo REALE dell'oggetto. È il cuore del polimorfismo."
+  },
+  {
+    "id": 519,
+    "categoria": "Polimorfismo",
+    "domanda": "Dato `Animale a = new Cane();` con `FaiVerso()` virtual nella base e override nel figlio, quale versione esegue `a.FaiVerso()`?",
+    "risposte": [
+      "Quella di Animale",
+      "Quella di Cane",
+      "Errore di compilazione",
+      "Una versione vuota"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Pur essendo `a` dichiarata come Animale, l'oggetto reale è un Cane: il binding dinamico chiama la versione `FaiVerso()` della classe Cane. Questo è il polimorfismo in azione. Senza `virtual`, sarebbe stata chiamata la versione di Animale (binding statico)."
+  },
+  {
+    "id": 520,
+    "categoria": "Polimorfismo",
+    "domanda": "Come deve essere dichiarato un metodo nella classe base perché possa essere sovrascritto?",
+    "risposte": [
+      "static",
+      "virtual",
+      "private",
+      "sealed"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un metodo della classe base che si vuole rendere sovrascrivibile dalla classe figlia deve essere dichiarato `virtual` (o `abstract`). Senza `virtual`, la figlia non può fare l'override del metodo (può però nasconderlo con `new`, ma non si avrà polimorfismo)."
+  },
+  {
+    "id": 521,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa fa l'operatore `is` in C#?",
+    "risposte": [
+      "Verifica se un oggetto è di un certo tipo (o un suo derivato)",
+      "Confronta due valori per uguaglianza diretta come fa l'operatore ==",
+      "Esegue un'assegnazione condizionale di un valore a una variabile",
+      "Crea un alias temporaneo per accedere ai membri di una classe"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'operatore `is` verifica a runtime se un oggetto è di un certo tipo (o di un tipo derivato): `if (animale is Cane)` restituisce true se `animale` è un Cane. Forma moderna con pattern matching: `if (animale is Cane c)` esegue anche il cast nella variabile c."
+  },
+  {
+    "id": 522,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa fa l'operatore `as` in C#?",
+    "risposte": [
+      "Crea un alias temporaneo del tipo dichiarato della variabile passata come argomento",
+      "Definisce un'asserzione runtime sul tipo effettivo dell'oggetto in memoria",
+      "Tenta una conversione, restituendo null se fallisce",
+      "Equivale all'operatore di confronto di uguaglianza tra due oggetti generici"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`as` tenta una conversione di tipo: se riesce restituisce l'oggetto convertito, altrimenti restituisce `null` (senza eccezione). `Cane c = animale as Cane;` poi `if (c != null)`. Diverso dal cast esplicito `(Cane)animale` che lancerebbe InvalidCastException in caso di fallimento."
+  },
+  {
+    "id": 523,
+    "categoria": "Polimorfismo",
+    "domanda": "Qual è la differenza tra `override` e `new` su un metodo nella classe figlia?",
+    "risposte": [
+      "Sono parole chiave perfettamente sinonime con esattamente lo stesso effetto pratico in ogni caso",
+      "override usa polimorfismo (binding dinamico), new nasconde il metodo della base senza polimorfismo",
+      "new crea una copia profonda dell'oggetto, mentre override modifica solo i metodi pubblici esposti",
+      "override può essere usato solo nei costruttori, mentre new si applica a tutti i metodi della classe"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Con `override` il metodo della figlia partecipa al polimorfismo: chiamandolo via riferimento di tipo base, si esegue la versione della figlia. Con `new` (modifier) si nasconde il metodo della base, ma se chiamato via riferimento di tipo base si esegue la versione della BASE. `new` è raramente usato e spesso sintomo di design errato."
+  },
+  {
+    "id": 524,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa accade se si scrive `override` su un metodo della base che NON è dichiarato `virtual`?",
+    "risposte": [
+      "Funziona normalmente",
+      "Errore di compilazione",
+      "Warning ma compila",
+      "Crash a runtime"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per fare l'override serve un metodo `virtual` (o `abstract` o `override` ereditato) nella base. Tentare l'override di un metodo non virtual produce un errore di compilazione: 'cannot override inherited member because it is not marked virtual, abstract, or override'."
+  },
+  {
+    "id": 525,
+    "categoria": "Polimorfismo",
+    "domanda": "In una `List<Animale>` con oggetti Cane e Gatto, chiamando `FaiVerso()` su ognuno via foreach, quale meccanismo permette di ottenere comportamenti diversi?",
+    "risposte": [
+      "Il polimorfismo con binding dinamico",
+      "L'incapsulamento",
+      "Il casting esplicito",
+      "L'ereditarietà semplice"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "È il polimorfismo che permette il comportamento differente: anche se la lista contiene riferimenti di tipo Animale, ogni elemento è in realtà un Cane o un Gatto. Il binding dinamico fa sì che `FaiVerso()` chiami la versione corretta per ogni oggetto. L'ereditarietà da sola non basta: serve `virtual/override`."
+  },
+  {
+    "id": 526,
+    "categoria": "Polimorfismo",
+    "domanda": "Cosa restituisce `obj is Cane` se `obj` è un Animale ma non è un Cane?",
+    "risposte": [
+      "true",
+      "false",
+      "null",
+      "Lancia eccezione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'operatore `is` non lancia mai eccezioni: restituisce `true` se l'oggetto è del tipo specificato (o un suo derivato), `false` altrimenti. Se `obj` è un Gatto e si chiede `obj is Cane`, il risultato è `false`. Se `obj` è null, anche allora restituisce false."
+  },
+  {
+    "id": 527,
+    "categoria": "Interfacce",
+    "domanda": "Quale parola chiave si usa per definire un'interfaccia in C#?",
+    "risposte": [
+      "abstract",
+      "interface",
+      "contract",
+      "protocol"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Si usa la parola chiave `interface`: `public interface IMotorizzato { void Accelera(); }`. Le interfacce definiscono un contratto: un elenco di metodi e proprietà che le classi implementanti devono fornire. `protocol` è usato in Swift, `contract` non è una keyword C#."
+  },
+  {
+    "id": 528,
+    "categoria": "Interfacce",
+    "domanda": "Per convenzione, i nomi delle interfacce in C# iniziano con quale lettera?",
+    "risposte": [
+      "A",
+      "C",
+      "I",
+      "X"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Per convenzione (Microsoft naming guidelines) le interfacce iniziano con la 'I' maiuscola: `IDisposable`, `IComparable`, `IEnumerable`, `IList`. Questo le rende immediatamente riconoscibili nel codice e le distingue dalle classi normali. Non è obbligatorio ma è una convenzione universalmente seguita."
+  },
+  {
+    "id": 529,
+    "categoria": "Interfacce",
+    "domanda": "Quante interfacce può implementare una singola classe in C#?",
+    "risposte": [
+      "Una sola",
+      "Al massimo due",
+      "Più di una, anche tutte quelle che servono",
+      "Nessuna se la classe ha campi"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "A differenza dell'ereditarietà di classi (singola), una classe può implementare quante interfacce vuole, separate da virgola: `class Auto : Veicolo, IMotorizzato, INoleggiabile`. Questo permette di combinare comportamenti senza i problemi dell'ereditarietà multipla. Prima va la classe base (se c'è), poi le interfacce."
+  },
+  {
+    "id": 530,
+    "categoria": "Interfacce",
+    "domanda": "Nelle interfacce C# tradizionali, cosa contengono i metodi?",
+    "risposte": [
+      "Implementazioni complete",
+      "Solo dichiarazioni (firma) senza corpo",
+      "Solo costanti pubbliche",
+      "Variabili statiche condivise"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Tradizionalmente le interfacce contengono solo dichiarazioni di metodi e proprietà (la firma), senza implementazione: `void Accelera(int delta);`. Le classi che implementano l'interfaccia DEVONO fornire l'implementazione di tutti i suoi membri. Da C# 8.0 sono permessi metodi default, ma il pattern principale resta il contratto puro."
+  },
+  {
+    "id": 531,
+    "categoria": "Interfacce",
+    "domanda": "Si può istanziare un'interfaccia direttamente con `new IMotorizzato()` in C#?",
+    "risposte": [
+      "Sì, sempre",
+      "Solo se ha costruttore",
+      "No, mai",
+      "Solo se è public"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Le interfacce non possono essere istanziate direttamente con `new`: non avrebbe senso, dato che non hanno implementazione. Si può però dichiarare una variabile di tipo interfaccia che punta a un oggetto di una classe che la implementa: `IMotorizzato m = new Auto();`."
+  },
+  {
+    "id": 532,
+    "categoria": "Interfacce",
+    "domanda": "Qual è la differenza chiave tra una classe astratta e un'interfaccia?",
+    "risposte": [
+      "Non c'è alcuna differenza pratica, sono sinonimi sintattici equivalenti",
+      "Una classe può ereditare da una sola classe astratta ma implementare più interfacce",
+      "L'interfaccia è notevolmente più veloce in esecuzione runtime e a compile-time",
+      "L'interfaccia può avere campi e costruttori, la classe astratta no"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Differenze chiave: (1) una classe può ereditare da UNA SOLA classe astratta, ma implementare PIÙ interfacce; (2) la classe astratta può avere campi e metodi implementati, l'interfaccia (tradizionalmente) solo firme; (3) si usa la classe astratta per condividere stato/codice, l'interfaccia per definire un contratto."
+  },
+  {
+    "id": 533,
+    "categoria": "Interfacce",
+    "domanda": "Come si dichiara che la classe `Cane` implementa l'interfaccia `IAnimale`?",
+    "risposte": [
+      "class Cane implements IAnimale",
+      "class Cane uses IAnimale",
+      "class Cane : IAnimale",
+      "class Cane extends IAnimale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "C# usa il simbolo `:` sia per l'ereditarietà che per l'implementazione di interfacce: `class Cane : IAnimale`. Se c'è anche una classe base, va prima: `class Cane : Animale, IAnimale, IGiocoso`. La parola `implements` è di Java, `extends` è anch'essa di Java per l'ereditarietà."
+  },
+  {
+    "id": 534,
+    "categoria": "Interfacce",
+    "domanda": "Cosa succede se una classe dichiara di implementare un'interfaccia ma non implementa tutti i suoi metodi?",
+    "risposte": [
+      "Errore di compilazione",
+      "Funziona se i metodi mancanti restituiscono null",
+      "Solo warning",
+      "I metodi mancanti vengono ignorati"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il compilatore controlla che la classe fornisca un'implementazione per ogni membro dell'interfaccia. Se manca anche un solo membro, errore di compilazione: 'class does not implement interface member'. La classe deve essere astratta se non vuole/può implementare tutti i membri."
+  },
+  {
+    "id": 535,
+    "categoria": "Interfacce",
+    "domanda": "Cosa rappresenta concettualmente un'interfaccia?",
+    "risposte": [
+      "Una copia ridotta di una classe già esistente nel progetto corrente",
+      "Un contratto che le classi implementanti devono rispettare",
+      "Un tipo primitivo speciale del linguaggio C# allocato in modo particolare",
+      "Una variabile globale di tipo riferimento condivisa tra tutte le istanze"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un'interfaccia è un contratto: dice 'chiunque mi implementi DEVE fornire questi metodi e proprietà'. Definisce un comportamento atteso, senza dire come ottenerlo. Permette di trattare classi diverse in modo uniforme tramite il tipo interfaccia, abilitando il polimorfismo."
+  },
+  {
+    "id": 536,
+    "categoria": "Interfacce",
+    "domanda": "Una classe può sia ereditare da una classe sia implementare interfacce contemporaneamente?",
+    "risposte": [
+      "No, è uno o l'altro",
+      "Sì",
+      "Solo se la classe è astratta",
+      "Solo con interfacce vuote"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Sì, è il pattern più comune: `class Auto : Veicolo, IMotorizzato, INoleggiabile`. Auto eredita da Veicolo (riusa codice e stato) E implementa IMotorizzato + INoleggiabile (rispetta più contratti). Per convenzione la classe base va prima, le interfacce dopo."
+  },
+  {
+    "id": 537,
+    "categoria": "Classi Astratte",
+    "domanda": "Quale parola chiave dichiara una classe astratta in C#?",
+    "risposte": [
+      "virtual",
+      "abstract",
+      "static",
+      "sealed"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Si usa `abstract class NomeClasse`. Una classe astratta è una classe 'incompleta': non può essere istanziata direttamente, ma serve come base per altre classi. Può contenere metodi astratti (senza implementazione) e/o metodi normali con implementazione."
+  },
+  {
+    "id": 538,
+    "categoria": "Classi Astratte",
+    "domanda": "Si può istanziare una classe astratta con `new` in C#?",
+    "risposte": [
+      "Sì, come una classe normale",
+      "No, mai",
+      "Solo se ha tutti i metodi implementati",
+      "Solo da classi figlie"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Una classe astratta NON può essere istanziata con `new`: il compilatore segnala errore. La sua funzione è essere base per altre classi concrete che la estendono e implementano i suoi metodi astratti. Si può però dichiarare variabili di tipo astratto che puntano a istanze di classi figlie."
+  },
+  {
+    "id": 539,
+    "categoria": "Classi Astratte",
+    "domanda": "Cosa caratterizza un metodo `abstract` in una classe astratta?",
+    "risposte": [
+      "È sempre statico e senza parametri di alcun tipo",
+      "Ha un'implementazione di default vuota fornita automaticamente nella base",
+      "Non ha implementazione: deve essere implementato dalle classi figlie",
+      "È sempre privato e accessibile solo dall'interno della classe stessa che lo dichiara"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Un metodo `abstract` è dichiarato senza corpo: `public abstract string TipoVeicolo();` (senza graffe!). Non ha implementazione e DEVE essere implementato (con override) da ogni classe figlia non astratta. È implicitamente virtual. Una classe con almeno un metodo astratto deve essere dichiarata abstract."
+  },
+  {
+    "id": 540,
+    "categoria": "Classi Astratte",
+    "domanda": "Una classe astratta può contenere metodi normali con implementazione?",
+    "risposte": [
+      "No, può contenere solo metodi astratti dichiarati senza il corpo",
+      "Sì, può mescolare metodi astratti e implementati",
+      "Solo metodi privati con implementazione, mai metodi pubblici implementati",
+      "Solo metodi statici con implementazione predefinita ereditata da object"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Le classi astratte sono molto flessibili: possono avere campi, costruttori, metodi astratti (senza corpo, da implementare), metodi virtual (sovrascrivibili) e metodi normali (ereditati così come sono). Questa flessibilità è il loro vantaggio principale rispetto alle interfacce tradizionali."
+  },
+  {
+    "id": 541,
+    "categoria": "Classi Astratte",
+    "domanda": "Quando conviene usare una classe astratta invece di un'interfaccia?",
+    "risposte": [
+      "Sempre, è più potente delle interfacce in qualsiasi scenario di design",
+      "Mai, le interfacce sono migliori in qualunque caso d'uso possibile",
+      "Quando si vuole condividere implementazione e stato tra le classi figlie",
+      "Solo quando il contratto è puro e senza implementazione condivisa nelle figlie"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Si sceglie classe astratta quando: (1) si vuole condividere codice/campi tra le derivate, (2) si vuole una relazione 'is-a' forte, (3) ci sono metodi che hanno senso anche con un'implementazione di default. Si sceglie interfaccia quando: si vuole un contratto puro, classi non correlate possono implementarlo, serve l'implementazione multipla."
+  },
+  {
+    "id": 542,
+    "categoria": "Classi Astratte",
+    "domanda": "Cosa accade se una classe figlia non implementa tutti i metodi astratti della base?",
+    "risposte": [
+      "Funziona normalmente con metodi vuoti generati dal compilatore C#",
+      "Anche la classe figlia deve essere astratta, oppure errore di compilazione",
+      "I metodi non implementati vengono ignorati a runtime senza alcun errore",
+      "Il compilatore C# genera implementazioni vuote in automatico per ogni metodo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Se una classe figlia eredita da una astratta ma non implementa TUTTI i metodi astratti, deve essere dichiarata anch'essa `abstract`. Altrimenti, errore di compilazione. Solo le classi 'concrete' (non astratte) possono essere istanziate, e per esserlo devono fornire tutte le implementazioni mancanti."
+  },
+  {
+    "id": 543,
+    "categoria": "Classi Astratte",
+    "domanda": "Una classe astratta può avere un costruttore?",
+    "risposte": [
+      "No, mai per nessun motivo, è una limitazione esplicita del linguaggio",
+      "Sì, viene chiamato dalle classi derivate con base()",
+      "Solo se la classe è dichiarata anche static e selled allo stesso tempo",
+      "Solo costruttori senza parametri sono ammessi nelle classi astratte di C#"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Sì, una classe astratta può avere costruttori (anche con parametri). Non vengono chiamati direttamente con `new` (impossibile per classi astratte) ma vengono invocati dalle classi derivate tramite `: base(...)`. Servono per inizializzare i campi della parte 'base' dell'oggetto."
+  },
+  {
+    "id": 544,
+    "categoria": "Classi Astratte",
+    "domanda": "Cosa significa la dichiarazione `public abstract string TipoVeicolo();` (senza corpo)?",
+    "risposte": [
+      "Un metodo astratto senza implementazione che le classi figlie devono fornire",
+      "Un metodo che restituisce sempre una stringa vuota di default a runtime",
+      "Un metodo statico generico applicabile a tutti i tipi di veicolo registrati",
+      "Un costruttore alternativo della classe base Veicolo per ogni sottotipo"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "È un metodo astratto: ne dichiara la firma (nome, tipo di ritorno, parametri) ma non l'implementazione. Le classi figlie non astratte DEVONO fornire un'implementazione con `override`. Permette di forzare un comportamento nelle figlie pur non sapendo nella base come sarà implementato."
+  },
+  {
+    "id": 545,
+    "categoria": "Eccezioni",
+    "domanda": "Quale costrutto si usa in C# per gestire le eccezioni?",
+    "risposte": [
+      "if-else",
+      "switch-case",
+      "do-while",
+      "try-catch"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il costrutto `try-catch` (con eventuale `finally`) gestisce le eccezioni: nel `try` si mette il codice che potrebbe fallire, nel `catch` si gestisce l'eccezione catturata. Esempio: `try { int n = int.Parse(input); } catch (FormatException e) { ... }`."
+  },
+  {
+    "id": 546,
+    "categoria": "Eccezioni",
+    "domanda": "In un blocco try-catch, dove si mette il codice che potrebbe lanciare un'eccezione?",
+    "risposte": [
+      "nel catch",
+      "nel try",
+      "nel finally",
+      "fuori dal try"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il codice 'rischioso' (che potrebbe lanciare eccezioni) va nel blocco `try`. Se durante la sua esecuzione viene lanciata un'eccezione del tipo dichiarato in un `catch`, l'esecuzione salta al primo catch corrispondente, dove si gestisce il problema."
+  },
+  {
+    "id": 547,
+    "categoria": "Eccezioni",
+    "domanda": "A cosa serve il blocco `finally` in C#?",
+    "risposte": [
+      "Eseguire codice solo se viene lanciata e catturata un'eccezione del tipo dichiarato",
+      "Eseguire codice solo quando il blocco try termina senza eccezioni di nessun tipo",
+      "Ad eseguire codice in ogni caso, sia con sia senza eccezione",
+      "Bloccare le eccezioni e impedire la loro propagazione al chiamante del metodo"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il blocco `finally` viene eseguito SEMPRE, sia che il try sia andato a buon fine, sia che sia stata lanciata un'eccezione. È usato per il cleanup (chiudere file, rilasciare risorse). Esempio: `try {...} catch {...} finally { file.Close(); }`. Da C# moderno spesso si usa `using` invece."
+  },
+  {
+    "id": 548,
+    "categoria": "Eccezioni",
+    "domanda": "Quale parola chiave si usa per lanciare manualmente un'eccezione in C#?",
+    "risposte": [
+      "raise",
+      "throw",
+      "fire",
+      "trigger"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`throw` lancia un'eccezione: `throw new ArgumentException(\"Età non valida\");`. Si usa per segnalare condizioni di errore quando si rilevano stati non validi nei propri metodi. `raise` è di Python, `throw` è anche di Java/JavaScript."
+  },
+  {
+    "id": 549,
+    "categoria": "Eccezioni",
+    "domanda": "Cosa rappresenta una `FormatException`?",
+    "risposte": [
+      "Un'eccezione lanciata quando si tenta di convertire una stringa in un formato non valido",
+      "Errore di formattazione del codice sorgente segnalato dal linter del compilatore",
+      "Eccezione del compilatore relativa allo stile delle classi e dei membri",
+      "Errore generato durante la stampa o il salvataggio di un file su disco"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`FormatException` viene lanciata quando una stringa non è nel formato atteso per una conversione. Tipico: `int.Parse(\"abc\")` lancia FormatException perché 'abc' non è un numero. `DateTime.Parse(\"xyz\")` idem. Per evitarla: `int.TryParse()`."
+  },
+  {
+    "id": 550,
+    "categoria": "Eccezioni",
+    "domanda": "Cosa accade se un'eccezione non viene gestita da nessun catch?",
+    "risposte": [
+      "Il programma continua",
+      "Viene ignorata silenziosamente",
+      "Il programma termina con un crash",
+      "Viene loggata e ignorata"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Un'eccezione non gestita 'risale' lo stack di chiamate fino al runtime. Se nessun catch la cattura, il programma termina con un crash mostrando il messaggio dell'eccezione e lo stack trace. Per questo è importante gestire le eccezioni nei punti opportuni del programma."
+  },
+  {
+    "id": 551,
+    "categoria": "Eccezioni",
+    "domanda": "Si possono avere più blocchi `catch` per lo stesso `try` in C#?",
+    "risposte": [
+      "No, in C# è permesso solo un blocco catch per ogni try, mai di più",
+      "Solo se i catch sono dello stesso tipo di eccezione, altrimenti errore",
+      "Massimo due catch, uno per eccezione specifica e uno per Exception generico",
+      "Sì, uno per ogni tipo di eccezione che si vuole gestire diversamente"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Sì, si possono concatenare più catch per gestire diversi tipi di eccezioni. Vengono valutati in ordine: il PRIMO compatibile cattura. Importante: i catch più specifici PRIMA dei più generici (Exception alla fine), altrimenti errore di compilazione 'A previous catch clause already catches all exceptions'."
+  },
+  {
+    "id": 552,
+    "categoria": "Eccezioni",
+    "domanda": "Quale eccezione viene lanciata accedendo a un indice non valido di un array?",
+    "risposte": [
+      "ArrayException",
+      "IndexException",
+      "OutOfBoundsException",
+      "IndexOutOfRangeException"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "`IndexOutOfRangeException` viene lanciata quando si accede a un indice di array fuori dai limiti validi (es. `arr[arr.Length]` o indice negativo). Per le List<T> c'è `ArgumentOutOfRangeException`. Per evitarla: controllare sempre `i < arr.Length` prima dell'accesso."
+  },
+  {
+    "id": 553,
+    "categoria": "Eccezioni",
+    "domanda": "Quale eccezione viene lanciata dividendo un intero per zero in C#?",
+    "risposte": [
+      "ArithmeticException",
+      "DivideByZeroException",
+      "MathException",
+      "ZeroException"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`DivideByZeroException` viene lanciata dalla divisione intera per zero: `int x = 10 / 0;`. Curiosità: per i `double` non viene lanciata, si ottengono valori speciali come `Double.PositiveInfinity` o `Double.NaN`. Per evitare l'eccezione: controllare il divisore prima della divisione."
+  },
+  {
+    "id": 554,
+    "categoria": "Eccezioni",
+    "domanda": "In `catch (Exception e)`, cosa rappresenta il parametro `e`?",
+    "risposte": [
+      "Un valore numerico intero che identifica univocamente il tipo di errore",
+      "L'oggetto eccezione con messaggio, stack trace e altre informazioni",
+      "Un alias temporaneo creato dal compilatore per il nome del tipo Exception",
+      "Una variabile booleana che indica se c'è stata effettivamente un'eccezione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`e` è un riferimento all'oggetto eccezione catturato. Permette di accedere alle proprietà dell'eccezione: `e.Message` (messaggio descrittivo), `e.StackTrace` (catena delle chiamate), `e.InnerException` (eccezione originale se rilanciata), `e.GetType()` (tipo concreto)."
+  },
+  {
+    "id": 555,
+    "categoria": "Eccezioni",
+    "domanda": "Come si accede al messaggio testuale di un'eccezione catturata `Exception e`?",
+    "risposte": [
+      "e.Text",
+      "e.Message",
+      "e.Description",
+      "e.Info"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La proprietà `Message` di Exception contiene la descrizione testuale dell'errore: `Console.WriteLine($\"Errore: {e.Message}\");`. È la prima cosa da loggare/mostrare all'utente. Per dettagli tecnici si usa `e.StackTrace` (utile in fase di debug ma non da mostrare all'utente finale)."
+  },
+  {
+    "id": 556,
+    "categoria": "Eccezioni",
+    "domanda": "Quale tra queste è la peggior pratica nella gestione delle eccezioni?",
+    "risposte": [
+      "Usare un catch generico Exception per loggare l'errore",
+      "Catturare un'eccezione specifica come FormatException",
+      "Inghiottire un'eccezione con un catch vuoto senza alcun logging",
+      "Rilanciare con throw"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il 'silenzio' su un'eccezione (`catch { }` vuoto) è una delle peggiori pratiche: l'errore viene nascosto, il programma sembra funzionare ma in realtà è in stato corrotto. È meglio almeno loggare l'eccezione. Ancora meglio: catturare solo eccezioni specifiche di cui si sa come gestire."
+  },
+  {
+    "id": 557,
+    "categoria": "LINQ",
+    "domanda": "Cosa è LINQ in C#?",
+    "risposte": [
+      "Un linguaggio di scripting embedded direttamente nel CLR del framework .NET",
+      "Un protocollo di comunicazione di rete usato dai microservizi cloud",
+      "Una libreria per scrivere query su collezioni e basi dati con una sintassi unificata",
+      "Una libreria GUI cross-platform per applicazioni web e mobile native"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "LINQ (Language Integrated Query) permette di scrivere query simili a SQL direttamente in C# per filtrare, ordinare, aggregare dati da array, liste, dizionari, database, XML, ecc. È una delle feature più potenti di .NET. Esempio: `var giovani = persone.Where(p => p.Eta < 30).OrderBy(p => p.Nome);`."
+  },
+  {
+    "id": 558,
+    "categoria": "LINQ",
+    "domanda": "Quale namespace si deve importare per usare LINQ?",
+    "risposte": [
+      "System.Data",
+      "System.Linq",
+      "System.Query",
+      "System.Collections.Generic"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per usare i metodi LINQ (Where, Select, OrderBy, ecc.) bisogna importare `using System.Linq;` in cima al file. Senza questa direttiva, gli array e le collezioni non avranno questi metodi disponibili (sono metodi di estensione definiti in quel namespace)."
+  },
+  {
+    "id": 559,
+    "categoria": "LINQ",
+    "domanda": "Cosa fa `lista.Where(x => x > 10)`?",
+    "risposte": [
+      "Restituisce gli elementi di lista maggiori di 10",
+      "Verifica se 10 è presente",
+      "Conta quanti sono i 10",
+      "Sostituisce ogni 10 con un altro valore"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Where` filtra una collezione restituendo solo gli elementi che soddisfano il predicato (la lambda). `lista.Where(x => x > 10)` restituisce un IEnumerable con tutti gli elementi maggiori di 10. È equivalente al WHERE di SQL. Spesso si usa con `.ToList()` per materializzare il risultato."
+  },
+  {
+    "id": 560,
+    "categoria": "LINQ",
+    "domanda": "Cosa fa il metodo LINQ `Select`?",
+    "risposte": [
+      "Filtra gli elementi che soddisfano una condizione booleana indicata",
+      "Ordina gli elementi della collezione in ordine crescente o decrescente",
+      "Trasforma ogni elemento applicando una funzione (proiezione)",
+      "Conta il numero totale di elementi presenti nella collezione iniziale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`Select` proietta ogni elemento in una nuova forma. Esempio: `studenti.Select(s => s.Nome)` restituisce IEnumerable<string> con solo i nomi. `numeri.Select(n => n * 2)` raddoppia ogni numero. Equivale alla SELECT di SQL: trasforma l'output, non filtra. Per filtrare si usa Where."
+  },
+  {
+    "id": 561,
+    "categoria": "LINQ",
+    "domanda": "Quale operatore C# si usa nelle espressioni lambda?",
+    "risposte": [
+      "->",
+      "=>",
+      ":=",
+      "<<"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'operatore lambda è `=>` (talvolta chiamato 'goes to'): `x => x * 2` definisce una funzione anonima che riceve x e restituisce x*2. Sintassi completa: `(parametri) => espressione` o `(parametri) => { istruzioni; }`. `->` è dei puntatori in C/C++."
+  },
+  {
+    "id": 562,
+    "categoria": "LINQ",
+    "domanda": "Cosa restituisce `lista.First()` su una lista vuota?",
+    "risposte": [
+      "Restituisce null silenziosamente",
+      "Restituisce 0 come valore di default",
+      "Restituisce default(T) per il tipo",
+      "Lancia InvalidOperationException"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "`First()` lancia `InvalidOperationException` con messaggio 'Sequence contains no elements' se la collezione è vuota. Per evitarlo si usa `FirstOrDefault()` che restituisce il valore di default del tipo (null per riferimenti, 0 per int, ecc.) se la collezione è vuota."
+  },
+  {
+    "id": 563,
+    "categoria": "LINQ",
+    "domanda": "Qual è la differenza tra `First()` e `FirstOrDefault()`?",
+    "risposte": [
+      "Sono sinonimi e intercambiabili in qualsiasi situazione di uso pratico nel codice",
+      "First() lancia eccezione se la collezione è vuota, FirstOrDefault() restituisce il default del tipo",
+      "FirstOrDefault esegue un ordinamento crescente prima di restituire il primo elemento",
+      "First restituisce sempre null mentre FirstOrDefault sempre il primo elemento valido"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Differenza fondamentale per evitare crash: `First()` lancia eccezione se non c'è alcun elemento, `FirstOrDefault()` restituisce default(T) — null per oggetti, 0 per int, false per bool. Si usa FirstOrDefault quando 'nessun elemento' è una possibilità prevista."
+  },
+  {
+    "id": 564,
+    "categoria": "LINQ",
+    "domanda": "Cosa fa `lista.OrderBy(x => x.Cognome)`?",
+    "risposte": [
+      "Filtra per cognome",
+      "Conta i cognomi unici",
+      "Ordina la lista per cognome in ordine crescente",
+      "Restituisce solo il primo cognome"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`OrderBy` ordina in modo crescente in base alla chiave indicata dalla lambda. `OrderByDescending` ordina in modo decrescente. Per ordinamenti su più chiavi: `.OrderBy(x => x.Cognome).ThenBy(x => x.Nome)`. Restituisce IOrderedEnumerable, spesso seguito da `.ToList()`."
+  },
+  {
+    "id": 565,
+    "categoria": "LINQ",
+    "domanda": "Cosa restituisce `lista.Any()` senza argomenti?",
+    "risposte": [
+      "true se la collezione contiene almeno un elemento, false se è vuota",
+      "Restituisce un elemento casuale scelto a runtime dalla collezione passata",
+      "Conta il numero totale degli elementi presenti nella collezione corrente",
+      "Restituisce sempre true indipendentemente dal contenuto della collezione"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Any()` senza argomenti verifica se la collezione contiene almeno un elemento. È preferibile a `Count() > 0` per ragioni di prestazioni: si ferma al primo elemento trovato. Con un predicato `Any(x => x.Eta > 18)` verifica se ESISTE almeno un elemento che soddisfa la condizione."
+  },
+  {
+    "id": 566,
+    "categoria": "LINQ",
+    "domanda": "Come si scrive una lambda che riceve x e y e restituisce la loro somma?",
+    "risposte": [
+      "lambda(x, y) -> x + y",
+      "(x, y) => x + y",
+      "function(x, y) return x + y",
+      "x, y => sum(x, y)"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La sintassi è `(x, y) => x + y`: i parametri tra parentesi tonde, `=>`, l'espressione di ritorno. Per più istruzioni: `(x, y) => { int s = x + y; return s; }`. Con un solo parametro le parentesi sono opzionali: `x => x * 2`."
+  },
+  {
+    "id": 567,
+    "categoria": "Generics",
+    "domanda": "Cosa rappresenta `<T>` in `List<T>`?",
+    "risposte": [
+      "Un tipo generico parametrico, sostituito al momento dell'uso",
+      "Una stringa di tipo Title con valore predefinito a runtime",
+      "Il tipo Task usato per le operazioni asincrone in attesa",
+      "Un'abbreviazione standard per la parola chiave Type del linguaggio"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`T` è un parametro di tipo generico: viene sostituito con un tipo concreto quando si usa la classe. `List<int>` crea una lista di int, `List<string>` di stringhe, ecc. Permette di scrivere codice riutilizzabile e type-safe senza dover ripetere la stessa logica per ogni tipo."
+  },
+  {
+    "id": 568,
+    "categoria": "Generics",
+    "domanda": "Qual è il vantaggio principale dei generics?",
+    "risposte": [
+      "Codice eseguito più velocemente",
+      "Type safety e riuso del codice senza casting",
+      "Riducono l'uso della memoria",
+      "Supporto multi-thread"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "I generics permettono codice riusabile (la stessa List funziona con qualsiasi tipo) mantenendo la type safety: il compilatore sa che una `List<int>` contiene int, evitando cast pericolosi e errori a runtime. Prima dei generics si usava `ArrayList` (di tipo object) con cast continui."
+  },
+  {
+    "id": 569,
+    "categoria": "Generics",
+    "domanda": "Cosa rappresenta `Dictionary<string, int>`?",
+    "risposte": [
+      "Un dizionario con chiavi string e valori int",
+      "Un dizionario con due valori interi sempre uguali",
+      "Una stringa indicizzata da numeri interi consecutivi",
+      "Un array di interi accessibile per nome simbolico"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Dictionary<TKey, TValue>` è una collezione generica con due tipi parametrici. `Dictionary<string, int>` ha chiavi string e valori int: usato per esempio per contare parole (`{\"casa\": 3, \"gatto\": 1}`). L'accesso è veloce: `dict[\"casa\"]` restituisce 3."
+  },
+  {
+    "id": 570,
+    "categoria": "Generics",
+    "domanda": "Come si scrive un metodo generico che restituisce il primo elemento di una lista?",
+    "risposte": [
+      "T Primo<T>(List<T> lista) { return lista[0]; }",
+      "object Primo(List<object> lista) { return lista[0]; }",
+      "T Primo(List lista) { return lista[0]; }",
+      "<T> Primo(List<T> lista) { return lista[0]; }"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Sintassi: `tipoRitorno NomeMetodo<T>(parametri)`. Il `<T>` va tra il nome del metodo e le parentesi dei parametri, prima dei parametri si può usare T. Usage: `int n = Primo<int>(numeri);` o, con inferenza, `int n = Primo(numeri);`."
+  },
+  {
+    "id": 571,
+    "categoria": "Generics",
+    "domanda": "Cosa permette di fare `where T : class` in un metodo generico?",
+    "risposte": [
+      "Rende il tipo T una classe statica con membri condivisi tra istanze",
+      "Vincola T a essere un tipo riferimento (non un tipo valore come int)",
+      "Vincola T a essere obbligatoriamente di tipo int o tipi numerici primitivi",
+      "Trasforma il tipo T in object perdendo le informazioni di tipizzazione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Le `where clauses` impongono vincoli ai parametri di tipo: `where T : class` limita T ai tipi riferimento (string, classi). Altri vincoli: `where T : struct` (tipi valore), `where T : NomeClasse` (deve ereditare da NomeClasse), `where T : new()` (deve avere costruttore senza parametri)."
+  },
+  {
+    "id": 572,
+    "categoria": "Generics",
+    "domanda": "In quale namespace si trova `List<T>`?",
+    "risposte": [
+      "System",
+      "System.Collections",
+      "System.Collections.Generic",
+      "System.Generic"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`List<T>` (e altre collezioni generiche come `Dictionary<TKey,TValue>`, `HashSet<T>`, `Queue<T>`) si trovano in `System.Collections.Generic`. Solitamente è già importato di default dai template di Visual Studio. `System.Collections` contiene le vecchie collezioni non-generiche (ArrayList, Hashtable)."
+  },
+  {
+    "id": 573,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa restituisce `\"ciao\".Length` in C#?",
+    "risposte": [
+      "4",
+      "5",
+      "0",
+      "true"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La proprietà `Length` di una stringa restituisce il numero di caratteri (Unicode UTF-16). \"ciao\" ha 4 caratteri, quindi Length è 4. Per gli array è la stessa proprietà. Per le List<T> si usa invece `Count`."
+  },
+  {
+    "id": 574,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa fa `Split(' ')` su una stringa?",
+    "risposte": [
+      "Conta il numero totale di spazi presenti nella stringa originale",
+      "Rimuove tutti gli spazi dalla stringa restituendo una nuova stringa pulita",
+      "Divide la stringa in un array di sottostringhe usando lo spazio come separatore",
+      "Inserisce uno spazio aggiuntivo ogni 5 caratteri della stringa originale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`\"ciao mondo bello\".Split(' ')` restituisce l'array `[\"ciao\", \"mondo\", \"bello\"]`. Si può specificare anche più caratteri separatori: `Split(' ', ',', ';')`. Con `StringSplitOptions.RemoveEmptyEntries` si scartano le sottostringhe vuote causate da separatori consecutivi."
+  },
+  {
+    "id": 575,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa restituisce `\"ciao\".Substring(1, 2)`?",
+    "risposte": [
+      "\"ci\"",
+      "\"ia\"",
+      "\"iao\"",
+      "\"ao\""
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`Substring(startIndex, length)` estrae una sottostringa: a partire dall'indice 1 (la 'i' è il secondo carattere, indice 1) prende 2 caratteri ('i' e 'a'), restituendo \"ia\". Con un solo argomento `Substring(2)` prende dall'indice 2 fino alla fine."
+  },
+  {
+    "id": 576,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa fa `string.IsNullOrEmpty(s)`?",
+    "risposte": [
+      "Verifica unicamente se s è null senza considerare il contenuto",
+      "Verifica unicamente se s è una stringa vuota di lunghezza zero",
+      "Restituisce true se s è null oppure stringa vuota \"\"",
+      "Confronta la stringa s con il letterale stringa contenente la parola \"null\""
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`IsNullOrEmpty` è un metodo statico che restituisce true sia se la stringa è null sia se è vuota (Length 0). Esiste anche `IsNullOrWhiteSpace` che è ancora più ampia: considera vuote anche le stringhe contenenti solo spazi/tab. Utile per validazione input."
+  },
+  {
+    "id": 577,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Per le stringhe in C#, c'è differenza tra `==` e `.Equals()`?",
+    "risposte": [
+      "Sì, l'operatore == è significativamente più lento del metodo Equals",
+      "Per le stringhe entrambi confrontano il contenuto e sono praticamente equivalenti",
+      "Sì, == confronta solo i riferimenti in memoria mentre Equals il contenuto",
+      "Equals lancia eccezioni quando una delle due stringhe è null o vuota"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per le stringhe in C#, `==` è stato sovraccaricato per confrontare il contenuto, quindi è equivalente a `.Equals()`. Eccezione: `.Equals()` ha overload per case-insensitive: `s1.Equals(s2, StringComparison.OrdinalIgnoreCase)`. Attenzione: per altri tipi riferimento, `==` confronta i riferimenti."
+  },
+  {
+    "id": 578,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa restituisce `string.Concat(\"a\", \"b\", \"c\")`?",
+    "risposte": [
+      "\"abc\"",
+      "\"a, b, c\"",
+      "Una lista di stringhe",
+      "Errore"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`string.Concat` concatena le stringhe passate senza separatore: il risultato è \"abc\". Per inserire un separatore si usa `string.Join(\",\", \"a\", \"b\", \"c\")` che produce \"a,b,c\". Per concatenazioni multiple in cicli si usa `StringBuilder` (più efficiente)."
+  },
+  {
+    "id": 579,
+    "categoria": "Stringhe avanzate",
+    "domanda": "A cosa serve la classe `StringBuilder`?",
+    "risposte": [
+      "A creare stringhe immutabili più velocemente del costruttore standard",
+      "A costruire stringhe in modo efficiente quando si fanno molte concatenazioni",
+      "A formattare numeri in vari formati locali e culturali predefiniti",
+      "A leggere file di testo riga per riga gestendo la codifica automaticamente"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Le stringhe sono immutabili: ogni `+=` crea un nuovo oggetto string in memoria, costoso in cicli con molte concatenazioni. `StringBuilder` è un buffer modificabile: `var sb = new StringBuilder(); sb.Append(\"a\"); sb.Append(\"b\"); string s = sb.ToString();` è molto più performante. Vive in `System.Text`."
+  },
+  {
+    "id": 580,
+    "categoria": "Stringhe avanzate",
+    "domanda": "Cosa restituisce `\"Hello\".Replace('l', 'r')`?",
+    "risposte": [
+      "\"Herro\"",
+      "\"Hello\"",
+      "Errore",
+      "\"H_e_l_l_o\""
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Replace` sostituisce TUTTE le occorrenze del primo argomento con il secondo. \"Hello\" ha due 'l': entrambi diventano 'r', risultato \"Herro\". Esiste anche la versione con stringhe: `\"abc\".Replace(\"ab\", \"XY\")` produce \"XYc\". La stringa originale rimane invariata (immutabilità)."
+  },
+  {
+    "id": 581,
+    "categoria": "DateTime",
+    "domanda": "Cosa restituisce `DateTime.Now` in C#?",
+    "risposte": [
+      "La data e ora correnti del sistema",
+      "Una data di default",
+      "Una stringa formato yyyy-mm-dd",
+      "Il numero di millisecondi dal 1970"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`DateTime.Now` restituisce un DateTime con la data e ora correnti del sistema (locale). `DateTime.UtcNow` restituisce la data/ora in UTC. Per il numero di tick dal 1° gennaio dell'anno 1 si usa `DateTime.Now.Ticks`. Il timestamp Unix non è nativo ma calcolabile."
+  },
+  {
+    "id": 582,
+    "categoria": "DateTime",
+    "domanda": "Quale tipo si usa per rappresentare una durata in C#?",
+    "risposte": [
+      "DateTime",
+      "TimeSpan",
+      "Duration",
+      "Period"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`TimeSpan` rappresenta un intervallo di tempo (giorni, ore, minuti, secondi). Si crea con costruttore o con metodi statici: `TimeSpan.FromHours(2)`, `TimeSpan.FromMinutes(30)`. Sottraendo due DateTime si ottiene un TimeSpan: `(d2 - d1)` è la durata tra le due date."
+  },
+  {
+    "id": 583,
+    "categoria": "DateTime",
+    "domanda": "Come si calcola la differenza in giorni tra due DateTime `d1` e `d2`?",
+    "risposte": [
+      "(d2 - d1).Days",
+      "d1.DiffDays(d2)",
+      "DateTime.Diff(d1, d2)",
+      "d1 - d2"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Sottraendo due DateTime si ottiene un TimeSpan: `(d2 - d1)`. La proprietà `.Days` restituisce il numero intero di giorni completi. Altre proprietà: `.TotalDays` (con decimali), `.Hours`, `.Minutes`, `.TotalHours` ecc. Differenza `Days` vs `TotalDays`: il primo è int, il secondo double."
+  },
+  {
+    "id": 584,
+    "categoria": "DateTime",
+    "domanda": "Qual è la differenza tra `DateTime.Today` e `DateTime.Now`?",
+    "risposte": [
+      "Sono identici e restituiscono entrambi data e ora correnti del sistema",
+      "Today restituisce solo la data (con ora 00:00:00), Now include anche l'ora corrente",
+      "Today restituisce sempre l'ora in formato UTC indipendentemente dal fuso",
+      "Today restituisce solo la parte oraria della data corrente del sistema"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`DateTime.Now` ha la data E l'ora correnti (es. 04/05/2026 14:32:18). `DateTime.Today` ha la data corrente con l'ora azzerata a mezzanotte (es. 04/05/2026 00:00:00). `Today` è utile quando si confrontano solo date e non l'ora."
+  },
+  {
+    "id": 585,
+    "categoria": "DateTime",
+    "domanda": "Come si crea una data specifica per il 15 marzo 2024?",
+    "risposte": [
+      "new DateTime(2024, 3, 15)",
+      "DateTime.Create(15, 3, 2024)",
+      "new DateTime(\"15/03/2024\")",
+      "DateTime(\"2024-03-15\")"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il costruttore standard è `new DateTime(anno, mese, giorno)`: `new DateTime(2024, 3, 15)`. Esistono overload per includere ore, minuti, secondi: `new DateTime(2024, 3, 15, 14, 30, 0)`. Per parsare una stringa si usa `DateTime.Parse(\"15/03/2024\")` (attento al formato locale)."
+  },
+  {
+    "id": 586,
+    "categoria": "DateTime",
+    "domanda": "Cosa restituisce la proprietà `Year` di un DateTime?",
+    "risposte": [
+      "L'anno come intero",
+      "L'anno come stringa",
+      "Sempre l'anno corrente",
+      "Lancia eccezione se è null"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Year` restituisce l'anno come `int`: `nascita.Year` su una data del 1990 restituisce 1990. Altre proprietà utili: `Month` (1-12), `Day` (1-31), `Hour`, `Minute`, `Second`, `DayOfWeek`, `DayOfYear`. Tipico calcolo età: `DateTime.Now.Year - dataNascita.Year` (approssimativo)."
+  },
+  {
+    "id": 587,
+    "categoria": "Dictionary e Collezioni",
+    "domanda": "Cosa è un `Dictionary<TKey, TValue>` in C#?",
+    "risposte": [
+      "Una collezione ordinata di soli valori indicizzati per posizione numerica",
+      "Una collezione di coppie chiave-valore con accesso veloce tramite la chiave",
+      "Un array bidimensionale ottimizzato per la memorizzazione di matrici",
+      "Una stringa indicizzata con accesso casuale tramite indice di posizione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`Dictionary` è una hash table tipizzata: associa chiavi a valori. L'accesso tramite chiave è quasi istantaneo (O(1) medio). Esempio: `var prezzi = new Dictionary<string, double> { {\"pane\", 1.50}, {\"latte\", 1.20} };`. Le chiavi devono essere uniche."
+  },
+  {
+    "id": 588,
+    "categoria": "Dictionary e Collezioni",
+    "domanda": "Come si aggiunge una coppia a `Dictionary<string, int> dict`?",
+    "risposte": [
+      "dict.Push(\"a\", 1)",
+      "dict.Add(\"a\", 1)",
+      "dict.Insert(\"a\", 1)",
+      "dict.Set(\"a\", 1)"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`dict.Add(chiave, valore)` aggiunge una nuova coppia. Equivalente: `dict[\"a\"] = 1` (l'indexer). Differenza importante: `Add` lancia eccezione se la chiave esiste già, mentre l'indexer sovrascrive il valore esistente. Usare l'una o l'altra in base al comportamento desiderato."
+  },
+  {
+    "id": 589,
+    "categoria": "Dictionary e Collezioni",
+    "domanda": "Cosa succede se si chiama `dict.Add(\"a\", 2)` quando la chiave \"a\" esiste già?",
+    "risposte": [
+      "Sovrascrive il valore",
+      "Aggiunge un secondo valore alla stessa chiave",
+      "Lancia ArgumentException",
+      "Restituisce false"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`Add` non permette chiavi duplicate: lancia `ArgumentException` con messaggio 'An item with the same key has already been added'. Per evitarlo: usare l'indexer (`dict[\"a\"] = 2` sovrascrive senza errori) oppure controllare prima con `dict.ContainsKey(\"a\")`."
+  },
+  {
+    "id": 590,
+    "categoria": "Dictionary e Collezioni",
+    "domanda": "Quale collezione garantisce elementi unici (no duplicati)?",
+    "risposte": [
+      "List<T>",
+      "HashSet<T>",
+      "Array",
+      "Queue<T>"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`HashSet<T>` rappresenta un insieme matematico: ogni elemento è unico, l'aggiunta di un duplicato non fa nulla (il metodo Add restituisce false). Operazioni rapide di Contains, Add, Remove. Utile per deduplicare e per insiemi: `IntersectWith`, `UnionWith`, `ExceptWith`."
+  },
+  {
+    "id": 591,
+    "categoria": "Dictionary e Collezioni",
+    "domanda": "Cosa fa `dict.ContainsKey(\"x\")`?",
+    "risposte": [
+      "Restituisce true se la chiave \"x\" è presente nel dizionario corrente",
+      "Restituisce direttamente il valore associato alla chiave \"x\" indicata",
+      "Aggiunge la chiave \"x\" al dizionario se non è ancora presente nei dati",
+      "Rimuove la chiave \"x\" dal dizionario se è effettivamente presente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`ContainsKey` verifica la presenza di una chiave senza tentare di leggerne il valore (cosa che lancerebbe KeyNotFoundException se la chiave non c'è). Pattern tipico: `if (dict.ContainsKey(\"x\")) { var v = dict[\"x\"]; ... }`. Alternativa più efficiente: `TryGetValue(\"x\", out int v)`."
+  },
+  {
+    "id": 592,
+    "categoria": "Tipi e Conversioni",
+    "domanda": "Cosa restituisce il cast `(int)3.7` in C#?",
+    "risposte": [
+      "3",
+      "4",
+      "3.7",
+      "Errore"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il cast da double a int TRONCA la parte decimale (non arrotonda): `(int)3.7` è 3, `(int)3.99` è 3, `(int)-3.7` è -3. Per arrotondare correttamente si usa `(int)Math.Round(3.7)` che dà 4. Importante distinzione tra troncare e arrotondare."
+  },
+  {
+    "id": 593,
+    "categoria": "Tipi e Conversioni",
+    "domanda": "Qual è la differenza tra cast esplicito e conversione implicita?",
+    "risposte": [
+      "Sono operativamente identici e usano la stessa identica sintassi del linguaggio C#",
+      "Il cast esplicito si scrive (tipo)valore, la conversione implicita avviene automaticamente per conversioni sempre sicure",
+      "Il cast implicito è significativamente più lento di quello esplicito a runtime",
+      "Solo il cast esplicito viene effettivamente compilato dal compilatore C# moderno"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Conversione implicita: avviene automaticamente per conversioni 'allargatrici' senza perdita di dati (`int → long`, `int → double`). Cast esplicito: necessario per conversioni 'restrittive' che possono perdere dati (`double → int`, `long → int`); si scrive `(tipoTarget)valore`. Il cast esplicito è un'asserzione del programmatore."
+  },
+  {
+    "id": 594,
+    "categoria": "Tipi e Conversioni",
+    "domanda": "Cosa restituisce `Convert.ToInt32(\"42\")` in C#?",
+    "risposte": [
+      "42",
+      "\"42\"",
+      "null",
+      "Lancia eccezione"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Convert.ToInt32` converte la stringa nel valore int corrispondente: 42. Differenza con `int.Parse`: Convert gestisce null restituendo 0, mentre Parse lancia ArgumentNullException. Entrambi lanciano FormatException su stringhe non valide. Per sicurezza si preferisce `int.TryParse`."
+  },
+  {
+    "id": 595,
+    "categoria": "Tipi e Conversioni",
+    "domanda": "Quale tipo viene dedotto da `var x = 3.14;`?",
+    "risposte": [
+      "float",
+      "double",
+      "decimal",
+      "int"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il letterale 3.14 è di tipo `double` per default in C#. Quindi `var x` deduce `double`. Per ottenere un float: `var x = 3.14f;` (suffisso f). Per decimal: `var x = 3.14m;` (suffisso m). Sapere questo è importante per evitare bug di precisione nei calcoli finanziari."
+  },
+  {
+    "id": 596,
+    "categoria": "Operatori avanzati",
+    "domanda": "Cosa fa l'operatore `??` in C#?",
+    "risposte": [
+      "Concatena stringhe in modo simile all'operatore + per i tipi testuali",
+      "Verifica due condizioni booleane simultaneamente come AND logico",
+      "Restituisce l'operando di sinistra se non è null, altrimenti quello di destra",
+      "Crea una tupla con due elementi a partire da due valori dati"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`??` è il null-coalescing operator: `a ?? b` significa 'se a è null usa b, altrimenti a'. Esempio: `string nome = utente.Nome ?? \"Anonimo\";`. Equivalente a `utente.Nome != null ? utente.Nome : \"Anonimo\"` ma più conciso. Esiste anche `??=` per assegnazione condizionata: `x ??= 5;`."
+  },
+  {
+    "id": 597,
+    "categoria": "Operatori avanzati",
+    "domanda": "Cosa fa l'operatore `?.` (null-conditional)?",
+    "risposte": [
+      "Accede al membro solo se l'oggetto non è null, altrimenti restituisce null senza lanciare eccezioni",
+      "Lancia un'eccezione NullReferenceException se l'oggetto risulta essere null al runtime",
+      "Crea un oggetto opzionale di tipo Nullable<T> per il valore corrente passato",
+      "Inverte un valore booleano da true a false e viceversa, come fa l'operatore !"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`?.` accede al membro solo se l'oggetto NON è null: `string s = persona?.Nome;`. Se persona è null, l'espressione restituisce null senza NullReferenceException. Si possono concatenare: `int? lung = persona?.Nome?.Length;`. Era 'Elvis operator' nelle proposte iniziali."
+  },
+  {
+    "id": 598,
+    "categoria": "Operatori avanzati",
+    "domanda": "Cosa stampa `Console.WriteLine(null ?? \"default\")`?",
+    "risposte": [
+      "(stringa vuota)",
+      "null",
+      "default",
+      "Errore"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'operatore `??` valuta a 'default' perché l'operando di sinistra (null) è null. Console.WriteLine stampa 'default' seguito da un a capo. Questo pattern è utile per fornire valori di fallback: `string visualizzato = nomeOpzionale ?? \"Senza nome\";`."
+  },
+  {
+    "id": 599,
+    "categoria": "Operatori avanzati",
+    "domanda": "Cosa significa `int? x = null;` in C#?",
+    "risposte": [
+      "Errore di compilazione: int non può essere null",
+      "x è un int nullable, può contenere un int o null",
+      "x è un puntatore",
+      "x è inizializzato a 0"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`int?` (alias di `Nullable<int>`) permette ai tipi valore di rappresentare 'nessun valore'. Ha proprietà `HasValue` e `Value`: `if (x.HasValue) { int v = x.Value; }`. Si converte a int con cast esplicito o con `?? defaultValue`. Utile per campi opzionali da database o input non obbligatori."
+  },
+  {
+    "id": 600,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale suffisso si usa per dichiarare un letterale `decimal` in C#?",
+    "risposte": [
+      "d",
+      "D",
+      "m",
+      "L"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il suffisso `m` (o M) indica un letterale decimal: `decimal prezzo = 19.99m;`. Senza suffisso il letterale 19.99 è double, e l'assegnazione a decimal richiederebbe cast. Suffissi: `f/F` per float, `d/D` per double (opzionale), `m/M` per decimal, `L` per long, `u/U` per unsigned."
+  }
+]

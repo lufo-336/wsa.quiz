@@ -1,0 +1,97 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "Wsa.Quiz.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Wsa.Quiz.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wsa.Quiz.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Wsa.Quiz.Core/1.0.0": {
+      "type": "project",
+      "path": "../wsa.quiz.core/Wsa.Quiz.Core.csproj",
+      "msbuildProject": "../wsa.quiz.core/Wsa.Quiz.Core.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "Wsa.Quiz.Core >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\luca.foglia\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\luca.foglia\\Documents\\Quiz\\wsa_quiz_step1\\wsa.quiz.cli\\Wsa.Quiz.Cli.csproj",
+      "projectName": "Wsa.Quiz.Cli",
+      "projectPath": "C:\\Users\\luca.foglia\\Documents\\Quiz\\wsa_quiz_step1\\wsa.quiz.cli\\Wsa.Quiz.Cli.csproj",
+      "packagesPath": "C:\\Users\\luca.foglia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\luca.foglia\\Documents\\Quiz\\wsa_quiz_step1\\wsa.quiz.cli\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\luca.foglia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "C:\\Users\\luca.foglia\\Documents\\Quiz\\wsa_quiz_step1\\wsa.quiz.core\\Wsa.Quiz.Core.csproj": {
+              "projectPath": "C:\\Users\\luca.foglia\\Documents\\Quiz\\wsa_quiz_step1\\wsa.quiz.core\\Wsa.Quiz.Core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "10.0.200"
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

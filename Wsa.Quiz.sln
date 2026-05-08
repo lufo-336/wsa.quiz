@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Core", "wsa.quiz.core\Wsa.Quiz.Core.csproj", "{5217B471-AB4E-4BCB-9A4D-174B3DCBD9AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Cli", "wsa.quiz.cli\Wsa.Quiz.Cli.csproj", "{AF981EA0-F84F-437A-8C59-6470BD6528CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.App", "wsa.quiz.app\Wsa.Quiz.App.csproj", "{AEE6EFFF-B267-43F5-AA3B-07693030CF45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5217B471-AB4E-4BCB-9A4D-174B3DCBD9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5217B471-AB4E-4BCB-9A4D-174B3DCBD9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5217B471-AB4E-4BCB-9A4D-174B3DCBD9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5217B471-AB4E-4BCB-9A4D-174B3DCBD9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF981EA0-F84F-437A-8C59-6470BD6528CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF981EA0-F84F-437A-8C59-6470BD6528CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF981EA0-F84F-437A-8C59-6470BD6528CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF981EA0-F84F-437A-8C59-6470BD6528CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE6EFFF-B267-43F5-AA3B-07693030CF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE6EFFF-B267-43F5-AA3B-07693030CF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE6EFFF-B267-43F5-AA3B-07693030CF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE6EFFF-B267-43F5-AA3B-07693030CF45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

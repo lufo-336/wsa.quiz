@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Wsa.Quiz.App</RootNamespace>
+    <AssemblyName>Wsa.Quiz.App</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.0.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.0.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.2" />
+    <!-- Nota: in Avalonia 12 il vecchio package Avalonia.Diagnostics e' stato rimosso.
+         Per i Dev Tools (F12) si usa AvaloniaUI.DiagnosticsSupport, ma e' opzionale
+         e non lo includiamo finche' non serve. -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\wsa.quiz.core\Wsa.Quiz.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\materie.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\domande\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>domande\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+
+</Project>

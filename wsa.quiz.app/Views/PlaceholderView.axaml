@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.PlaceholderView">
+
+    <Border Background="{DynamicResource SystemRegionBrush}"
+            Padding="40">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="10"
+                    MaxWidth="520">
+            <TextBlock x:Name="TitoloText"
+                       FontSize="20" FontWeight="SemiBold"
+                       HorizontalAlignment="Center"/>
+            <TextBlock x:Name="MessaggioText"
+                       FontSize="13"
+                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+        </StackPanel>
+    </Border>
+
+</UserControl>

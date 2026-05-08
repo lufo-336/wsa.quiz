@@ -1,0 +1,1302 @@
+[
+  {
+    "id": 501,
+    "categoria": "HTML Base",
+    "domanda": "Qual è il tag corretto per dichiarare il tipo di documento HTML5?",
+    "risposte": [
+      "<html5>",
+      "<!DOCTYPE html>",
+      "<doctype HTML5>",
+      "<?html version='5'?>"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "<!DOCTYPE html> è la dichiarazione obbligatoria che deve apparire come prima riga di ogni pagina HTML5. Dice al browser che il documento usa lo standard HTML5. Nelle versioni precedenti (HTML4, XHTML) la dichiarazione era molto più lunga e complicata. Senza DOCTYPE il browser entra in 'quirks mode' e potrebbe renderizzare la pagina in modo imprevedibile."
+  },
+  {
+    "id": 502,
+    "categoria": "HTML Base",
+    "domanda": "Dove vanno inseriti i metadati di una pagina HTML, come il charset e il titolo della scheda?",
+    "risposte": [
+      "Nel tag <body>",
+      "Nel tag <meta>",
+      "Nel tag <head>",
+      "Nel tag <html>"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il tag <head> contiene tutti i metadati della pagina: charset, titolo scheda (<title>), link a CSS, script, e descrizioni per i motori di ricerca. Nulla nel <head> viene visualizzato direttamente nella pagina. Il tag <body> invece contiene tutto il contenuto visibile. Il tag <meta> è un elemento figlio del <head>, non il contenitore."
+  },
+  {
+    "id": 503,
+    "categoria": "HTML Base",
+    "domanda": "Cosa fa l'attributo charset='UTF-8' nel tag <meta>?",
+    "risposte": [
+      "Imposta la velocità di caricamento della pagina",
+      "Definisce la codifica dei caratteri, abilitando accenti e simboli speciali",
+      "Collega la pagina a un font esterno",
+      "Cambia il colore di sfondo predefinito"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "UTF-8 è una codifica dei caratteri che copre praticamente tutte le lingue del mondo. Senza charset='UTF-8', caratteri accentati come à, è, ò potrebbero non visualizzarsi correttamente. Va inserito nel <head>: <meta charset='UTF-8'>. È una delle prime cose da mettere in ogni pagina HTML per evitare problemi di visualizzazione."
+  },
+  {
+    "id": 504,
+    "categoria": "HTML Base",
+    "domanda": "Qual è la differenza tra un tag di blocco e un tag inline?",
+    "risposte": [
+      "I tag di blocco sono più veloci da renderizzare",
+      "I tag inline non possono contenere testo",
+      "I tag di blocco occupano tutta la larghezza disponibile; gli inline si inseriscono nel flusso del testo",
+      "Non esiste differenza pratica tra i due"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I tag di blocco (div, p, h1-h6, section, article...) occupano l'intera larghezza del contenitore e vanno a capo prima e dopo. I tag inline (span, a, strong, em, img...) si inseriscono nel flusso del testo senza andare a capo. Questa distinzione influenza il layout: non si dovrebbe mettere un elemento di blocco dentro un elemento inline."
+  },
+  {
+    "id": 505,
+    "categoria": "HTML Base",
+    "domanda": "Come si apre un link in una nuova scheda del browser?",
+    "risposte": [
+      "Aggiungendo l'attributo new='tab'",
+      "Usando il tag <newlink>",
+      "Aggiungendo target='_blank' all'elemento <a>",
+      "Aggiungendo open='true' all'elemento <a>"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'attributo target='_blank' dice al browser di aprire il link in una nuova scheda o finestra. Per sicurezza, quando si usa target='_blank' è buona pratica aggiungere anche rel='noopener noreferrer', che impedisce alla pagina aperta di accedere alla pagina originale tramite window.opener, prevenendo possibili attacchi."
+  },
+  {
+    "id": 506,
+    "categoria": "HTML Base",
+    "domanda": "Qual è la struttura corretta per creare una lista non ordinata con tre voci?",
+    "risposte": [
+      "<list><item>A</item><item>B</item><item>C</item></list>",
+      "<ul><li>A</li><li>B</li><li>C</li></ul>",
+      "<ol><li>A</li><li>B</li><li>C</li></ol>",
+      "<ul><dt>A</dt><dt>B</dt><dt>C</dt></ul>"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "<ul> (unordered list) crea una lista con punti elenco. I figli devono essere tag <li> (list item). <ol> (ordered list) crea invece una lista numerata. <dt> appartiene alle liste di definizione (<dl>). Il tag <list> non esiste in HTML. La combinazione corretta è sempre: contenitore <ul> o <ol> con figli <li>."
+  },
+  {
+    "id": 507,
+    "categoria": "HTML Tabelle",
+    "domanda": "Quale tag rappresenta una cella di intestazione in una tabella HTML?",
+    "risposte": [
+      "<td>",
+      "<tr>",
+      "<th>",
+      "<thead>"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "<th> (table header) è la cella di intestazione: di default è in grassetto e centrata. <td> (table data) è la cella normale. <tr> (table row) è la riga che contiene le celle. <thead> è la sezione di intestazione che raggruppa le righe di intestazione. La struttura corretta è: <table><thead><tr><th>Nome</th></tr></thead><tbody><tr><td>Mario</td></tr></tbody></table>."
+  },
+  {
+    "id": 508,
+    "categoria": "HTML Tabelle",
+    "domanda": "A cosa serve l'attributo colspan in una cella di tabella?",
+    "risposte": [
+      "Imposta il colore della colonna",
+      "Definisce la larghezza minima della colonna in pixel",
+      "Fa sì che la cella si estenda su più colonne",
+      "Collega la cella a un foglio di stile esterno"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "colspan='N' fa sì che una cella occupi N colonne orizzontali. Analogamente, rowspan='N' fa occupare N righe verticali. Esempio: <td colspan='2'>Titolo</td> fa sì che quella cella occupi due colonne. È utile per intestazioni che coprono più colonne, come in tabelle complesse. Da non confondere con il CSS width: colspan agisce sulla struttura HTML, non sullo stile."
+  },
+  {
+    "id": 509,
+    "categoria": "HTML Form",
+    "domanda": "Qual è lo scopo dell'attributo 'for' nel tag <label>?",
+    "risposte": [
+      "Indica quante volte il campo può essere compilato",
+      "Collega la label all'input corrispondente tramite il suo id, migliorando l'accessibilità",
+      "Specifica il formato del dato atteso",
+      "Imposta il testo predefinito del campo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'attributo for della <label> deve corrispondere all'id dell'input associato. Questo crea un collegamento semantico: cliccando la label, il focus va sull'input. Migliora l'accessibilità per i lettori di schermo e aumenta l'area cliccabile (utile su mobile). Esempio: <label for='email'>Email</label><input id='email' type='email'>."
+  },
+  {
+    "id": 510,
+    "categoria": "HTML Form",
+    "domanda": "Cosa fa l'attributo 'required' su un campo input?",
+    "risposte": [
+      "Aggiunge uno stile rosso al campo",
+      "Blocca l'invio del form se il campo è vuoto, senza bisogno di JavaScript",
+      "Rende il campo visibile solo all'amministratore",
+      "Imposta un valore predefinito nel campo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'attributo required abilita la validazione nativa del browser: se l'utente tenta di inviare il form con il campo vuoto, il browser mostra un messaggio di errore e blocca l'invio. Non serve JavaScript per questa validazione di base. Altri attributi di validazione HTML nativi sono: type='email', type='number', min, max, maxlength, pattern."
+  },
+  {
+    "id": 511,
+    "categoria": "HTML Form",
+    "domanda": "Qual è la differenza tra <button type='submit'> e <button type='button'>?",
+    "risposte": [
+      "Non c'è differenza",
+      "type='button' è obsoleto in HTML5",
+      "type='submit' invia il form; type='button' non fa nulla di default ed è pensato per essere gestito con JavaScript",
+      "type='submit' ricarica la pagina; type='button' apre una nuova scheda"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "type='submit' è il comportamento predefinito di un <button> dentro un form: invia i dati al server (o alla URL indicata in action). type='button' non ha comportamento predefinito: è utile per bottoni che devono solo eseguire JavaScript senza inviare il form. Se ometti type, il default è 'submit', il che può causare invii accidentali del form."
+  },
+  {
+    "id": 512,
+    "categoria": "HTML Semantica",
+    "domanda": "Quale tag HTML5 è più adatto per contenere la navigazione principale di un sito?",
+    "risposte": [
+      "<div id='menu'>",
+      "<nav>",
+      "<header>",
+      "<aside>"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "<nav> è il tag semantico per la navigazione principale. I lettori di schermo lo riconoscono come zona di navigazione e possono saltarla direttamente. <div> funzionerebbe visivamente ma non ha significato semantico. <header> contiene l'intestazione della pagina o di una sezione. <aside> è per contenuti laterali correlati ma non principali. Usare i tag semantici corretti migliora accessibilità e SEO."
+  },
+  {
+    "id": 513,
+    "categoria": "HTML Semantica",
+    "domanda": "Qual è la differenza tra <section> e <article>?",
+    "risposte": [
+      "Non c'è differenza: sono sinonimi",
+      "<article> deve sempre avere un <h1>; <section> no",
+      "<section> raggruppa contenuti correlati tematicamente; <article> rappresenta un contenuto autonomo e riutilizzabile",
+      "<section> è per il CSS; <article> è per JavaScript"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "<article> rappresenta un contenuto autocontenuto e indipendente (un post del blog, un articolo di giornale, un commento): potrebbe essere estratto e pubblicato altrove mantenendo senso. <section> raggruppa contenuti correlati tematicamente ma non necessariamente autonomi. Un <article> può contenere più <section>; una <section> può contenere più <article>. Entrambi migliorano la struttura semantica rispetto al solo <div>."
+  },
+  {
+    "id": 514,
+    "categoria": "HTML Semantica",
+    "domanda": "Perché l'attributo alt è importante per i tag <img>?",
+    "risposte": [
+      "Migliora accessibilità per i lettori di schermo e la SEO",
+      "Cambia la dimensione dell'immagine",
+      "Serve solo quando l'immagine non si carica",
+      "Imposta il titolo che appare al passaggio del mouse"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'attributo alt svolge due funzioni fondamentali: (1) Accessibilità — i lettori di schermo leggono il testo alt agli utenti non vedenti; (2) SEO — i motori di ricerca usano alt per capire il contenuto dell'immagine. Alt vuoto (alt='') va usato per immagini decorative che i lettori di schermo devono ignorare. L'attributo title invece mostra un tooltip al passaggio del mouse, ma non sostituisce alt."
+  },
+  {
+    "id": 515,
+    "categoria": "CSS Base",
+    "domanda": "Come si collega un foglio di stile CSS esterno a una pagina HTML?",
+    "risposte": [
+      "<style src='style.css'>",
+      "<css href='style.css'>",
+      "<link rel='stylesheet' href='style.css'> nel <head>",
+      "<script type='css' src='style.css'>"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il tag <link rel='stylesheet' href='style.css'> va inserito nel <head> dell'HTML. rel='stylesheet' indica la relazione tra il documento e il file collegato. Separare HTML e CSS in file distinti è una best practice: struttura e presentazione restano indipendenti, il CSS può essere condiviso tra più pagine, e il browser lo mette in cache per le visite successive."
+  },
+  {
+    "id": 516,
+    "categoria": "CSS Base",
+    "domanda": "Cosa significa la specificità in CSS?",
+    "risposte": [
+      "La velocità con cui il CSS viene applicato",
+      "Il numero di proprietà in una regola",
+      "La 'priorità' delle regole: ID batte classe che batte tag",
+      "L'ordine alfabetico dei selettori"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La specificità determina quale regola CSS vince quando più regole si applicano allo stesso elemento. Ordine di priorità: !important > stile inline > ID (#id, peso 100) > classe/attributo/pseudo-classe (.class, [attr], :hover, peso 10) > tag/pseudo-elemento (p, ::before, peso 1). A parità di specificità, vince la regola dichiarata per ultima nel file CSS. Capire la specificità è essenziale per evitare comportamenti inattesi."
+  },
+  {
+    "id": 517,
+    "categoria": "CSS Base",
+    "domanda": "Qual è la differenza tra rem e em come unità di misura CSS?",
+    "risposte": [
+      "rem è per i colori; em è per i font",
+      "rem è relativo al font-size della radice (html); em è relativo al font-size del genitore",
+      "Sono identici",
+      "rem funziona solo in Firefox; em funziona in tutti i browser"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "rem (root em) è sempre relativo al font-size dell'elemento <html> (di default 16px): 1rem = 16px. È prevedibile perché non si 'accumula'. em è relativo al font-size del genitore diretto, il che può causare effetti a cascata: se un genitore ha font-size 1.5em e il figlio ha font-size 1.5em, il figlio risulta 2.25x. Per layout e spaziatura rem è più gestibile; em è utile per componenti scalabili."
+  },
+  {
+    "id": 518,
+    "categoria": "CSS Box Model",
+    "domanda": "Qual è l'ordine corretto del box model CSS, dall'interno verso l'esterno?",
+    "risposte": [
+      "margin → border → padding → content",
+      "content → margin → padding → border",
+      "padding → content → border → margin",
+      "content → padding → border → margin"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il box model CSS è: content (il contenuto vero), padding (spazio interno tra contenuto e bordo), border (il bordo), margin (spazio esterno tra il bordo e gli altri elementi). Con box-sizing: border-box, padding e border sono inclusi nella width dichiarata — il comportamento più intuitivo. Con box-sizing: content-box (default), width si riferisce solo al content e padding+border si aggiungono."
+  },
+  {
+    "id": 519,
+    "categoria": "CSS Box Model",
+    "domanda": "Come si centra orizzontalmente un elemento di blocco con CSS?",
+    "risposte": [
+      "text-align: center",
+      "margin: auto",
+      "margin-left: auto; margin-right: auto; con una width definita",
+      "position: center"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "margin: auto sui lati sinistro e destro centra orizzontalmente un elemento di blocco, ma solo se ha una width (o max-width) definita. Senza width, l'elemento occupa tutta la larghezza disponibile e non c'è spazio da distribuire. text-align: center centra il contenuto inline (testo, immagini) all'interno del contenitore, non l'elemento stesso. margin: 40px auto è una shorthand: 40px sopra/sotto, auto sinistra/destra."
+  },
+  {
+    "id": 520,
+    "categoria": "CSS Box Model",
+    "domanda": "Cosa fa box-sizing: border-box?",
+    "risposte": [
+      "Aggiunge un bordo visibile a tutti gli elementi",
+      "Fa sì che padding e border siano inclusi nella width dichiarata",
+      "Disabilita il padding dell'elemento",
+      "Rende il bordo invisibile"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Con il valore default content-box, se dichiari width: 300px e aggiungi padding: 20px, l'elemento risulta largo 340px. Con border-box, padding e border sono già compresi nel 300px: il contenuto si restringe ma l'elemento rimane 300px. border-box è il comportamento più intuitivo ed è spesso applicato globalmente con * { box-sizing: border-box; } nei reset CSS moderni."
+  },
+  {
+    "id": 521,
+    "categoria": "CSS Flexbox",
+    "domanda": "Quale proprietà si applica al contenitore per attivare Flexbox?",
+    "risposte": [
+      "flex: enable",
+      "display: flex",
+      "flexbox: true",
+      "layout: flex"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "display: flex applicato a un elemento lo rende un 'flex container' e i suoi figli diretti diventano automaticamente 'flex items'. Non serve nient'altro per attivare Flexbox. Una volta attivato, si possono usare proprietà come justify-content, align-items, flex-direction, gap per controllare il layout. display: inline-flex crea un flex container che si comporta come elemento inline verso l'esterno."
+  },
+  {
+    "id": 522,
+    "categoria": "CSS Flexbox",
+    "domanda": "Cosa fa justify-content: space-between in un flex container?",
+    "risposte": [
+      "Allinea tutti gli elementi al centro",
+      "Distribuisce gli elementi con spazio uguale tra loro, attaccando il primo e l'ultimo ai bordi",
+      "Aggiunge spazio uguale attorno a ogni elemento, inclusi i bordi",
+      "Allinea gli elementi verticalmente"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "justify-content gestisce la distribuzione sull'asse principale (orizzontale di default). space-between: spazio uguale tra gli elementi, nessun spazio ai bordi. space-around: spazio uguale attorno a ogni elemento (i bordi hanno metà spazio). space-evenly: spazio identico tra tutti i gap, inclusi i bordi. center: elementi raggruppati al centro. flex-start (default): elementi all'inizio. flex-end: elementi alla fine."
+  },
+  {
+    "id": 523,
+    "categoria": "CSS Flexbox",
+    "domanda": "A cosa serve align-items in un flex container?",
+    "risposte": [
+      "Controlla la distribuzione sull'asse principale",
+      "Ordina gli elementi alfabeticamente",
+      "Controlla l'allineamento sull'asse trasversale (perpendicolare all'asse principale)",
+      "Imposta la dimensione minima degli elementi"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "align-items controlla come i flex item si allineano sull'asse trasversale (verticale se flex-direction è row). Valori: stretch (default — si estendono per riempire il container), center (centrati), flex-start (in alto), flex-end (in basso), baseline (allineati sulla linea di base del testo). Da non confondere con justify-content che agisce sull'asse principale (orizzontale)."
+  },
+  {
+    "id": 524,
+    "categoria": "CSS Flexbox",
+    "domanda": "Cosa fa flex-direction: column?",
+    "risposte": [
+      "Dispone gli elementi in riga orizzontale",
+      "Inverte l'asse principale da orizzontale a verticale, disponendo gli elementi in colonna",
+      "Nasconde tutti gli elementi figli",
+      "Crea colonne di testo come nei giornali"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Con flex-direction: column gli elementi si dispongono dall'alto verso il basso invece che da sinistra a destra. Questo inverte anche il ruolo delle proprietà: justify-content controlla ora l'asse verticale e align-items l'asse orizzontale. column-reverse dispone gli elementi dal basso verso l'alto. È utile per layout verticali come sidebar o stack di card."
+  },
+  {
+    "id": 525,
+    "categoria": "CSS Posizionamento",
+    "domanda": "Quale valore di position rimuove l'elemento dal normale flusso del documento?",
+    "risposte": [
+      "position: static",
+      "position: relative",
+      "position: absolute",
+      "position: sticky"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "position: absolute rimuove l'elemento dal flusso: gli altri elementi lo ignorano e lo 'scavalcano'. L'elemento si posiziona rispetto al primo antenato con position non static. position: relative mantiene l'elemento nel flusso ma permette di spostarlo rispetto alla sua posizione originale. position: fixed è simile ad absolute ma rispetto alla viewport. position: sticky è un ibrido: segue lo scroll fino a un certo punto."
+  },
+  {
+    "id": 526,
+    "categoria": "CSS Posizionamento",
+    "domanda": "Cosa fa position: fixed?",
+    "risposte": [
+      "Blocca l'elemento al suo posto impedendo modifiche via JavaScript",
+      "Ancora l'elemento alla finestra del browser: rimane fisso anche durante lo scroll",
+      "Posiziona l'elemento rispetto al suo genitore",
+      "Imposta dimensioni fisse all'elemento"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "position: fixed rimuove l'elemento dal flusso e lo ancora alla viewport (la finestra del browser). L'elemento rimane sempre nella stessa posizione sullo schermo indipendentemente dallo scroll. È usato tipicamente per header fissi, pulsanti 'torna su', chatbot, banner di cookie. Le coordinate top, right, bottom, left si riferiscono ai bordi della viewport."
+  },
+  {
+    "id": 527,
+    "categoria": "CSS Posizionamento",
+    "domanda": "Quale proprietà CSS controlla l'ordine visuale di sovrapposizione degli elementi?",
+    "risposte": [
+      "order",
+      "layer",
+      "z-index",
+      "depth"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "z-index controlla l'ordine di sovrapposizione: valori più alti appaiono sopra quelli più bassi. Funziona solo su elementi con position diversa da static. Se due elementi hanno lo stesso z-index, vince quello dichiarato dopo nel CSS. z-index: -1 mette l'elemento sotto il suo contenitore. I valori possono essere qualsiasi numero intero, positivo o negativo."
+  },
+  {
+    "id": 528,
+    "categoria": "CSS Media Query",
+    "domanda": "Cosa fa @media (max-width: 768px) { }?",
+    "risposte": [
+      "Le regole dentro si applicano solo su schermi più larghi di 768px",
+      "Le regole dentro si applicano su schermi con larghezza massima di 768px (dispositivi mobili e tablet)",
+      "Nasconde tutti gli elementi più larghi di 768px",
+      "Imposta la larghezza massima del body a 768px"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "max-width: 768px significa 'schermo largo al massimo 768px': le regole si attivano su mobile e tablet con schermi stretti. L'approccio Desktop-First usa max-width. L'approccio Mobile-First (consigliato) usa invece min-width: si scrivono prima gli stili per mobile, poi si aggiungono regole con min-width per schermi più grandi. Punti di rottura comuni: 480px (mobile), 768px (tablet), 1024px (desktop piccolo)."
+  },
+  {
+    "id": 529,
+    "categoria": "CSS Flexbox",
+    "domanda": "Come si controlla l'ordine visuale di un singolo flex item?",
+    "risposte": [
+      "Con la proprietà z-index",
+      "Con la proprietà order",
+      "Con la proprietà flex-direction sul singolo elemento",
+      "Con position: relative e left"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La proprietà order su un flex item ne controlla l'ordine visuale rispetto agli altri. Il valore default è 0: valori più bassi appaiono prima, valori più alti dopo. Esempio: se un elemento ha order: -1 appare prima di tutti gli altri con order: 0. Questo non cambia l'ordine nel DOM (e quindi nell'HTML), il che può creare problemi di accessibilità se usato in modo non intuitivo."
+  },
+  {
+    "id": 530,
+    "categoria": "JavaScript Basi",
+    "domanda": "Qual è la differenza tra let e const in JavaScript?",
+    "risposte": [
+      "let è per i numeri; const è per le stringhe",
+      "let può essere riassegnata; const non può essere riassegnata (ma un oggetto const può essere modificato internamente)",
+      "const è più veloce di let in esecuzione",
+      "Sono identici: la distinzione è solo stilistica"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "let dichiara una variabile che può essere riassegnata: let x = 5; x = 10 è valido. const dichiara un riferimento costante: const x = 5; x = 10 lancia un TypeError. Attenzione: const su un oggetto o array non rende immutabile il contenuto — si possono aggiungere/modificare proprietà. Solo il riferimento è costante. Usa const di default; usa let solo quando sai che devi riassegnare."
+  },
+  {
+    "id": 531,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa restituisce typeof 42?",
+    "risposte": [
+      "42",
+      "'number'",
+      "'integer'",
+      "true"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "typeof restituisce sempre una stringa con il nome del tipo. typeof 42 → 'number'. typeof 'ciao' → 'string'. typeof true → 'boolean'. typeof undefined → 'undefined'. typeof null → 'object' (bug storico di JS!). typeof [] → 'object'. typeof function(){} → 'function'. Per distinguere array da oggetti usa Array.isArray(valore)."
+  },
+  {
+    "id": 532,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa fa l'operatore % in JavaScript?",
+    "risposte": [
+      "Calcola la percentuale di un numero",
+      "Divide e restituisce il quoziente",
+      "Restituisce il resto della divisione intera",
+      "Calcola la potenza di un numero"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "% è l'operatore modulo: restituisce il resto della divisione intera. 17 % 5 = 2 (perché 17 = 5*3 + 2). È utilissimo per: verificare se un numero è pari (n % 2 === 0), ciclare su un indice (i % array.length), suddividere in gruppi. L'operatore di potenza in JS è ** (introdotto in ES2016): 2 ** 10 = 1024. La divisione normale è / e restituisce numeri decimali."
+  },
+  {
+    "id": 533,
+    "categoria": "JavaScript Basi",
+    "domanda": "Qual è la differenza tra == e === in JavaScript?",
+    "risposte": [
+      "Non c'è differenza",
+      "=== è più lento di ==",
+      "== confronta solo il valore con conversione di tipo; === confronta valore e tipo senza conversioni",
+      "== confronta valore e tipo; === confronta solo il valore"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Con ==: 5 == '5' → true (JS converte '5' in 5). Con ===: 5 === '5' → false (tipi diversi). Le conversioni implicite di == causano risultati inattesi: '' == false → true, null == undefined → true. Per questo si raccomanda di usare sempre ===, che non effettua conversioni. Stessa logica per != vs !==."
+  },
+  {
+    "id": 534,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa sono i template literals in JavaScript?",
+    "risposte": [
+      "Funzioni predefinite per formattare le stringhe",
+      "Stringhe delimitare da backtick (`) che permettono interpolazione con ${} e stringhe su più righe",
+      "Un modo per importare template HTML in JavaScript",
+      "Commenti speciali che documentano il codice"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "I template literals (backtick `) permettono: (1) interpolazione con ${espressione} — es. `Ciao, ${nome}!`; (2) stringhe su più righe senza \\n; (3) espressioni arbitrarie dentro ${}: `Il doppio è ${x * 2}`. Prima dei template literals si usava la concatenazione con +: 'Ciao, ' + nome + '!' — meno leggibile. I backtick non vanno confusi con gli apici singoli o doppi."
+  },
+  {
+    "id": 535,
+    "categoria": "JavaScript Condizionali",
+    "domanda": "Cosa succede se si omette il break in un case di uno switch?",
+    "risposte": [
+      "Il programma lancia un errore di sintassi",
+      "Il case viene ignorato",
+      "L'esecuzione continua nel case successivo (fall-through)",
+      "Lo switch si interrompe automaticamente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Senza break, dopo l'esecuzione del blocco del case corrispondente, JavaScript continua ed esegue anche il blocco del case successivo, e poi quello dopo ancora, fino a trovare un break o alla fine dello switch. Questo comportamento si chiama 'fall-through'. Può essere intenzionale (per raggruppare case con la stessa azione) ma è spesso un bug. Usa sempre break dopo ogni case, a meno che il fall-through sia deliberato e commentato."
+  },
+  {
+    "id": 536,
+    "categoria": "JavaScript Condizionali",
+    "domanda": "Quali valori sono considerati 'falsy' in JavaScript?",
+    "risposte": [
+      "Solo false e 0",
+      "false, 0, '', null, undefined e NaN",
+      "Solo null e undefined",
+      "Tutti i valori negativi e le stringhe vuote"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "I valori falsy (trattati come false in un if) sono esattamente: false, 0, -0, 0n (BigInt zero), '' (stringa vuota), null, undefined, NaN. Tutto il resto è truthy — inclusi '0' (stringa con zero), [] (array vuoto), {} (oggetto vuoto), 'false' (stringa 'false'). Sapere i falsy è essenziale: if (myArray.length) è un pattern comune per verificare se un array non è vuoto."
+  },
+  {
+    "id": 537,
+    "categoria": "JavaScript Array",
+    "domanda": "Quale metodo aggiunge un elemento alla fine di un array?",
+    "risposte": [
+      "array.add(elemento)",
+      "array.append(elemento)",
+      "array.push(elemento)",
+      "array.insert(elemento)"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "push() aggiunge uno o più elementi alla fine dell'array e restituisce la nuova lunghezza. pop() rimuove e restituisce l'ultimo elemento. unshift() aggiunge in testa, shift() rimuove dalla testa. Questi quattro metodi modificano l'array originale. Esempi: [1,2].push(3) → [1,2,3]. [1,2,3].pop() → restituisce 3, array diventa [1,2]. Ricorda la mnemonica: push/pop lavorano in fondo, shift/unshift in testa."
+  },
+  {
+    "id": 538,
+    "categoria": "JavaScript Array",
+    "domanda": "Qual è la differenza tra forEach e map sugli array?",
+    "risposte": [
+      "forEach è per oggetti; map è per array",
+      "map modifica l'array originale; forEach no",
+      "forEach esegue una funzione per ogni elemento senza restituire nulla; map restituisce un nuovo array trasformato",
+      "Sono identici"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "forEach esegue una callback per ogni elemento ma restituisce undefined: si usa per effetti collaterali (log, DOM updates). map esegue una callback per ogni elemento e raccoglie i risultati in un NUOVO array: si usa per trasformare dati. Esempio: [1,2,3].map(x => x*2) → [2,4,6]. [1,2,3].forEach(x => console.log(x)) → stampa 1,2,3 ma restituisce undefined. Né forEach né map modificano l'array originale."
+  },
+  {
+    "id": 539,
+    "categoria": "JavaScript Array",
+    "domanda": "Cosa restituisce il metodo filter su un array?",
+    "risposte": [
+      "Il primo elemento che soddisfa la condizione",
+      "true o false",
+      "Un nuovo array con gli elementi che superano il test",
+      "Il numero di elementi che soddisfano la condizione"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "filter prende una callback che restituisce true o false per ogni elemento e crea un NUOVO array con solo gli elementi per cui la callback ha restituito true. Esempio: [1,2,3,4,5].filter(n => n > 3) → [4,5]. L'array originale non viene modificato. find invece restituisce solo il PRIMO elemento che soddisfa la condizione (non un array). findIndex restituisce l'indice del primo elemento."
+  },
+  {
+    "id": 540,
+    "categoria": "JavaScript Array",
+    "domanda": "Cosa fa il metodo find su un array?",
+    "risposte": [
+      "Restituisce un array con tutti gli elementi trovati",
+      "Restituisce il primo elemento che soddisfa la condizione",
+      "Restituisce l'indice del primo elemento trovato",
+      "Cerca una stringa dentro ogni elemento"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "find restituisce il PRIMO elemento dell'array per cui la callback restituisce true, oppure undefined se nessun elemento soddisfa la condizione. [3,7,1,9].find(n => n > 5) → 7 (non 9, che è maggiore di 5 ma non è il PRIMO). findIndex è simile ma restituisce l'indice invece del valore. find non modifica l'array originale. Da non confondere con filter che restituisce tutti gli elementi corrispondenti in un array."
+  },
+  {
+    "id": 541,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Cosa si intende per 'scope' in JavaScript?",
+    "risposte": [
+      "La dimensione del file JavaScript",
+      "La visibilità e accessibilità di una variabile in una certa parte del codice",
+      "Il numero di funzioni in un file",
+      "La velocità di esecuzione di una funzione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Scope è la zona del codice in cui una variabile è accessibile. let e const hanno scope di blocco {}: esistono solo dentro le {} in cui sono dichiarate. Le variabili globali (dichiarate fuori da qualsiasi funzione o blocco) sono accessibili ovunque. Le variabili locali di una funzione non sono accessibili dall'esterno. Capire lo scope evita bug come accedere a variabili undefined o sovrascrivere accidentalmente variabili globali."
+  },
+  {
+    "id": 542,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Cosa fa la keyword return in una funzione?",
+    "risposte": [
+      "Stampa il valore in console",
+      "Interrompe la funzione e restituisce un valore a chi l'ha chiamata",
+      "Richiama la funzione ricorsivamente",
+      "Dichiara una variabile locale"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "return fa due cose: interrompe immediatamente l'esecuzione della funzione e restituisce il valore specificato alla chiamante. Una funzione senza return (o con return; senza valore) restituisce implicitamente undefined. La separazione tra calcolo (funzione con return) e visualizzazione (chi usa il risultato) è una best practice fondamentale per codice riusabile e testabile."
+  },
+  {
+    "id": 543,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Cos'è una funzione callback?",
+    "risposte": [
+      "Una funzione che chiama se stessa (ricorsione)",
+      "Una funzione che non accetta parametri",
+      "Una funzione passata come argomento a un'altra funzione",
+      "Una funzione che restituisce un'altra funzione"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Una callback è una funzione passata come parametro a un'altra funzione, che la chiamerà al momento opportuno. Esempio: array.forEach(callback) chiama la callback per ogni elemento. setTimeout(callback, 1000) chiama la callback dopo 1 secondo. btn.addEventListener('click', callback) chiama la callback al click. Le callback sono il meccanismo base della programmazione asincrona e event-driven in JavaScript."
+  },
+  {
+    "id": 544,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Qual è la sintassi di una arrow function che moltiplica un numero per 2?",
+    "risposte": [
+      "function(n) => { n * 2 }",
+      "n => n * 2",
+      "fn n { return n * 2 }",
+      "arrow(n) { n * 2 }"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Le arrow function hanno la sintassi (parametri) => espressione. Con un solo parametro le parentesi sono opzionali. Con una sola espressione il return è implicito. n => n * 2 è equivalente a function(n) { return n * 2; }. Con più parametri: (a, b) => a + b. Con più istruzioni servono le {} e il return esplicito: (n) => { const doppio = n * 2; return doppio; }."
+  },
+  {
+    "id": 545,
+    "categoria": "JavaScript Closure",
+    "domanda": "Cos'è una closure in JavaScript?",
+    "risposte": [
+      "Un metodo per chiudere il browser",
+      "Una funzione che ha accesso alle variabili del suo scope esterno, anche dopo che quello scope ha terminato l'esecuzione",
+      "Un tag HTML per racchiudere il codice JavaScript",
+      "Un errore che si verifica quando una funzione non ha return"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Una closure si crea quando una funzione interna 'ricorda' le variabili della funzione esterna che la contiene. Esempio: function crea() { let count = 0; return () => count++; } La funzione restituita ha ancora accesso a count anche dopo che crea() ha terminato. Questo permette di creare variabili private (non accessibili dall'esterno). Ogni chiamata a crea() crea una closure indipendente con la propria copia di count."
+  },
+  {
+    "id": 546,
+    "categoria": "JavaScript OOP",
+    "domanda": "In un oggetto letterale, cosa fa la keyword this all'interno di un metodo?",
+    "risposte": [
+      "Si riferisce alla finestra del browser (window)",
+      "Si riferisce all'oggetto su cui il metodo è chiamato",
+      "Si riferisce alla funzione stessa",
+      "this non è valido negli oggetti letterali"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Dentro un metodo di un oggetto letterale, this si riferisce all'oggetto proprietario del metodo. Esempio: const studente = { nome: 'Mario', saluta() { return 'Ciao, sono ' + this.nome; } }. studente.saluta() → 'Ciao, sono Mario'. Attenzione: nelle arrow function this non è legato dinamicamente — mantiene il this del contesto circostante. Per i metodi degli oggetti, usa function() {} o la shorthand metodo() {}."
+  },
+  {
+    "id": 547,
+    "categoria": "JavaScript OOP",
+    "domanda": "Cosa fa la keyword new quando si chiama un costruttore?",
+    "risposte": [
+      "Crea una copia dell'oggetto in memoria",
+      "Crea un oggetto vuoto, lo assegna a this dentro il costruttore e lo restituisce implicitamente",
+      "Importa il costruttore da un modulo esterno",
+      "Dichiara il costruttore come privato"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "new fa tre operazioni automatiche: (1) crea un nuovo oggetto vuoto {}; (2) assegna questo oggetto a this dentro la funzione costruttore; (3) restituisce implicitamente this. Esempio: function Persona(nome) { this.nome = nome; } — let p = new Persona('Mario') crea un oggetto { nome: 'Mario' }. Senza new, this in una funzione normale in strict mode è undefined; fuori da strict mode punta a window (globale)."
+  },
+  {
+    "id": 548,
+    "categoria": "JavaScript OOP",
+    "domanda": "Qual è la differenza tra un metodo normale e un metodo static in una classe ES6?",
+    "risposte": [
+      "I metodi static sono più veloci",
+      "I metodi normali si chiamano sull'istanza; i metodi static si chiamano sulla classe stessa senza istanza",
+      "I metodi static non possono avere parametri",
+      "Non c'è differenza pratica"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un metodo normale si chiama su un'istanza: let p = new Prodotto(); p.descrizione(). Un metodo static si chiama sulla classe: Prodotto.confronta(p1, p2). I metodi static non hanno accesso a this dell'istanza (non hanno 'stato di istanza'). Si usano per funzioni di utilità legate alla classe ma non a un'istanza specifica, come factory methods, comparatori o validatori."
+  },
+  {
+    "id": 549,
+    "categoria": "JavaScript OOP",
+    "domanda": "Cosa fa JSON.stringify(oggetto)?",
+    "risposte": [
+      "Converte un oggetto JavaScript in una stringa JSON",
+      "Converte una stringa JSON in un oggetto JavaScript",
+      "Comprime l'oggetto per ridurne le dimensioni",
+      "Stampa l'oggetto in console in formato leggibile"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "JSON.stringify(obj) serializza un oggetto JavaScript in una stringa in formato JSON. Esempio: JSON.stringify({nome: 'Mario', eta: 30}) → '{\"nome\":\"Mario\",\"eta\":30}'. È necessario per salvare oggetti in localStorage (che accetta solo stringhe) o inviarli a un server via fetch. L'operazione inversa è JSON.parse(stringa) che converte una stringa JSON in un oggetto JavaScript."
+  },
+  {
+    "id": 550,
+    "categoria": "JavaScript OOP",
+    "domanda": "Perché getMonth() su un oggetto Date restituisce un valore da 0 a 11?",
+    "risposte": [
+      "È un bug di JavaScript mai corretto",
+      "Perché i mesi in informatica si contano sempre da 0",
+      "È una scelta di design storica: gli array di mesi sono zero-indexed, quindi gennaio=0",
+      "getMonth() restituisce da 1 a 12, non da 0 a 11"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "getMonth() restituisce 0 per gennaio, 1 per febbraio, ..., 11 per dicembre. È una scelta di design degli anni '90 ispirata agli array zero-indexed. Per ottenere il numero del mese 'umano' aggiungi sempre +1: let mese = data.getMonth() + 1. getDate() restituisce il giorno del mese (1-31, qui parte da 1). getFullYear() restituisce l'anno a 4 cifre. getDay() restituisce il giorno della settimana (0=domenica, 6=sabato)."
+  },
+  {
+    "id": 551,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa restituisce document.getElementById('mioId')?",
+    "risposte": [
+      "Una copia dell'elemento HTML come stringa",
+      "Un riferimento diretto all'elemento nel DOM — non una copia",
+      "Il valore dell'attributo id",
+      "Un array di tutti gli elementi con quell'id"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "getElementById restituisce un riferimento all'elemento DOM reale — modificarlo in JavaScript modifica immediatamente la pagina. Se non trova nessun elemento con quell'id, restituisce null. Gli id devono essere univoci in una pagina: se ce ne sono due uguali, il browser restituisce il primo. Per selezionare tramite classe, attributo o selettore CSS complesso si usa querySelector o querySelectorAll."
+  },
+  {
+    "id": 552,
+    "categoria": "JavaScript DOM",
+    "domanda": "Quale proprietà legge il testo scritto in un campo input?",
+    "risposte": [
+      ".innerHTML",
+      ".textContent",
+      ".value",
+      ".innerText"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": ".value legge e scrive il contenuto corrente di elementi di input, textarea e select. Restituisce SEMPRE una stringa, anche per input di tipo number. Quindi Number(input.value) è necessario prima di operazioni matematiche. .innerHTML e .textContent sono per elementi non-input (div, p, span) e leggono/scrivono il contenuto HTML o testo dell'elemento. Per pulire un input dopo l'uso: input.value = ''."
+  },
+  {
+    "id": 553,
+    "categoria": "JavaScript DOM",
+    "domanda": "Qual è la differenza tra innerHTML e textContent?",
+    "risposte": [
+      "innerHTML è più lento; textContent è più veloce",
+      "innerHTML interpreta il markup HTML; textContent inserisce il testo letteralmente (sicuro contro XSS)",
+      "textContent supporta solo numeri; innerHTML supporta testo e numeri",
+      "Sono identici per il browser"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "innerHTML renderizza il markup: elemento.innerHTML = '<b>Ciao</b>' mostra testo in grassetto. Pericolo: se il contenuto viene dall'utente, un malintenzionato può iniettare <script> o tag con eventi (XSS). textContent inserisce tutto come testo puro: elemento.textContent = '<b>Ciao</b>' mostra letteralmente '<b>Ciao</b>'. Usa sempre textContent per output di dati forniti dall'utente. Usa innerHTML solo per markup che controlli tu."
+  },
+  {
+    "id": 554,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa addEventListener rispetto all'attributo onclick?",
+    "risposte": [
+      "addEventListener è obsoleto: meglio usare onclick",
+      "onclick è più affidabile su mobile",
+      "addEventListener permette di aggiungere più listener sullo stesso evento senza sovrascrivere quelli precedenti; onclick sovrascrive",
+      "Non c'è differenza funzionale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "element.onclick = fn sovrascrive qualsiasi handler precedente. element.addEventListener('click', fn) aggiunge un nuovo listener senza rimuovere gli altri. Puoi aggiungere più addEventListener sullo stesso elemento e sullo stesso evento: si sommano. addEventListener supporta anche un terzo parametro per opzioni avanzate (once, capture, passive). La buona pratica moderna è usare sempre addEventListener."
+  },
+  {
+    "id": 555,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa classList.toggle('classe') su un elemento?",
+    "risposte": [
+      "Aggiunge sempre la classe",
+      "Rimuove sempre la classe",
+      "Aggiunge la classe se assente, la rimuove se presente",
+      "Verifica se la classe è presente e restituisce true o false"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "classList.toggle('classe') è un interruttore: se la classe manca la aggiunge, se c'è la rimuove. Perfetto per implementare effetti on/off. Gli altri metodi di classList: add('classe') — aggiunge sempre; remove('classe') — rimuove sempre; contains('classe') — restituisce true/false; replace('vecchia', 'nuova') — sostituisce. classList opera senza sovrascrivere altre classi dell'elemento, a differenza di element.className = '...'."
+  },
+  {
+    "id": 556,
+    "categoria": "JavaScript DOM",
+    "domanda": "Qual è la differenza tra querySelector e querySelectorAll?",
+    "risposte": [
+      "querySelector usa selettori CSS; querySelectorAll usa selettori XPath",
+      "querySelector restituisce il primo elemento corrispondente; querySelectorAll restituisce una NodeList di tutti",
+      "querySelector è più lento di querySelectorAll",
+      "querySelectorAll può selezionare solo classi; querySelector può selezionare anche id"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "querySelector('#id') restituisce il primo elemento che corrisponde al selettore CSS, o null se non trovato. querySelectorAll('.classe') restituisce una NodeList con tutti gli elementi corrispondenti (vuota se nessuno trovato). La NodeList ha forEach nativo ma non map/filter — usa [...nodeList] o Array.from(nodeList) per convertirla in array completo. Entrambi accettano qualsiasi selettore CSS valido."
+  },
+  {
+    "id": 557,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa DOMContentLoaded?",
+    "risposte": [
+      "Si attiva quando la pagina viene chiusa",
+      "Si attiva quando il DOM è pronto (HTML parsato), prima che immagini e CSS siano caricate",
+      "Si attiva dopo che tutti i file (immagini, CSS, JS) sono caricati",
+      "Si attiva ogni volta che si clicca nella pagina"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "document.addEventListener('DOMContentLoaded', fn) esegue la funzione quando il DOM è pronto per essere manipolato, senza aspettare immagini o altri file. È diverso dall'evento load (window.addEventListener('load', fn)) che aspetta tutto. Avvolgere il codice in DOMContentLoaded evita errori quando lo script è nel <head> e cerca elementi che non esistono ancora. Alternativa moderna: mettere <script> prima di </body>."
+  },
+  {
+    "id": 558,
+    "categoria": "JavaScript DOM",
+    "domanda": "Perché innerHTML += è sconsigliato in un ciclo?",
+    "risposte": [
+      "Perché += non funziona con le stringhe HTML",
+      "Perché ogni += ri-parsifica tutto l'HTML precedente e ricrea il DOM, perdendo anche gli event listener",
+      "Perché causa errori di sintassi",
+      "Perché è più lento di textContent"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Ogni innerHTML += legge l'HTML corrente, aggiunge il nuovo pezzo e riscrive tutto il DOM. In un ciclo su 100 elementi questo ricostruisce il DOM 100 volte, distrugge e ricrea tutti i listener esistenti ed è molto lento. La soluzione corretta: accumula tutto in una stringa e assegna una sola volta. Esempio: let html = ''; arr.forEach(el => html += '<li>' + el + '</li>'); ulElement.innerHTML = html;"
+  },
+  {
+    "id": 559,
+    "categoria": "JavaScript DOM",
+    "domanda": "Come si naviga verso il primo figlio elemento (ignorando nodi testo) di un elemento DOM?",
+    "risposte": [
+      ".childNodes[0]",
+      ".firstChild",
+      ".firstElementChild",
+      ".children('first')"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "firstElementChild restituisce il primo figlio che è un elemento HTML, ignorando i nodi testo (spazi, a capo) e commenti. firstChild restituisce il primo figlio di qualsiasi tipo, inclusi i nodi testo — spesso è un nodo testo con solo spazi bianchi, il che causa confusione. children restituisce la HTMLCollection dei figli elemento. childNodes restituisce tutti i nodi figli inclusi i nodi testo."
+  },
+  {
+    "id": 560,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa Number('42') in JavaScript?",
+    "risposte": [
+      "Restituisce la stringa '42'",
+      "Lancia un errore perché 42 è già un numero",
+      "Converte la stringa '42' nel numero 42",
+      "Restituisce true"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Number() converte il suo argomento in numero. Number('42') → 42. Number('3.14') → 3.14. Number('') → 0. Number('ciao') → NaN. Number(true) → 1. Number(false) → 0. Number(null) → 0. È necessario perché .value di un input restituisce sempre una stringa. parseFloat('3.14px') → 3.14 (più permissivo: ignora il testo dopo). parseInt('3.14') → 3 (tronca i decimali)."
+  },
+  {
+    "id": 561,
+    "categoria": "JavaScript Cicli",
+    "domanda": "Quale ciclo è più adatto quando non si conosce in anticipo il numero di iterazioni?",
+    "risposte": [
+      "for classico",
+      "for...of",
+      "while",
+      "forEach"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "while (condizione) { } continua finché la condizione è vera, senza sapere quante iterazioni serviranno. È ideale per: aspettare input, elaborare dati fino a una condizione, giochi con cicli infiniti. Il for classico è preferito quando si conosce il numero di iterazioni in anticipo. do...while è come while ma esegue il blocco almeno una volta prima di controllare la condizione. Attenzione: un while con condizione sempre vera crea un ciclo infinito."
+  },
+  {
+    "id": 562,
+    "categoria": "JavaScript Cicli",
+    "domanda": "Cosa fa l'istruzione continue in un ciclo?",
+    "risposte": [
+      "Termina il ciclo completamente",
+      "Salta il resto dell'iterazione corrente e passa alla successiva",
+      "Riavvia il ciclo dall'inizio",
+      "Mette in pausa il ciclo per 1 secondo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "continue salta il codice rimanente nell'iterazione corrente e passa direttamente alla prossima. Esempio: for (let i=0; i<5; i++) { if (i===2) continue; console.log(i); } stampa 0,1,3,4 (salta 2). break invece termina completamente il ciclo. return dentro un ciclo-funzione esce dalla funzione intera. continue è utile per saltare casi speciali senza nidificare il codice in if...else."
+  },
+  {
+    "id": 563,
+    "categoria": "JavaScript Cicli",
+    "domanda": "Qual è la differenza tra for...of e for...in?",
+    "risposte": [
+      "for...of itera sui valori di un iterabile; for...in itera sulle chiavi (nomi proprietà) di un oggetto",
+      "for...of è per gli array; for...in è per le stringhe",
+      "for...in è più veloce di for...of",
+      "Sono la stessa cosa con sintassi diversa"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "for...of itera sui valori: for (const val of [1,2,3]) → val è 1, poi 2, poi 3. Funziona su qualsiasi iterabile (array, string, Set, Map, NodeList). for...in itera sui nomi delle proprietà: for (const chiave in oggetto) → chiave è il nome della proprietà. Su array è sconsigliato perché itera anche su proprietà ereditate. Usa for...of per array e iterabili, for...in per le proprietà degli oggetti."
+  },
+  {
+    "id": 564,
+    "categoria": "JavaScript Array",
+    "domanda": "Cosa fa reduce su un array?",
+    "risposte": [
+      "Riduce l'array alla metà degli elementi",
+      "Rimuove gli elementi duplicati",
+      "Accumula tutti gli elementi in un singolo valore tramite una funzione",
+      "Ordina l'array in ordine crescente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "reduce(callback, valoreIniziale) itera sull'array accumulando un risultato. La callback riceve (accumulatore, elementoCorrente). Esempio: [1,2,3,4].reduce((acc, n) => acc + n, 0) → 10 (somma). Si può trovare il massimo: arr.reduce((max, n) => n > max ? n : max). È il metodo più potente e flessibile: tutto ciò che si può fare con filter/map si può fare con reduce, ma non viceversa."
+  },
+  {
+    "id": 565,
+    "categoria": "JavaScript Hoisting",
+    "domanda": "Cosa significa hoisting per le function declaration in JavaScript?",
+    "risposte": [
+      "Le funzioni vengono spostate in un file separato",
+      "Le dichiarazioni di funzione vengono 'spostate' in cima allo scope dal motore JS, quindi possono essere chiamate prima della dichiarazione",
+      "Le funzioni vengono eseguite automaticamente al caricamento della pagina",
+      "let e const sono soggette a hoisting come le funzioni"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il motore JavaScript, prima di eseguire il codice, sposta le dichiarazioni function in cima allo scope corrente. Questo significa che puoi chiamare una function declaration prima che appaia nel codice. Esempio: saluta(); function saluta() { console.log('Ciao'); } — funziona. Le function expression (let fn = function(){}) e le arrow function NON sono soggette a hoisting allo stesso modo: chiamarle prima della dichiarazione dà ReferenceError."
+  },
+  {
+    "id": 566,
+    "categoria": "JavaScript Basi",
+    "domanda": "Quanti tipi primitivi esistono in JavaScript?",
+    "risposte": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "JavaScript ha 7 tipi primitivi: string, number, boolean, null, undefined, symbol (ES6), bigint (ES2020). I primitivi sono immutabili e vengono copiati per valore. Tutto il resto è un oggetto (Object), inclusi array, funzioni e date. Curiosità: typeof null → 'object' è un bug storico di JS. typeof function(){} → 'function' anche se le funzioni sono tecnicamente oggetti. BigInt serve per interi oltre Number.MAX_SAFE_INTEGER."
+  },
+  {
+    "id": 567,
+    "categoria": "CSS Base",
+    "domanda": "Cosa fa la proprietà CSS float: left?",
+    "risposte": [
+      "Centra l'elemento a sinistra della pagina",
+      "Porta l'elemento a sinistra e permette agli elementi successivi di scorrere attorno ad esso",
+      "Nasconde l'elemento sul lato sinistro",
+      "Aggiunge uno spazio a sinistra dell'elemento"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "float: left rimuove parzialmente l'elemento dal flusso: si sposta a sinistra e gli elementi successivi (incluso il testo) scorrono attorno al lato destro. Era molto usato per layout multi-colonna prima di Flexbox e Grid. Problema noto: il contenitore del floated element collassa (altezza 0) se non si usa clearfix. Oggi float è usato principalmente per far scorrere testo attorno alle immagini."
+  },
+  {
+    "id": 568,
+    "categoria": "CSS Base",
+    "domanda": "Cosa fa display: none su un elemento?",
+    "risposte": [
+      "Rende l'elemento trasparente ma occupa ancora spazio",
+      "Rimuove l'elemento dal DOM permanentemente",
+      "Nasconde l'elemento e lo rimuove dal flusso: non occupa spazio",
+      "Mostra l'elemento solo ai motori di ricerca"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "display: none nasconde l'elemento e lo rimuove dal flusso: non occupa spazio e gli altri elementi si comportano come se non esistesse. L'elemento rimane nel DOM e può essere ripristinato via JavaScript. Diverso da visibility: hidden che nasconde l'elemento ma mantiene lo spazio occupato. Diverso da opacity: 0 che rende trasparente ma mantiene spazio e interattività. Per animazioni è meglio evitare display: none perché non si può animare."
+  },
+  {
+    "id": 569,
+    "categoria": "HTML Form",
+    "domanda": "Qual è la differenza tra type='text' e type='email' in un input?",
+    "risposte": [
+      "Non c'è differenza visiva o funzionale",
+      "type='email' aggiunge validazione nativa del browser (deve contenere @) e ottimizza la tastiera su mobile",
+      "type='email' crittografa automaticamente il contenuto",
+      "type='text' non può contenere caratteri speciali"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "type='email' aggiunge due vantaggi: (1) validazione nativa — il browser verifica che il formato contenga @ e un dominio prima dell'invio del form; (2) su dispositivi mobili mostra una tastiera ottimizzata per email (con il tasto @). Non garantisce che l'email esista, solo che il formato sia corretto. Altri type utili: 'number' per numeri, 'tel' per telefoni (tastiera numerica), 'url' per URL, 'date' per date."
+  },
+  {
+    "id": 570,
+    "categoria": "JavaScript OOP",
+    "domanda": "Come si dichiara un campo privato in una classe ES6 moderna?",
+    "risposte": [
+      "Con il prefisso private:",
+      "Con il prefisso _nome (convenzione)",
+      "Con il simbolo # davanti al nome: #nome",
+      "I campi privati non esistono in JavaScript"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I private class fields (ES2022) si dichiarano con # davanti al nome: class Persona { #nome; constructor(n) { this.#nome = n; } }. Sono realmente privati: accedere a istanza.#nome dall'esterno lancia un SyntaxError. Prima dei private fields si usava la convenzione _nome (con underscore) che però non garantisce vera privatezza — è solo una convenzione tra sviluppatori. Le closure sono un altro modo per ottenere variabili private."
+  },
+  {
+    "id": 571,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa succede se si passa una funzione con le () nell'addEventListener?",
+    "risposte": [
+      "La funzione viene registrata correttamente",
+      "La funzione viene eseguita immediatamente al caricamento, non all'evento",
+      "Viene generato un errore di sintassi",
+      "addEventListener ignora le ()"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "btn.addEventListener('click', saluta()) — le () eseguono la funzione immediatamente e passano il suo valore di ritorno (spesso undefined) come listener. La funzione NON viene chiamata al click. Corretto: btn.addEventListener('click', saluta) — si passa il riferimento alla funzione, non il suo risultato. Se devi passare argomenti: btn.addEventListener('click', () => saluta('Mario')) — una arrow function che chiama saluta con parametri."
+  },
+  {
+    "id": 572,
+    "categoria": "HTML Base",
+    "domanda": "Qual è la differenza tra <strong> e <b>?",
+    "risposte": [
+      "Non c'è differenza: entrambi rendono il testo grassetto",
+      "<strong> ha importanza semantica (enfasi forte); <b> è solo stilistico (nessun significato aggiunto)",
+      "<b> è per titoli; <strong> è per parole singole",
+      "<strong> funziona solo in HTML5; <b> funziona in tutte le versioni"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "<strong> indica importanza semantica: i lettori di schermo possono enfatizzare la voce leggendo il contenuto. <b> applica il grassetto visivo senza aggiungere significato semantico — come un div con font-weight: bold. Analogia: <em> vs <i> — em ha significato (enfasi), i è solo corsivo stilistico. Per accessibilità e SEO, preferisci i tag semantici. Usa <b> e <i> solo per convenzioni tipografiche senza significato (es. titoli di libri in corsivo)."
+  },
+  {
+    "id": 573,
+    "categoria": "CSS Flexbox",
+    "domanda": "Cosa fa flex: 1 su un flex item?",
+    "risposte": [
+      "Imposta la larghezza dell'elemento a 1px",
+      "È la shorthand di flex-grow: 1, flex-shrink: 1, flex-basis: 0 — l'elemento cresce per riempire lo spazio disponibile",
+      "Imposta l'ordine dell'elemento a 1",
+      "Rende l'elemento il primo figlio"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "flex: 1 è shorthand per tre proprietà: flex-grow: 1 (l'elemento può crescere per riempire spazio), flex-shrink: 1 (può ridursi se necessario), flex-basis: 0 (parte da dimensione 0 prima di distribuire lo spazio). Con flex: 1 su tutti i figli, lo spazio si divide equamente. Con flex: 2 su uno e flex: 1 sugli altri, quell'elemento prende il doppio. Equivale a dire 'occupa tutto lo spazio disponibile in proporzione'."
+  },
+  {
+    "id": 574,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa stampa: console.log(typeof typeof 42)?",
+    "risposte": [
+      "'number'",
+      "'string'",
+      "42",
+      "undefined"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Si valuta dall'interno: typeof 42 → 'number' (una stringa). Poi typeof 'number' → 'string' (typeof su una stringa restituisce 'string'). Quindi il risultato è 'string'. Questo illustra due concetti: (1) typeof restituisce SEMPRE una stringa; (2) le espressioni vengono valutate dall'interno verso l'esterno. È un tipico esercizio tranello nei quiz JavaScript."
+  },
+  {
+    "id": 575,
+    "categoria": "JavaScript Array",
+    "domanda": "Cosa restituisce [1,2,3].length?",
+    "risposte": [
+      "2",
+      "3",
+      "L'ultimo indice (2)",
+      "4"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "length restituisce il numero di elementi dell'array (sempre indice massimo + 1). Un array con elementi agli indici 0, 1, 2 ha length 3. L'ultimo indice valido è sempre length - 1. Attenzione: length si può impostare manualmente — ridurlo tronca l'array. Esempio: let a = [1,2,3]; a.length = 2; → a è ora [1,2]. Usare length nelle condizioni dei cicli for è essenziale: for (let i=0; i < arr.length; i++)."
+  },
+  {
+    "id": 576,
+    "categoria": "CSS Base",
+    "domanda": "Qual è la differenza tra margin e padding?",
+    "risposte": [
+      "margin è per il testo; padding è per le immagini",
+      "margin è lo spazio esterno all'elemento (fuori dal bordo); padding è lo spazio interno (tra contenuto e bordo)",
+      "padding è esterno; margin è interno",
+      "Sono la stessa cosa con nomi diversi"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "margin è lo spazio fuori dall'elemento (tra il suo bordo e gli altri elementi). padding è lo spazio dentro l'elemento (tra il contenuto e il bordo). Il background-color riempie il padding ma non il margin. I margin di elementi adiacenti verticalmente possono 'collassare' (margin collapsing): il margin effettivo è il massimo tra i due, non la somma. I padding non collassano mai."
+  },
+  {
+    "id": 577,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Cosa fa una funzione con parametri default?",
+    "risposte": [
+      "I parametri default non esistono in JavaScript",
+      "I parametri default rendono la funzione più lenta",
+      "Permettono di omettere un argomento in fase di chiamata: se omesso, viene usato il valore di default",
+      "I parametri default sono obbligatori"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I parametri default (ES6) si dichiarano con = valore: function saluta(nome = 'Utente') { return 'Ciao ' + nome; }. saluta('Mario') → 'Ciao Mario'. saluta() → 'Ciao Utente'. Il default si usa solo se l'argomento è undefined (non passato o esplicitamente undefined). I parametri default devono stare dopo i parametri obbligatori."
+  },
+  {
+    "id": 578,
+    "categoria": "JavaScript Funzioni",
+    "domanda": "Cosa sono i rest parameters (...args)?",
+    "risposte": [
+      "Un modo per importare funzioni da altri file",
+      "Parametri che non vengono usati nella funzione",
+      "Permettono a una funzione di accettare un numero variabile di argomenti come array",
+      "Sono alias per i parametri default"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I rest parameters (...nomeArray) raccolgono tutti gli argomenti rimanenti in un array. function somma(...numeri) { return numeri.reduce((a,b) => a+b, 0); } — somma(1,2,3,4) → 10. Devono essere l'ultimo parametro. Esempio con parametro normale: function log(prefisso, ...messaggi) raccoglie tutti i messaggi dopo il prefisso. Da non confondere con lo spread operator (...) che fa il contrario: espande un array in argomenti."
+  },
+  {
+    "id": 579,
+    "categoria": "JavaScript OOP",
+    "domanda": "Qual è lo scopo del getter e setter in una classe?",
+    "risposte": [
+      "get e set sono parole chiave per dichiarare variabili",
+      "Permettono di accedere o modificare proprietà private con validazione personalizzata, usando la sintassi delle proprietà normali",
+      "I getter rendono una proprietà di sola lettura per sempre",
+      "I setter aumentano automaticamente il valore di una proprietà"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "get permette di definire una proprietà calcolata: accedendo a oggetto.proprieta si esegue una funzione. set permette di intercettare l'assegnazione e aggiungere logica (validazione, side effects). Esempio: set eta(v) { if (v < 0) throw new Error('Età negativa'); this.#eta = v; }. La chiamata oggetto.eta = -1 esegue il setter. La sintassi è la stessa delle proprietà normali per chi usa la classe."
+  },
+  {
+    "id": 580,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa contiene l'oggetto event passato automaticamente alle callback degli eventi?",
+    "risposte": [
+      "Solo il tipo di evento (click, keydown...)",
+      "Informazioni sull'evento: tipo, elemento target, coordinate del mouse, tasto premuto e altro",
+      "Il contenuto dell'elemento cliccato",
+      "L'oggetto window"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'oggetto event (spesso chiamato e o evt) è passato automaticamente alla callback: btn.addEventListener('click', (e) => { console.log(e.target); }). Proprietà comuni: e.target (elemento che ha generato l'evento), e.type (tipo di evento), e.clientX/clientY (coordinate mouse), e.key (tasto premuto), e.preventDefault() (blocca comportamento default come invio form). e.target è diverso da e.currentTarget: target è l'elemento cliccato, currentTarget è l'elemento con il listener."
+  },
+  {
+    "id": 581,
+    "categoria": "CSS Base",
+    "domanda": "Cosa fa la proprietà border-radius?",
+    "risposte": [
+      "Aggiunge un bordo all'elemento",
+      "Arrotonda gli angoli del bordo dell'elemento",
+      "Ruota l'elemento di un certo numero di gradi",
+      "Imposta il raggio del cerchio di testo attorno all'elemento"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "border-radius arrotonda gli angoli di un elemento. border-radius: 8px arrotonda tutti e 4 gli angoli di 8px. border-radius: 50% su un elemento quadrato crea un cerchio perfetto. Si può controllare ogni angolo separatamente: border-top-left-radius, ecc. o con la shorthand a 4 valori. Non serve che il bordo sia visibile: border-radius arrotonda anche il background dell'elemento."
+  },
+  {
+    "id": 582,
+    "categoria": "HTML Form",
+    "domanda": "Qual è la differenza tra GET e POST come valori dell'attributo method di un form?",
+    "risposte": [
+      "GET è più sicuro di POST",
+      "GET appende i dati all'URL (visibili); POST li invia nel corpo della richiesta (non visibili nell'URL)",
+      "POST è per i form con file; GET è per i form di testo",
+      "Non c'è differenza pratica"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "GET: i dati del form vengono aggiunti all'URL come query string (?nome=Mario&eta=25). Visibili nell'URL, in cache, bookmarkabili. Usato per ricerche e filtri. POST: i dati viaggiano nel corpo della richiesta HTTP, non nell'URL. Non visibili nella barra degli indirizzi, non in cache. Usato per login, invio dati sensibili, caricamento file. I form per dati sensibili devono sempre usare POST (e HTTPS)."
+  },
+  {
+    "id": 583,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa fa isNaN('ciao') in JavaScript?",
+    "risposte": [
+      "Restituisce false",
+      "Lancia un errore",
+      "Restituisce true perché 'ciao' non è un numero valido",
+      "Restituisce 'NaN'"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "isNaN(valore) restituisce true se il valore è NaN o non può essere convertito in numero. isNaN('ciao') → true. isNaN(42) → false. isNaN('42') → false (perché '42' si converte in 42). NaN (Not a Number) è il risultato di operazioni matematiche non valide come parseInt('ciao') o 0/0. NaN === NaN è false (unico valore non uguale a se stesso) — usa isNaN() per controllarlo."
+  },
+  {
+    "id": 584,
+    "categoria": "HTML Semantica",
+    "domanda": "Cosa rappresenta il tag <aside>?",
+    "risposte": [
+      "Un commento nascosto nella pagina",
+      "Un contenuto correlato ma non essenziale, come una sidebar, un box di approfondimento o una pubblicità",
+      "Un errore nel markup che il browser ignora",
+      "Il piè di pagina della sezione corrente"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "<aside> rappresenta contenuto tangenzialmente correlato al contenuto principale: sidebar, box di approfondimento, biografie dell'autore, link correlati, pubblicità. Va posizionato vicino al contenuto a cui è correlato. I lettori di schermo possono identificarlo e permettere agli utenti di saltarlo. Da non confondere con <footer> (piè di pagina) o <section> (sezione tematica)."
+  },
+  {
+    "id": 585,
+    "categoria": "JavaScript Array",
+    "domanda": "Cosa fa lo spread operator (...) su un array?",
+    "risposte": [
+      "Rimuove gli elementi duplicati",
+      "Unisce tutti gli elementi in una stringa",
+      "Espande gli elementi dell'array come argomenti separati o in un nuovo array",
+      "Ordina l'array in ordine crescente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Lo spread operator (...) espande un iterabile. Copia di array: [...arr1] crea una copia superficiale. Unione: [...arr1, ...arr2]. Passaggio come argomenti: Math.max(...numeri). Copia con aggiunta: [...arr, nuovoElemento]. Da non confondere con il rest parameter che fa il contrario (raccoglie argomenti in un array). Funziona anche con oggetti (ES2018): {...obj1, ...obj2} unisce le proprietà."
+  },
+  {
+    "id": 586,
+    "categoria": "CSS Base",
+    "domanda": "Qual è la differenza tra display: block, display: inline e display: inline-block?",
+    "risposte": [
+      "Sono identici in pratica",
+      "block: occupa tutta la larghezza, va a capo; inline: scorre nel testo, non accetta width/height; inline-block: scorre nel testo ma accetta width/height",
+      "inline è per il testo; block è per le immagini; inline-block è per i form",
+      "block è obsoleto: usa sempre inline-block"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "block: occupa tutta la larghezza disponibile, va a capo prima e dopo, accetta width/height/margin/padding. inline: si inserisce nel flusso del testo, non accetta width e height, i margin verticali non funzionano. inline-block: si comporta come inline rispetto agli elementi vicini (non va a capo) ma accetta width/height come un blocco. Utile per bottoni, badge, elementi in riga con dimensioni controllate."
+  },
+  {
+    "id": 587,
+    "categoria": "JavaScript OOP",
+    "domanda": "Qual è la differenza tra un oggetto letterale e un'istanza creata con new?",
+    "risposte": [
+      "Non c'è differenza pratica",
+      "L'oggetto letterale è più veloce da creare; la classe è necessaria solo per metodi",
+      "Un oggetto letterale è unico; con new si possono creare più istanze con la stessa struttura a partire da un costruttore o classe",
+      "Gli oggetti letterali non supportano metodi"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Un oggetto letterale {} crea un singolo oggetto specifico. Un costruttore o una classe permettono di creare molte istanze con la stessa struttura ma valori diversi: let p1 = new Persona('Mario'); let p2 = new Persona('Luigi'). Quando serve solo un oggetto usa il letterale; quando ne servono molti della stessa forma usa classi o costruttori. I metodi nelle classi sono sul prototipo (non duplicati per ogni istanza)."
+  },
+  {
+    "id": 588,
+    "categoria": "CSS Flexbox",
+    "domanda": "Cosa fa gap in un flex container?",
+    "risposte": [
+      "Aggiunge un bordo tra gli elementi",
+      "Aggiunge spazio tra i flex item senza usare margin",
+      "Imposta lo spazio esterno del container",
+      "gap non esiste in CSS: si usa margin"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "gap (shorthand di row-gap e column-gap) imposta lo spazio tra i flex item o grid item senza aggiungere spazio ai bordi del container. Prima di gap, si usava margin sui singoli elementi con hack per rimuovere il margine sul primo o ultimo. gap: 24px imposta 24px tra tutti gli elementi. gap: 16px 24px imposta 16px tra le righe e 24px tra le colonne. Molto più pulito e intuitivo di margin."
+  },
+  {
+    "id": 589,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa element.classList.contains('miaClasse')?",
+    "risposte": [
+      "Aggiunge 'miaClasse' all'elemento",
+      "Restituisce true se l'elemento ha quella classe, false altrimenti",
+      "Rimuove 'miaClasse' dall'elemento",
+      "Sostituisce tutte le classi dell'elemento con 'miaClasse'"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "classList.contains('classe') restituisce true o false e permette controlli condizionali. Esempio: if (elemento.classList.contains('attivo')) { /* fai qualcosa */ }. È essenziale quando si vuole eseguire logica diversa in base allo stato corrente dell'elemento. Gli altri metodi: add aggiunge, remove rimuove, toggle alterna, replace(vecchia, nuova) sostituisce."
+  },
+  {
+    "id": 590,
+    "categoria": "HTML Base",
+    "domanda": "A cosa serve il tag <head> in HTML?",
+    "risposte": [
+      "Contiene l'intestazione visibile della pagina",
+      "Contiene i metadati: charset, titolo scheda, link CSS, script — nulla di visibile nel browser",
+      "È il tag principale che contiene tutto il documento",
+      "Contiene solo il logo e la navigazione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il tag <head> contiene informazioni sulla pagina che il browser usa ma non mostra direttamente: <title> (titolo della scheda), <meta charset> (codifica), <link> (CSS esterni), <script> (JavaScript), <meta name='description'> (SEO), <meta name='viewport'> (responsive). Tutto ciò che vuoi mostrare all'utente va nel <body>. Un <head> ben strutturato migliora SEO, performance e accessibilità."
+  },
+  {
+    "id": 591,
+    "categoria": "JavaScript Basi",
+    "domanda": "Quale sarà l'output di: console.log(0.1 + 0.2 === 0.3)?",
+    "risposte": [
+      "true",
+      "false, a causa della rappresentazione in virgola mobile",
+      "undefined",
+      "NaN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "0.1 + 0.2 in JavaScript non è esattamente 0.3 ma 0.30000000000000004, a causa del modo in cui i numeri in virgola mobile IEEE 754 sono rappresentati in binario. Quindi 0.1 + 0.2 === 0.3 → false. Soluzione: arrotonda prima del confronto, es. Math.round((0.1 + 0.2) * 10) / 10 === 0.3, oppure confronta la differenza: Math.abs(a - b) < 0.0001. Questo vale in quasi tutti i linguaggi, non solo JavaScript."
+  },
+  {
+    "id": 592,
+    "categoria": "CSS Posizionamento",
+    "domanda": "Cosa fa position: sticky?",
+    "risposte": [
+      "Ancora l'elemento alla viewport come position: fixed",
+      "Mantiene l'elemento nel flusso ma lo 'incolla' al punto specificato durante lo scroll",
+      "Rende l'elemento impossibile da spostare con JavaScript",
+      "Posiziona l'elemento relativamente al genitore come absolute"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "position: sticky è un ibrido: l'elemento segue il normale flusso del documento finché non raggiunge la posizione specificata (es. top: 0), poi si comporta come fixed e rimane lì durante lo scroll — finché il suo contenitore è visibile. Usato per header di tabelle, barre di navigazione, sidebar. Richiede che almeno uno tra top, bottom, left, right sia specificato. Il genitore non deve avere overflow: hidden."
+  },
+  {
+    "id": 593,
+    "categoria": "JavaScript Cicli",
+    "domanda": "Qual è la differenza tra while e do...while?",
+    "risposte": [
+      "Non c'è differenza pratica",
+      "do...while controlla la condizione alla fine: il blocco viene eseguito almeno una volta",
+      "do...while è più veloce di while",
+      "while può essere infinito; do...while no"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "while controlla la condizione prima di eseguire il blocco: se la condizione è falsa dall'inizio, il blocco non viene mai eseguito. do...while esegue il blocco almeno una volta, poi controlla la condizione. È utile per menu interattivi, validazione di input (chiedi finché non ottieni un valore valido). Esempio: do { input = chiedi(); } while (!valido(input)). Entrambi possono diventare infiniti se la condizione non cambia mai."
+  },
+  {
+    "id": 594,
+    "categoria": "HTML Base",
+    "domanda": "Cosa fa l'attributo placeholder in un campo input?",
+    "risposte": [
+      "Imposta il valore predefinito del campo che viene inviato al form",
+      "Mostra un testo descrittivo nel campo che scompare quando l'utente inizia a scrivere",
+      "Rende il campo obbligatorio",
+      "Imposta la lunghezza massima del testo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "placeholder mostra un testo grigio di suggerimento nel campo vuoto, che scompare non appena l'utente inizia a digitare. Non è il valore del campo: se il form viene inviato con il campo vuoto, non viene inviato il placeholder. Non sostituisce la <label>: il placeholder scompare durante la digitazione e può causare problemi di accessibilità se usato come unica istruzione. Usa sempre label + placeholder insieme."
+  },
+  {
+    "id": 595,
+    "categoria": "JavaScript OOP",
+    "domanda": "Cosa fa for...in su un oggetto?",
+    "risposte": [
+      "Itera sui valori dell'oggetto",
+      "Itera sulle chiavi (nomi delle proprietà) dell'oggetto",
+      "Itera sia sulle chiavi che sui valori contemporaneamente",
+      "Elimina le proprietà dell'oggetto una per una"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "for (const chiave in oggetto) itera sui nomi delle proprietà enumerabili. Per ottenere il valore usa oggetto[chiave]. Esempio: for (const k in studente) { console.log(k + ': ' + studente[k]); }. Attenzione: itera anche sulle proprietà ereditate dal prototipo — usa hasOwnProperty() per filtrare solo le proprietà proprie. Su array è sconsigliato perché itera anche indici numerici come stringhe."
+  },
+  {
+    "id": 596,
+    "categoria": "CSS Base",
+    "domanda": "Cosa fa la pseudo-classe :hover in CSS?",
+    "risposte": [
+      "Applica lo stile all'elemento quando viene cliccato",
+      "Applica lo stile all'elemento quando il cursore del mouse è sopra di esso",
+      "Applica lo stile all'elemento quando riceve il focus da tastiera",
+      "Applica lo stile al primo elemento della lista"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": ":hover si attiva quando il cursore del mouse è sopra l'elemento. Usato per feedback visivo: cambiare colore, aggiungere ombra, mostrare sottomenu. Non funziona sui touch screen (no mouse). Pseudo-classi simili: :focus (elemento focalizzato da tastiera o click), :active (durante il click), :visited (link visitato), :first-child, :last-child, :nth-child(n). Le pseudo-classi non aggiungono specificità extra rispetto alle classi normali."
+  },
+  {
+    "id": 597,
+    "categoria": "JavaScript DOM",
+    "domanda": "Cosa fa document.querySelector('ul li:first-child')?",
+    "risposte": [
+      "Seleziona tutti i li dentro un ul",
+      "Seleziona il primo li che è figlio diretto di un ul nella pagina",
+      "Seleziona solo l'ul e non i suoi figli",
+      "Genera un errore: querySelector non supporta selettori combinati"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "querySelector accetta qualsiasi selettore CSS valido, inclusi combinatori e pseudo-classi. 'ul li:first-child' seleziona il primo <li> figlio di un <ul>. Il punto chiave: querySelector restituisce SOLO il primo elemento corrispondente trovato nell'intero documento. Per tutti gli elementi corrispondenti usa querySelectorAll. La potenza di querySelector sta nel riusare la conoscenza dei selettori CSS già acquisita."
+  },
+  {
+    "id": 598,
+    "categoria": "JavaScript Basi",
+    "domanda": "Qual è il risultato di: let a = [1,2,3]; let b = a; b.push(4); console.log(a)?",
+    "risposte": [
+      "[1, 2, 3]",
+      "[1, 2, 3, 4]",
+      "undefined",
+      "Genera un errore"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Gli array (e tutti gli oggetti) in JavaScript sono assegnati per riferimento: let b = a non crea una copia — sia a che b puntano allo stesso array in memoria. Modificare b modifica anche a. Output: [1,2,3,4]. Per creare una copia indipendente usa lo spread: let b = [...a]. Questa è una distinzione fondamentale: i primitivi (number, string, boolean) sono copiati per valore; gli oggetti e array sono copiati per riferimento."
+  },
+  {
+    "id": 599,
+    "categoria": "JavaScript DOM",
+    "domanda": "Quale metodo Array-like della NodeList è disponibile nativamente?",
+    "risposte": [
+      "map",
+      "filter",
+      "forEach",
+      "reduce"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Una NodeList (restituita da querySelectorAll) ha forEach nativo. Non ha map, filter, reduce o altri metodi degli array. Per usare tutti i metodi array, converti la NodeList: [...nodeList] con spread operator oppure Array.from(nodeList). Una HTMLCollection (restituita da getElementsByClassName o getElementsByTagName) non ha neanche forEach: devi usare [...HTMLCollection].forEach(). Usa querySelectorAll per avere forEach direttamente."
+  },
+  {
+    "id": 600,
+    "categoria": "JavaScript Basi",
+    "domanda": "Cosa stampa: console.log(typeof null)?",
+    "risposte": [
+      "'null'",
+      "'undefined'",
+      "'object'",
+      "'empty'"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "typeof null restituisce 'object' — questo è un famoso bug di JavaScript presente fin dalla prima versione (1995) e mai corretto per compatibilità con il codice esistente. null rappresenta l'assenza intenzionale di un valore e non è un oggetto. Per verificare se un valore è null, usa il confronto === null (non typeof). null === null → true. null == undefined → true (con doppio uguale). null === undefined → false (con triplo uguale)."
+  }
+]

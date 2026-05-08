@@ -1,0 +1,602 @@
+[
+  {
+    "categoria": "Record",
+    "domanda": "Cosa genera automaticamente il compilatore quando dichiari `public record Persona(string Nome, int Eta);`?",
+    "risposte": [
+      "Solo i campi privati nome ed eta",
+      "Costruttore, proprietà con `init`, `Equals`, `GetHashCode` e `ToString` basati sui valori delle proprietà dichiarate",
+      "Solo le proprietà get/set",
+      "Soltanto il metodo `ToString()`"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un `record` con sintassi posizionale fa generare al compilatore: il costruttore primario (i parametri tra parentesi), le proprietà con `init` (read-only dopo creazione), e implementazioni di `Equals`, `GetHashCode` e `ToString` basate sui valori. È l'opposto di una `class` normale, dove devi scrivere tutto a mano."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Quale parola chiave si usa in C# per dichiarare un record?",
+    "risposte": [
+      "`record`",
+      "`data record`",
+      "`value class`",
+      "`immutable data`"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La parola chiave è semplicemente `record`. Esempio: `public record Persona(string Nome, int Eta);` genera in una sola riga costruttore, proprietà, `Equals`, `GetHashCode` e `ToString`. `data record`, `value class` e `immutable data` non esistono in C#."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Qual è la differenza fondamentale nel confronto con `==` tra due record e tra due classi normali con gli stessi dati?",
+    "risposte": [
+      "Non c'è alcuna differenza, in entrambi i casi confronta i valori",
+      "I record danno errore: `==` non è supportato",
+      "Tra record `==` confronta i valori, tra classi i riferimenti",
+      "Solo le classi confrontano per valore i campi"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Per i `record` il compilatore genera un `Equals` (e quindi `==`) che confronta i **valori** delle proprietà. Per una `class` normale `==` confronta i **riferimenti** in memoria: due oggetti class con stessi dati risultano diversi. Per questo i record sono ideali per i DTO."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Considerando `public record Persona(string Nome, string Cognome, int Eta);`, cosa viene generato in totale?",
+    "risposte": [
+      "Crea soltanto le tre proprietà pubbliche per Nome, Cognome ed Eta come campi di sola lettura",
+      "Costruttore, proprietà `init`, `ToString`, `Equals`, `GetHashCode`",
+      "Soltanto un costruttore senza altre funzionalità aggiuntive",
+      "Una classe astratta che dovrà essere implementata altrove"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La sintassi posizionale del record produce: 1) costruttore primario con i tre parametri, 2) tre proprietà con setter `init` (immutabili dopo creazione), 3) `ToString()` che stampa `Persona { Nome = ..., Cognome = ..., Eta = ... }`, 4) `Equals` e `GetHashCode` per valore, 5) supporto a `with`."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Le proprietà generate da un record con sintassi posizionale sono:",
+    "risposte": [
+      "Sola lettura dopo la creazione",
+      "Modificabili come in una classe normale",
+      "Pubbliche ma protette con setter privato",
+      "Statiche e accessibili da tutti gli oggetti"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Le proprietà sono generate con `{ get; init; }`: si possono valorizzare solo nel costruttore o tramite object initializer al momento della creazione, ma non si possono più modificare dopo. È per questo che i record sono detti **immutabili**."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Come si \"modifica\" un record dato che è immutabile?",
+    "risposte": [
+      "Si modifica direttamente la proprietà",
+      "Si crea una copia modificata con la sintassi `with`, lasciando inalterato l'originale del tutto",
+      "Non è possibile in alcun modo",
+      "Si usa il metodo `Clone()`"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "In C# si usa l'espressione `with`: ad esempio `var p2 = p1 with { Eta = 31 };`. Il record `p1` resta invariato e `p2` è una nuova istanza con la sola proprietà `Eta` modificata. Tutte le altre proprietà vengono copiate da `p1`. È l'idioma standard per i tipi immutabili."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Cosa stampa il seguente codice, dato `public record Persona(string Nome, int Eta);`?\n```csharp\nvar p1 = new Persona(\"Mario\", 30);\nvar p2 = new Persona(\"Mario\", 30);\nConsole.WriteLine(p1 == p2);\n```",
+    "risposte": [
+      "`True`, perché tra record `==` confronta i valori",
+      "`False`, perché `==` confronta sempre i riferimenti",
+      "`null`, perché `p1` e `p2` non sono inizializzati",
+      "Errore di compilazione: manca l'override"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "I record generano automaticamente un `Equals` per valore, e l'operatore `==` lo usa. Avendo gli stessi `Nome` ed `Eta`, `p1 == p2` è `True`. Con una `class` normale invece sarebbe `False`, perché si confronterebbero i riferimenti in memoria (due oggetti distinti)."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Quando è preferibile usare un `record` invece di una `class`?",
+    "risposte": [
+      "Sempre, è più moderno",
+      "Per dati puri immutabili come DTO o oggetti che descrivi e passi tra livelli senza una vera logica interna di stato",
+      "Solo per oggetti grandi",
+      "Mai, è solo zucchero sintattico"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Regola pratica del corso: i `record` per **dati che descrivi e passi in giro** (DTO, oggetti di configurazione, risposte da API). Le `class` per **oggetti che fanno cose** (entità con stato mutabile, comportamento, logica). Il record fornisce gratis equality per valore, immutabilità e una sintassi compatta."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Per default, l'`Equals` di un record confronta:",
+    "risposte": [
+      "I valori delle proprietà",
+      "I riferimenti in memoria come la classe normale",
+      "Solo l'hashcode dei due oggetti uno per uno",
+      "Solo il primo campo dichiarato del record"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il compilatore genera un `Equals` che confronta tutte le proprietà del record una per una con il loro `Equals` (per valore). Due record con le stesse proprietà sono considerati uguali, anche se sono due istanze separate. È il comportamento opposto delle `class` standard."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Si possono aggiungere logica e metodi a un record?",
+    "risposte": [
+      "No, sono solo dei semplici contenitori di dati passivi senza metodi al loro interno",
+      "Sì, possono avere metodi come una classe normale",
+      "Solo metodi statici, mai di istanza",
+      "Solo se sono dichiarati come `abstract`"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un `record` è una classe a tutti gli effetti: può avere metodi di istanza, statici, proprietà aggiuntive con corpo, override di `ToString()` ecc. La sintassi posizionale è solo una scorciatoia. In pratica però conviene tenerli sottili: se hai logica complessa, usa una `class`."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Perché un record con sintassi posizionale è immutabile per default?",
+    "risposte": [
+      "Per scelta arbitraria di Microsoft",
+      "Perché le sue proprietà generate hanno setter `init`, valorizzabili solo durante la creazione e non più modificabili dopo",
+      "Tutti i tipi C# sono immutabili",
+      "È una classe `sealed` automatica"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il compilatore genera ogni proprietà con `{ get; init; }`. `init` è un setter speciale richiamabile **solo** dal costruttore o da un object initializer al momento della creazione. Dopo, ogni tentativo di assegnazione è un errore di compilazione. Da qui l'immutabilità garantita."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "L'espressione `with` su un record:",
+    "risposte": [
+      "Crea una copia modificata",
+      "Modifica l'originale e ritorna la stessa istanza",
+      "Lancia un'eccezione perché immutabile",
+      "Funziona solo con le classi normali, non con i record"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`with` produce una **nuova istanza** del record copiando tutte le proprietà dell'originale e applicando le modifiche elencate tra `{ }`. L'originale resta inalterato. Esempio: `var p3 = p1 with { Eta = 31 };` lascia `p1` com'era e crea `p3` con la sola `Eta` cambiata."
+  },
+  {
+    "categoria": "Record",
+    "domanda": "Quale di queste è una dichiarazione valida di record con sintassi posizionale?",
+    "risposte": [
+      "`public record P(string N, int E);`",
+      "`public class record P(string N){}`",
+      "`public struct record P(int N) {}`",
+      "`public abstract record P {string N;}`"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La forma corretta è `public record NomeTipo(parametri);` con il punto e virgola finale. `class record` e `struct record` non sono sintassi valide (sono parole chiave alternative). Esiste anche la forma a blocco `public record P { public string N { get; init; } }`, ma non quella mostrata nella quarta risposta."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Cosa significa `sealed` applicato a una classe?",
+    "risposte": [
+      "Non può essere ereditata",
+      "Può essere ereditata solo da classi astratte",
+      "È una classe astratta che non si istanzia",
+      "I suoi metodi sono tutti privati per default"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`sealed` su una classe significa che **nessuna altra classe può ereditare da essa**. La classe può comunque essere istanziata normalmente con `new`. È utile quando vuoi proteggere il design o dare un suggerimento al compilatore per ottimizzare le chiamate ai metodi."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Quali sono i vantaggi pratici nel dichiarare una classe `sealed`?",
+    "risposte": [
+      "Permette al compilatore di ottimizzare le chiamate ai metodi (sa che non ci saranno override) e protegge il design impedendo estensioni non previste",
+      "Rende la classe più veloce in compilazione",
+      "Evita di dover scrivere costruttori",
+      "Permette l'ereditarietà multipla"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Due vantaggi reali: 1) **performance**: il compilatore può devirtualizzare le chiamate ai metodi, perché sa che non esistono override possibili in classi derivate; 2) **design**: garantisci che il comportamento della classe non venga alterato da sottoclassi che non hai previsto. Pattern molto comune per classi che rappresentano dati o invarianti rigide."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Una classe `sealed` può ereditare da un'altra classe?",
+    "risposte": [
+      "Sì, sealed blocca solo l'eredità in uscita",
+      "No, sealed impedisce qualsiasi forma di ereditarietà",
+      "Sì, ma solo da altre classi sealed",
+      "No, deve sempre essere una classe radice"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`sealed` blocca solo che **altri eredito da te**, non che tu erediti da altri. Esempio del corso: `public sealed class ChihuahuaSpecifico : Cane { }` — eredita da `Cane`, ma nessuno potrà ereditare da `ChihuahuaSpecifico`. È la fine della catena di ereditarietà."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Una classe `sealed` può essere istanziata con `new`?",
+    "risposte": [
+      "Sì, normalmente",
+      "No, mai in alcun caso possibile",
+      "Solo se è anche dichiarata `static`",
+      "Solo se ha un costruttore privato"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`sealed` non ha effetti sull'istanziazione: la classe si crea con `new` come una classe qualsiasi. L'unica restrizione è che **nessuno può ereditare da essa**. Da non confondere con `abstract`, che invece impedisce l'istanziazione ma non l'eredità."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Cosa fa `sealed override` applicato a un metodo?",
+    "risposte": [
+      "Sovrascrive un metodo `virtual` ereditato e impedisce ulteriori `override` nelle classi che ereditano da quella corrente",
+      "Annulla l'override del padre",
+      "Crea un metodo astratto",
+      "Rende il metodo statico"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "È un modificatore combinato: prima fa override del metodo virtuale del padre (come `override` normale), poi sigilla quel metodo specifico, impedendo che ulteriori sottoclassi possano farne override. La classe resta ereditabile, ma quel singolo metodo no."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Ha senso una classe `sealed` con metodi `virtual`?",
+    "risposte": [
+      "Sì, se la classe sealed eredita comunque da altre classi che hanno virtual",
+      "No, è una contraddizione: virtual sarebbe inutile",
+      "Sì, sempre per chiarezza nel codice",
+      "Solo se la classe è anche astratta"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`virtual` serve solo a permettere override nelle classi derivate, ma `sealed` impedisce qualsiasi ereditarietà: nessuno potrà mai fare override di quel metodo. Il compilatore avvisa con un warning. Se vuoi mantenere virtual per polimorfismo già attivo via classe base, usa `sealed override` solo sul metodo specifico."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Una classe può essere contemporaneamente `sealed` e `abstract`?",
+    "risposte": [
+      "No, è contraddittorio",
+      "Sì, ma solo in C# 9 e successivi",
+      "Sì, è una pratica comune nel design",
+      "Sì, ma solo se non ha metodi astratti"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "I due modificatori si escludono a vicenda: `abstract` dice \"questa classe è incompleta, va estesa per essere istanziata\", `sealed` dice \"nessuno può ereditare da me\". Combinarli renderebbe la classe inutilizzabile. Il compilatore segnala errore. Per un effetto simile (classe non istanziabile e non estendibile) si usa `static class`."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Qual è un esempio classico di classe `sealed` nella libreria standard .NET?",
+    "risposte": [
+      "`Console`",
+      "`Math`",
+      "`System.String`, perché modificare il comportamento delle stringhe potrebbe rompere il funzionamento atteso di milioni di programmi che le usano",
+      "`List<T>`"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`System.String` è `sealed`: è impossibile creare una sottoclasse di `string`. Microsoft l'ha sigillata perché le stringhe sono un tipo critico, e aprire override potrebbe alterare comportamenti su cui si appoggia tutto l'ecosistema .NET. `Console` e `Math` sono `static`, non `sealed`."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Quale messaggio segnala il compilatore C# se provi a ereditare da una classe `sealed`?",
+    "risposte": [
+      "cannot derive from sealed type",
+      "type is unsealed at runtime",
+      "inheritance not permitted here",
+      "cannot extend final class type"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il messaggio esatto del compilatore C# è del tipo `CS0509: 'X' cannot derive from sealed type 'Y'`. Le altre formulazioni assomigliano a errori di altri linguaggi (es. `final class` viene da Java). Il compilatore C# usa coerentemente la terminologia di `sealed`."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "La sintassi `public sealed class ChihuahuaSpecifico : Cane { }` indica che:",
+    "risposte": [
+      "Da ChihuahuaSpecifico nessuno eredita",
+      "`Cane` non è più ereditabile da nessuna sottoclasse",
+      "ChihuahuaSpecifico è anche una classe astratta da estendere",
+      "ChihuahuaSpecifico non può istanziare alcun oggetto"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`sealed` si applica a `ChihuahuaSpecifico` (la classe a sinistra dei due punti), non a `Cane`. Quindi: `ChihuahuaSpecifico` eredita da `Cane`, ma a sua volta non può essere ereditata. `Cane` rimane normalmente ereditabile da altre classi. ChihuahuaSpecifico si istanzia normalmente con `new`."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Differenza tra `sealed` e `static` applicati a una classe:",
+    "risposte": [
+      "Sono sinonimi e fanno la stessa cosa",
+      "`sealed` impedisce l'ereditarietà ma la classe si istanzia normalmente, mentre `static` impedisce sia l'ereditarietà sia l'istanziazione e contiene solo membri `static`",
+      "`sealed` rende statici i metodi, `static` no",
+      "`static` permette l'ereditarietà, `sealed` no"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`sealed`: classe normale che si crea con `new`, ma di cui nessuno può ereditare. `static`: contenitore di metodi e dati condivisi, non si istanzia (`new` dà errore), né si eredita; tutti i suoi membri devono essere `static`. Esempi tipici di `static` sono `Math` e `Console`; `sealed` è più raro, classico è `String`."
+  },
+  {
+    "categoria": "Modificatore sealed",
+    "domanda": "Quando NON è opportuno usare `sealed` su una classe?",
+    "risposte": [
+      "Quando la classe è progettata per essere estesa",
+      "Quando contiene molti metodi static al suo interno",
+      "Quando è pubblica e visibile dal modulo esterno",
+      "Quando ha al suo interno metodi marcati `virtual`"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`sealed` è una scelta di design che chiude la porta all'estensione: se prevedi che altri (anche te stesso in futuro) vorranno specializzare la classe creando sottoclassi, non sigillarla. È invece corretto sigillare classi che rappresentano invarianti, valori o comportamenti che non devono essere alterati."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Dove vengono allocate le variabili di tipo primitivo come `int`, `double`, `bool`?",
+    "risposte": [
+      "Sullo stack",
+      "Sempre sullo heap come gli oggetti",
+      "Nel data segment del programma",
+      "In una memoria condivisa esterna"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "I tipi primitivi (`int`, `double`, `bool`, `char`, `struct`...) sono **value type** e vivono direttamente sullo **stack**: la variabile contiene il valore stesso. Lo stack è veloce e gestito automaticamente quando si entra/esce da metodi e blocchi."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Quando dichiari `Studente s = new Studente(...)`, cosa contiene la variabile `s` esattamente?",
+    "risposte": [
+      "L'oggetto stesso",
+      "Una copia dei campi dell'oggetto",
+      "Un riferimento (cioè l'indirizzo) all'oggetto allocato sullo heap, mentre `s` come variabile vive sullo stack",
+      "Solo il nome della classe come stringa"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`Studente` è un **reference type**. `new Studente(...)` alloca l'oggetto sullo **heap** e restituisce il suo indirizzo. La variabile `s` vive sullo stack (perché è una variabile locale) e contiene quell'indirizzo. Per questo due variabili `s1` e `s2 = s1` puntano allo stesso oggetto in heap."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Cosa stampa il seguente codice?\n```csharp\nint a = 5;\nint b = a;\nb = 10;\nConsole.WriteLine(a);\n```",
+    "risposte": [
+      "`5`, perché `a` e `b` sono copie indipendenti",
+      "`10`, perché `b` è un alias di `a` in memoria",
+      "`0`, perché la variabile `a` viene resettata",
+      "Errore di compilazione su `int b = a`"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`int` è un value type: `int b = a` **copia** il valore di `a` in `b`. Da quel momento `a` e `b` sono variabili totalmente indipendenti sullo stack. Modificare `b` non tocca `a`. Stampa `5`. Con un reference type (oggetto) il comportamento sarebbe diverso."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Cosa stampa questo codice (dato il modello `Studente` del corso)?\n```csharp\nStudente s1 = new Studente(\"Alice\", \"Rossi\", 20, true, \"F\");\nStudente s2 = s1;\ns2.Nome = \"Bruno\";\nConsole.WriteLine(s1.Nome);\n```",
+    "risposte": [
+      "`ALICE`",
+      "`null`",
+      "Errore",
+      "`BRUNO`, perché `s1` e `s2` puntano allo stesso oggetto sullo heap, quindi la modifica fatta tramite `s2` è visibile anche tramite `s1`"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "`Studente` è un reference type: `s2 = s1` non duplica l'oggetto, copia solo l'**indirizzo**. `s1` e `s2` puntano allo stesso oggetto in heap. Modificare `s2.Nome` modifica anche `s1.Nome`. Il getter di `Nome` fa `ToUpper()`, quindi stampa `BRUNO` in maiuscolo."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Le classi in C# sono tipi:",
+    "risposte": [
+      "di riferimento",
+      "di valore primitivi come int",
+      "puntati con asterisco come in C++",
+      "speciali a metà tra valore e riferimento"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Le `class` sono **reference type**: la variabile contiene un riferimento (indirizzo) all'oggetto vero, che vive sullo heap. I value type, invece, sono `int`, `double`, `bool`, `char` e le `struct`. C# nasconde gli asterischi del C/C++: niente sintassi esplicita di puntatori in codice normale."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Qual è la differenza fondamentale tra value type e reference type?",
+    "risposte": [
+      "Sono sinonimi",
+      "I value type contengono direttamente il valore in memoria, mentre i reference type contengono un riferimento (l'indirizzo) a un oggetto allocato altrove sullo heap",
+      "I reference type sono più piccoli",
+      "I value type sono solo per stringhe"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "**Value type** (`int`, `double`, `bool`, `char`, `struct`): la variabile è il valore. Copiando una variabile si copia il valore. **Reference type** (`class`, `string`, `array`, `List<T>`...): la variabile è un indirizzo che punta a un oggetto sullo heap. Copiando una variabile si copia solo l'indirizzo, non l'oggetto."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Per quale di queste dichiarazioni il valore della variabile vive **interamente** sullo stack?",
+    "risposte": [
+      "`string nome = \"Mario\";` (string è reference type)",
+      "`int x = 5;` (int è value type primitivo)",
+      "`List<int> l = new List<int>();` (lista)",
+      "`Studente s = new Studente();` (oggetto)"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Solo `int x = 5;` ha il valore `5` direttamente sullo stack come parte della variabile. Negli altri casi la variabile (riferimento) è sullo stack ma l'oggetto vero (string, List, Studente) vive sullo heap. `string` in C# è eccezione famosa: pur essendo reference type, si comporta come value type per molti versi (immutabilità, `==`)."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Lo heap in C# viene gestito da:",
+    "risposte": [
+      "Garbage Collector",
+      "Te stesso con `delete` come in C++",
+      "Il sistema operativo direttamente",
+      "Un thread separato dell'utente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il **Garbage Collector** (GC) del runtime .NET libera automaticamente la memoria sullo heap quando un oggetto non è più raggiungibile da alcuna variabile. Per questo in C# non c'è `delete`: niente `free()`, niente memory leak da dimenticate deallocazioni (almeno nei casi standard)."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "A cosa serve il Garbage Collector in C#?",
+    "risposte": [
+      "A compilare il codice",
+      "A ottimizzare i cicli `for`",
+      "A gestire le eccezioni di runtime",
+      "A liberare automaticamente la memoria sullo heap quando un oggetto non è più raggiungibile da nessuna variabile attiva del programma"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il GC scansiona periodicamente lo heap, individua gli oggetti che nessuna variabile più referenzia (\"raggiungibile\" = c'è un percorso da una root come stack o variabili statiche) e libera la loro memoria. Senza GC dovresti ricordarti di deallocare manualmente, come in C/C++ con `free` o `delete`."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Una `struct` in C# tipicamente viene allocata:",
+    "risposte": [
+      "Sullo stack come i primitivi",
+      "Sempre sullo heap come gli oggetti",
+      "Mai, è solo un alias di tipo",
+      "Solo nel data segment globale"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Le `struct` sono **value type** come i primitivi: vivono sullo stack quando dichiarate come variabili locali. Ci sono casi in cui finiscono sullo heap (es. campi di una classe, boxing in `object`), ma il caso standard è lo stack. Sono utili quando vuoi un oggetto leggero, immutabile e senza overhead di GC."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Cosa accade quando si passa un oggetto come parametro a un metodo?",
+    "risposte": [
+      "Si passa il riferimento all'oggetto: il metodo lavora sullo stesso oggetto del chiamante e quindi le modifiche fatte allo stato dell'oggetto sono visibili anche dopo il ritorno",
+      "Si fa sempre una copia profonda dell'oggetto",
+      "Il metodo riceve solo i campi pubblici",
+      "Si verifica un errore di compilazione"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Per un reference type il metodo riceve **una copia del riferimento**, non dell'oggetto. La copia punta allo stesso oggetto sullo heap del chiamante: modifiche allo stato (es. `s.Nome = ...`) sono visibili. Se invece riassegni il parametro a un nuovo oggetto, il chiamante non lo vede (la sua variabile punta ancora al vecchio)."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Per quanto tempo vive un oggetto sullo heap?",
+    "risposte": [
+      "Finché c'è un riferimento",
+      "Sempre, fino al riavvio del computer",
+      "Solo durante l'esecuzione del metodo che lo ha creato",
+      "Fino al termine del programma in esecuzione"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Un oggetto sullo heap vive finché esiste **almeno un riferimento attivo** che lo raggiunge (variabile locale, campo di un altro oggetto vivo, ecc). Quando ogni riferimento sparisce (uscita di scope, riassegnazione, `null`), l'oggetto diventa idoneo per il GC, che prima o poi ne libererà la memoria."
+  },
+  {
+    "categoria": "Memoria - Stack e Heap",
+    "domanda": "Cosa accade alle variabili locali quando un metodo termina la sua esecuzione?",
+    "risposte": [
+      "Vengono rimosse dallo stack automaticamente",
+      "Tutto ciò che è sullo heap viene liberato subito",
+      "Restano in memoria fino al riavvio dell'app",
+      "Il Garbage Collector le sposta nello heap"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Lo stack frame del metodo viene tolto e con esso tutte le variabili locali (sia value type sia i riferimenti a oggetti). Gli oggetti puntati sullo heap NON vengono liberati subito: aspettano il GC, e solo se nessun altro riferimento li raggiunge più. Per questo il termine del metodo è economico, mentre la liberazione heap è asincrona."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Lo *scope* di una variabile è:",
+    "risposte": [
+      "Dove è visibile",
+      "Il valore massimo che può assumere durante l'esecuzione",
+      "Il numero totale di byte che occupa in memoria",
+      "L'intervallo temporale del programma in cui è valida"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Lo *scope* è la **porzione di codice** in cui una variabile è accessibile per nome. In C# è generalmente delimitato dalle parentesi graffe `{ }` in cui la variabile è dichiarata: blocco di metodo, ciclo, ramo `if`, ecc. Fuori dallo scope, il nome non esiste più (errore di compilazione)."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Una variabile dichiarata dentro un blocco delimitato da `{ }`:",
+    "risposte": [
+      "È visibile solo all'interno di quel blocco e di tutti gli eventuali blocchi annidati al suo interno, ma non al di fuori",
+      "È visibile in tutto il file sorgente",
+      "Diventa un campo della classe",
+      "È sempre statica per default"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Lo scope di una variabile locale è il blocco `{ }` in cui è dichiarata, comprese le sue annidature. Esempio: una variabile dichiarata dentro un `if { ... }` è visibile dentro quel ramo e nei blocchi più interni, ma non dopo la chiusura della graffa dell'`if`."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Cosa accade compilando questo codice?\n```csharp\nfor (int i = 0; i < 5; i++) { Console.WriteLine(i); }\nConsole.WriteLine(i);\n```",
+    "risposte": [
+      "Stampa 0, 1, 2, 3, 4 e infine 5 dopo l'ultima iterazione",
+      "Stampa 0..4 e poi 4 alla fine",
+      "Errore: `i` è fuori scope dopo il `for`",
+      "Stampa 0..4 e poi 0 finale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La variabile `i` dichiarata nell'inizializzatore del `for` ha scope limitato al ciclo: nasce all'inizio e muore alla fine. La seconda `Console.WriteLine(i)` non compila perché `i` lì non esiste più. Per accedervi anche dopo, andrebbe dichiarata fuori dal ciclo."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Una variabile locale dichiarata dentro un metodo:",
+    "risposte": [
+      "È visibile in tutto il programma da ogni file dell'applicazione",
+      "È visibile in tutta la classe in cui appare il metodo dichiarato",
+      "È accessibile dall'esterno con la sintassi `classe.metodo.variabile`",
+      "È visibile solo nel metodo, nasce con la chiamata e muore al termine"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Le variabili locali vivono solo nello stack frame del metodo: vengono allocate quando il metodo parte e rimosse quando termina. Non sono visibili da altri metodi, neanche della stessa classe. Per condividere uno stato tra più metodi, si usa un campo della classe."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Posso usare una variabile dichiarata dentro un ramo `if` da fuori del ramo `if`?",
+    "risposte": [
+      "No, è fuori scope",
+      "Sì, sempre, quasi senza eccezioni",
+      "Sì, ma solo se l'`if` è stato eseguito",
+      "Sì, ma solo se è di tipo primitivo come int"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Lo scope di una variabile dichiarata dentro `if (cond) { ... }` è il blocco dell'`if`. Dopo la graffa di chiusura, il nome non esiste più. Non importa se l'`if` è stato eseguito o no: lo scope è una proprietà statica del codice, non dinamica del runtime."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Differenza tra un campo di classe e una variabile locale a un metodo:",
+    "risposte": [
+      "Nessuna differenza pratica reale",
+      "Il **campo** è dichiarato a livello di classe ed è accessibile in tutti i metodi di istanza con la stessa durata dell'oggetto, mentre la **variabile locale** esiste solo nel metodo o blocco in cui è dichiarata",
+      "I campi sono sempre `static`",
+      "Le variabili locali sopravvivono al metodo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il **campo** appartiene all'oggetto: è una proprietà condivisa tra tutti i metodi della classe e dura quanto dura l'oggetto sullo heap. La **variabile locale** appartiene a una singola chiamata di metodo: nasce quando il metodo parte e muore quando termina. Lo scope dei campi copre tutta la classe; quello delle locali un solo blocco."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Una variabile locale ha durata pari a:",
+    "risposte": [
+      "Quella del metodo",
+      "Quella dell'oggetto in cui è dichiarata",
+      "Tutta la durata dell'esecuzione del programma",
+      "Dipende dal Garbage Collector di sistema"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Una variabile locale vive nello stack frame del metodo: nasce quando il metodo viene invocato e muore (viene rimossa dallo stack) quando il metodo termina. Se è un riferimento a un oggetto sullo heap, l'oggetto può sopravvivere ancora un po' (finché il GC non lo libera), ma la variabile in sé no."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Cosa stampa o cosa accade?\n```csharp\nif (true) {\n    int x = 10;\n}\nConsole.WriteLine(x);\n```",
+    "risposte": [
+      "`10`, x è ancora in scope dopo l'if",
+      "Errore di compilazione: `x` è fuori scope",
+      "`0` perché `x` è stata distrutta",
+      "`null` perché `x` è stata resettata"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`x` è dichiarata dentro il blocco `{ }` dell'`if`: il suo scope termina con la graffa di chiusura. La `Console.WriteLine(x)` successiva non compila — il nome `x` non esiste in quel punto. Per accedervi fuori, dichiararla prima dell'`if`."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Cosa accade se due metodi diversi della stessa classe dichiarano una variabile locale con lo stesso nome?",
+    "risposte": [
+      "Errore: nomi duplicati",
+      "Le due variabili condividono lo stesso valore",
+      "Errore di runtime al primo uso",
+      "Nessun problema: gli scope sono indipendenti, ogni metodo ha la sua variabile distinta dalle altre senza alcun conflitto"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Le variabili locali sono confinate al loro metodo: il metodo `A` con `int x` e il metodo `B` con `int x` hanno due variabili totalmente indipendenti, vivono in stack frame diversi e in tempi diversi. Il nome è condiviso, ma il significato no. È la base del riuso dei nomi (\"i\", \"contatore\", \"temp\"...) in più punti."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Una variabile dichiarata nel costruttore di una classe (e non come campo):",
+    "risposte": [
+      "È locale al costruttore",
+      "Diventa automaticamente un campo accessibile",
+      "È accessibile da tutti i metodi della classe",
+      "Viene salvata sull'heap finché vive l'oggetto"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il costruttore è un metodo come gli altri: una variabile dichiarata nel suo corpo (es. `int temp = 0;`) ha scope solo lì dentro e muore quando il costruttore termina. Per conservare un valore nell'oggetto serve un **campo** dichiarato a livello di classe (es. `private int temp;`) e poi assegnato nel costruttore."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Una variabile dichiarata nell'inizializzatore di un `for`:",
+    "risposte": [
+      "Esiste anche dopo la fine del ciclo for, fino al termine del metodo",
+      "Esiste solo dentro lo scope del ciclo for",
+      "Va sempre dichiarata fuori dal for stesso",
+      "Diventa automaticamente un campo statico"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "In `for (int i = 0; i < n; i++) { ... }`, la variabile `i` è dichiarata nell'header del ciclo e ha scope limitato al ciclo (header + corpo). Fuori dal for non esiste. Se ti serve sopravvivere, dichiarala prima del for: `int i; for (i = 0; ...)`."
+  },
+  {
+    "categoria": "Scope delle variabili",
+    "domanda": "Un campo `private` di una classe è visibile:",
+    "risposte": [
+      "Solo nella classe stessa",
+      "In tutto il file sorgente che la contiene",
+      "Nelle classi derivate ma non all'esterno",
+      "Ovunque, eccetto fuori dall'assembly"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`private` limita la visibilità alla **sola classe** in cui il campo è dichiarato. Nemmeno le classi derivate ci accedono direttamente (per quello esiste `protected`). È il livello più restrittivo e va preferito di default per i campi (incapsulamento)."
+  }
+]

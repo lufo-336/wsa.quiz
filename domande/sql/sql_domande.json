@@ -1,0 +1,2667 @@
+[
+  {
+    "id": 1,
+    "categoria": "Fondamenti",
+    "domanda": "Cosa significa l'acronimo DBMS?",
+    "risposte": [
+      "Data Binary Mapping Schema",
+      "Distributed Base Model Server",
+      "DataBase Management System",
+      "Dynamic Block Memory Storage"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "DBMS = DataBase Management System. E' il software che si interpone tra le applicazioni e i dati fisici, garantendo integrita, concorrenza, ripristino e controllo degli accessi."
+  },
+  {
+    "id": 2,
+    "categoria": "Fondamenti",
+    "domanda": "Quali dei seguenti NON e un requisito fondamentale di un database?",
+    "risposte": [
+      "Ridondanza minima dei dati",
+      "Accesso concorrente di piu utenti",
+      "Velocita massima di inserimento garantita in ogni circostanza",
+      "Persistenza e durabilita dei dati"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I tre requisiti fondamentali sono: ridondanza minima, accesso concorrente e persistenza/durabilita. La velocita massima di inserimento non e un requisito definitorio: viene bilanciata con integrita e sicurezza."
+  },
+  {
+    "id": 3,
+    "categoria": "Fondamenti",
+    "domanda": "Chi propose il modello relazionale nel 1970?",
+    "risposte": [
+      "Edgar F. Codd",
+      "Bill Gates",
+      "Donald Chamberlin",
+      "Charles Bachman"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Edgar F. Codd propose il modello relazionale nel 1970 presso IBM San Jose Research Laboratory, basandosi sulla teoria matematica delle relazioni tra insiemi."
+  },
+  {
+    "id": 4,
+    "categoria": "Fondamenti",
+    "domanda": "Che cosa sono i metadati in un database?",
+    "risposte": [
+      "I dati duplicati per sicurezza su un server di backup",
+      "Le strutture che descrivono come i dati sono organizzati: nomi delle colonne, tipi di dato, vincoli",
+      "I backup automatici generati dal DBMS",
+      "Le query salvate come VIEW nel database"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "I metadati (dati sui dati) descrivono la struttura del database: nomi delle colonne, tipi di dato ammessi, vincoli. Si distinguono dai dati veri e propri che rappresentano le entita del sistema."
+  },
+  {
+    "id": 5,
+    "categoria": "Fondamenti",
+    "domanda": "Qual e il principale vantaggio dell'indipendenza dei dati in un DBMS?",
+    "risposte": [
+      "Le query vengono eseguite automaticamente in parallelo",
+      "I dati vengono crittografati senza configurazione aggiuntiva",
+      "Ogni utente ha la propria copia locale dei dati",
+      "Si puo cambiare la struttura fisica dei dati senza dover riscrivere le applicazioni"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'indipendenza dei dati significa che le applicazioni non conoscono la struttura fisica. Si puo aggiungere una colonna o spostare dati su un altro disco senza riscrivere i programmi che li usano."
+  },
+  {
+    "id": 6,
+    "categoria": "Fondamenti",
+    "domanda": "Quale tra questi e un esempio di database NoSQL?",
+    "risposte": [
+      "PostgreSQL",
+      "MySQL",
+      "Oracle Database",
+      "MongoDB"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "MongoDB e un database NoSQL documentale. PostgreSQL, MySQL e Oracle sono database relazionali che usano SQL. I database NoSQL sono nati negli anni 2000 per gestire grandi volumi di dati non strutturati."
+  },
+  {
+    "id": 7,
+    "categoria": "Modello Relazionale",
+    "domanda": "Nel modello relazionale, cosa rappresenta una 'riga' (row/tupla)?",
+    "risposte": [
+      "Un'istanza specifica dell'entita: un oggetto concreto come un cliente o un prodotto",
+      "Una proprieta dell'entita con il suo tipo di dato",
+      "La struttura completa della tabella (nomi colonne e vincoli)",
+      "L'insieme di tutti i valori possibili per una colonna"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Una riga (detta anche tupla o record) rappresenta un'istanza specifica dell'entita: un cliente concreto, un prodotto reale, un ordine specifico. Le colonne ne descrivono le proprieta."
+  },
+  {
+    "id": 8,
+    "categoria": "Modello Relazionale",
+    "domanda": "Cos'e il 'dominio' di una colonna nel modello relazionale?",
+    "risposte": [
+      "Il nome del database a cui appartiene la tabella",
+      "Il numero massimo di righe che la tabella puo contenere",
+      "L'insieme dei valori ammissibili per quella colonna, definito dal tipo di dato e dai vincoli CHECK",
+      "Il numero di caratteri massimo per le colonne di tipo testo"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il dominio e l'insieme dei valori ammissibili per una colonna. E' definito dal tipo di dato (INT, VARCHAR, DATE...) combinato con eventuali vincoli CHECK. Es: una colonna eta con tipo INT e CHECK (eta >= 0 AND eta <= 130)."
+  },
+  {
+    "id": 9,
+    "categoria": "Modello Relazionale",
+    "domanda": "Cos'e una chiave naturale (natural key)?",
+    "risposte": [
+      "Una chiave artificiale generata automaticamente come SERIAL o UUID",
+      "Un attributo aggiunto appositamente senza significato nel dominio reale",
+      "Un attributo gia presente nell'entita che la identifica naturalmente (es. codice fiscale, ISBN)",
+      "Una chiave composta da due o piu colonne"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Una chiave naturale e un attributo gia significativo nel dominio reale che identifica l'entita (es. codice fiscale per una persona, codice ISBN per un libro). La chiave artificiale (surrogate key) e invece aggiunta appositamente senza significato reale, come un numero progressivo SERIAL."
+  },
+  {
+    "id": 10,
+    "categoria": "Modello Relazionale",
+    "domanda": "Cosa differenzia lo 'schema' dall''istanza' di una tabella?",
+    "risposte": [
+      "Lo schema e il contenuto corrente delle righe; l'istanza e la struttura delle colonne",
+      "Lo schema e la struttura stabile (nomi colonne, tipi, vincoli); l'istanza e il contenuto corrente che cambia con INSERT/UPDATE/DELETE",
+      "Schema e istanza sono sinonimi intercambiabili in SQL",
+      "Lo schema cambia con ogni INSERT; l'istanza rimane immutata"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Lo schema definisce la struttura della tabella (colonne, tipi, vincoli) ed e stabile nel tempo. L'istanza e il contenuto attuale (le righe presenti) e cambia continuamente con le operazioni DML."
+  },
+  {
+    "id": 11,
+    "categoria": "Modello Relazionale",
+    "domanda": "In quale tipo di relazione tra entita una riga della tabella A puo essere associata a molte righe di B e viceversa?",
+    "risposte": [
+      "1:1 (uno a uno)",
+      "1:N (uno a molti)",
+      "N:1 (molti a uno)",
+      "N:N (molti a molti)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La relazione N:N (molti a molti) e quella in cui un'entita A puo essere associata a piu entita B e viceversa. Es: uno studente puo iscriversi a piu corsi, e un corso puo avere piu studenti. Si implementa con una tabella ponte."
+  },
+  {
+    "id": 12,
+    "categoria": "Modello Relazionale",
+    "domanda": "Perche si preferisce spesso una chiave artificiale (surrogate key) rispetto a una chiave naturale?",
+    "risposte": [
+      "Perche e obbligatoriamente un UUID e quindi univoca a livello globale",
+      "Perche occupa sempre meno spazio su disco rispetto alle chiavi naturali",
+      "Perche e piu stabile nel tempo: non cambia di significato e non dipende da regole esterne",
+      "Perche le chiavi naturali non sono supportate da SQL standard"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Le chiavi naturali possono cambiare (es. il codice fiscale puo essere corretto) o creare problemi (sigle riassegnate, duplicati in sistemi diversi). La chiave artificiale (SERIAL, UUID) e stabile, non ha significato nel dominio reale, e non dipende da regole esterne."
+  },
+  {
+    "id": 13,
+    "categoria": "Modello Relazionale",
+    "domanda": "Cosa accade di default (senza opzioni CASCADE) se si tenta di eliminare un record padre che ha righe figlie collegate da una FOREIGN KEY?",
+    "risposte": [
+      "Il padre viene eliminato e le righe figlie vengono impostate a NULL",
+      "Il padre viene eliminato e le righe figlie vengono eliminate a cascata automaticamente",
+      "Il DBMS blocca l'operazione con un errore di violazione dell'integrita referenziale",
+      "Il padre viene eliminato e le righe figlie rimangono invariate (dangling references)"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il comportamento di default e RESTRICT: il DBMS impedisce l'eliminazione del padre se esistono righe figlie che lo referenziano, restituendo un errore. Per avere comportamenti diversi si specificano ON DELETE CASCADE, ON DELETE SET NULL, ecc."
+  },
+  {
+    "id": 14,
+    "categoria": "Modello Relazionale",
+    "domanda": "Perche nel modello relazionale non possono esistere due righe duplicate?",
+    "risposte": [
+      "Perche SQL restituisce un errore di sintassi se si tenta di inserire un duplicato",
+      "Perche matematicamente una tabella e un insieme (set), e gli insiemi non contengono elementi duplicati",
+      "Perche il DBMS ordina automaticamente le righe ed elimina i duplicati",
+      "Perche la PRIMARY KEY e sempre obbligatoria per legge di SQL standard"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Dal punto di vista matematico, una relazione (tabella) e un insieme di tuple. Gli insiemi, per definizione, non contengono elementi duplicati. La PRIMARY KEY e il meccanismo pratico che implementa questa proprieta matematica."
+  },
+  {
+    "id": 15,
+    "categoria": "Normalizzazione",
+    "domanda": "Cos'e la Prima Forma Normale (1NF)?",
+    "risposte": [
+      "Tutti gli attributi non-chiave dipendono funzionalmente dall'intera chiave primaria",
+      "Ogni colonna contiene valori atomici (indivisibili) e non esistono gruppi ripetuti di colonne",
+      "Non esistono dipendenze transitive tra attributi non-chiave",
+      "La tabella ha una e una sola colonna definita NOT NULL"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La 1NF richiede che ogni cella contenga un valore atomico (non divisibile in parti piu piccole con significato autonomo) e che non esistano gruppi ripetuti. Es: una colonna 'telefoni' con piu numeri in una stringa viola la 1NF."
+  },
+  {
+    "id": 16,
+    "categoria": "Normalizzazione",
+    "domanda": "Cos'e la Seconda Forma Normale (2NF)?",
+    "risposte": [
+      "La tabella e in 1NF e tutti gli attributi non-chiave dipendono dall'intera chiave primaria (no dipendenze parziali)",
+      "La tabella non ha attributi multi-valore nelle colonne",
+      "Non esistono dipendenze transitive tra attributi non-chiave",
+      "La tabella ha almeno tre colonne che formano la chiave primaria composta"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La 2NF richiede che la tabella sia in 1NF e che ogni attributo non-chiave dipenda funzionalmente dall'intera chiave primaria. Se la PK e composta e un attributo dipende solo da parte di essa (dipendenza parziale), si viola la 2NF."
+  },
+  {
+    "id": 17,
+    "categoria": "Normalizzazione",
+    "domanda": "Cos'e la Terza Forma Normale (3NF)?",
+    "risposte": [
+      "La tabella e in 1NF e non ci sono attributi ripetuti in nessuna colonna",
+      "La tabella e in 2NF e non esistono dipendenze transitive: nessun attributo non-chiave dipende da un altro attributo non-chiave",
+      "La tabella ha almeno tre chiavi esterne verso altre tabelle",
+      "La tabella non usa JOIN con piu di tre tabelle in nessuna query"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La 3NF richiede che la tabella sia in 2NF e che non esistano dipendenze transitive: nessun attributo non-chiave deve dipendere da un altro attributo non-chiave (solo dalla chiave primaria). Es: se cap determina citta, e citta e un attributo non-chiave, c'e dipendenza transitiva."
+  },
+  {
+    "id": 18,
+    "categoria": "Normalizzazione",
+    "domanda": "Quale anomalia si verifica quando, aggiornando un dato ridondante, si modifica solo in alcune righe creando inconsistenza?",
+    "risposte": [
+      "Anomalia di inserimento",
+      "Anomalia di cancellazione",
+      "Anomalia di aggiornamento",
+      "Anomalia di proiezione"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'anomalia di aggiornamento si verifica quando la stessa informazione e memorizzata in piu righe e si aggiorna solo in alcune: i dati diventano contraddittori. La normalizzazione elimina questa ridondanza memorizzando ogni fatto una sola volta."
+  },
+  {
+    "id": 19,
+    "categoria": "Normalizzazione",
+    "domanda": "Una tabella con colonna 'telefoni' che contiene '333-111, 333-222, 333-333' in una sola cella viola quale forma normale?",
+    "risposte": [
+      "2NF — dipendenza parziale dalla chiave",
+      "3NF — dipendenza transitiva tra attributi",
+      "1NF — il valore non e atomico (contiene piu numeri in una sola cella)",
+      "Non viola nessuna forma normale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La 1NF richiede valori atomici: ogni cella deve contenere un solo valore indivisibile. Una cella con piu numeri di telefono separati da virgola viola la 1NF. La soluzione e creare una tabella separata telefoni con una riga per ogni numero."
+  },
+  {
+    "id": 20,
+    "categoria": "Normalizzazione",
+    "domanda": "Qual e lo scopo principale della normalizzazione di un database?",
+    "risposte": [
+      "Aumentare la velocita di lettura delle query di SELECT",
+      "Ridurre la ridondanza e prevenire anomalie di inserimento, aggiornamento e cancellazione",
+      "Aumentare il numero di tabelle per distribuire il carico del server",
+      "Rendere il database accessibile solo a utenti con permessi specifici"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La normalizzazione mira a eliminare la ridondanza e a progettare uno schema relazionale che eviti anomalie. Attenzione: la normalizzazione puo ridurre le prestazioni delle query (piu JOIN necessari); in certi casi si 'denormalizza' consapevolmente per ottimizzare."
+  },
+  {
+    "id": 21,
+    "categoria": "DDL",
+    "domanda": "Quale comando SQL appartiene al DDL e crea una nuova tabella?",
+    "risposte": [
+      "INSERT TABLE nome (...);",
+      "NEW TABLE nome (...);",
+      "ADD TABLE nome (...);",
+      "CREATE TABLE nome (...);"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "CREATE TABLE e il comando DDL (Data Definition Language) per creare una nuova tabella. Il DDL comprende CREATE, ALTER, DROP, TRUNCATE: comandi che definiscono o modificano la struttura del database, non i dati."
+  },
+  {
+    "id": 22,
+    "categoria": "DDL",
+    "domanda": "Quale comando DDL modifica la struttura di una tabella esistente?",
+    "risposte": [
+      "MODIFY TABLE",
+      "UPDATE TABLE",
+      "ALTER TABLE",
+      "CHANGE TABLE"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ALTER TABLE permette di aggiungere/rimuovere colonne, cambiare tipi di dato, rinominare colonne, aggiungere o rimuovere vincoli. Es: ALTER TABLE libri ADD genere VARCHAR(50);"
+  },
+  {
+    "id": 23,
+    "categoria": "DDL",
+    "domanda": "Cosa fa DROP TABLE nome CASCADE?",
+    "risposte": [
+      "Elimina la tabella solo se e completamente vuota",
+      "Elimina la tabella e tutti gli oggetti (VIEW, FOREIGN KEY) che dipendono da essa",
+      "Elimina i dati ma mantiene la struttura della tabella",
+      "Elimina la tabella solo se non ha vincoli di chiave esterna"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "DROP TABLE nome CASCADE elimina la tabella e a cascata tutti gli oggetti dipendenti: le VIEW che la usano, le FOREIGN KEY di altre tabelle che la referenziano. Senza CASCADE, se esistono dipendenze, il comando restituisce errore (comportamento RESTRICT)."
+  },
+  {
+    "id": 24,
+    "categoria": "DDL",
+    "domanda": "Qual e la differenza principale tra DELETE FROM tabella (senza WHERE) e TRUNCATE TABLE tabella?",
+    "risposte": [
+      "DELETE e piu veloce; TRUNCATE e piu lento e sicuro",
+      "TRUNCATE e piu veloce perche non registra ogni riga nel log delle transazioni; DELETE le registra tutte",
+      "DELETE mantiene la struttura della tabella; TRUNCATE la elimina insieme ai dati",
+      "Non c'e differenza pratica: producono lo stesso risultato con le stesse prestazioni"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "TRUNCATE svuota la tabella senza registrare ogni singola riga eliminata nel transaction log, quindi e molto piu veloce su tabelle grandi. Entrambi mantengono la struttura della tabella. TRUNCATE con RESTART IDENTITY azzera anche i contatori SERIAL."
+  },
+  {
+    "id": 25,
+    "categoria": "DDL",
+    "domanda": "Cosa fa ALTER TABLE libri ADD genere VARCHAR(50)?",
+    "risposte": [
+      "Elimina la colonna 'genere' dalla tabella libri",
+      "Rinomina la colonna esistente in 'genere'",
+      "Aggiunge una nuova colonna 'genere' di tipo VARCHAR(50) alla tabella libri",
+      "Cambia il tipo della colonna 'genere' esistente in VARCHAR(50)"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ALTER TABLE ... ADD aggiunge una nuova colonna alla tabella. La nuova colonna verra popolata con NULL per tutte le righe esistenti, a meno che non si specifichi un DEFAULT."
+  },
+  {
+    "id": 26,
+    "categoria": "DDL",
+    "domanda": "Cosa fa un indice (INDEX) in SQL?",
+    "risposte": [
+      "Accelera le query di ricerca su colonne frequentemente usate in WHERE e JOIN, a scapito di INSERT/UPDATE/DELETE",
+      "Garantisce l'unicita dei valori in una colonna",
+      "Crea un backup automatico della tabella su disco",
+      "Collega due tabelle con una chiave esterna automatica"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Un indice accelera le operazioni di ricerca (SELECT con WHERE, ORDER BY, JOIN) permettendo al DBMS di trovare le righe senza scansionare l'intera tabella. Il costo e che INSERT, UPDATE e DELETE diventano leggermente piu lenti perche l'indice va aggiornato."
+  },
+  {
+    "id": 27,
+    "categoria": "DDL",
+    "domanda": "Quale tipo di dato si usa in PostgreSQL per una colonna con valore intero auto-incrementante (chiave primaria)?",
+    "risposte": [
+      "AUTOINCREMENT INT",
+      "IDENTITY(1,1)",
+      "SERIAL",
+      "AUTO_INCREMENT"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In PostgreSQL, SERIAL e il tipo (scorciatoia) per una colonna intera con sequenza auto-incrementante. E' equivalente a INT DEFAULT nextval('sequenza'). In SQL standard recente si usa GENERATED ALWAYS AS IDENTITY."
+  },
+  {
+    "id": 28,
+    "categoria": "DDL",
+    "domanda": "Cosa fa DROP TABLE IF EXISTS nome?",
+    "risposte": [
+      "Elimina la tabella e restituisce errore se non esiste",
+      "Elimina la tabella solo se e vuota, altrimenti restituisce errore",
+      "Elimina la tabella se esiste, senza errore se non esiste",
+      "Verifica l'esistenza della tabella senza eliminarla"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "IF EXISTS e un modificatore di sicurezza: se la tabella non esiste, il comando termina senza errore invece di sollevare un'eccezione. Utile negli script di setup dove non si sa con certezza se la tabella esiste."
+  },
+  {
+    "id": 29,
+    "categoria": "DDL",
+    "domanda": "Cos'e uno SCHEMA in PostgreSQL?",
+    "risposte": [
+      "Un file di configurazione del database salvato su disco",
+      "Un namespace (contenitore logico) che organizza le tabelle all'interno di un database",
+      "La struttura fisica dei file di dati sul filesystem",
+      "Un tipo di indice speciale per le colonne di chiave primaria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Uno schema e un namespace logico all'interno di un database che raggruppa tabelle, VIEW e altri oggetti. Permette di organizzare gli oggetti e gestire i permessi in modo granulare. Lo schema di default in PostgreSQL si chiama 'public'."
+  },
+  {
+    "id": 30,
+    "categoria": "DDL",
+    "domanda": "Quale clausola di ALTER TABLE rinomina una colonna in PostgreSQL?",
+    "risposte": [
+      "ALTER COLUMN vecchio TO nuovo",
+      "CHANGE COLUMN vecchio nuovo",
+      "MODIFY COLUMN vecchio AS nuovo",
+      "RENAME COLUMN vecchio TO nuovo"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La sintassi corretta in PostgreSQL e: ALTER TABLE nome_tabella RENAME COLUMN nome_vecchio TO nome_nuovo; Per rinominare la tabella stessa si usa: ALTER TABLE nome RENAME TO nuovo_nome;"
+  },
+  {
+    "id": 31,
+    "categoria": "DDL",
+    "domanda": "Un UNIQUE INDEX creato su una colonna differisce da un semplice INDEX per quale motivo?",
+    "risposte": [
+      "Il UNIQUE INDEX e piu veloce nelle ricerche",
+      "Il UNIQUE INDEX impedisce l'inserimento di valori duplicati in quella colonna, oltre ad accelerare le ricerche",
+      "Il UNIQUE INDEX ordina i dati fisicamente su disco",
+      "Il UNIQUE INDEX sostituisce la PRIMARY KEY"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "CREATE UNIQUE INDEX crea un indice che, oltre ad accelerare le ricerche, garantisce che tutti i valori della colonna (o combinazione di colonne) indicizzata siano univoci. E' un'alternativa al vincolo UNIQUE definito nella tabella."
+  },
+  {
+    "id": 32,
+    "categoria": "DDL",
+    "domanda": "Cosa fa ALTER TABLE t ALTER COLUMN col TYPE SMALLINT?",
+    "risposte": [
+      "Aggiunge un vincolo CHECK che limita il valore a SMALLINT",
+      "Cambia il tipo di dato della colonna col da quello attuale a SMALLINT",
+      "Rinomina la colonna col in SMALLINT",
+      "Crea un nuovo indice di tipo SMALLINT sulla colonna col"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "ALTER COLUMN col TYPE nuovo_tipo modifica il tipo di dato di una colonna esistente. Il DBMS tenta la conversione dei valori gia presenti: se la conversione non e possibile (es. testo non convertibile in intero), restituisce errore."
+  },
+  {
+    "id": 33,
+    "categoria": "DML",
+    "domanda": "Quale comando DML inserisce nuovi dati in una tabella?",
+    "risposte": [
+      "INSERT INTO tabella (colonne) VALUES (valori);",
+      "ADD INTO tabella (colonne) VALUES (valori);",
+      "PUT INTO tabella (colonne) VALUES (valori);",
+      "APPEND INTO tabella (colonne) VALUES (valori);"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "INSERT INTO e il comando DML per inserire nuovi record. E' buona pratica specificare sempre la lista delle colonne (INSERT INTO t (col1, col2) VALUES ...) per rendere il codice robusto a future modifiche della struttura della tabella."
+  },
+  {
+    "id": 34,
+    "categoria": "DML",
+    "domanda": "Cosa succede se si esegue UPDATE libri SET prezzo = 0 senza la clausola WHERE?",
+    "risposte": [
+      "Il comando restituisce un errore: WHERE e obbligatoria in UPDATE",
+      "Solo la prima riga della tabella viene aggiornata con prezzo = 0",
+      "Tutte le righe della tabella libri vengono aggiornate con prezzo = 0",
+      "Il DBMS chiede conferma prima di procedere"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Senza WHERE, UPDATE modifica TUTTE le righe della tabella. Non c'e nessun errore di sintassi, ma l'effetto puo essere disastroso. Buona pratica: eseguire prima un SELECT con la stessa condizione per verificare quali righe verranno modificate."
+  },
+  {
+    "id": 35,
+    "categoria": "DML",
+    "domanda": "Quale clausola PostgreSQL (non standard SQL) restituisce i valori delle righe appena inserite, modificate o eliminate?",
+    "risposte": [
+      "OUTPUT",
+      "RESULT",
+      "ECHO",
+      "RETURNING"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "RETURNING e una clausola PostgreSQL che restituisce i valori delle righe appena toccate. Utile per recuperare l'id generato automaticamente da SERIAL dopo un INSERT, senza dover fare una seconda SELECT."
+  },
+  {
+    "id": 36,
+    "categoria": "DML",
+    "domanda": "Qual e la sintassi corretta per inserire piu righe con un unico INSERT?",
+    "risposte": [
+      "INSERT MULTIPLE INTO t VALUES (1,'A'),(2,'B');",
+      "INSERT INTO t VALUES (1,'A'), (2,'B');",
+      "INSERT INTO t VALUES (1,'A'); INSERT INTO t VALUES (2,'B');",
+      "INSERT INTO t ROWS (1,'A'),(2,'B');"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'INSERT multiplo usa una lista di valori separati da virgola: INSERT INTO t (col1, col2) VALUES (1,'A'), (2,'B'), (3,'C'); E' molto piu efficiente di INSERT separati perche riduce il numero di round-trip con il database."
+  },
+  {
+    "id": 37,
+    "categoria": "DML",
+    "domanda": "Come si aggiornano due colonne contemporaneamente con un singolo UPDATE?",
+    "risposte": [
+      "UPDATE t SET col1=v1 AND col2=v2 WHERE cond;",
+      "UPDATE t SET col1=v1 SET col2=v2 WHERE cond;",
+      "UPDATE t SET col1=v1, col2=v2 WHERE cond;",
+      "UPDATE t MODIFY col1=v1, col2=v2 WHERE cond;"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nella clausola SET di UPDATE, le assegnazioni multiple vanno separate da virgola: SET col1=v1, col2=v2. Non si usa AND (che e un operatore logico per WHERE) ne SET ripetuto."
+  },
+  {
+    "id": 38,
+    "categoria": "DML",
+    "domanda": "Cosa permette di fare INSERT INTO ... SELECT ...?",
+    "risposte": [
+      "Creare una nuova tabella con la struttura e i dati di una query SELECT",
+      "Aggiornare righe esistenti con dati letti da un'altra tabella",
+      "Inserire dati letti da un'altra tabella (o query) senza doverli elencare manualmente",
+      "Creare una VIEW da una query SELECT con un nome permanente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "INSERT INTO tabella_destinazione (col1, col2) SELECT col1, col2 FROM tabella_sorgente WHERE condizione; permette di copiare dati da una tabella all'altra in una sola operazione. Utile per archiviazioni o migrazioni di dati."
+  },
+  {
+    "id": 39,
+    "categoria": "DML",
+    "domanda": "Perche si consiglia di specificare esplicitamente le colonne in un INSERT?",
+    "risposte": [
+      "Perche senza la lista di colonne INSERT non compila in nessun DBMS",
+      "Per chiarezza e robustezza: se si aggiunge una colonna alla tabella in futuro, l'INSERT rimane valido",
+      "Perche e l'unico modo per inserire valori NULL in una colonna",
+      "Perche velocizza significativamente l'operazione di inserimento"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "INSERT INTO t VALUES (...) senza lista di colonne richiede che i valori siano nell'ordine esatto e completo della definizione. Se si aggiunge una colonna alla tabella, tutti questi INSERT si rompono. Specificare le colonne rende il codice resiliente alle modifiche dello schema."
+  },
+  {
+    "id": 40,
+    "categoria": "DML",
+    "domanda": "Cosa fa DELETE FROM libri WHERE anno < 1900?",
+    "risposte": [
+      "Aggiorna a NULL i valori della colonna anno dove anno < 1900",
+      "Seleziona le righe dove anno < 1900 senza modificarle",
+      "Elimina dalla tabella libri tutte le righe dove la colonna anno e minore di 1900",
+      "Sposta le righe dove anno < 1900 in una tabella di archivio"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "DELETE FROM tabella WHERE condizione elimina fisicamente dal database tutte le righe che soddisfano la condizione. L'operazione e irreversibile (a meno di ROLLBACK se si e in una transazione). Non seleziona, non aggiorna: elimina."
+  },
+  {
+    "id": 41,
+    "categoria": "Vincoli",
+    "domanda": "Quale vincolo SQL garantisce che una colonna non possa contenere valori NULL?",
+    "risposte": [
+      "UNIQUE",
+      "CHECK",
+      "NOT NULL",
+      "REQUIRED"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "NOT NULL e il vincolo che obbliga ogni riga a fornire un valore non nullo per quella colonna. E' diverso da UNIQUE (garantisce l'assenza di duplicati) e da PRIMARY KEY (che implica entrambi NOT NULL e UNIQUE)."
+  },
+  {
+    "id": 42,
+    "categoria": "Vincoli",
+    "domanda": "Cosa fa il vincolo CHECK su una colonna?",
+    "risposte": [
+      "Verifica che il valore inserito soddisfi una condizione logica specificata dallo sviluppatore",
+      "Verifica che il valore non sia duplicato nella tabella",
+      "Verifica che il valore non sia NULL",
+      "Verifica che il valore sia una chiave esterna valida in un'altra tabella"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "CHECK permette di definire una regola di validazione arbitraria. Es: CHECK (eta >= 0 AND eta <= 130), CHECK (prezzo >= 0), CHECK (stato IN ('attivo','inattivo')). Il DBMS rifiuta qualsiasi INSERT o UPDATE che viola la condizione."
+  },
+  {
+    "id": 43,
+    "categoria": "Vincoli",
+    "domanda": "Cosa fa ON DELETE CASCADE su una FOREIGN KEY?",
+    "risposte": [
+      "Blocca l'eliminazione del record padre se esistono righe figlie",
+      "Imposta la colonna FK delle righe figlie a NULL quando il padre viene eliminato",
+      "Elimina automaticamente le righe figlie quando il record padre viene eliminato",
+      "Imposta la FK delle righe figlie al valore DEFAULT quando il padre viene eliminato"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ON DELETE CASCADE elimina automaticamente le righe figlie quando il padre viene eliminato. Utile per relazioni di dipendenza forte (es. eliminare un autore elimina anche tutti i suoi libri). Va usato con cautela per evitare eliminazioni inattese a cascata."
+  },
+  {
+    "id": 44,
+    "categoria": "Vincoli",
+    "domanda": "Quante PRIMARY KEY puo avere una singola tabella?",
+    "risposte": [
+      "Nessun limite: una per ogni colonna NOT NULL",
+      "Due al massimo: una semplice e una composta",
+      "Una sola (anche se puo essere composta da piu colonne)",
+      "Tre al massimo secondo lo standard SQL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Ogni tabella puo avere una e una sola PRIMARY KEY. Puo pero essere composta da piu colonne (chiave primaria composta). PRIMARY KEY implica NOT NULL + UNIQUE su tutte le colonne che la compongono."
+  },
+  {
+    "id": 45,
+    "categoria": "Vincoli",
+    "domanda": "Qual e la differenza tra PRIMARY KEY e UNIQUE come vincoli?",
+    "risposte": [
+      "PRIMARY KEY ammette NULL; UNIQUE non lo ammette",
+      "UNIQUE ammette NULL (in PostgreSQL anche multipli NULL); PRIMARY KEY non ammette mai NULL",
+      "PRIMARY KEY e UNIQUE sono identici: entrambi garantiscono unicita e non-nullita",
+      "PRIMARY KEY permette duplicati; UNIQUE no"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "PRIMARY KEY implica NOT NULL + UNIQUE. UNIQUE garantisce l'unicita ma ammette NULL (in PostgreSQL piu righe possono avere NULL in una colonna UNIQUE, perche NULL non e uguale a NULL). Una tabella puo avere una sola PK ma piu vincoli UNIQUE."
+  },
+  {
+    "id": 46,
+    "categoria": "Vincoli",
+    "domanda": "Cosa fa il vincolo DEFAULT su una colonna?",
+    "risposte": [
+      "Impedisce l'inserimento di valori NULL in quella colonna",
+      "Verifica che il valore sia compreso in un intervallo definito",
+      "Imposta un valore automatico quando nell'INSERT non viene specificato un valore per quella colonna",
+      "Imposta il valore come chiave primaria della tabella"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "DEFAULT fornisce un valore preimpostato per la colonna quando l'INSERT non lo specifica. Esempi: DEFAULT 0, DEFAULT 'disponibile', DEFAULT TRUE, DEFAULT NOW() (timestamp corrente). La colonna puo ancora ricevere NULL esplicitamente se non e anche NOT NULL."
+  },
+  {
+    "id": 47,
+    "categoria": "Vincoli",
+    "domanda": "Come si aggiunge un vincolo FOREIGN KEY a una tabella gia esistente?",
+    "risposte": [
+      "CREATE FOREIGN KEY ON tabella (col) REFERENCES altra(pk);",
+      "INSERT CONSTRAINT FOREIGN KEY INTO tabella (col);",
+      "MODIFY TABLE tabella FOREIGN KEY (col) REFERENCES altra(pk);",
+      "ALTER TABLE tabella ADD CONSTRAINT nome FOREIGN KEY (col) REFERENCES altra(pk);"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Si usa ALTER TABLE con ADD CONSTRAINT per aggiungere qualsiasi vincolo a una tabella esistente: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK. I vincoli con nome (CONSTRAINT nome ...) possono essere successivamente rimossi con ALTER TABLE t DROP CONSTRAINT nome."
+  },
+  {
+    "id": 48,
+    "categoria": "Vincoli",
+    "domanda": "Cosa fa ON DELETE SET NULL su una FOREIGN KEY?",
+    "risposte": [
+      "Blocca l'eliminazione del padre se esistono righe figlie",
+      "Imposta la colonna FK della riga figlia a NULL quando il padre viene eliminato",
+      "Elimina le righe figlie insieme al padre",
+      "Imposta la FK al valore DEFAULT quando il padre viene eliminato"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "ON DELETE SET NULL imposta la colonna FK delle righe figlie a NULL quando il record padre viene eliminato. Richiede che la colonna FK sia definita come nullable (senza NOT NULL). Alternativa: ON DELETE SET DEFAULT usa il valore di default della colonna."
+  },
+  {
+    "id": 49,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Cosa fa la parola chiave DISTINCT in un SELECT?",
+    "risposte": [
+      "Ordina le righe in modo decrescente per la prima colonna",
+      "Elimina i valori NULL dal risultato della query",
+      "Restituisce solo le righe con valori distinti, rimuovendo i duplicati",
+      "Seleziona solo le righe che soddisfano una condizione booleana"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SELECT DISTINCT elimina le righe duplicate nel risultato. Attenzione: opera su tutte le colonne del SELECT combinate. SELECT DISTINCT col1, col2 restituisce combinazioni uniche di (col1, col2), non i valori unici di ogni colonna separatamente."
+  },
+  {
+    "id": 50,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Quale clausola SQL ordina il risultato di una query?",
+    "risposte": [
+      "SORT BY colonna",
+      "ARRANGE BY colonna",
+      "ORDER BY colonna",
+      "GROUP BY colonna"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ORDER BY ordina il risultato della query. Di default l'ordine e ASC (crescente). Si usa DESC per ordine decrescente. Si possono specificare piu colonne: ORDER BY cognome ASC, nome DESC. Senza ORDER BY, l'ordine del risultato non e garantito."
+  },
+  {
+    "id": 51,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Cosa fa la clausola LIMIT 10 in una query SELECT?",
+    "risposte": [
+      "Limita il numero di colonne nel risultato a 10",
+      "Restituisce solo le prime 10 righe del risultato",
+      "Impone un timeout di 10 secondi alla query",
+      "Limita la query a un massimo di 10 JOIN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "LIMIT N restituisce al massimo N righe dal risultato. Usato spesso con ORDER BY per ottenere i 'top N' (es. i 10 libri piu costosi). In SQL Server si usa TOP N; in Oracle si usa ROWNUM o FETCH FIRST N ROWS ONLY."
+  },
+  {
+    "id": 52,
+    "categoria": "SELECT e Clausole",
+    "domanda": "A cosa serve OFFSET in combinazione con LIMIT?",
+    "risposte": [
+      "Esclude i valori NULL dalle prime N righe del risultato",
+      "Imposta il punto di partenza per ORDER BY",
+      "Salta le prime N righe prima di applicare LIMIT: usato per implementare la paginazione",
+      "Calcola l'offset (distanza) tra i valori della colonna"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "LIMIT 10 OFFSET 20 salta le prime 20 righe e restituisce le successive 10 (righe 21-30). E' il meccanismo classico per la paginazione: pagina 1 = OFFSET 0, pagina 2 = OFFSET 10, pagina 3 = OFFSET 20, ecc."
+  },
+  {
+    "id": 53,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Qual e la differenza tra proiezione e selezione nell'algebra relazionale applicata a SQL?",
+    "risposte": [
+      "La proiezione filtra le righe (usa WHERE); la selezione filtra le colonne (usa SELECT)",
+      "La proiezione sceglie quali colonne includere (SELECT); la selezione (restrizione) sceglie quali righe includere (WHERE)",
+      "Proiezione e selezione sono sinonimi in SQL moderno",
+      "La proiezione raggruppa le righe; la selezione le ordina"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Dall'algebra relazionale di Codd: la proiezione riduce le colonne (implementata con la lista di colonne nel SELECT), la selezione/restrizione riduce le righe (implementata con WHERE). Una tipica query applica entrambe le operazioni."
+  },
+  {
+    "id": 54,
+    "categoria": "SELECT e Clausole",
+    "domanda": "La clausola HAVING puo essere usata senza GROUP BY?",
+    "risposte": [
+      "No, HAVING richiede sempre GROUP BY: e un errore di sintassi",
+      "Si, HAVING senza GROUP BY opera sull'intera tabella come un unico gruppo e puo filtrare con funzioni aggregate",
+      "No, HAVING richiede GROUP BY e almeno un JOIN",
+      "Si, ma in quel caso HAVING e identico a WHERE"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "HAVING senza GROUP BY e valido: la tabella intera viene trattata come un unico gruppo. Es: HAVING COUNT(*) > 100 verifica se la tabella ha piu di 100 righe in totale. In pratica e raro: di solito si usa HAVING insieme a GROUP BY."
+  },
+  {
+    "id": 55,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Cosa visualizza la query SELECT DISTINCT nazionalita FROM autori?",
+    "risposte": [
+      "Tutte le nazionalita presenti nella tabella, incluse le righe duplicate",
+      "Il numero di nazionalita distinte come valore numerico",
+      "Le nazionalita distinte presenti, senza ripetizioni",
+      "Le nazionalita ordinate alfabeticamente con il loro conteggio"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SELECT DISTINCT restituisce la lista delle nazionalita uniche presenti nella tabella autori, rimuovendo i duplicati. Se ci sono 50 autori italiani, 'Italiana' appare una sola volta nel risultato."
+  },
+  {
+    "id": 56,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Qual e il corretto ordine di esecuzione logica delle clausole di una query SELECT?",
+    "risposte": [
+      "SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY",
+      "FROM -> JOIN -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT",
+      "WHERE -> FROM -> SELECT -> GROUP BY -> HAVING -> ORDER BY",
+      "FROM -> SELECT -> WHERE -> GROUP BY -> ORDER BY -> HAVING"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'ordine di esecuzione logica e: FROM (fonte) -> JOIN -> WHERE (filtro righe) -> GROUP BY -> HAVING (filtro gruppi) -> SELECT (proiezione) -> ORDER BY -> LIMIT. Questo spiega perche WHERE non puo usare alias definiti nel SELECT (vengono dopo)."
+  },
+  {
+    "id": 57,
+    "categoria": "SELECT e Clausole",
+    "domanda": "Cosa fa la clausola AS in un SELECT?",
+    "risposte": [
+      "Assegna un alias (nome alternativo) a una colonna o espressione nel risultato della query",
+      "Crea una copia permanente della tabella con il nome indicato",
+      "Converte il tipo di dato della colonna nel tipo specificato",
+      "Filtra le righe dove il valore e 'as' (uguale alla stringa)"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "AS assegna un alias leggibile: SELECT prezzo * 1.22 AS prezzo_con_iva. L'alias non modifica i dati nella tabella, esiste solo nell'output della query. E' essenziale per le espressioni calcolate che altrimenti avrebbero nomi come '?column?'."
+  },
+  {
+    "id": 58,
+    "categoria": "Operatori WHERE",
+    "domanda": "L'operatore BETWEEN 10 AND 20 include o esclude i valori agli estremi?",
+    "risposte": [
+      "Li include entrambi: e equivalente a >= 10 AND <= 20",
+      "Li esclude entrambi: e equivalente a > 10 AND < 20",
+      "Include il primo (10) ma esclude il secondo (20)",
+      "Dipende dal tipo di dato della colonna"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "BETWEEN val1 AND val2 e equivalente a col >= val1 AND col <= val2: gli estremi sono sempre inclusi. Funziona su numeri, date e stringhe (con ordine lessicografico). L'ordine e importante: BETWEEN 20 AND 10 non restituisce mai nessuna riga."
+  },
+  {
+    "id": 59,
+    "categoria": "Operatori WHERE",
+    "domanda": "L'operatore IN ('Roma', 'Milano', 'Torino') e equivalente a quale condizione?",
+    "risposte": [
+      "citta LIKE 'Roma' AND citta LIKE 'Milano' AND citta LIKE 'Torino'",
+      "citta = 'Roma' AND citta = 'Milano' AND citta = 'Torino'",
+      "citta = 'Roma' OR citta = 'Milano' OR citta = 'Torino'",
+      "citta BETWEEN 'Roma' AND 'Torino'"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "IN (v1, v2, v3) e syntactic sugar per col = v1 OR col = v2 OR col = v3. E' piu leggibile e scalabile: se la lista diventa lunga, IN rimane pulito. IN puo anche accettare una subquery: WHERE id IN (SELECT id FROM altra_tabella)."
+  },
+  {
+    "id": 60,
+    "categoria": "Operatori WHERE",
+    "domanda": "Cosa trova il pattern LIKE '%one%'?",
+    "risposte": [
+      "Solo le stringhe che iniziano esattamente con 'one'",
+      "Solo le stringhe che finiscono esattamente con 'one'",
+      "Qualsiasi stringa che contiene 'one' in qualsiasi posizione",
+      "Stringhe di esattamente 5 caratteri con 'one' al centro"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il % in LIKE corrisponde a qualsiasi sequenza di zero o piu caratteri. '%one%' trova 'one', 'Bone', 'money', 'telefone', ecc. Analogamente: 'one%' trova stringhe che iniziano con 'one'; '%one' trova stringhe che finiscono con 'one'."
+  },
+  {
+    "id": 61,
+    "categoria": "Operatori WHERE",
+    "domanda": "Il carattere jolly _ in LIKE rappresenta:",
+    "risposte": [
+      "Qualsiasi sequenza di zero o piu caratteri (come %)",
+      "Esattamente un singolo carattere qualsiasi",
+      "Un carattere numerico (cifra 0-9)",
+      "L'inizio o la fine della stringa"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il carattere _ in LIKE corrisponde esattamente a un singolo carattere qualsiasi. Es: '198_' trova '1980', '1984', '1989' ma non '19800'. '___' trova stringhe di esattamente 3 caratteri. Il carattere % invece trova sequenze di qualsiasi lunghezza, anche vuota."
+  },
+  {
+    "id": 62,
+    "categoria": "Operatori WHERE",
+    "domanda": "LIKE e case-sensitive in PostgreSQL. Quale alternativa case-insensitive offre PostgreSQL?",
+    "risposte": [
+      "LIKE* (con asterisco)",
+      "CLIKE",
+      "ILIKE",
+      "SLIKE"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ILIKE e la variante case-insensitive di LIKE specifica di PostgreSQL. Con ILIKE, 'Italia' e 'ITALIA' e 'italia' si considerano uguali. In MySQL, LIKE e case-insensitive di default per le collation standard."
+  },
+  {
+    "id": 63,
+    "categoria": "Operatori WHERE",
+    "domanda": "Data la condizione WHERE eta > 18 AND citta = 'Roma' OR professione = 'Medico', come viene valutata per la precedenza degli operatori?",
+    "risposte": [
+      "(eta > 18 AND citta = 'Roma') OR professione = 'Medico'",
+      "eta > 18 AND (citta = 'Roma' OR professione = 'Medico')",
+      "eta > 18 OR (citta = 'Roma' AND professione = 'Medico')",
+      "Tutte le condizioni hanno uguale priorita e si valutano da sinistra a destra"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La precedenza degli operatori logici in SQL e: NOT > AND > OR. AND lega piu stretto di OR. Quindi la condizione viene valutata come (eta > 18 AND citta = 'Roma') OR professione = 'Medico'. Per cambiare la logica occorrono parentesi esplicite."
+  },
+  {
+    "id": 64,
+    "categoria": "Operatori WHERE",
+    "domanda": "Cosa succede se si usa WHERE col NOT IN (1, 2, NULL)?",
+    "risposte": [
+      "Funziona normalmente: restituisce tutte le righe dove col non e 1, 2 o NULL",
+      "Non restituisce mai nessuna riga, perche il confronto col <> NULL e sempre UNKNOWN",
+      "Restituisce solo le righe dove col IS NULL",
+      "Restituisce un errore di sintassi: NULL non puo stare in una lista IN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "In logica a tre valori, col <> NULL e sempre UNKNOWN. Se la lista di NOT IN contiene NULL, per ogni riga la condizione diventa UNKNOWN (non TRUE), quindi nessuna riga viene restituita. Soluzione: usare NOT EXISTS invece di NOT IN quando la subquery potrebbe produrre NULL."
+  },
+  {
+    "id": 65,
+    "categoria": "Operatori WHERE",
+    "domanda": "Quale query trova tutti gli autori il cui nome inizia con 'M' o con 'G'?",
+    "risposte": [
+      "WHERE nome LIKE 'M%' OR nome LIKE 'G%'",
+      "WHERE nome IN ('M', 'G')",
+      "WHERE nome BETWEEN 'G' AND 'M'",
+      "WHERE nome LIKE '[MG]%'"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La soluzione corretta in SQL standard e usare OR con due condizioni LIKE separate. WHERE nome LIKE '[MG]%' funziona in SQL Server ma non in PostgreSQL (che non supporta le classi di caratteri in LIKE, ma usa le espressioni regolari con ~). BETWEEN includerebbe anche lettere come H, I, J, K, L."
+  },
+  {
+    "id": 66,
+    "categoria": "Operatori WHERE",
+    "domanda": "La condizione BETWEEN '2020-01-01' AND '2020-12-31' su una colonna DATE include il 31 dicembre 2020?",
+    "risposte": [
+      "No, BETWEEN esclude sempre il secondo estremo",
+      "Si, BETWEEN include sempre entrambi gli estremi",
+      "Dipende dal DBMS: alcuni includono, altri escludono",
+      "No, BETWEEN per le date usa intervalli esclusivi"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "BETWEEN include sempre entrambi gli estremi, indipendentemente dal tipo di dato (numeri, date, stringhe). '2020-12-31' e incluso nel risultato. Attenzione: se la colonna e TIMESTAMP, BETWEEN '2020-12-31' esclude le ore successive alla mezzanotte del 31/12/2020."
+  },
+  {
+    "id": 67,
+    "categoria": "Operatori WHERE",
+    "domanda": "Come si cerca correttamente un valore NULL in una colonna SQL?",
+    "risposte": [
+      "WHERE colonna = NULL",
+      "WHERE colonna == NULL",
+      "WHERE colonna IS NULL",
+      "WHERE colonna <> NOT NULL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'unico modo corretto per trovare valori NULL e IS NULL (o IS NOT NULL per l'opposto). Il confronto col = NULL restituisce sempre UNKNOWN (mai TRUE) perche NULL non e uguale a nulla, nemmeno a se stesso, nella logica a tre valori di SQL."
+  },
+  {
+    "id": 68,
+    "categoria": "JOIN",
+    "domanda": "Quante righe produce un INNER JOIN tra tabella A (10 righe) e tabella B (8 righe) se nessuna riga ha corrispondenza?",
+    "risposte": [
+      "18 righe (10 + 8)",
+      "80 righe (prodotto cartesiano)",
+      "10 righe (il massimo tra le due tabelle)",
+      "0 righe"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'INNER JOIN include nel risultato SOLO le righe che hanno una corrispondenza in entrambe le tabelle. Se nessuna riga della tabella A corrisponde a nessuna riga della tabella B, il risultato e vuoto: 0 righe."
+  },
+  {
+    "id": 69,
+    "categoria": "JOIN",
+    "domanda": "Cosa fa il trucco LEFT JOIN + WHERE tabella_destra.col IS NULL?",
+    "risposte": [
+      "Trova le righe della tabella sinistra che hanno corrispondenza nella destra",
+      "Trova le righe della tabella sinistra che NON hanno corrispondenza nella destra (anti-join)",
+      "Elimina i NULL dalla tabella destra",
+      "Converte il LEFT JOIN in un INNER JOIN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Con LEFT JOIN, le colonne della tabella destra sono NULL dove non c'e corrispondenza. Filtrando con WHERE tabella_destra.col IS NULL si trovano esattamente le righe senza corrispondenza (anti-join). Es: tutti i clienti senza ordini, tutti i prodotti mai venduti."
+  },
+  {
+    "id": 70,
+    "categoria": "JOIN",
+    "domanda": "Qual e il risultato di un CROSS JOIN tra una tabella di 6 righe e una di 7 righe?",
+    "risposte": [
+      "13 righe (6 + 7)",
+      "42 righe (prodotto cartesiano 6 x 7)",
+      "6 righe (il minimo tra le due tabelle)",
+      "Dipende dalla condizione ON specificata"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il CROSS JOIN produce il prodotto cartesiano: ogni riga della prima tabella si combina con ogni riga della seconda. Nessuna condizione ON. 6 x 7 = 42 righe. Utile per generare tutte le combinazioni possibili (es. taglie x colori x modelli)."
+  },
+  {
+    "id": 71,
+    "categoria": "JOIN",
+    "domanda": "Il FULL OUTER JOIN restituisce:",
+    "risposte": [
+      "Solo le righe con corrispondenza in entrambe le tabelle",
+      "Tutte le righe della tabella sinistra, con NULL dove manca la corrispondenza destra",
+      "Il prodotto cartesiano di entrambe le tabelle senza condizioni",
+      "Tutte le righe di entrambe le tabelle, con NULL dove manca la corrispondenza in una delle due direzioni"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il FULL OUTER JOIN e la combinazione di LEFT e RIGHT JOIN: restituisce tutte le righe di entrambe le tabelle. Dove manca corrispondenza in un lato, le colonne di quel lato sono NULL. Usato raramente, ma utile per individuare i 'buchi' in entrambe le direzioni."
+  },
+  {
+    "id": 72,
+    "categoria": "JOIN",
+    "domanda": "In una query con piu JOIN, l'ordine delle tabelle influisce sul risultato logico?",
+    "risposte": [
+      "Si, sempre: cambiare ordine produce sempre risultati diversi",
+      "No per INNER JOIN (risultato equivalente); si per LEFT/RIGHT JOIN dove cambia quale tabella e quella 'principale'",
+      "No mai: il DBMS ottimizza sempre l'ordine automaticamente",
+      "Si, ma solo quando si usano piu di tre tabelle contemporaneamente"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per INNER JOIN, A JOIN B e B JOIN A producono lo stesso risultato (logicamente commutativo). Per LEFT JOIN, l'ordine e fondamentale: A LEFT JOIN B restituisce tutte le righe di A; B LEFT JOIN A restituisce tutte le righe di B — risultati diversi."
+  },
+  {
+    "id": 73,
+    "categoria": "JOIN",
+    "domanda": "Qual e la condizione ON corretta in un SELF JOIN della tabella dipendenti per collegare ogni dipendente al suo manager (la tabella ha colonne: id, nome, manager_id)?",
+    "risposte": [
+      "ON d.id = m.id",
+      "ON d.manager_id = m.manager_id",
+      "ON d.manager_id = m.id",
+      "ON d.id = m.manager_id"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In un SELF JOIN (FROM dipendenti d JOIN dipendenti m ...), d e l'alias per i dipendenti, m e l'alias per i manager. La condizione corretta e ON d.manager_id = m.id: il manager_id del dipendente deve corrispondere all'id del manager nella stessa tabella."
+  },
+  {
+    "id": 74,
+    "categoria": "JOIN",
+    "domanda": "Cos'e un NATURAL JOIN?",
+    "risposte": [
+      "Un JOIN automatico su tutte le colonne con lo stesso nome nelle due tabelle, senza condizione ON esplicita",
+      "Un JOIN che usa una condizione ON esplicita definita dallo sviluppatore",
+      "Un JOIN tra una tabella e se stessa con due alias diversi",
+      "Un JOIN che include automaticamente le righe senza corrispondenza come un FULL OUTER JOIN"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "NATURAL JOIN individua automaticamente le colonne con lo stesso nome nelle due tabelle e le usa come condizione di join. E' generalmente sconsigliato in produzione: se si aggiunge una colonna con lo stesso nome a una delle tabelle, il join cambia comportamento silenziosamente."
+  },
+  {
+    "id": 75,
+    "categoria": "JOIN",
+    "domanda": "Un RIGHT JOIN tra A e B e equivalente a quale altra forma di JOIN?",
+    "risposte": [
+      "Un INNER JOIN tra A e B",
+      "Un FULL OUTER JOIN tra A e B",
+      "Un LEFT JOIN tra B e A (invertendo l'ordine delle tabelle)",
+      "Un CROSS JOIN tra B e A"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "RIGHT JOIN e LEFT JOIN sono equivalenti quando si inverte l'ordine delle tabelle. A RIGHT JOIN B = B LEFT JOIN A. Per questo il RIGHT JOIN e usato raramente: si preferisce riscrivere tutto come LEFT JOIN per coerenza e leggibilita."
+  },
+  {
+    "id": 76,
+    "categoria": "JOIN",
+    "domanda": "Cosa fa la clausola USING in un JOIN?",
+    "risposte": [
+      "Sostituisce ON quando la condizione di join e su colonne con lo stesso nome in entrambe le tabelle",
+      "Specifica l'alias della tabella nel JOIN",
+      "Indica il tipo di JOIN da eseguire (INNER, LEFT, ecc.)",
+      "Filtra le righe del JOIN in base a una condizione aggiuntiva"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "USING (colonna) e una scorciatoia per ON t1.colonna = t2.colonna quando la colonna ha lo stesso nome in entrambe le tabelle. Es: JOIN ordini USING (cliente_id). Il vantaggio e che la colonna appare una sola volta nel risultato, non duplicata."
+  },
+  {
+    "id": 77,
+    "categoria": "JOIN",
+    "domanda": "Quale tipo di JOIN include nel risultato TUTTE le righe della tabella sinistra, anche senza corrispondenza nella destra?",
+    "risposte": [
+      "INNER JOIN",
+      "LEFT JOIN (LEFT OUTER JOIN)",
+      "CROSS JOIN",
+      "FULL OUTER JOIN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "LEFT JOIN restituisce tutte le righe della tabella sinistra. Dove non c'e corrispondenza nella tabella destra, le colonne della destra sono NULL. Uso tipico: tutti i clienti anche se non hanno ordini, tutti i prodotti anche se non sono mai stati venduti."
+  },
+  {
+    "id": 78,
+    "categoria": "Aggregazione",
+    "domanda": "Cosa fa la funzione AVG(colonna)?",
+    "risposte": [
+      "Restituisce il valore massimo della colonna",
+      "Conta il numero di righe con valore non NULL nella colonna",
+      "Restituisce il valore medio dei valori non NULL nella colonna",
+      "Somma tutti i valori della colonna inclusi i NULL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "AVG(colonna) calcola la media aritmetica dei valori NON NULL. Se la colonna contiene [10, 20, NULL, 30], AVG restituisce 20 (60/3, ignorando il NULL). Come tutte le funzioni aggregate eccetto COUNT(*), ignora i NULL nel calcolo."
+  },
+  {
+    "id": 79,
+    "categoria": "Aggregazione",
+    "domanda": "Quale funzione aggregata restituisce il valore piu grande in una colonna?",
+    "risposte": [
+      "GREATEST()",
+      "TOP()",
+      "UPPER()",
+      "MAX()"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "MAX(colonna) restituisce il valore massimo tra tutti i valori non NULL della colonna. Funziona su numeri, stringhe (ordine lessicografico) e date. GREATEST() e una funzione diversa: confronta piu valori riga per riga, non aggrega piu righe."
+  },
+  {
+    "id": 80,
+    "categoria": "Aggregazione",
+    "domanda": "Se una colonna contiene [10, 20, NULL, 30], cosa restituisce AVG(colonna)?",
+    "risposte": [
+      "15 — calcola 60 diviso 4, trattando il NULL come 0",
+      "NULL — perche c'e un NULL nella lista",
+      "20 — calcola 60 diviso 3, ignorando il NULL",
+      "Errore: AVG non puo operare su colonne con valori NULL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "AVG ignora i NULL: calcola la somma dei valori non NULL (10+20+30=60) divisa per il loro numero (3), risultato: 20. Se si vuole trattare NULL come 0 si puo usare AVG(COALESCE(colonna, 0)), ma e semanticamente diverso."
+  },
+  {
+    "id": 81,
+    "categoria": "Aggregazione",
+    "domanda": "Quale query conta il numero di autori per ogni nazionalita, mostrando solo le nazionalita con piu di 3 autori?",
+    "risposte": [
+      "SELECT nazionalita, COUNT(*) FROM autori WHERE COUNT(*) > 3 GROUP BY nazionalita;",
+      "SELECT nazionalita FROM autori GROUP BY nazionalita WHERE COUNT(*) > 3;",
+      "SELECT nazionalita, COUNT(*) FROM autori HAVING COUNT(*) > 3;",
+      "SELECT nazionalita, COUNT(*) FROM autori GROUP BY nazionalita HAVING COUNT(*) > 3;"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "WHERE non puo usare funzioni aggregate (viene eseguito prima del raggruppamento). Il filtro sui gruppi va in HAVING. La struttura corretta e: GROUP BY nazionalita HAVING COUNT(*) > 3. WHERE nazionalita IS NOT NULL (senza aggregate) sarebbe valido invece."
+  },
+  {
+    "id": 82,
+    "categoria": "Aggregazione",
+    "domanda": "Cosa restituisce COUNT(*) su una tabella completamente vuota (zero righe)?",
+    "risposte": [
+      "NULL",
+      "Errore: COUNT(*) richiede almeno una riga",
+      "1",
+      "0"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "COUNT(*) su una tabella vuota restituisce 0, non NULL. E' uno dei casi in cui un'aggregazione su zero righe restituisce un valore definito (zero). Le altre aggregate (SUM, AVG, MAX, MIN) su zero righe restituiscono NULL."
+  },
+  {
+    "id": 83,
+    "categoria": "Aggregazione",
+    "domanda": "MIN e MAX funzionano anche su colonne di tipo testo (VARCHAR)?",
+    "risposte": [
+      "Si, funzionano anche su testo usando l'ordine lessicografico (alfabetico)",
+      "No, MIN e MAX funzionano solo su dati numerici e date",
+      "Si, ma solo se la colonna ha un indice definito",
+      "No, per il testo si usano le funzioni FIRST() e LAST()"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "MIN e MAX funzionano su numeri, date E testo. Su testo usano l'ordine lessicografico (collation): MIN(cognome) restituisce il cognome 'piu piccolo' alfabeticamente; MAX(cognome) quello 'piu grande'. I NULL vengono ignorati come per tutte le aggregate."
+  },
+  {
+    "id": 84,
+    "categoria": "Aggregazione",
+    "domanda": "Quale affermazione su SUM(colonna) e corretta quando la colonna contiene valori NULL?",
+    "risposte": [
+      "SUM restituisce NULL se anche solo un valore e NULL",
+      "SUM tratta i NULL come 0 e li somma normalmente",
+      "SUM restituisce errore se trova un NULL nella colonna",
+      "SUM ignora i NULL e somma solo i valori non NULL"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "SUM, come tutte le funzioni aggregate (eccetto COUNT(*)), ignora i NULL. SUM([10, NULL, 30, NULL]) = 40. Se si vuole trattare NULL come 0 si usa SUM(COALESCE(colonna, 0)). Solo se TUTTE le righe sono NULL, SUM restituisce NULL."
+  },
+  {
+    "id": 85,
+    "categoria": "Subquery",
+    "domanda": "Cosa fa una subquery scalare?",
+    "risposte": [
+      "Restituisce un insieme di righe su piu colonne usabile nel FROM",
+      "Fa riferimento alla riga corrente della query esterna e viene rieseguita per ogni riga",
+      "Restituisce una colonna di valori da usare con IN o NOT IN",
+      "Restituisce esattamente un singolo valore (una riga, una colonna) usabile con operatori di confronto"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Una subquery scalare restituisce esattamente un valore. Es: WHERE prezzo = (SELECT MAX(prezzo) FROM libri). Se la subquery restituisce piu di una riga, il DBMS genera un errore. Se non ne restituisce nessuna, il risultato e NULL."
+  },
+  {
+    "id": 86,
+    "categoria": "Subquery",
+    "domanda": "Quale tipo di subquery fa riferimento a una colonna della query esterna ed e rieseguita per ogni riga?",
+    "risposte": [
+      "Subquery scalare",
+      "Subquery a lista (usata con IN)",
+      "Subquery nel FROM (tabella derivata)",
+      "Subquery correlata (usata con EXISTS/NOT EXISTS)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La subquery correlata fa riferimento a colonne della query esterna (correlazione) ed e rieseguita per ogni riga della query esterna. Tipicamente usata con EXISTS o NOT EXISTS. Puo essere piu efficiente di IN su tabelle grandi grazie allo short-circuit."
+  },
+  {
+    "id": 87,
+    "categoria": "Subquery",
+    "domanda": "Quando si usa una subquery nel FROM, cosa e obbligatorio specificare?",
+    "risposte": [
+      "La subquery deve restituire esattamente una riga",
+      "Un alias per la subquery",
+      "GROUP BY nella subquery",
+      "La subquery non puo contenere JOIN"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Quando si usa una subquery nel FROM (tabella derivata), e obbligatorio darle un alias: SELECT * FROM (SELECT id, nome FROM autori WHERE attivo = TRUE) AS autori_attivi. Senza alias il DBMS restituisce un errore di sintassi."
+  },
+  {
+    "id": 88,
+    "categoria": "Subquery",
+    "domanda": "Qual e la differenza principale tra IN e EXISTS per subquery correlate su tabelle grandi?",
+    "risposte": [
+      "IN e sempre piu veloce di EXISTS su qualsiasi tabella",
+      "EXISTS usa lo short-circuit (si ferma alla prima corrispondenza) e puo essere piu efficiente; IN raccoglie prima tutti i valori",
+      "EXISTS restituisce i valori trovati; IN restituisce solo TRUE o FALSE",
+      "Non c'e differenza di prestazioni: il DBMS li ottimizza sempre allo stesso modo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "IN esegue la subquery una volta, raccoglie tutti i valori, poi confronta. EXISTS esegue la subquery per ogni riga ma usa short-circuit: appena trova la prima corrispondenza si ferma. Su tabelle grandi EXISTS puo essere molto piu efficiente."
+  },
+  {
+    "id": 89,
+    "categoria": "Subquery",
+    "domanda": "Perche WHERE prezzo > AVG(prezzo) non e valido in SQL?",
+    "risposte": [
+      "Perche AVG richiede sempre la clausola GROUP BY",
+      "Perche prezzo deve essere sempre confrontato con un valore costante",
+      "Perche WHERE non puo usare funzioni aggregate: opera riga per riga prima del raggruppamento",
+      "Perche AVG restituisce NULL se ci sono valori NULL nella colonna"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "WHERE opera su singole righe prima che avvenga qualsiasi aggregazione. AVG(prezzo) e una funzione che opera su tutte le righe: non puo essere calcolata al momento in cui WHERE lavora su una singola riga. La soluzione e usare una subquery: WHERE prezzo > (SELECT AVG(prezzo) FROM tabella)."
+  },
+  {
+    "id": 90,
+    "categoria": "Subquery",
+    "domanda": "Quale query usa correttamente una subquery scalare per trovare i libri con prezzo massimo?",
+    "risposte": [
+      "SELECT * FROM libri WHERE prezzo = MAX(prezzo);",
+      "SELECT * FROM libri WHERE prezzo > SELECT MAX(prezzo) FROM libri;",
+      "SELECT * FROM libri WHERE prezzo = (SELECT MAX(prezzo) FROM libri);",
+      "SELECT * FROM libri HAVING prezzo = MAX(prezzo);"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La subquery scalare va racchiusa tra parentesi e usata con un operatore di confronto. WHERE prezzo = (SELECT MAX(prezzo) FROM libri) e la forma corretta. Senza parentesi e errore di sintassi. WHERE prezzo = MAX(prezzo) non e valido (aggregate in WHERE)."
+  },
+  {
+    "id": 91,
+    "categoria": "VIEW",
+    "domanda": "Una VIEW memorizza fisicamente i dati?",
+    "risposte": [
+      "Si, e una copia fisica aggiornata automaticamente a ogni modifica delle tabelle sottostanti",
+      "No, e una query SQL salvata: i dati vengono calcolati in tempo reale ogni volta che la VIEW viene interrogata",
+      "Si, ma solo per le VIEW che usano GROUP BY o funzioni aggregate",
+      "Dipende dal DBMS: PostgreSQL memorizza fisicamente, MySQL no"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Una VIEW standard non memorizza fisicamente i dati. E' solo una query salvata con un nome. Ogni interrogazione della VIEW esegue la query sottostante in tempo reale. Le MATERIALIZED VIEW (disponibili in PostgreSQL) invece memorizzano fisicamente il risultato e lo aggiornano solo su richiesta esplicita."
+  },
+  {
+    "id": 92,
+    "categoria": "VIEW",
+    "domanda": "Come si aggiorna la definizione di una VIEW esistente in PostgreSQL senza doverla prima eliminare?",
+    "risposte": [
+      "UPDATE VIEW nome AS SELECT ...;",
+      "ALTER VIEW nome AS SELECT ...;",
+      "CREATE OR REPLACE VIEW nome AS SELECT ...;",
+      "MODIFY VIEW nome AS SELECT ...;"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "CREATE OR REPLACE VIEW nome AS SELECT ... ricrea la VIEW con la nuova definizione senza doverla prima eliminare con DROP VIEW. Attenzione: in PostgreSQL, OR REPLACE non puo cambiare i tipi delle colonne esistenti: per farlo occorre DROP VIEW + CREATE VIEW."
+  },
+  {
+    "id": 93,
+    "categoria": "VIEW",
+    "domanda": "Quale dei seguenti e un vantaggio dell'uso delle VIEW per la sicurezza?",
+    "risposte": [
+      "Aumentano la velocita delle query grazie alla memorizzazione fisica dei dati",
+      "Permettono di concedere accesso a dati filtrati o parziali senza esporre le tabelle sottostanti",
+      "Sostituiscono completamente la necessita di usare indici",
+      "Eliminano automaticamente la necessita di scrivere JOIN nelle query"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Una VIEW puo esporre solo alcune colonne o righe di una tabella. Si concede all'utente il permesso di SELECT sulla VIEW (non sulla tabella), permettendogli di vedere solo i dati autorizzati. Es: una VIEW stipendi che mostra solo il proprio stipendio, non quelli altrui."
+  },
+  {
+    "id": 94,
+    "categoria": "VIEW",
+    "domanda": "Cosa succede ai dati delle tabelle sottostanti quando si esegue DROP VIEW nome?",
+    "risposte": [
+      "I dati delle tabelle sottostanti vengono eliminati insieme alla VIEW",
+      "La VIEW viene eliminata, ma i dati nelle tabelle sottostanti rimangono intatti",
+      "I dati vengono spostati automaticamente in una tabella di archivio",
+      "Errore: le VIEW non possono essere eliminate se ci sono query attive"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "DROP VIEW elimina solo la definizione della VIEW (la query salvata), non i dati. Le tabelle sottostanti rimangono intatte con tutti i loro dati. La VIEW e solo una 'finestra' sui dati: eliminarla non influenza i dati reali."
+  },
+  {
+    "id": 95,
+    "categoria": "NULL",
+    "domanda": "Cosa significa il valore NULL in SQL?",
+    "risposte": [
+      "Il valore zero (0) per le colonne numeriche",
+      "Una stringa vuota ('') per le colonne di testo",
+      "Il valore FALSE per le colonne booleane",
+      "L'assenza di un valore: il dato e sconosciuto o non applicabile"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "NULL non e zero, non e una stringa vuota, non e FALSE. NULL significa che il valore e sconosciuto o non applicabile. Questa distinzione e fondamentale: NULL e 0 sono concettualmente molto diversi (es. uno stipendio nullo vs uno stipendio sconosciuto)."
+  },
+  {
+    "id": 96,
+    "categoria": "NULL",
+    "domanda": "Qual e il risultato dell'espressione 5 + NULL in SQL?",
+    "risposte": [
+      "5",
+      "0",
+      "NULL",
+      "Errore di tipo"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Qualsiasi operazione aritmetica che coinvolge NULL restituisce NULL. 5 + NULL = NULL, NULL * 100 = NULL, 'testo' || NULL = NULL. Il NULL si 'propaga' attraverso tutte le operazioni."
+  },
+  {
+    "id": 97,
+    "categoria": "NULL",
+    "domanda": "Quale funzione SQL restituisce il primo valore non NULL tra quelli passati come argomento?",
+    "risposte": [
+      "NULLIF()",
+      "COALESCE()",
+      "ISNULL()",
+      "NVL()"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "COALESCE(val1, val2, ...) restituisce il primo argomento non NULL. Es: COALESCE(email, 'non disponibile') mostra 'non disponibile' se email e NULL. NVL() e specifica di Oracle; ISNULL() di SQL Server e MySQL. COALESCE() e lo standard SQL."
+  },
+  {
+    "id": 98,
+    "categoria": "NULL",
+    "domanda": "Cosa fa la funzione NULLIF(a, b) in SQL?",
+    "risposte": [
+      "Restituisce NULL se a e diverso da b, altrimenti restituisce b",
+      "Restituisce NULL se a e uguale a b, altrimenti restituisce a",
+      "Controlla se a o b sono NULL e restituisce il primo non NULL",
+      "Sostituisce tutti i NULL nella colonna a con il valore b"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "NULLIF(a, b) restituisce NULL se a = b, altrimenti restituisce a. Caso d'uso classico: evitare la divisione per zero. Es: SUM(valore) / NULLIF(COUNT(*), 0) — se COUNT(*) e 0, NULLIF restituisce NULL e la divisione produce NULL invece di un errore."
+  },
+  {
+    "id": 99,
+    "categoria": "NULL",
+    "domanda": "Cosa restituisce NULL OR TRUE in SQL (logica a tre valori)?",
+    "risposte": [
+      "NULL",
+      "FALSE",
+      "TRUE",
+      "UNKNOWN"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nella logica a tre valori di SQL: NULL OR TRUE = TRUE. Il ragionamento e: anche senza conoscere il primo operando (NULL/UNKNOWN), se il secondo e TRUE l'intera OR e TRUE. Analogamente, NULL AND FALSE = FALSE (indipendentemente dal primo, il secondo e FALSE)."
+  },
+  {
+    "id": 100,
+    "categoria": "Transazioni ACID",
+    "domanda": "Cosa rappresenta la proprieta A nelle proprieta ACID?",
+    "risposte": [
+      "Autenticazione: la transazione verifica le credenziali dell'utente prima di procedere",
+      "Atomicita: la transazione e un'unita indivisibile — o tutte le operazioni hanno successo, o nessuna",
+      "Archiviazione: i dati vengono salvati su disco in modo permanente durante la transazione",
+      "Aggregazione: i dati vengono raggruppati prima del COMMIT finale"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Atomicita: la transazione e un'unita indivisibile. Non esiste un 'mezzo commit': o tutte le operazioni riescono (COMMIT) o nessuna modifica viene applicata (ROLLBACK). Es: un trasferimento bancario che richiede due operazioni — o entrambe riescono o nessuna."
+  },
+  {
+    "id": 101,
+    "categoria": "Transazioni ACID",
+    "domanda": "Cosa garantisce la proprieta D (Durabilita) delle proprieta ACID?",
+    "risposte": [
+      "Che i dati vengano duplicati su due server separati per sicurezza",
+      "Che ogni transazione sia eseguita da un solo utente alla volta",
+      "Che le modifiche di una transazione committata sopravvivano anche a crash o guasti hardware",
+      "Che i dati siano eliminati automaticamente dopo un periodo definito"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Durabilita: una volta committata, la transazione e permanente. Nessun crash del sistema, interruzione di corrente o guasto hardware puo far perdere i dati. Il DBMS usa tecniche come il write-ahead log (WAL) per garantire questa proprieta."
+  },
+  {
+    "id": 102,
+    "categoria": "Transazioni ACID",
+    "domanda": "Quale comando SQL annulla tutte le operazioni di una transazione non ancora committata?",
+    "risposte": [
+      "ROLLBACK",
+      "UNDO",
+      "ABORT TRANSACTION",
+      "REVERT"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "ROLLBACK annulla tutte le modifiche effettuate dall'inizio della transazione (o dall'ultimo SAVEPOINT), riportando il database allo stato precedente. In PostgreSQL si puo anche usare ABORT come sinonimo, ma ROLLBACK e lo standard SQL."
+  },
+  {
+    "id": 103,
+    "categoria": "Transazioni ACID",
+    "domanda": "Cosa sono i SAVEPOINT in SQL?",
+    "risposte": [
+      "Backup automatici creati dal DBMS ogni ora",
+      "Punti di ripristino intermedi all'interno di una transazione: ROLLBACK TO SAVEPOINT nome riporta allo stato del savepoint senza annullare l'intera transazione",
+      "Comandi per salvare definitivamente i dati su disco come alternativa a COMMIT",
+      "Indici speciali creati automaticamente sulle colonne di chiave primaria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "I SAVEPOINT creano punti di ripristino parziali: SAVEPOINT nome crea il punto, ROLLBACK TO SAVEPOINT nome torna a quel punto senza annullare tutto. Utile per transazioni lunghe e complesse dove si vuole la possibilita di annullare solo una parte."
+  },
+  {
+    "id": 104,
+    "categoria": "Transazioni ACID",
+    "domanda": "Cosa significa la proprieta I (Isolamento) delle proprieta ACID?",
+    "risposte": [
+      "Che il database puo essere usato da un solo utente alla volta",
+      "Che i dati vengono crittografati durante la trasmissione di rete",
+      "Che le transazioni concorrenti si eseguono come se fossero sequenziali: una transazione non vede le modifiche non ancora committate di un'altra",
+      "Che ogni tabella e isolata dalle altre: non ci possono essere JOIN tra tabelle diverse"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'isolamento garantisce che le transazioni concorrenti non si interferiscano: una transazione non vede le modifiche non committate di altre transazioni concorrenti. Il grado di isolamento e configurabile (READ COMMITTED, REPEATABLE READ, SERIALIZABLE) con un trade-off tra correttezza e prestazioni."
+  },
+  {
+    "id": 105,
+    "categoria": "Transazioni ACID",
+    "domanda": "Qual e la sequenza corretta di comandi per una transazione esplicita in PostgreSQL?",
+    "risposte": [
+      "START -> EXECUTE -> SAVE -> END",
+      "TRANSACTION BEGIN -> SQL -> COMMIT or ABORT",
+      "BEGIN -> istruzioni SQL -> COMMIT (se tutto ok) o ROLLBACK (se errore)",
+      "OPEN TRANSACTION -> SQL -> CLOSE TRANSACTION"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La sequenza standard e: BEGIN (avvia la transazione), esegui le istruzioni SQL (INSERT, UPDATE, DELETE), poi COMMIT per rendere permanenti le modifiche o ROLLBACK per annullarle tutte. Senza BEGIN esplicito, ogni istruzione e una transazione autonoma in auto-commit."
+  },
+  {
+    "id": 106,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Quale operatore SQL unisce i risultati di due SELECT eliminando le righe duplicate?",
+    "risposte": [
+      "INTERSECT",
+      "UNION",
+      "MERGE",
+      "UNION ALL"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "UNION combina i risultati di due SELECT rimuovendo i duplicati (come un DISTINCT implicito). UNION ALL mantiene tutti i duplicati ed e piu veloce perche non deve deduplicare. Entrambi richiedono che le due SELECT abbiano lo stesso numero di colonne con tipi compatibili."
+  },
+  {
+    "id": 107,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Qual e la differenza tra UNION e UNION ALL?",
+    "risposte": [
+      "Non c'e differenza: producono sempre lo stesso risultato",
+      "UNION elimina i duplicati (piu lento); UNION ALL mantiene tutti i duplicati (piu veloce)",
+      "UNION funziona solo su tabelle con PRIMARY KEY; UNION ALL funziona su qualsiasi tabella",
+      "UNION mantiene i duplicati; UNION ALL li elimina"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "UNION elimina le righe duplicate eseguendo un ordinamento interno (come DISTINCT), il che lo rende piu lento. UNION ALL mantiene tutte le righe inclusi i duplicati, ed e preferito quando i duplicati non sono un problema o quando si sa gia che non ce ne sono."
+  },
+  {
+    "id": 108,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Cosa fa l'operatore INTERSECT?",
+    "risposte": [
+      "Restituisce le righe presenti nella prima SELECT ma non nella seconda",
+      "Esegue un FULL OUTER JOIN tra le due SELECT",
+      "Restituisce solo le righe presenti in entrambi i risultati delle due SELECT",
+      "Unisce le righe di entrambe le SELECT inclusi i duplicati"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "INTERSECT restituisce solo le righe che appaiono in entrambi i risultati (intersezione insiemistica). Es: SELECT cognome FROM autori INTERSECT SELECT cognome FROM clienti restituisce i cognomi presenti in entrambe le tabelle."
+  },
+  {
+    "id": 109,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Cosa fa l'operatore EXCEPT?",
+    "risposte": [
+      "Restituisce le righe presenti in entrambi i risultati",
+      "Combina i due risultati escludendo i duplicati",
+      "Restituisce le righe del primo risultato che NON compaiono nel secondo",
+      "Esclude dall'esecuzione la seconda SELECT se la prima e vuota"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "EXCEPT (equivalente a MINUS in Oracle) restituisce le righe della prima SELECT che non appaiono nella seconda. Es: SELECT id FROM autori EXCEPT SELECT autore_id FROM libri restituisce gli autori senza libri (simile a un anti-join)."
+  },
+  {
+    "id": 110,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Dove si puo inserire la clausola ORDER BY in una query che usa UNION?",
+    "risposte": [
+      "Solo alla fine dell'intera operazione UNION, e si applica al risultato combinato",
+      "Non e possibile usare ORDER BY con UNION",
+      "Sia prima di ogni SELECT sia alla fine: entrambe le posizioni sono valide",
+      "Prima di ogni SELECT per ordinare ciascun blocco separatamente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Con gli operatori su insiemi (UNION, INTERSECT, EXCEPT), ORDER BY si inserisce SOLO alla fine di tutta l'espressione e si applica al risultato finale combinato. Inserire ORDER BY dentro una delle SELECT intermedie produce un errore di sintassi."
+  },
+  {
+    "id": 111,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "Quante colonne devono avere le due SELECT in un'operazione UNION?",
+    "risposte": [
+      "Non ci sono vincoli sul numero di colonne",
+      "Almeno una colonna in comune con lo stesso nome",
+      "Lo stesso numero di colonne, con tipi di dato compatibili",
+      "La seconda SELECT deve avere esattamente una colonna in piu della prima"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Le SELECT in un UNION (o INTERSECT, EXCEPT) devono avere lo stesso numero di colonne e i tipi di dato devono essere compatibili (non necessariamente identici: es. INT e BIGINT sono compatibili). I nomi delle colonne nel risultato vengono dalla prima SELECT."
+  },
+  {
+    "id": 112,
+    "categoria": "Operatori su Insiemi",
+    "domanda": "I nomi delle colonne nel risultato di un UNION vengono da quale SELECT?",
+    "risposte": [
+      "Dalla prima SELECT",
+      "Vengono generati automaticamente dal DBMS (col1, col2...)",
+      "Dall'ultima SELECT della catena",
+      "Da entrambe: vengono concatenati con un trattino"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "In un'operazione UNION, i nomi delle colonne nel risultato finale vengono sempre dalla prima SELECT. La seconda SELECT contribuisce solo con i valori, non con i nomi. Per dare alias personalizzati si usano AS nella prima SELECT."
+  },
+  {
+    "id": 113,
+    "categoria": "CASE WHEN",
+    "domanda": "In quali clausole di una query SQL puo essere usata l'espressione CASE WHEN?",
+    "risposte": [
+      "Solo in WHERE e SELECT",
+      "In SELECT, WHERE, ORDER BY, GROUP BY e anche nell'UPDATE",
+      "Solo nella clausola SELECT",
+      "Solo in GROUP BY e HAVING"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "CASE WHEN e un'espressione SQL generica utilizzabile ovunque sia atteso un valore: nel SELECT per calcolare colonne, nel WHERE come condizione, nell'ORDER BY per ordinamenti personalizzati, nel GROUP BY e nell'UPDATE per aggiornamenti condizionali."
+  },
+  {
+    "id": 114,
+    "categoria": "CASE WHEN",
+    "domanda": "Cosa restituisce CASE WHEN se nessuna condizione e vera e manca la clausola ELSE?",
+    "risposte": [
+      "Un errore: ELSE e obbligatoria",
+      "NULL",
+      "Una stringa vuota ''",
+      "Il valore 0 per le colonne numeriche"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Se nessuna condizione WHEN e verificata e non e presente ELSE, CASE WHEN restituisce NULL. La clausola ELSE e opzionale ma buona pratica includerla sempre con un valore di default per evitare NULL inattesi nel risultato."
+  },
+  {
+    "id": 115,
+    "categoria": "CASE WHEN",
+    "domanda": "Qual e la differenza tra CASE cercato e CASE semplice?",
+    "risposte": [
+      "Non c'e differenza: sono due sintassi equivalenti sempre intercambiabili",
+      "Il CASE semplice supporta solo valori numerici; il CASE cercato anche le stringhe",
+      "Il CASE semplice usa WHEN condizione; il CASE cercato usa WHEN valore = espressione",
+      "Il CASE cercato usa WHEN condizione booleana generica; il CASE semplice confronta un'espressione con valori fissi usando CASE espressione WHEN valore"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il CASE cercato (searched): CASE WHEN prezzo < 10 THEN ... permette condizioni booleane arbitrarie. Il CASE semplice: CASE stato WHEN 'attivo' THEN ... confronta un'espressione con valori fissi. Il CASE semplice e piu conciso ma meno flessibile."
+  },
+  {
+    "id": 116,
+    "categoria": "CASE WHEN",
+    "domanda": "Come si usa CASE WHEN dentro una funzione aggregata COUNT per contare condizionalmente?",
+    "risposte": [
+      "COUNT(CASE WHEN condizione THEN 1 END)",
+      "COUNT(*) WHERE condizione",
+      "COUNT(condizione = TRUE)",
+      "COUNT(IF(condizione, 1, 0))"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il pattern COUNT(CASE WHEN condizione THEN 1 END) conta solo le righe che soddisfano la condizione: quando la condizione e FALSE, CASE restituisce NULL e COUNT ignora i NULL. E' un modo per fare conteggi condizionali in un unico GROUP BY senza subquery multiple."
+  },
+  {
+    "id": 117,
+    "categoria": "CASE WHEN",
+    "domanda": "Quale sara il risultato di questa espressione per un libro con prezzo 12.50? CASE WHEN prezzo < 10 THEN 'economico' WHEN prezzo < 15 THEN 'medio' ELSE 'premium' END",
+    "risposte": [
+      "'medio'",
+      "'premium'",
+      "'economico'",
+      "NULL (nessuna condizione verificata)"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Le condizioni WHEN sono valutate in ordine. La prima (prezzo < 10: 12.50 < 10 = FALSE) viene saltata. La seconda (prezzo < 15: 12.50 < 15 = TRUE) e vera: il risultato e 'medio'. Le condizioni successive non vengono valutate."
+  },
+  {
+    "id": 118,
+    "categoria": "CASE WHEN",
+    "domanda": "Come si usa CASE WHEN nell'ORDER BY per ordinare in un modo personalizzato (es. 'disponibile' primo, 'esaurito' secondo, 'ritirato' terzo)?",
+    "risposte": [
+      "ORDER BY SORT_INDEX(stato)",
+      "ORDER BY CASE stato WHEN 'disponibile' THEN 1 WHEN 'esaurito' THEN 2 ELSE 3 END",
+      "ORDER BY stato PRIORITY ('disponibile', 'esaurito', 'ritirato')",
+      "ORDER BY RANK(stato) OVER (PARTITION BY 'disponibile', 'esaurito', 'ritirato')"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "CASE WHEN nell'ORDER BY permette di assegnare un valore numerico a ogni categoria e ordinare su quel valore. E' il modo standard SQL per ordinamenti non alfabetici e non numerici. La sequenza dei WHEN definisce la priorita dell'ordinamento."
+  },
+  {
+    "id": 119,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa restituisce LENGTH('Ciao Mondo') in PostgreSQL?",
+    "risposte": [
+      "11",
+      "Errore: LENGTH non esiste, usare LEN()",
+      "10",
+      "9"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "LENGTH(stringa) restituisce il numero di caratteri della stringa. 'Ciao Mondo' ha 10 caratteri (incluso lo spazio). In SQL Server la funzione si chiama LEN() (che non conta gli spazi finali); in PostgreSQL si usa LENGTH() o CHAR_LENGTH()."
+  },
+  {
+    "id": 120,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa fa la funzione UPPER(stringa) in SQL?",
+    "risposte": [
+      "Restituisce i primi N caratteri della stringa",
+      "Converte tutti i caratteri della stringa in maiuscolo",
+      "Conta il numero di caratteri in maiuscolo nella stringa",
+      "Rimuove gli spazi iniziali e finali dalla stringa"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "UPPER(stringa) converte tutti i caratteri in maiuscolo. La funzione complementare e LOWER(stringa) che converte in minuscolo. Utili per confronti case-insensitive: WHERE UPPER(nome) = UPPER('mario') trova 'Mario', 'MARIO', 'mario' ecc."
+  },
+  {
+    "id": 121,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa restituisce SUBSTRING('Ciao Mondo', 6, 5) in PostgreSQL?",
+    "risposte": [
+      "'ondo '",
+      "'Ciao '",
+      "' Mond'",
+      "'Mondo'"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "SUBSTRING(stringa, posizione_inizio, lunghezza) estrae una sottostringa. In PostgreSQL le posizioni partono da 1 (non da 0). SUBSTRING('Ciao Mondo', 6, 5) inizia dal carattere 6 (lo spazio e il 5°, la M e il 6°) e prende 5 caratteri: 'Mondo'."
+  },
+  {
+    "id": 122,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa fa TRIM(' Ciao Mondo ')?",
+    "risposte": [
+      "Rimuove solo gli spazi iniziali (leading)",
+      "Rimuove gli spazi iniziali e finali, lasciando invariati quelli interni",
+      "Rimuove solo gli spazi finali (trailing)",
+      "Rimuove tutti gli spazi dalla stringa, anche quelli interni"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "TRIM() rimuove gli spazi (o altri caratteri specificati) dall'inizio e dalla fine della stringa. LTRIM() rimuove solo gli spazi iniziali; RTRIM() solo quelli finali. Gli spazi interni alla stringa non vengono toccati: ' Ciao Mondo ' diventa 'Ciao Mondo'."
+  },
+  {
+    "id": 123,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa fa REPLACE('Ciao Mondo', 'Mondo', 'SQL')?",
+    "risposte": [
+      "Restituisce 'Ciao SQL'",
+      "Restituisce NULL se 'Mondo' non viene trovato",
+      "Cerca 'Mondo' nella tabella e lo aggiorna in 'SQL'",
+      "Restituisce 'Ciao Mondo SQL'"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "REPLACE(stringa, da_cercare, sostituto) sostituisce tutte le occorrenze di da_cercare con sostituto nella stringa. REPLACE('Ciao Mondo', 'Mondo', 'SQL') restituisce 'Ciao SQL'. Se il valore cercato non e presente, restituisce la stringa originale invariata (non NULL)."
+  },
+  {
+    "id": 124,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Qual e la differenza tra l'operatore || e la funzione CONCAT() per la concatenazione di stringhe?",
+    "risposte": [
+      "Non c'e differenza: producono sempre lo stesso risultato",
+      "CONCAT() propaga NULL; || ignora i NULL",
+      "|| propaga NULL (NULL || 'x' = NULL); CONCAT() ignora i NULL trattandoli come stringa vuota",
+      "|| supporta solo stringhe; CONCAT() supporta anche numeri"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'operatore || propaga NULL: se un operando e NULL, il risultato e NULL. CONCAT() ignora i NULL: CONCAT('Ciao', NULL, ' Mondo') = 'Ciao Mondo'. CONCAT_WS(separatore, ...) usa un separatore automatico e ignora anch'essa i NULL."
+  },
+  {
+    "id": 125,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa restituisce POSITION('SQL' IN 'Corso SQL Avanzato')?",
+    "risposte": [
+      "0 — non trovato",
+      "TRUE",
+      "7",
+      "3"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "POSITION(sottostringa IN stringa) restituisce la posizione (1-based) della prima occorrenza della sottostringa. 'SQL' inizia al carattere 7 in 'Corso SQL Avanzato'. Se la sottostringa non viene trovata, restituisce 0 (non NULL e non -1)."
+  },
+  {
+    "id": 126,
+    "categoria": "Funzioni di Stringa",
+    "domanda": "Cosa fa la funzione LPAD('42', 5, '0') in PostgreSQL?",
+    "risposte": [
+      "Rimuove i leading zeros fino a lasciarne 5",
+      "Restituisce '42000' (aggiunge zeri a destra)",
+      "Restituisce '00042' (aggiunge zeri a sinistra fino a lunghezza 5)",
+      "Tronca la stringa ai primi 5 caratteri"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "LPAD(stringa, lunghezza_totale, carattere_riempimento) aggiunge il carattere specificato a sinistra fino a raggiungere la lunghezza desiderata. LPAD('42', 5, '0') = '00042'. RPAD aggiunge a destra. Utile per formattare codici e numeri con zeri iniziali."
+  },
+  {
+    "id": 127,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Cosa restituisce ROUND(14.567, 2) in SQL?",
+    "risposte": [
+      "14.5",
+      "15.00",
+      "14.57",
+      "14.56"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ROUND(valore, decimali) arrotonda al numero di cifre decimali specificato. ROUND(14.567, 2) arrotonda alla seconda cifra decimale: il terzo decimale (7) e >= 5, quindi arrotonda su: 14.57. ROUND(14.564, 2) restituisce 14.56."
+  },
+  {
+    "id": 128,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Qual e la differenza tra FLOOR() e CEIL() (o CEILING())?",
+    "risposte": [
+      "FLOOR() arrotonda sempre verso il basso (numero intero inferiore); CEIL() arrotonda sempre verso l'alto (numero intero superiore)",
+      "FLOOR() e CEIL() sono identici a ROUND() con 0 decimali",
+      "FLOOR() restituisce la parte decimale; CEIL() restituisce la parte intera",
+      "FLOOR() arrotonda al piu vicino; CEIL() arrotonda sempre per eccesso"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "FLOOR(14.9) = 14 (arrotonda sempre verso il basso). CEIL(14.1) = 15 (arrotonda sempre verso l'alto). Entrambi restituiscono un intero. ROUND invece arrotonda al piu vicino: ROUND(14.5) = 15, ROUND(14.4) = 14."
+  },
+  {
+    "id": 129,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Cosa fa l'operatore % (modulo) in SQL? Esempio: 17 % 5",
+    "risposte": [
+      "Restituisce il resto della divisione intera: 2",
+      "Restituisce il quoziente intero della divisione: 3",
+      "Calcola la percentuale: 17% di 5 = 0.85",
+      "Restituisce il risultato della divisione decimale: 3.4"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'operatore % (o la funzione MOD() in alcuni DBMS) restituisce il resto della divisione intera. 17 % 5 = 2 perche 17 = 5 * 3 + 2. Utile per controllare la parita (n % 2 = 0 significa pari) o ciclare su un insieme fisso di valori."
+  },
+  {
+    "id": 130,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Cosa fa SELECT 7 / 2 in PostgreSQL (senza decimali espliciti)?",
+    "risposte": [
+      "3.0 — PostgreSQL aggiunge sempre un decimale",
+      "3.5 — PostgreSQL usa sempre la divisione decimale",
+      "3 — divisione intera tra due interi produce un intero",
+      "Errore: la divisione intera non e supportata in PostgreSQL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In SQL (come in molti linguaggi), la divisione tra due interi produce un intero: 7 / 2 = 3. Per ottenere 3.5 bisogna forzare almeno un operando a decimale: 7.0 / 2, oppure 7::DECIMAL / 2, oppure 7 / 2.0. Questo e un errore comune nei calcoli di medie manuali."
+  },
+  {
+    "id": 131,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Qual e la sintassi PostgreSQL per convertire un intero in testo con l'operatore di cast?",
+    "risposte": [
+      "TO_TEXT(anno)",
+      "anno AS TEXT",
+      "CONVERT(INT, anno, TEXT)",
+      "anno::TEXT"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "In PostgreSQL, l'operatore :: e la sintassi di cast specifica del dialetto: anno::TEXT converte la colonna anno da INT a TEXT. La sintassi standard SQL equivalente e CAST(anno AS TEXT). Entrambe sono valide in PostgreSQL."
+  },
+  {
+    "id": 132,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "A cosa serve la funzione ABS() in SQL?",
+    "risposte": [
+      "Converte un numero negativo in NULL",
+      "Calcola il valore medio assoluto di una colonna",
+      "Arrotonda un numero verso lo zero",
+      "Restituisce il valore assoluto (sempre positivo) di un numero"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "ABS(valore) restituisce il valore assoluto: ABS(-15) = 15, ABS(15) = 15, ABS(0) = 0. Utile per calcolare differenze senza preoccuparsi del segno: ABS(prezzo1 - prezzo2) da la distanza tra due prezzi indipendentemente da quale e maggiore."
+  },
+  {
+    "id": 133,
+    "categoria": "Funzioni Numeriche e CAST",
+    "domanda": "Cosa fa TO_CHAR(prezzo, 'FM999.99') in PostgreSQL?",
+    "risposte": [
+      "Formatta il numero prezzo come stringa con al massimo 3 cifre intere e 2 decimali, senza spazi iniziali (FM)",
+      "Arrotonda prezzo a 2 decimali come ROUND(prezzo, 2)",
+      "Converte la stringa '999.99' in un numero decimale",
+      "Verifica che prezzo sia nel formato 999.99"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "TO_CHAR(valore, formato) formatta un numero (o una data) come stringa di testo. Il formato '999.99' specifica 3 cifre intere e 2 decimali. Il prefisso FM (Fill Mode) rimuove gli spazi iniziali di padding. Es: TO_CHAR(12.5, 'FM999.99') = '12.50'."
+  },
+  {
+    "id": 134,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Quale funzione PostgreSQL restituisce la data e ora corrente con fuso orario?",
+    "risposte": [
+      "NOW() oppure CURRENT_TIMESTAMP",
+      "GETDATE()",
+      "TODAY()",
+      "SYSDATE()"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "In PostgreSQL, NOW() e CURRENT_TIMESTAMP restituiscono la data e ora corrente con fuso orario (TIMESTAMPTZ). CURRENT_DATE restituisce solo la data. CURRENT_TIME solo l'ora. GETDATE() e di SQL Server; SYSDATE() di Oracle/MySQL."
+  },
+  {
+    "id": 135,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Cosa fa EXTRACT(YEAR FROM data_nascita) in SQL?",
+    "risposte": [
+      "Elimina dalla tabella tutti i record con quella data",
+      "Estrae la parte dell'anno dalla data come valore numerico",
+      "Converte la data in formato anno-mese-giorno",
+      "Calcola quanti anni sono trascorsi dalla data ad oggi"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "EXTRACT(parte FROM data) estrae una componente specifica da una data o timestamp. EXTRACT(YEAR FROM '2024-03-17') = 2024. Altre parti: MONTH, DAY, HOUR, MINUTE, SECOND, DOW (day of week), WEEK. In PostgreSQL si puo usare anche DATE_PART('year', data)."
+  },
+  {
+    "id": 136,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Come si calcola la differenza in anni tra due date in PostgreSQL?",
+    "risposte": [
+      "DATE_DIFF('year', data1, data2)",
+      "DATEDIFF(anno1, anno2)",
+      "EXTRACT(YEAR FROM AGE(data2, data1))",
+      "EXTRACT(YEAR FROM (data2 - data1))"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "In PostgreSQL, AGE(data_fine, data_inizio) restituisce un INTERVAL con la differenza (es. '25 years 3 months 5 days'). EXTRACT(YEAR FROM AGE(data_fine, data_inizio)) estrae solo gli anni interi. In alternativa: EXTRACT(YEAR FROM data_fine) - EXTRACT(YEAR FROM data_inizio) (ma ignora mese e giorno)."
+  },
+  {
+    "id": 137,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Cosa fa DATE_TRUNC('month', '2024-03-17'::TIMESTAMP) in PostgreSQL?",
+    "risposte": [
+      "Estrae solo il numero del mese: 3",
+      "Converte la data nel nome del mese: 'March'",
+      "Tronca la data all'inizio del mese: '2024-03-01 00:00:00'",
+      "Restituisce l'ultimo giorno del mese: '2024-03-31'"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "DATE_TRUNC(unita, timestamp) tronca il timestamp all'inizio del periodo specificato. DATE_TRUNC('month', '2024-03-17') = '2024-03-01 00:00:00'. Utile per raggruppare dati per mese, trimestre o anno: GROUP BY DATE_TRUNC('month', data_ordine)."
+  },
+  {
+    "id": 138,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Come si aggiunge un intervallo di 30 giorni a una data in PostgreSQL?",
+    "risposte": [
+      "DATE_ADD(data, 30)",
+      "data + INTERVAL '30 days'",
+      "DATEADD(day, 30, data)",
+      "data + 30::DATE"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "In PostgreSQL si usa l'aritmetica con INTERVAL: data + INTERVAL '30 days'. Es: '2024-01-01'::DATE + INTERVAL '30 days' = '2024-01-31'. Altre forme valide: INTERVAL '1 month', INTERVAL '1 year 3 months'. DATE_ADD e di MySQL; DATEADD di SQL Server."
+  },
+  {
+    "id": 139,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Quale tipo di dato PostgreSQL memorizza solo la data (senza ora)?",
+    "risposte": [
+      "TIMESTAMP",
+      "TIMEONLY",
+      "DATETIME",
+      "DATE"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "DATE memorizza solo la data nel formato YYYY-MM-DD, senza componente oraria. TIMESTAMP memorizza data e ora (YYYY-MM-DD HH:MM:SS). TIMESTAMPTZ aggiunge il fuso orario. TIME memorizza solo l'ora. DATETIME non esiste in PostgreSQL (e un tipo di MySQL/SQL Server)."
+  },
+  {
+    "id": 140,
+    "categoria": "Funzioni di Data e Ora",
+    "domanda": "Cosa restituisce TO_CHAR(NOW(), 'DD/MM/YYYY') in PostgreSQL?",
+    "risposte": [
+      "La data corrente nel formato DD/MM/YYYY come stringa di testo",
+      "Un errore: NOW() non puo essere formattato con TO_CHAR",
+      "Il timestamp corrente nel formato standard ISO",
+      "Il numero di giorni trascorsi dall'epoca Unix"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "TO_CHAR(timestamp, formato) converte un timestamp in una stringa con il formato specificato. 'DD/MM/YYYY' produce la data nel formato europeo: es. '17/03/2024'. Altri formati utili: 'YYYY-MM-DD', 'DD Month YYYY', 'HH24:MI:SS'. E' la funzione opposta a TO_DATE()."
+  },
+  {
+    "id": 141,
+    "categoria": "CTE",
+    "domanda": "Cosa e una CTE (Common Table Expression) in SQL?",
+    "risposte": [
+      "Una query temporanea con un nome, definita con WITH, usabile nella query principale che segue",
+      "Un sinonimo di VIEW permanente memorizzata nel database",
+      "Una stored procedure che accetta parametri e restituisce una tabella",
+      "Un tipo speciale di indice che accelera le query complesse"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Una CTE si definisce con WITH nome AS (SELECT ...) e si usa come se fosse una tabella nella query che segue. Esiste solo durante l'esecuzione della query (non e permanente come una VIEW). Migliora la leggibilita rispetto alle subquery annidate."
+  },
+  {
+    "id": 142,
+    "categoria": "CTE",
+    "domanda": "Qual e la sintassi corretta per definire una CTE chiamata 'autori_attivi'?",
+    "risposte": [
+      "WITH autori_attivi AS (SELECT * FROM autori WHERE attivo = TRUE) SELECT * FROM autori_attivi;",
+      "CREATE TEMP TABLE autori_attivi AS SELECT * FROM autori WHERE attivo = TRUE;",
+      "DEFINE autori_attivi = (SELECT * FROM autori WHERE attivo = TRUE);",
+      "CTE autori_attivi AS SELECT * FROM autori WHERE attivo = TRUE;"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La sintassi CTE e: WITH nome_cte AS (query) seguita dalla query principale. Si possono definire piu CTE in sequenza: WITH cte1 AS (...), cte2 AS (...) SELECT ... In una CTE successiva si puo fare riferimento alle CTE precedenti."
+  },
+  {
+    "id": 143,
+    "categoria": "CTE",
+    "domanda": "Qual e il vantaggio principale delle CTE rispetto alle subquery annidate nel FROM?",
+    "risposte": [
+      "Le CTE vengono sempre ottimizzate meglio dal query planner rispetto alle subquery",
+      "Le CTE migliorano la leggibilita permettendo di dare un nome a query intermedie e riutilizzarle piu volte",
+      "Le CTE sono sempre piu veloci perche il risultato viene memorizzato in cache",
+      "Le CTE possono usare UPDATE e DELETE; le subquery nel FROM solo SELECT"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il vantaggio principale delle CTE e la leggibilita e riusabilita: si da un nome significativo a una query intermedia complessa, si usa quel nome piu volte nella query principale, e si evita il nidificare subquery dentro subquery che diventa difficile da leggere."
+  },
+  {
+    "id": 144,
+    "categoria": "CTE",
+    "domanda": "Cosa permette di fare una CTE ricorsiva (WITH RECURSIVE)?",
+    "risposte": [
+      "Traversare strutture gerarchiche o grafi (es. albero delle categorie, struttura organizzativa) dove una query fa riferimento a se stessa",
+      "Eseguire la stessa CTE piu volte con parametri diversi",
+      "Definire CTE che si riferiscono vicendevolmente in modo circolare",
+      "Creare VIEW ricorsive che si aggiornano automaticamente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "WITH RECURSIVE permette a una CTE di fare riferimento a se stessa, essenziale per traversare strutture ad albero o grafi. Es: listare tutti i dipendenti di un manager (e i loro subordinati, ricorsivamente) in una tabella con relazione padre-figlio."
+  },
+  {
+    "id": 145,
+    "categoria": "CTE",
+    "domanda": "Una CTE puo essere referenziata piu volte nella stessa query principale?",
+    "risposte": [
+      "No, per usarla piu volte occorre creare una VIEW permanente",
+      "Si, il nome della CTE puo apparire piu volte nella query principale e in altre CTE successive",
+      "Si, ma solo in PostgreSQL — in altri DBMS non e supportato",
+      "No, ogni CTE puo essere usata una sola volta"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Uno dei vantaggi delle CTE e proprio poter referenziare lo stesso risultato piu volte nella query: es. usare autori_attivi in una JOIN e poi di nuovo in una subquery. Con le subquery nel FROM sarebbe necessario riscrivere la subquery ogni volta."
+  },
+  {
+    "id": 146,
+    "categoria": "CTE",
+    "domanda": "Come si definiscono piu CTE in una singola istruzione WITH?",
+    "risposte": [
+      "BEGIN CTE ... END CTE per ogni CTE da definire",
+      "WITH cte1 AS (...) WITH cte2 AS (...) SELECT ...",
+      "Scrivendo piu istruzioni WITH consecutive, una per ogni CTE",
+      "WITH cte1 AS (...), cte2 AS (...) SELECT ... (virgola tra le CTE)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Piu CTE si separano con la virgola dentro un unico WITH: WITH cte1 AS (query1), cte2 AS (query2) SELECT ... Una CTE puo fare riferimento a quelle definite prima di essa nella stessa clausola WITH (ma non a quelle successive)."
+  },
+  {
+    "id": 147,
+    "categoria": "CTE",
+    "domanda": "In PostgreSQL, le CTE sono sempre materializzate (eseguite una sola volta e il risultato memorizzato)?",
+    "risposte": [
+      "In PostgreSQL 12+, il query planner decide autonomamente (o si forza con MATERIALIZED / NOT MATERIALIZED)",
+      "No, mai: le CTE sono sempre trattate come subquery inline",
+      "Si, sempre: ogni CTE viene eseguita esattamente una volta e il risultato riusato",
+      "Dipende dalla dimensione del risultato: oltre 1000 righe si materializza"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Fino a PostgreSQL 11, le CTE erano sempre materializzate (barriera di ottimizzazione). Da PostgreSQL 12, il planner puo scegliere di inlinearle per ottimizzarle meglio. Si puo forzare: WITH nome AS MATERIALIZED (...) oppure WITH nome AS NOT MATERIALIZED (...)."
+  },
+  {
+    "id": 148,
+    "categoria": "Window Functions",
+    "domanda": "Cosa sono le Window Functions (funzioni finestra) in SQL?",
+    "risposte": [
+      "Funzioni che operano su una finestra temporale (data e ora)",
+      "Funzioni aggregate che restituiscono un valore per ogni riga mantenendo le righe originali visibili (senza collassarle come GROUP BY)",
+      "Funzioni per la gestione delle finestre GUI nell'interfaccia grafica del DBMS",
+      "Funzioni che operano solo sulle prime N righe della tabella"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Le Window Functions calcolano un valore per ogni riga basandosi su un insieme di righe correlate (la 'finestra'), ma a differenza di GROUP BY non collassano le righe: ogni riga rimane nel risultato. Si usano con la clausola OVER(...)."
+  },
+  {
+    "id": 149,
+    "categoria": "Window Functions",
+    "domanda": "Cosa fa ROW_NUMBER() OVER (ORDER BY prezzo DESC)?",
+    "risposte": [
+      "Restituisce solo la riga con il prezzo piu alto",
+      "Raggruppa le righe per prezzo decrescente",
+      "Assegna un numero progressivo univoco a ogni riga in base all'ordine specificato (1, 2, 3...)",
+      "Elimina i duplicati di prezzo"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "ROW_NUMBER() assegna un numero intero progressivo univoco (1, 2, 3...) a ogni riga nell'ordine specificato dall'ORDER BY nella clausola OVER. Non produce mai numeri uguali anche in caso di parita (a differenza di RANK e DENSE_RANK)."
+  },
+  {
+    "id": 150,
+    "categoria": "Window Functions",
+    "domanda": "Qual e la differenza tra RANK() e DENSE_RANK()?",
+    "risposte": [
+      "RANK() salta i numeri in caso di parita (1,1,3); DENSE_RANK() non li salta (1,1,2)",
+      "RANK() e piu veloce; DENSE_RANK() e piu preciso",
+      "Non c'e differenza: RANK() e DENSE_RANK() producono sempre lo stesso risultato",
+      "DENSE_RANK() salta i numeri in caso di parita; RANK() non li salta"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Con due righe in parita al 2° posto: RANK() assegna 1, 2, 2, 4 (salta il 3). DENSE_RANK() assegna 1, 2, 2, 3 (non salta). ROW_NUMBER() assegna sempre 1, 2, 3, 4 (nessuna parita). La scelta dipende da come si vuole gestire il pareggio."
+  },
+  {
+    "id": 151,
+    "categoria": "Window Functions",
+    "domanda": "Cosa fa la clausola PARTITION BY dentro OVER()?",
+    "risposte": [
+      "Limita la window function alle prime N righe",
+      "Divide fisicamente la tabella in piu partizioni su disco",
+      "Suddivide le righe in gruppi indipendenti: la window function riparte da 1 per ogni gruppo",
+      "Ripartisce la memoria usata dalla window function"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "PARTITION BY e l'equivalente di GROUP BY per le window functions: suddivide le righe in partizioni indipendenti. Es: ROW_NUMBER() OVER (PARTITION BY categoria ORDER BY prezzo) numera le righe da 1 separatamente per ogni categoria, invece che globalmente."
+  },
+  {
+    "id": 152,
+    "categoria": "Window Functions",
+    "domanda": "Come si selezionano le prime 3 righe per ogni categoria usando window functions?",
+    "risposte": [
+      "SELECT * FROM t WHERE RANK() OVER (PARTITION BY categoria) <= 3;",
+      "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY categoria ORDER BY prezzo) AS rn FROM t) sub WHERE rn <= 3;",
+      "SELECT TOP 3 * FROM t PARTITION BY categoria;",
+      "SELECT * FROM t WHERE GROUP BY categoria LIMIT 3;"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il pattern classico 'top N per gruppo' usa una subquery o CTE: ROW_NUMBER() OVER (PARTITION BY categoria ORDER BY prezzo) assegna il numero progressivo per categoria, poi si filtra con WHERE rn <= 3 nella query esterna. Le window functions non sono usabili direttamente nel WHERE."
+  },
+  {
+    "id": 153,
+    "categoria": "Window Functions",
+    "domanda": "Cosa fa LAG(prezzo, 1) OVER (ORDER BY data)?",
+    "risposte": [
+      "Restituisce il prezzo della riga PRECEDENTE nella sequenza ordinata per data",
+      "Restituisce il prezzo della riga SUCCESSIVA nella sequenza ordinata per data",
+      "Calcola la media mobile degli ultimi 1 prezzi",
+      "Ritarda l'esecuzione della query di 1 secondo"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "LAG(colonna, n) OVER (ORDER BY ...) restituisce il valore della colonna dalla riga n posizioni PRIMA nell'ordinamento. LEAD(colonna, n) fa il contrario (riga n posizioni DOPO). Utili per calcoli su serie temporali: variazione rispetto al giorno precedente, confronto mese su mese."
+  },
+  {
+    "id": 154,
+    "categoria": "Window Functions",
+    "domanda": "Le window functions possono essere usate direttamente nella clausola WHERE?",
+    "risposte": [
+      "Si, ma solo in PostgreSQL — negli altri DBMS non e supportato",
+      "Si, sempre",
+      "Si, ma solo con RANK() e ROW_NUMBER()",
+      "No, devono essere usate in una subquery o CTE e il filtro applicato nella query esterna"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Le window functions vengono calcolate dopo FROM, JOIN, WHERE e GROUP BY (come SELECT), quindi non possono essere usate in WHERE. Il pattern corretto e: SELECT *, RANK() OVER (...) AS rk FROM t che produce la 'rk', poi una query esterna WHERE rk <= 3 la filtra."
+  },
+  {
+    "id": 155,
+    "categoria": "Window Functions",
+    "domanda": "Cosa fa SUM(prezzo) OVER (PARTITION BY autore_id ORDER BY data_pubblicazione)?",
+    "risposte": [
+      "Calcola il prezzo massimo per autore",
+      "Calcola la somma cumulativa dei prezzi per ogni autore, ordinata per data di pubblicazione",
+      "Raggruppa i prezzi per autore e restituisce un solo valore per gruppo",
+      "Calcola la somma totale dei prezzi di tutti i libri"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Quando si aggiunge ORDER BY a una window function aggregata come SUM(), essa diventa una somma cumulativa (running total): per ogni riga somma tutti i valori dalla prima riga della partizione fino alla riga corrente. Senza ORDER BY calcola la somma totale dell'intera partizione."
+  },
+  {
+    "id": 156,
+    "categoria": "DCL e Permessi",
+    "domanda": "Quale famiglia di comandi SQL comprende GRANT e REVOKE?",
+    "risposte": [
+      "DCL — Data Control Language",
+      "DML — Data Manipulation Language",
+      "TCL — Transaction Control Language",
+      "DDL — Data Definition Language"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il DCL (Data Control Language) gestisce i permessi di accesso al database. GRANT assegna permessi; REVOKE li revoca. Questi comandi controllano chi puo fare cosa: SELECT, INSERT, UPDATE, DELETE su tabelle specifiche, o privilegi di sistema piu ampi."
+  },
+  {
+    "id": 157,
+    "categoria": "DCL e Permessi",
+    "domanda": "Cosa fa il comando GRANT SELECT ON libri TO mario?",
+    "risposte": [
+      "Assegna la tabella libri come proprieta dell'utente mario",
+      "Permette a mario di modificare i permessi della tabella libri",
+      "Crea un nuovo utente mario con permesso di SELECT su tutto il database",
+      "Concede all'utente mario il permesso di leggere (SELECT) la tabella libri"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "GRANT permesso ON oggetto TO utente concede il permesso specificato all'utente. GRANT SELECT ON libri TO mario permette a mario di eseguire SELECT sulla tabella libri, ma non INSERT, UPDATE o DELETE (a meno che non vengano concessi separatamente)."
+  },
+  {
+    "id": 158,
+    "categoria": "DCL e Permessi",
+    "domanda": "Cosa fa REVOKE INSERT ON ordini FROM anna?",
+    "risposte": [
+      "Elimina tutti gli INSERT eseguiti da anna sulla tabella ordini",
+      "Impedisce a tutti gli utenti di fare INSERT su ordini",
+      "Revoca all'utente anna il permesso di INSERT sulla tabella ordini",
+      "Crea un log di tutti gli INSERT di anna sulla tabella ordini"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "REVOKE e il contrario di GRANT: rimuove un permesso precedentemente concesso. REVOKE INSERT ON ordini FROM anna rimuove il permesso INSERT di anna sulla tabella ordini. Anna potra ancora fare SELECT (se concesso), ma non piu inserire nuove righe."
+  },
+  {
+    "id": 159,
+    "categoria": "DCL e Permessi",
+    "domanda": "Cosa fa GRANT SELECT ON libri TO PUBLIC?",
+    "risposte": [
+      "Pubblica la tabella su Internet rendendola accessibile esternamente",
+      "Rende la tabella libri di sola lettura per chiunque, compresi gli amministratori",
+      "Crea una copia pubblica della tabella libri accessibile senza autenticazione",
+      "Concede il permesso SELECT sulla tabella libri a tutti gli utenti del database"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "PUBLIC e un identificatore speciale che rappresenta tutti gli utenti del database (presenti e futuri). GRANT permesso ON tabella TO PUBLIC concede il permesso a chiunque. E' utile per tabelle di sola lettura che tutti devono poter consultare."
+  },
+  {
+    "id": 160,
+    "categoria": "DCL e Permessi",
+    "domanda": "Cosa fa l'opzione WITH GRANT OPTION in un GRANT?",
+    "risposte": [
+      "Richiede che il destinatario confermi l'accettazione del permesso",
+      "Limita il permesso a un periodo di tempo specificato",
+      "Rende il permesso temporaneo: scade dopo 24 ore",
+      "Permette al destinatario di concedere a sua volta lo stesso permesso ad altri utenti"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "WITH GRANT OPTION permette al destinatario di 'delegare' il permesso ricevuto ad altri utenti. Es: GRANT SELECT ON libri TO mario WITH GRANT OPTION permette a mario di eseguire a sua volta GRANT SELECT ON libri TO altri_utenti. Usato con cautela per evitare espansioni incontrollate dei permessi."
+  },
+  {
+    "id": 161,
+    "categoria": "DCL e Permessi",
+    "domanda": "Come si crea un ruolo (ROLE) in PostgreSQL e a cosa serve?",
+    "risposte": [
+      "CREATE USER nome ROLE; — aggiunge un ruolo a un utente esistente",
+      "I ruoli non esistono in PostgreSQL standard: si usano solo gli utenti",
+      "CREATE ROLE nome; — crea un gruppo di permessi riusabile assegnabile a piu utenti",
+      "DEFINE ROLE nome PERMISSIONS (...); — definisce un set di permessi con nome"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "CREATE ROLE nome crea un ruolo che puo raggruppare piu permessi. Si assegnano i permessi al ruolo (GRANT SELECT ON ... TO ruolo), poi si assegna il ruolo agli utenti (GRANT ruolo TO utente). Semplifica la gestione: cambiare i permessi del ruolo li cambia per tutti gli utenti che lo hanno."
+  },
+  {
+    "id": 162,
+    "categoria": "Tipi di Dato",
+    "domanda": "Quale tipo PostgreSQL memorizza un intero a 4 byte con valore da -2.147.483.648 a 2.147.483.647?",
+    "risposte": [
+      "SMALLINT",
+      "BIGINT",
+      "INTEGER (o INT)",
+      "DECIMAL"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "INTEGER (sinonimi: INT, INT4) usa 4 byte e copre da circa -2 miliardi a +2 miliardi. SMALLINT usa 2 byte (fino a 32.767). BIGINT usa 8 byte (circa 9.2 * 10^18). SERIAL e un INTEGER con auto-incremento. Per prezzi o misure precise si usa DECIMAL/NUMERIC."
+  },
+  {
+    "id": 163,
+    "categoria": "Tipi di Dato",
+    "domanda": "Qual e la differenza tra VARCHAR(n) e TEXT in PostgreSQL?",
+    "risposte": [
+      "TEXT non ha limite di lunghezza; VARCHAR(n) ha un limite massimo di n caratteri. In PostgreSQL le prestazioni sono identiche",
+      "VARCHAR(n) supporta solo caratteri ASCII; TEXT supporta Unicode",
+      "TEXT viene memorizzato su disco; VARCHAR(n) in memoria RAM",
+      "VARCHAR(n) e piu veloce; TEXT e piu lento per via della compressione"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "In PostgreSQL, VARCHAR(n) limita la stringa a n caratteri (errore se si supera), TEXT e illimitato. Le prestazioni sono praticamente identiche — entrambi usano lo stesso meccanismo di storage. In altri DBMS (es. MySQL) TEXT e piu lento. Se non c'e motivo per un limite, TEXT e spesso preferito."
+  },
+  {
+    "id": 164,
+    "categoria": "Tipi di Dato",
+    "domanda": "Cosa significa DECIMAL(8, 2) come tipo di dato?",
+    "risposte": [
+      "Un numero in virgola mobile con 8 byte di precisione",
+      "Un numero intero con massimo 8 cifre e 2 byte di storage",
+      "Un numero con al massimo 8 cifre totali, di cui 2 dopo la virgola (es. 999999.99)",
+      "Un numero decimale con 8 cifre dopo la virgola e precisione di 2"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "DECIMAL(p, s) o NUMERIC(p, s): p e la precisione totale (numero totale di cifre significative), s e la scala (cifre dopo la virgola). DECIMAL(8, 2) = massimo 8 cifre totali, 2 dopo la virgola: da -999999.99 a 999999.99. Tipo esatto (non approssimato), ideale per valori monetari."
+  },
+  {
+    "id": 165,
+    "categoria": "Tipi di Dato",
+    "domanda": "Quando si usa BOOLEAN in SQL e quali valori accetta?",
+    "risposte": [
+      "Per controllo accessi; accetta ALLOWED e DENIED",
+      "Solo per colonne di stato; accetta solo 0 e 1",
+      "Per flag binari; accetta solo TRUE o FALSE, mai NULL",
+      "Per valori logici; accetta TRUE, FALSE e NULL"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "BOOLEAN accetta TRUE, FALSE e NULL (in logica SQL a tre valori). In PostgreSQL si puo scrivere anche TRUE/FALSE come 't'/'f', '1'/'0', 'yes'/'no'. Il DEFAULT per colonne booleane e spesso FALSE o TRUE. Es: attivo BOOLEAN DEFAULT TRUE."
+  },
+  {
+    "id": 166,
+    "categoria": "Tipi di Dato",
+    "domanda": "Cos'e un UUID e quando si preferisce a SERIAL come chiave primaria?",
+    "risposte": [
+      "UUID = identificatore di 128 bit globalmente univoco, preferito a SERIAL quando si devono unire dati da piu database o generare ID lato client senza conflitti",
+      "UUID e un sinonimo di SERIAL con un range piu grande",
+      "UUID e usato solo per le PRIMARY KEY delle tabelle di sistema PostgreSQL",
+      "UUID = User Unique Identifier: una stringa con il nome e cognome dell'utente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "UUID (Universally Unique Identifier) e un numero a 128 bit che garantisce l'unicita globale (es. '550e8400-e29b-41d4-a716-446655440000'). Si preferisce a SERIAL quando: si sincronizzano piu database, si generano ID lato client (app mobile), o si vuole evitare di esporre la sequenza degli inserimenti."
+  },
+  {
+    "id": 167,
+    "categoria": "Tipi di Dato",
+    "domanda": "Qual e la differenza tra JSON e JSONB in PostgreSQL?",
+    "risposte": [
+      "JSON e standard SQL; JSONB e un tipo proprietario di MySQL",
+      "JSONB ha un limite di dimensione; JSON e illimitato",
+      "JSON e per dati strutturati; JSONB solo per dati non strutturati",
+      "JSON memorizza il testo originale esatto; JSONB lo decompone in formato binario indicizzabile (piu veloce per query ma piu lento per scrittura)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "JSON conserva il testo JSON esattamente come inserito (inclusi spazi, ordine chiavi). JSONB lo converte in formato binario interno: piu lento in scrittura, ma molto piu veloce nelle query e supporta indici GIN. Per la maggior parte dei casi d'uso, JSONB e da preferire."
+  },
+  {
+    "id": 168,
+    "categoria": "Tipi di Dato",
+    "domanda": "Cosa fa CHAR(n) di diverso rispetto a VARCHAR(n)?",
+    "risposte": [
+      "CHAR(n) ha lunghezza fissa: le stringhe piu corte vengono completate con spazi; VARCHAR(n) ha lunghezza variabile",
+      "Non c'e differenza pratica in PostgreSQL: CHAR e VARCHAR si comportano identicamente",
+      "CHAR(n) e piu veloce e usa meno spazio di VARCHAR(n) in tutti i casi",
+      "CHAR(n) supporta solo caratteri numerici; VARCHAR(n) supporta tutti i caratteri"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "CHAR(n) ha lunghezza fissa: 'Eco' in CHAR(10) viene memorizzato come 'Eco       ' (con 7 spazi di padding). VARCHAR(n) e variabile: 'Eco' occupa solo 3 caratteri. CHAR puo essere marginalmente piu veloce per stringhe di lunghezza costante (codici, sigle). In PostgreSQL le differenze di prestazioni sono minime."
+  },
+  {
+    "id": 169,
+    "categoria": "Tipi di Dato",
+    "domanda": "Quale tipo di dato PostgreSQL si usa per memorizzare un array di interi?",
+    "risposte": [
+      "LIST(INTEGER)",
+      "ARRAY OF INT",
+      "COLLECTION(INT)",
+      "INTEGER[]"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "In PostgreSQL, si aggiunge [] dopo il tipo per dichiarare un array: INTEGER[], TEXT[], BOOLEAN[]. Es: tag TEXT[] DEFAULT '{}'. Si accede agli elementi con indice 1-based: tag[1]. Si usa ANY() per cercare un elemento: WHERE 'sql' = ANY(tag). Gli array sono una funzionalita avanzata specifica di PostgreSQL."
+  },
+  {
+    "id": 170,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Cosa fa INSERT ... ON CONFLICT DO NOTHING in PostgreSQL?",
+    "risposte": [
+      "Esegue l'INSERT in una transazione separata che non interferisce con quelle attive",
+      "Inserisce la riga e ignora tutti i vincoli di integrita",
+      "Inserisce la riga solo se non esistono conflitti, altrimenti lancia un errore controllato",
+      "Tenta l'inserimento: se c'e un conflitto (es. duplicato sulla PK), ignora silenziosamente senza errore"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "INSERT ... ON CONFLICT DO NOTHING e la forma piu semplice di UPSERT: tenta l'inserimento; se si verifica un conflitto di vincolo (PK duplicata, UNIQUE violata), semplicemente non fa nulla e non lancia errore. Utile per inserimenti idempotenti."
+  },
+  {
+    "id": 171,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Cosa fa INSERT ... ON CONFLICT (id) DO UPDATE SET nome = EXCLUDED.nome?",
+    "risposte": [
+      "Aggiorna tutti i campi della riga esistente con i valori dell'EXCLUDED",
+      "Tenta l'inserimento: se esiste gia una riga con lo stesso id, aggiorna la colonna nome con il valore che si stava tentando di inserire (EXCLUDED)",
+      "Elimina la riga esistente e la reinserisce con i nuovi valori",
+      "Crea una nuova riga con un id diverso se l'id originale e gia presente"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Questo e il pattern UPSERT (Insert or Update) di PostgreSQL. EXCLUDED e una pseudo-tabella che contiene i valori che si stava tentando di inserire. ON CONFLICT ... DO UPDATE permette di specificare esattamente quali colonne aggiornare in caso di conflitto."
+  },
+  {
+    "id": 172,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Cosa fa UPDATE FROM in PostgreSQL?",
+    "risposte": [
+      "E' un alias di UPDATE ... WHERE con JOIN implicito",
+      "Aggiorna la struttura (schema) di una tabella a partire da un'altra",
+      "Aggiorna una tabella usando come sorgente dei valori un'altra tabella o subquery",
+      "Non esiste: in PostgreSQL si usa solo UPDATE ... SET ... WHERE"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "PostgreSQL supporta UPDATE tabella SET col = sorgente.col FROM altra_tabella WHERE tabella.id = altra_tabella.id. Permette di aggiornare una tabella usando valori provenienti da un'altra. Standard SQL alternativo: UPDATE ... SET col = (SELECT ... WHERE ...)."
+  },
+  {
+    "id": 173,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Cosa fa DELETE USING in PostgreSQL?",
+    "risposte": [
+      "Non esiste: in PostgreSQL si usa solo DELETE FROM ... WHERE con subquery",
+      "E' un alias di TRUNCATE con condizioni",
+      "Elimina le righe e restituisce i valori eliminati con RETURNING",
+      "Elimina le righe di una tabella usando una condizione che coinvolge un'altra tabella, simile a un JOIN nell'eliminazione"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "PostgreSQL supporta DELETE FROM tabella USING altra_tabella WHERE tabella.fk = altra_tabella.pk AND altra_tabella.condizione. Permette di eliminare righe di una tabella basandosi su condizioni che coinvolgono altre tabelle, in modo piu leggibile rispetto a una subquery IN."
+  },
+  {
+    "id": 174,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Qual e il vantaggio di INSERT con piu righe (multi-row INSERT) rispetto a INSERT singoli?",
+    "risposte": [
+      "I multi-row INSERT hanno la priorita nel transaction log e non possono essere revocati",
+      "Non c'e differenza: il DBMS li ottimizza automaticamente allo stesso modo",
+      "Riduce il numero di round-trip con il database e il numero di transazioni implicite: molto piu efficiente",
+      "I multi-row INSERT ignorano automaticamente i duplicati"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Un INSERT con N righe (VALUES (r1), (r2), ..., (rN)) e molto piu efficiente di N INSERT separati perche: 1) una sola comunicazione rete/applicazione, 2) una sola transazione implicita, 3) un solo parse/plan della query. La differenza di prestazioni puo essere di 10-100x su grandi volumi."
+  },
+  {
+    "id": 175,
+    "categoria": "UPSERT e DML Avanzato",
+    "domanda": "Cosa fa il comando COPY in PostgreSQL?",
+    "risposte": [
+      "Copia la struttura di una tabella senza i dati",
+      "Crea una copia di backup di una tabella su un altro schema",
+      "Importa o esporta dati in bulk tra una tabella e un file (CSV, testo), molto piu veloce di INSERT multipli",
+      "Copia una VIEW e la trasforma in una tabella fisica"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "COPY e il meccanismo di bulk load/export di PostgreSQL. COPY tabella FROM '/percorso/file.csv' CSV HEADER importa da file CSV. COPY tabella TO '/percorso/file.csv' CSV HEADER esporta. E' ordini di grandezza piu veloce di INSERT per caricare milioni di righe."
+  },
+  {
+    "id": 176,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Cos'e una 'dirty read' (lettura sporca) nelle transazioni concorrenti?",
+    "risposte": [
+      "Una lettura che non usa indici e causa una scansione completa della tabella",
+      "Una lettura di dati non ancora committati da un'altra transazione concorrente, che potrebbero essere annullati con ROLLBACK",
+      "Una lettura di dati NULL in colonne NOT NULL (dato corrotto)",
+      "Una lettura di dati con caratteri speciali non supportati dal charset"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La dirty read si verifica quando una transazione legge dati modificati ma non ancora committati da un'altra transazione. Se quell'altra transazione fa ROLLBACK, la prima ha letto dati che non esisteranno mai nel database. Prevenuta dal livello READ COMMITTED e superiori."
+  },
+  {
+    "id": 177,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Qual e il livello di isolamento di default in PostgreSQL?",
+    "risposte": [
+      "REPEATABLE READ",
+      "READ COMMITTED",
+      "READ UNCOMMITTED",
+      "SERIALIZABLE"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "READ COMMITTED e il livello di default in PostgreSQL. In questo livello, ogni istruzione all'interno di una transazione vede solo i dati committati al momento dell'inizio di quell'istruzione (non dell'intera transazione). Previene le dirty read ma non le non-repeatable read."
+  },
+  {
+    "id": 178,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Cos'e una 'non-repeatable read'?",
+    "risposte": [
+      "Una lettura che fallisce per timeout di connessione",
+      "Una SELECT senza ORDER BY che restituisce righe in ordine diverso ogni volta",
+      "Una query che non puo essere rieseguita perche la tabella e stata eliminata",
+      "Una lettura dove la stessa riga letta due volte nella stessa transazione restituisce valori diversi perche un'altra transazione l'ha modificata nel frattempo"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La non-repeatable read si verifica quando una transazione legge la stessa riga due volte e ottiene valori diversi, perche un'altra transazione ha committato una modifica tra le due letture. Prevenuta dai livelli REPEATABLE READ e SERIALIZABLE."
+  },
+  {
+    "id": 179,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Cos'e una 'phantom read' (lettura fantasma)?",
+    "risposte": [
+      "Una lettura di NULL dove ci si aspettava un valore",
+      "Una lettura che restituisce righe eliminate (ghost rows) non ancora purgate dal VACUUM",
+      "Un JOIN che produce righe duplicate inattese nel risultato",
+      "Una transazione che legge un insieme di righe, poi la stessa query restituisce righe in piu o in meno perche un'altra transazione ha inserito o eliminato righe nel frattempo"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Le phantom read avvengono quando una transazione esegue la stessa query due volte e ottiene insiemi di righe diversi (non i valori di una riga, ma le righe stesse), perche un'altra transazione ha inserito o eliminato righe nel frattempo. Prevenute solo da SERIALIZABLE."
+  },
+  {
+    "id": 180,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Quale livello di isolamento offre la massima protezione contro tutte le anomalie concorrenti (dirty read, non-repeatable read, phantom read)?",
+    "risposte": [
+      "SERIALIZABLE",
+      "READ COMMITTED",
+      "REPEATABLE READ",
+      "READ UNCOMMITTED"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "SERIALIZABLE e il livello piu restrittivo: le transazioni si eseguono come se fossero sequenziali, eliminando tutte le anomalie di concorrenza. Il costo e una riduzione del parallelismo e potenziali errori di serializzazione (che richiedono di riprovare la transazione). PostgreSQL usa SSI (Serializable Snapshot Isolation) per implementarlo efficientemente."
+  },
+  {
+    "id": 181,
+    "categoria": "Livelli di Isolamento",
+    "domanda": "Cosa fa SET TRANSACTION ISOLATION LEVEL REPEATABLE READ?",
+    "risposte": [
+      "Riavvia la transazione corrente con un livello di isolamento piu alto",
+      "E' un alias di BEGIN TRANSACTION con SNAPSHOT",
+      "Imposta il livello di isolamento per la transazione corrente: una volta letto un dato, gli altri commit non cambieranno quei valori durante la transazione",
+      "Imposta il livello di isolamento per tutte le future transazioni nel database"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SET TRANSACTION ISOLATION LEVEL imposta il livello per la transazione corrente (deve essere eseguito dopo BEGIN e prima della prima istruzione di accesso ai dati). REPEATABLE READ garantisce che i valori letti non cambino durante la transazione, ma non previene le phantom read."
+  },
+  {
+    "id": 182,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Cosa fa EXPLAIN SELECT * FROM libri WHERE titolo = 'Il nome della rosa'?",
+    "risposte": [
+      "Mostra il piano di esecuzione stimato dal query planner senza eseguire realmente la query",
+      "Restituisce la struttura della tabella libri (come DESCRIBE)",
+      "Aggiunge automaticamente un indice sulla colonna titolo",
+      "Esegue la query e restituisce il risultato con informazioni di debug"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "EXPLAIN mostra il piano di esecuzione che il DBMS intende usare (sequential scan, index scan, hash join, ecc.) con i costi stimati, senza eseguire realmente la query. EXPLAIN ANALYZE esegue la query e mostra i tempi reali. Fondamentale per ottimizzare query lente."
+  },
+  {
+    "id": 183,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Quando il query planner sceglie un 'Sequential Scan' invece di un 'Index Scan'?",
+    "risposte": [
+      "Quando la tabella e vuota o ha meno di 10 righe",
+      "Quando la query restituisce una grande percentuale delle righe della tabella (es. > 10-20%): leggere tutto e piu efficiente che saltare usando l'indice",
+      "Quando la colonna nella WHERE non e di tipo INTEGER",
+      "Sempre: il Sequential Scan e sempre piu veloce degli indici"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il query planner sceglie il Sequential Scan quando stima che il costo di leggere la tabella sequenzialmente sia inferiore all'uso dell'indice. Questo accade tipicamente quando la query seleziona molte righe (alta selettivita), su tabelle piccole, o quando le statistiche indicano che l'indice non aiuta."
+  },
+  {
+    "id": 184,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Cosa fa EXPLAIN ANALYZE rispetto a EXPLAIN?",
+    "risposte": [
+      "EXPLAIN ANALYZE crea automaticamente gli indici mancanti",
+      "EXPLAIN ANALYZE esegue realmente la query e mostra sia i costi stimati sia i tempi reali di esecuzione",
+      "EXPLAIN ANALYZE mostra anche le dipendenze tra tabelle",
+      "Non c'e differenza: ANALYZE e un parametro decorativo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "EXPLAIN ANALYZE esegue davvero la query e confronta le stime del planner con i tempi reali. Mostra 'cost=... rows=... width=...' (stima) e '(actual time=... rows=... loops=...)' (reale). Se le stime divergono molto dai reali, le statistiche potrebbero essere obsolete (eseguire ANALYZE)."
+  },
+  {
+    "id": 185,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Quando conviene creare un indice su una colonna?",
+    "risposte": [
+      "Sulle colonne frequentemente usate in WHERE, JOIN e ORDER BY, a patto che la colonna abbia alta cardinalita (molti valori distinti) e le query siano di lettura frequente",
+      "Su tutte le colonne della tabella: piu indici ci sono, piu veloce e il database",
+      "Solo sulle colonne di tipo INT e DATE: gli indici su VARCHAR non funzionano",
+      "Solo sulle colonne PRIMARY KEY: le altre non beneficiano degli indici"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Un indice e utile quando: la colonna ha alta cardinalita (molti valori distinti), e usata spesso nelle WHERE/JOIN, e la tabella e grande. Indici su colonne con pochi valori distinti (es. un BOOLEAN) sono poco utili. Troppi indici rallentano INSERT/UPDATE/DELETE perche ogni indice va aggiornato."
+  },
+  {
+    "id": 186,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Cosa fa il comando ANALYZE (o VACUUM ANALYZE) in PostgreSQL?",
+    "risposte": [
+      "Compatta i file fisici del database eliminando lo spazio occupato da righe eliminate",
+      "Analizza la struttura delle query per suggerire indici",
+      "Controlla l'integrita referenziale di tutte le chiavi esterne",
+      "Aggiorna le statistiche sui dati nelle tabelle, usate dal query planner per scegliere il piano di esecuzione ottimale"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "ANALYZE raccoglie statistiche su distribuzione dei dati (cardinalita, valori piu frequenti, istogrammi) e le salva nel catalogo di sistema. Il query planner usa queste statistiche per scegliere il piano piu efficiente. Se le statistiche sono obsolete, il planner puo fare scelte errate. VACUUM libera spazio fisico; VACUUM ANALYZE fa entrambe."
+  },
+  {
+    "id": 187,
+    "categoria": "Ottimizzazione e EXPLAIN",
+    "domanda": "Cos'e un indice parziale (partial index) e quando e utile?",
+    "risposte": [
+      "Un indice che copre solo le prime N colonne di una chiave composta",
+      "Un indice che viene costruito progressivamente durante l'import dei dati",
+      "Un indice creato su un sottoinsieme di righe della tabella (con WHERE), utile quando le query filtrano spesso su un sottoinsieme specifico",
+      "Un indice che usa solo i primi N caratteri di una colonna VARCHAR"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "CREATE INDEX nome ON tabella(colonna) WHERE condizione crea un indice solo sulle righe che soddisfano la condizione. Es: CREATE INDEX idx_ordini_aperti ON ordini(data) WHERE stato = 'aperto'. L'indice e piu piccolo e piu veloce perche copre solo una parte dei dati, ma aiuta solo le query che includono quella condizione."
+  },
+  {
+    "id": 188,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "Cos'e un trigger in SQL?",
+    "risposte": [
+      "Un tipo di indice che si attiva automaticamente sulle colonne modificate",
+      "Un comando per avviare manualmente la manutenzione del database",
+      "Una procedura che si esegue automaticamente prima o dopo un evento (INSERT, UPDATE, DELETE) su una tabella",
+      "Una condizione CHECK avanzata che blocca le transazioni non conformi"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Un trigger e una funzione che viene eseguita automaticamente dal DBMS quando si verifica un evento specificato su una tabella. Usato per: log automatici delle modifiche, validazione complessa, propagazione di dati tra tabelle, audit trail."
+  },
+  {
+    "id": 189,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "Qual e la differenza tra un trigger BEFORE e un trigger AFTER?",
+    "risposte": [
+      "BEFORE funziona solo con INSERT; AFTER con UPDATE e DELETE",
+      "Non c'e differenza funzionale: sono alias dello stesso meccanismo",
+      "BEFORE si esegue durante la transazione; AFTER dopo il COMMIT",
+      "BEFORE si esegue prima dell'operazione (puo modificare i dati o bloccarla); AFTER si esegue dopo (i dati sono gia stati scritti)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Un trigger BEFORE viene eseguito prima dell'operazione DML: puo modificare i valori NEW, annullare l'operazione (restituendo NULL in PostgreSQL), o validare dati prima della scrittura. Un trigger AFTER viene eseguito dopo che i dati sono stati scritti: utile per notifiche, log, aggiornamento di tabelle correlate."
+  },
+  {
+    "id": 190,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "In un trigger PostgreSQL FOR EACH ROW, cosa rappresentano NEW e OLD?",
+    "risposte": [
+      "NEW e OLD sono alias rispettivamente per INSERTED e DELETED usati in SQL Server",
+      "NEW e il primo record della tabella; OLD e l'ultimo",
+      "NEW e il nome della nuova tabella creata; OLD e il nome della tabella originale",
+      "NEW contiene i valori della riga DOPO la modifica (per INSERT/UPDATE); OLD contiene i valori PRIMA della modifica (per UPDATE/DELETE)"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "In un trigger FOR EACH ROW: NEW contiene i nuovi valori (disponibile in INSERT e UPDATE), OLD contiene i valori precedenti (disponibile in UPDATE e DELETE). Es: per loggare le modifiche ai prezzi si confronta OLD.prezzo con NEW.prezzo. In un trigger BEFORE si puo modificare NEW.colonna prima che la riga venga scritta."
+  },
+  {
+    "id": 191,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "Qual e la differenza tra FOR EACH ROW e FOR EACH STATEMENT in un trigger?",
+    "risposte": [
+      "FOR EACH STATEMENT e piu veloce ma meno preciso di FOR EACH ROW",
+      "Non c'e differenza pratica: il risultato e identico",
+      "FOR EACH ROW si esegue una volta per ogni riga modificata; FOR EACH STATEMENT si esegue una volta per tutta l'operazione, indipendentemente dal numero di righe",
+      "FOR EACH ROW funziona solo con INSERT; FOR EACH STATEMENT con DELETE"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "FOR EACH ROW esegue la funzione trigger per ogni riga toccata dall'operazione (e ha accesso a NEW e OLD). FOR EACH STATEMENT esegue la funzione una sola volta per tutta l'istruzione (anche se 1000 righe sono state modificate) e non ha accesso alle singole righe."
+  },
+  {
+    "id": 192,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "Come si crea una funzione (stored function) in PostgreSQL?",
+    "risposte": [
+      "CREATE PROCEDURE nome(param tipo) BEGIN ... END;",
+      "DEFINE FUNCTION nome(param tipo) RETURNS tipo AS $$ ... $$ LANGUAGE plpgsql;",
+      "CREATE FUNCTION nome(param tipo) RETURNS tipo AS $$ ... $$ LANGUAGE plpgsql;",
+      "MAKE FUNCTION nome(param tipo) RETURN tipo BEGIN ... END;"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La sintassi base e: CREATE [OR REPLACE] FUNCTION nome(param1 tipo1) RETURNS tipo_ritorno AS $$ DECLARE ... BEGIN ... RETURN ...; END; $$ LANGUAGE plpgsql; Il simbolo $$ e un delimitatore di stringa alternativo per evitare problemi con i singoli apici nel corpo della funzione."
+  },
+  {
+    "id": 193,
+    "categoria": "Trigger e Funzioni",
+    "domanda": "Qual e la differenza tra una FUNCTION e una PROCEDURE in PostgreSQL?",
+    "risposte": [
+      "La FUNCTION restituisce sempre un valore e puo essere usata in una SELECT; la PROCEDURE non restituisce valori (o usa parametri OUT) e si chiama con CALL",
+      "La FUNCTION e interna al database; la PROCEDURE puo essere chiamata da applicazioni esterne",
+      "La PROCEDURE puo avere piu parametri; la FUNCTION al massimo uno",
+      "Non c'e differenza: sono sinonimi intercambiabili in PostgreSQL"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Le FUNCTION restituiscono un valore e possono essere usate nelle query (SELECT nome_funzione(parametri)). Le PROCEDURE (introdotte in PostgreSQL 11) non hanno valore di ritorno diretto, si invocano con CALL nome_procedura(parametri) e possono gestire le transazioni internamente (COMMIT/ROLLBACK)."
+  },
+  {
+    "id": 194,
+    "categoria": "Normalizzazione",
+    "domanda": "Cos'e la BCNF (Boyce-Codd Normal Form) e come si differenzia dalla 3NF?",
+    "risposte": [
+      "BCNF aggiunge alla 3NF il requisito che tutte le colonne siano NOT NULL",
+      "BCNF riguarda solo le dipendenze multi-valore, non quelle funzionali",
+      "BCNF e un sinonimo piu formale della 3NF: sono equivalenti",
+      "BCNF e piu restrittiva della 3NF: richiede che ogni determinante funzionale sia una superchiave, eliminando anomalie residue possibili in 3NF"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La BCNF (o 3.5NF) e piu restrittiva della 3NF. Una tabella e in BCNF se per ogni dipendenza funzionale X -> Y, X e una superchiave. Ci sono casi rari in cui una tabella e in 3NF ma non in BCNF (quando ci sono piu chiavi candidate che si sovrappongono). La BCNF elimina queste anomalie residue."
+  },
+  {
+    "id": 195,
+    "categoria": "Normalizzazione",
+    "domanda": "Cosa indica una dipendenza transitiva in una tabella?",
+    "risposte": [
+      "Una JOIN tra tre o piu tabelle che forma un percorso transitivo",
+      "Una colonna che dipende dalla chiave primaria attraverso un'altra colonna non-chiave (A -> B -> C)",
+      "Un vincolo CHECK che dipende da un'altra colonna della stessa riga",
+      "Una chiave esterna che punta a un'altra chiave esterna invece che a una primaria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Una dipendenza transitiva si ha quando A -> B -> C: l'attributo C dipende da B, e B dipende da A (la chiave). Esempio classico: id_ordine -> id_cliente -> citta_cliente. La citta non dipende direttamente dall'ordine ma dal cliente. La 3NF elimina queste dipendenze separando cliente e citta in tabelle distinte."
+  },
+  {
+    "id": 196,
+    "categoria": "Normalizzazione",
+    "domanda": "Qual e l'anomalia di inserimento tipica di una tabella non normalizzata?",
+    "risposte": [
+      "Non si possono inserire piu righe in una sola istruzione INSERT",
+      "Non si puo inserire un valore in una colonna se la tabella e vuota",
+      "L'INSERT fallisce se la riga contiene valori NULL",
+      "Non si puo inserire un fatto parziale: es. non si puo aggiungere un nuovo cliente senza associarlo a un ordine, se cliente e ordine sono nella stessa tabella"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'anomalia di inserimento si verifica quando non si puo registrare un'informazione senza avere anche altre informazioni correlate. Es: in una tabella ordini_clienti che unisce dati di clienti e ordini, non si puo registrare un nuovo cliente finche non fa almeno un ordine. La normalizzazione elimina questa dipendenza separando le entita."
+  },
+  {
+    "id": 197,
+    "categoria": "Normalizzazione",
+    "domanda": "Cosa si intende per 'denormalizzazione' e quando e giustificata?",
+    "risposte": [
+      "La rimozione di vincoli CHECK e FOREIGN KEY per velocizzare gli INSERT",
+      "La conversione di un database relazionale in un database NoSQL",
+      "Il ritorno intenzionale a uno schema meno normalizzato per migliorare le prestazioni di lettura, accettando una maggiore ridondanza e complessita di manutenzione",
+      "L'eliminazione di tutti gli indici per ridurre lo spazio su disco"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La denormalizzazione e una scelta progettuale consapevole: si introduce ridondanza controllata per ridurre il numero di JOIN nelle query frequenti e migliorare le prestazioni di lettura. Giustificata in sistemi con altissimi volumi di lettura (data warehouse, reporting), dove il costo del JOIN supera il costo della ridondanza."
+  },
+  {
+    "id": 198,
+    "categoria": "PostgreSQL",
+    "domanda": "Cos'e MVCC (Multi-Version Concurrency Control) in PostgreSQL?",
+    "risposte": [
+      "Un algoritmo di compressione per ridurre lo spazio su disco",
+      "Un meccanismo per cui ogni transazione vede uno snapshot dei dati al momento del suo inizio, permettendo letture e scritture concorrenti senza blocchi",
+      "Un protocollo di rete per la sincronizzazione tra piu server PostgreSQL",
+      "Un sistema di versioning che mantiene la storia di tutte le modifiche alle tabelle"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "MVCC mantiene piu versioni di ogni riga. Quando una transazione modifica una riga, PostgreSQL non sovrascrive quella originale ma crea una nuova versione. Le transazioni concorrenti vedono la versione appropriata in base al loro snapshot. Questo permette letture non bloccanti: un SELECT non deve aspettare un UPDATE in corso."
+  },
+  {
+    "id": 199,
+    "categoria": "PostgreSQL",
+    "domanda": "Cosa fa VACUUM in PostgreSQL e perche e necessario?",
+    "risposte": [
+      "Ottimizza le query eliminando i piani di esecuzione obsoleti dalla cache",
+      "Recupera lo spazio occupato dalle versioni vecchie delle righe (dead tuples) create da MVCC, rendendolo riutilizzabile",
+      "Esegue un backup completo del database in formato compresso",
+      "Ricostruisce tutti gli indici del database per migliorare le prestazioni"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per via di MVCC, le righe eliminate o aggiornate non vengono fisicamente rimosse subito: restano come 'dead tuples'. VACUUM le rimuove e recupera lo spazio. AUTOVACUUM esegue questo processo automaticamente in background. Senza VACUUM periodico, il database cresce indefinitamente e le prestazioni degradano (table bloat)."
+  },
+  {
+    "id": 200,
+    "categoria": "PostgreSQL",
+    "domanda": "Cosa fa DISTINCT ON (col) in PostgreSQL? (Es: SELECT DISTINCT ON (autore_id) * FROM libri ORDER BY autore_id, anno DESC)",
+    "risposte": [
+      "E' un alias di SELECT DISTINCT filtrato su una sola colonna",
+      "Non e valido in SQL standard: genera un errore di sintassi",
+      "Elimina le righe dove col e NULL",
+      "Restituisce per ogni valore distinto di col la prima riga secondo l'ORDER BY: permette di ottenere 'l'ultimo libro per ogni autore'"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "DISTINCT ON (col) e una funzionalita PostgreSQL-specifica: per ogni valore distinto della colonna specificata, restituisce solo la prima riga secondo l'ORDER BY. L'ORDER BY deve iniziare con le stesse colonne del DISTINCT ON. Es: l'ultimo libro pubblicato per ogni autore, il prezzo piu recente per ogni prodotto."
+  },
+  {
+    "id": 201,
+    "categoria": "PostgreSQL",
+    "domanda": "Cos'e una MATERIALIZED VIEW e come differisce da una VIEW normale?",
+    "risposte": [
+      "Una MATERIALIZED VIEW puo essere aggiornata con INSERT e UPDATE; una VIEW normale no",
+      "Una MATERIALIZED VIEW e piu sicura di una VIEW normale perche e crittografata",
+      "Una MATERIALIZED VIEW memorizza fisicamente il risultato della query su disco e deve essere aggiornata esplicitamente con REFRESH MATERIALIZED VIEW; una VIEW normale riesegue la query ad ogni accesso",
+      "Non c'e differenza: MATERIALIZED e un modificatore opzionale senza effetto"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Una MATERIALIZED VIEW memorizza fisicamente il risultato su disco come una tabella. Le query su di essa sono velocissime (nessun ricalcolo), ma i dati possono essere obsoleti. Si aggiornano con REFRESH MATERIALIZED VIEW nome (bloccante) o REFRESH MATERIALIZED VIEW CONCURRENTLY nome (non bloccante, richiede un indice univoco)."
+  },
+  {
+    "id": 202,
+    "categoria": "PostgreSQL",
+    "domanda": "Cosa fa l'operatore ->> su una colonna JSONB in PostgreSQL?",
+    "risposte": [
+      "Esegue un confronto tra due documenti JSONB",
+      "Aggiunge una chiave al documento JSONB",
+      "Estrae il valore di una chiave JSON come testo (TEXT), non come JSONB",
+      "Elimina una chiave dal documento JSONB"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Per colonne JSONB: -> estrae un elemento come JSONB (utile per navigare annidato). ->> estrae un elemento come TEXT (utile per confronti e WHERE). Es: dati->>'nome' restituisce il valore della chiave 'nome' come stringa. dati->'indirizzo'->>'citta' navega l'annidamento."
+  },
+  {
+    "id": 203,
+    "categoria": "PostgreSQL",
+    "domanda": "Cos'e pg_dump e a cosa serve?",
+    "risposte": [
+      "Uno strumento per creare un backup logico del database in formato SQL o binario, ripristinabile con pg_restore o psql",
+      "Uno strumento per importare dati da file CSV nel database",
+      "Un comando interno per svuotare la cache del query planner",
+      "Un comando per analizzare le performance delle query lente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "pg_dump e il tool di backup di PostgreSQL: esporta la struttura e/o i dati di un database in un file. pg_dump -Fc db > backup.dump (formato custom, compresso) o pg_dump db > backup.sql (formato SQL plain). pg_restore ripristina dal formato custom; psql < backup.sql dal formato SQL."
+  },
+  {
+    "id": 204,
+    "categoria": "PostgreSQL",
+    "domanda": "Cosa contiene lo schema information_schema in PostgreSQL?",
+    "risposte": [
+      "I log delle ultime 1000 query eseguite",
+      "Le query salvate come VIEW nel database corrente",
+      "La configurazione del server PostgreSQL (porte, memoria, connessioni)",
+      "Viste standard SQL che espongono metadati: tabelle, colonne, vincoli, VIEW presenti nel database"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "information_schema e uno schema standard SQL (disponibile in tutti i DBMS conformi) con VIEW di sola lettura che espongono i metadati: information_schema.tables elenca le tabelle, information_schema.columns elenca le colonne con i loro tipi e vincoli, information_schema.table_constraints elenca i vincoli. Utile per ispezionare la struttura del database programmaticamente."
+  },
+  {
+    "id": 205,
+    "categoria": "PostgreSQL",
+    "domanda": "Cosa fa gen_random_uuid() in PostgreSQL?",
+    "risposte": [
+      "Crea un hash MD5 della riga corrente per identificarla univocamente",
+      "Genera un UUID version 4 casuale (128 bit) utilizzabile come identificatore globalmente univoco",
+      "Genera un codice SERIAL progressivo come alternativa a SERIAL",
+      "Genera un numero intero casuale univoco per uso come chiave primaria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "gen_random_uuid() genera un UUID v4 casuale, come ad esempio '550e8400-e29b-41d4-a716-446655440000'. Si usa spesso come DEFAULT nelle colonne UUID: id UUID DEFAULT gen_random_uuid() PRIMARY KEY. Disponibile nel modulo pgcrypto (o nativamente in PostgreSQL 13+ tramite pg_catalog)."
+  }
+]

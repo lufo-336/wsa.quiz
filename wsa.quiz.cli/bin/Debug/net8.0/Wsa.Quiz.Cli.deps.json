@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Wsa.Quiz.Cli/1.0.0": {
+        "dependencies": {
+          "Wsa.Quiz.Core": "1.0.0"
+        },
+        "runtime": {
+          "Wsa.Quiz.Cli.dll": {}
+        }
+      },
+      "Wsa.Quiz.Core/1.0.0": {
+        "runtime": {
+          "Wsa.Quiz.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Wsa.Quiz.Cli/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Wsa.Quiz.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
