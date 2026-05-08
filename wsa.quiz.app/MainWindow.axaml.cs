@@ -10,8 +10,8 @@ namespace Wsa.Quiz.App;
 
 /// <summary>
 /// Shell principale dell'app. Orchestra il caricamento dati al boot,
-/// il TabControl con le tre sezioni e la transizione fra Home / Quiz / Riepilogo
-/// all'interno del tab "Home".
+/// il TabControl con le tre sezioni (Home / Cronologia / Sospesi)
+/// e la transizione fra Home / Quiz / Riepilogo all'interno del tab Home.
 /// </summary>
 public partial class MainWindow : Window
 {
@@ -20,6 +20,8 @@ public partial class MainWindow : Window
     private List<Domanda> _tutteDomande = new();
 
     private HomeView? _homeView;
+    private CronologiaView? _cronologiaView;
+    private SospesiView? _sospesiView;
 
     public MainWindow()
     {
@@ -43,18 +45,21 @@ public partial class MainWindow : Window
 
             StatoHeaderText.Text = $"{_materie.Count} materie · {_tutteDomande.Count} domande";
 
+            // ---------- Tab Home ----------
             _homeView = new HomeView();
             _homeView.Inizializza(_materie, _tutteDomande);
             _homeView.QuizAvviato += OnQuizAvviato;
             HomeArea.Content = _homeView;
 
-            // Tab placeholder per ora (popolati negli step 3+)
-            CronologiaArea.Content = new PlaceholderView(
-                "Cronologia",
-                "La sezione Cronologia verra' popolata nello step 3. La cronologia salvata dal console e dall'app GUI condivide gia' lo stesso file.");
-            SospesiArea.Content = new PlaceholderView(
-                "Sospesi",
-                "La sezione Sospesi verra' popolata nello step 3. Lo storage e' gia' condiviso col console.");
+            // ---------- Tab Cronologia ----------
+            _cronologiaView = new CronologiaView();
+            _cronologiaView.Inizializza(_storage);
+            CronologiaArea.Content = _cronologiaView;
+
+            // ---------- Tab Sospesi ----------
+            _sospesiView = new SospesiView();
+            _sospesiView.Inizializza(_storage);
+            SospesiArea.Content = _sospesiView;
         }
         catch (Exception ex)
         {
@@ -66,7 +71,7 @@ public partial class MainWindow : Window
         }
     }
 
-    // ------------------------------------------------------------------ NAVIGAZIONE
+    // ------------------------------------------------------------------ NAVIGAZIONE TAB HOME
 
     private void OnQuizAvviato(object? sender, SessioneQuiz sessione)
     {
@@ -84,6 +89,8 @@ public partial class MainWindow : Window
             try
             {
                 _storage.SalvaRisultato(sessione.Risultato);
+                // La nuova sessione dev'essere visibile la prossima volta che si apre il tab.
+                _cronologiaView?.Ricarica();
             }
             catch (Exception ex)
             {

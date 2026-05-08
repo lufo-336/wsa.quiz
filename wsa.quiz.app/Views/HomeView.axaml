@@ -152,11 +152,10 @@
                         Content="Avvia quiz"
                         Click="OnAvviaClick"
                         IsEnabled="{Binding PuoAvviare}"
+                        Classes="accent"
                         Padding="22,10"
                         FontSize="14"
                         FontWeight="SemiBold"
-                        Background="{DynamicResource SystemAccentColorBrush}"
-                        Foreground="White"
                         VerticalAlignment="Center"/>
             </Grid>
 

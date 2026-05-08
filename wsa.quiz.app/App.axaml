@@ -5,6 +5,63 @@
 
     <Application.Styles>
         <FluentTheme />
+
+        <!--
+          Stile per i bottoni con azione "primaria" (Avvia quiz, Torna alla Home, ...).
+          Risolve la trappola n.6 della handoff: in Fluent il bottone con
+          Background=SystemAccentColorBrush, andando in IsEnabled=false, mantiene
+          un colore quasi bianco e si confonde con lo sfondo.
+          Qui definiamo i quattro stati (default, hover, pressed, disabled) sul
+          ContentPresenter del template. I bottoni applicabili usano Classes="accent".
+        -->
+        <Style Selector="Button.accent /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColorBrush}"/>
+        </Style>
+        <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1Brush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColorLight1Brush}"/>
+        </Style>
+        <Style Selector="Button.accent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1Brush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColorDark1Brush}"/>
+        </Style>
+        <Style Selector="Button.accent:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <!-- Grigio neutro: contrasto su sfondo chiaro senza essere "vivo".
+                 Valori espliciti (non DynamicResource Color) per stare al sicuro
+                 dalle conversioni Color->Brush nei Setter. -->
+            <Setter Property="Background" Value="#D6D6D6"/>
+            <Setter Property="Foreground" Value="#7A7A7A"/>
+            <Setter Property="BorderBrush" Value="#D6D6D6"/>
+        </Style>
+
+        <!--
+          Stile per i bottoni "danger" (azioni distruttive: Elimina sospeso).
+          Variante rossa con stesso comportamento sui quattro stati.
+        -->
+        <Style Selector="Button.danger /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#B85450"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#B85450"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#A04340"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#A04340"/>
+        </Style>
+        <Style Selector="Button.danger:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#8C3B38"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#8C3B38"/>
+        </Style>
+        <Style Selector="Button.danger:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#D6D6D6"/>
+            <Setter Property="Foreground" Value="#7A7A7A"/>
+            <Setter Property="BorderBrush" Value="#D6D6D6"/>
+        </Style>
     </Application.Styles>
 
 </Application>

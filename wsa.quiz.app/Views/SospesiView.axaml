@@ -1,0 +1,173 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:state="using:Wsa.Quiz.App.State"
+             xmlns:views="using:Wsa.Quiz.App.Views"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.SospesiView"
+             x:DataType="views:SospesiView">
+
+    <DockPanel>
+
+        <!-- ======================================== HEADER -->
+        <Grid DockPanel.Dock="Top"
+              ColumnDefinitions="*,Auto"
+              Margin="20,16,20,8">
+            <StackPanel Spacing="2">
+                <TextBlock Text="Sessioni in pausa"
+                           FontSize="22" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding Sottotitolo}"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+            </StackPanel>
+
+            <Button Grid.Column="1"
+                    Content="Aggiorna"
+                    Click="OnAggiornaClick"
+                    Padding="14,6"
+                    FontSize="12"
+                    ToolTip.Tip="Ricarica le sessioni in pausa dal disco. Utile se ne hai messe in pausa dal console mentre l'app era aperta."/>
+        </Grid>
+
+        <!-- ======================================== STATO VUOTO -->
+        <Border DockPanel.Dock="Top"
+                IsVisible="{Binding NessunaPausa}"
+                Margin="20,8,20,0"
+                Background="{DynamicResource SystemRegionBrush}"
+                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="20">
+            <StackPanel HorizontalAlignment="Center" Spacing="6">
+                <TextBlock Text="Nessuna sessione in pausa"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Le sessioni messe in pausa (per ora dal console) compaiono qui. La pausa dalla GUI arrivera' nello step 4."
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           MaxWidth="520"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ======================================== LISTA -->
+        <ScrollViewer Margin="20,8,20,16"
+                      VerticalScrollBarVisibility="Auto"
+                      IsVisible="{Binding !NessunaPausa}">
+            <ItemsControl ItemsSource="{Binding Sessioni}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="state:SessioneSospesaItem">
+                        <Border Background="{DynamicResource SystemRegionBrush}"
+                                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="14,12"
+                                Margin="0,0,0,8">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+
+                                <!-- Riga 1: data + tipo -->
+                                <Grid Grid.Column="0" Grid.Row="0"
+                                      ColumnDefinitions="*,Auto">
+                                    <TextBlock Text="{Binding DataFormattata}"
+                                               FontWeight="SemiBold"
+                                               FontSize="13"/>
+                                    <Border Grid.Column="1"
+                                            Background="{DynamicResource SystemBaseLowColor}"
+                                            CornerRadius="3"
+                                            Padding="6,2"
+                                            Margin="8,0,0,0">
+                                        <TextBlock Text="{Binding TipoEtichetta}"
+                                                   FontSize="10"
+                                                   Foreground="{DynamicResource SystemBaseMediumHighColor}"/>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Riga 2: modalita' + materia -->
+                                <StackPanel Grid.Column="0" Grid.Row="1"
+                                            Orientation="Horizontal"
+                                            Margin="0,4,0,0"
+                                            Spacing="8">
+                                    <TextBlock Text="{Binding Modalita}"
+                                               FontSize="12"/>
+                                    <TextBlock Text="·"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                                    <TextBlock Text="{Binding MateriaEtichetta}"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                                </StackPanel>
+
+                                <!-- Riga 3: avanzamento + tempo -->
+                                <StackPanel Grid.Column="0" Grid.Row="2"
+                                            Orientation="Horizontal"
+                                            Margin="0,4,0,0"
+                                            Spacing="16">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="Progresso:"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                                        <TextBlock Text="{Binding Avanzamento}"
+                                                   FontSize="11"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="Tempo:"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                                        <TextBlock Text="{Binding TempoTrascorsoFormattato}"
+                                                   FontSize="11"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Bottoni: stato normale -->
+                                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+                                            Orientation="Horizontal"
+                                            Spacing="6"
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding NonInAttesaConferma}">
+                                    <Button Content="Riprendi"
+                                            IsEnabled="False"
+                                            Padding="14,6"
+                                            FontSize="12"
+                                            ToolTip.Tip="Disponibile dallo step 4. Per ora puoi riprendere la sessione dal console."/>
+                                    <Button Content="Elimina"
+                                            Click="OnEliminaClick"
+                                            Classes="danger"
+                                            Padding="14,6"
+                                            FontSize="12"/>
+                                </StackPanel>
+
+                                <!-- Bottoni: stato conferma -->
+                                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+                                            Orientation="Horizontal"
+                                            Spacing="6"
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding InAttesaConfermaEliminazione}">
+                                    <TextBlock Text="Sicuro?"
+                                               VerticalAlignment="Center"
+                                               FontSize="12"
+                                               Foreground="#B85450"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,4,0"/>
+                                    <Button Content="Si', elimina"
+                                            Click="OnConfermaEliminaClick"
+                                            Classes="danger"
+                                            Padding="14,6"
+                                            FontSize="12"/>
+                                    <Button Content="Annulla"
+                                            Click="OnAnnullaEliminaClick"
+                                            Padding="14,6"
+                                            FontSize="12"/>
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+
+</UserControl>
