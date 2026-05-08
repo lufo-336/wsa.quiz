@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Wsa.Quiz.Console</RootNamespace>
+    <AssemblyName>Wsa.Quiz.Console</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\wsa.quiz.core\Wsa.Quiz.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- materie.json e domande/ vivono nella radice del repo (un livello sopra)
+         e vengono copiati accanto all'eseguibile a ogni build. Cosi' aggiungere
+         materie/domande resta semplice come prima: si modificano i JSON in radice. -->
+    <None Include="..\materie.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\domande\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>domande\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+
+</Project>

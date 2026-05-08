@@ -1,0 +1,166 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:state="using:Wsa.Quiz.App.State"
+             xmlns:views="using:Wsa.Quiz.App.Views"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.HomeView"
+             x:DataType="views:HomeView">
+
+    <ScrollViewer Padding="20">
+        <StackPanel Spacing="16" MaxWidth="980" HorizontalAlignment="Stretch">
+
+            <TextBlock Text="Configura un nuovo quiz"
+                       FontSize="22" FontWeight="SemiBold"/>
+            <TextBlock Text="Scegli una o piu' materie. Se vuoi, restringi a categorie specifiche e regola le opzioni della sessione."
+                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                       TextWrapping="Wrap"/>
+
+            <!-- Materie + Categorie -->
+            <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
+
+                <!-- ============================== MATERIE ============================== -->
+                <Border Grid.Row="0" Grid.Column="0"
+                        Background="{DynamicResource SystemRegionBrush}"
+                        BorderBrush="{DynamicResource SystemBaseLowColor}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="14">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="Materie"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,8"/>
+                        <ItemsControl ItemsSource="{Binding Materie}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="state:MateriaSelezionabile">
+                                    <CheckBox Content="{Binding Etichetta}"
+                                              IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                              Margin="0,3"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DockPanel>
+                </Border>
+
+                <!-- ============================== CATEGORIE ============================== -->
+                <Border Grid.Row="0" Grid.Column="2"
+                        Background="{DynamicResource SystemRegionBrush}"
+                        BorderBrush="{DynamicResource SystemBaseLowColor}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="14"
+                        MinHeight="180">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+                            <TextBlock Text="Categorie  (lascia vuoto per includerle tutte)"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                            <Button Grid.Column="1"
+                                    Content="Pulisci"
+                                    Click="OnPulisciCategorieClick"
+                                    Padding="10,3"
+                                    FontSize="11"
+                                    IsEnabled="{Binding HaCategorieSelezionate}"/>
+                        </Grid>
+
+                        <TextBlock x:Name="EmptyCategorieText"
+                                   Text="Seleziona una materia per vedere le categorie disponibili."
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                   FontStyle="Italic"
+                                   TextWrapping="Wrap"
+                                   IsVisible="{Binding NessunaCategoriaDisponibile}"/>
+
+                        <ScrollViewer MaxHeight="240"
+                                      VerticalScrollBarVisibility="Auto"
+                                      IsVisible="{Binding !NessunaCategoriaDisponibile}">
+                            <ItemsControl ItemsSource="{Binding CategorieVisibili}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="state:CategoriaSelezionabile">
+                                        <Grid ColumnDefinitions="*,Auto" Margin="0,2">
+                                            <CheckBox Content="{Binding Etichetta}"
+                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding MateriaNome}"
+                                                       FontSize="11"
+                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="8,0,0,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <!-- ============================== OPZIONI ============================== -->
+            <Border Background="{DynamicResource SystemRegionBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="14">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Opzioni"
+                               FontWeight="SemiBold"/>
+
+                    <CheckBox Content="Randomizza l'ordine delle domande"
+                              IsChecked="{Binding RandomizzaOrdine, Mode=TwoWay}"
+                              ToolTip.Tip="Se disattivato, le domande seguono l'ordine dei file JSON."/>
+
+                    <CheckBox Content="Modalita' rotazione (le sbagliate rientrano in coda)"
+                              IsChecked="{Binding Rotazione, Mode=TwoWay}"
+                              ToolTip.Tip="Il quiz termina solo quando tutte le domande sono state risposte correttamente almeno una volta."/>
+
+                    <CheckBox Content="Mostra cronometro durante il quiz"
+                              IsChecked="{Binding Cronometro, Mode=TwoWay}"/>
+
+                    <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="0,4,0,0">
+                        <CheckBox Content="Limita a"
+                                  IsChecked="{Binding LimitaDomande, Mode=TwoWay}"
+                                  VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Column="1"
+                                       Minimum="1" Maximum="9999"
+                                       Value="{Binding LimiteN, Mode=TwoWay}"
+                                       Increment="5"
+                                       Width="120"
+                                       Margin="10,0,8,0"
+                                       IsEnabled="{Binding LimitaDomande}"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="domande (estratte casualmente)"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- ============================== AVVIO ============================== -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding RiepilogoSelezione}"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding AvvisoSelezione}"
+                               Foreground="#B85450"
+                               IsVisible="{Binding HaAvviso}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        Content="Avvia quiz"
+                        Click="OnAvviaClick"
+                        IsEnabled="{Binding PuoAvviare}"
+                        Padding="22,10"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Background="{DynamicResource SystemAccentColorBrush}"
+                        Foreground="White"
+                        VerticalAlignment="Center"/>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

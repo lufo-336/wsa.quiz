@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Wsa.Quiz.App.MainWindow"
+        Title="WSA Quiz"
+        Width="1080" Height="760"
+        MinWidth="780" MinHeight="540"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel>
+
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource SystemAccentColorBrush}"
+                Padding="20,12">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="WSA Quiz"
+                           FontSize="20" FontWeight="SemiBold"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1"
+                           x:Name="StatoHeaderText"
+                           VerticalAlignment="Center"
+                           FontSize="11"
+                           Foreground="White"
+                           Opacity="0.85"/>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Border DockPanel.Dock="Bottom"
+                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                BorderThickness="0,1,0,0"
+                Padding="16,6">
+            <TextBlock x:Name="FooterText"
+                       FontSize="11"
+                       Foreground="{DynamicResource SystemBaseMediumColor}"/>
+        </Border>
+
+        <!-- Errore globale (visibile solo se il caricamento dati fallisce) -->
+        <Border x:Name="ErrorePanel"
+                DockPanel.Dock="Top"
+                Background="#F9E7E6"
+                BorderBrush="#B85450"
+                BorderThickness="0,0,0,1"
+                Padding="16,12"
+                IsVisible="False">
+            <StackPanel Spacing="4">
+                <TextBlock Text="Errore nel caricamento dei dati"
+                           FontWeight="SemiBold"
+                           Foreground="#8C3B38"/>
+                <TextBlock x:Name="ErroreText"
+                           FontSize="12"
+                           Foreground="#8C3B38"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <TabControl x:Name="Tabs" Padding="0">
+            <TabItem Header="Home">
+                <ContentControl x:Name="HomeArea"/>
+            </TabItem>
+            <TabItem Header="Cronologia">
+                <ContentControl x:Name="CronologiaArea"/>
+            </TabItem>
+            <TabItem Header="Sospesi">
+                <ContentControl x:Name="SospesiArea"/>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+
+</Window>
