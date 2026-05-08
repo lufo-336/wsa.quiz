@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wsa.Quiz.Cli")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac02a1f29052ae76e55b7110b383dca1be2ae0d1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394f761e7751e45c3b72b6271b380b863d38085a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wsa.Quiz.Cli")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wsa.Quiz.Cli")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

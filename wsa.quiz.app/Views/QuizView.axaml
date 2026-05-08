@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="Wsa.Quiz.App.Views.QuizView"
              x:Name="Root"
-             x:DataType="state:SessioneQuiz">
+             x:DataType="state:SessioneQuiz"
+             Focusable="True">
 
     <UserControl.Styles>
         <!-- Bottoni risposta: stato neutra (default) -->

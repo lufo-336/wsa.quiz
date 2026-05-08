@@ -35,6 +35,14 @@ public class SessioneQuiz : ObservableObject
     private DateTime _inizio;
     private DomandaPreparata? _domandaCorrente;
 
+    // Identita' della pausa (riusato in caso di re-pausa, e per cancellarla a fine sessione)
+    private string _sessioneId = Guid.NewGuid().ToString("N");
+    private bool _avviataDaRipresa;
+
+    // Offset usati quando la sessione viene ripresa da una pausa
+    private TimeSpan _offsetCronometro = TimeSpan.Zero;
+    private int _offsetEffettuate; // classica: domande gia' fatte nelle sessioni pregresse
+
     // Sessione classica
     private List<Domanda> _ordineClassica = new();
     private int _indiceClassica;
@@ -42,12 +50,19 @@ public class SessioneQuiz : ObservableObject
 
     // Sessione rotazione
     private LinkedList<Domanda> _codaRotazione = new();
-    private readonly Dictionary<string, int> _tentativiPerId = new();
-    private readonly HashSet<string> _corretteIds = new();
+    private Dictionary<string, int> _tentativiPerId = new();
+    private HashSet<string> _corretteIds = new();
     private int _totUnicoRotazione;
     private int _sbagliateContatoreRotazione;
     private int _indicePosizioneRotazione;
     private static readonly Random Rng = new();
+
+    /// <summary>
+    /// Id della pausa da cui questa sessione e' stata ripresa, o <c>null</c> se la sessione
+    /// e' stata avviata da zero. Viene usato dalla <c>MainWindow</c> per cancellare la pausa
+    /// originale al termine della sessione.
+    /// </summary>
+    public string? IdSessionePausa => _avviataDaRipresa ? _sessioneId : null;
 
     /// <summary>Risultato della sessione. Compilato durante l'esecuzione e finalizzato a chiusura.</summary>
     public RisultatoQuiz Risultato { get; } = new();
@@ -148,23 +163,33 @@ public class SessioneQuiz : ObservableObject
 
     public void Avvia()
     {
-        // Preparo l'ordine iniziale come fa Program.EseguiSessioneConOpzioni
-        var ordine = Opzioni.RandomizzaOrdineDomande
-            ? QuizService.DomandeRandomizzate(_poolIniziale)
-            : _poolIniziale.ToList();
-        if (Opzioni.LimiteDomande > 0 && ordine.Count > Opzioni.LimiteDomande)
-            ordine = ordine.Take(Opzioni.LimiteDomande).ToList();
-
-        if (Opzioni.Rotazione)
+        if (!_avviataDaRipresa)
         {
-            _codaRotazione = new LinkedList<Domanda>(ordine);
-            _totUnicoRotazione = ordine.Count;
-            TotalePrevisto = _totUnicoRotazione; // si aggiornera' man mano che le sbagliate rientrano
+            // Preparo l'ordine iniziale come fa Program.EseguiSessioneConOpzioni
+            var ordine = Opzioni.RandomizzaOrdineDomande
+                ? QuizService.DomandeRandomizzate(_poolIniziale)
+                : _poolIniziale.ToList();
+            if (Opzioni.LimiteDomande > 0 && ordine.Count > Opzioni.LimiteDomande)
+                ordine = ordine.Take(Opzioni.LimiteDomande).ToList();
+
+            if (Opzioni.Rotazione)
+            {
+                _codaRotazione = new LinkedList<Domanda>(ordine);
+                _totUnicoRotazione = ordine.Count;
+                TotalePrevisto = _totUnicoRotazione;
+            }
+            else
+            {
+                _ordineClassica = ordine;
+                TotalePrevisto = ordine.Count;
+            }
         }
         else
         {
-            _ordineClassica = ordine;
-            TotalePrevisto = ordine.Count;
+            // Sessione ripresa: pool e contatori sono gia' stati popolati da RiprendiDa.
+            TotalePrevisto = Opzioni.Rotazione
+                ? _totUnicoRotazione + _sbagliateContatoreRotazione
+                : _ordineClassica.Count + _offsetEffettuate;
         }
 
         Risultato.DataOra = DateTime.Now;
@@ -174,7 +199,7 @@ public class SessioneQuiz : ObservableObject
         Risultato.ModalitaRotazione = Opzioni.Rotazione;
         Risultato.CronometroAttivo = Opzioni.Cronometro;
 
-        _inizio = DateTime.Now;
+        _inizio = DateTime.Now - _offsetCronometro;
         _cron.Start();
         if (Opzioni.Cronometro) _timer.Start();
 
@@ -199,7 +224,7 @@ public class SessioneQuiz : ObservableObject
         {
             if (_indiceClassica >= _ordineClassica.Count) { Concludi(false); return; }
             prossima = _ordineClassica[_indiceClassica];
-            NumeroDomandaCorrente = _indiceClassica + 1;
+            NumeroDomandaCorrente = _indiceClassica + 1 + _offsetEffettuate;
         }
 
         _domandaCorrente = QuizService.PreparaDomanda(prossima);
@@ -326,7 +351,7 @@ public class SessioneQuiz : ObservableObject
         _timer.Stop();
         Abbandonato = abbandonato;
         Risultato.Abbandonato = abbandonato;
-        Risultato.DurataQuiz = _cron.Elapsed;
+        Risultato.DurataQuiz = _cron.Elapsed + _offsetCronometro;
 
         if (Opzioni.Rotazione)
         {
@@ -353,9 +378,123 @@ public class SessioneQuiz : ObservableObject
 
     private void AggiornaTempo()
     {
-        var t = _cron.Elapsed;
+        var t = _cron.Elapsed + _offsetCronometro;
         Tempo = t.TotalHours >= 1
             ? $"{(int)t.TotalHours:00}:{t.Minutes:00}:{t.Seconds:00}"
             : $"{t.Minutes:00}:{t.Seconds:00}";
+    }
+
+    // ------------------------------------------------------------------ PAUSA: ESPORTA / RIPRENDI
+
+    /// <summary>
+    /// Snapshot serializzabile dello stato corrente. Ferma cronometro e timer:
+    /// dopo questa chiamata la sessione e' considerata dismessa (la
+    /// <c>QuizView</c> la sostituisce con la <c>HomeView</c>).
+    ///
+    /// Funziona sia in stato "in attesa di risposta" sia in stato "feedback
+    /// pendente". Il discriminante e' <see cref="RispostaInviata"/>.
+    /// </summary>
+    public SessionePausa EsportaPausa()
+    {
+        _cron.Stop();
+        _timer.Stop();
+
+        var pausa = new SessionePausa
+        {
+            SessioneId = _sessioneId,
+            DataOraPausa = DateTime.Now,
+            Opzioni = Opzioni,
+            ModalitaRotazione = Opzioni.Rotazione,
+            TempoTrascorso = _cron.Elapsed + _offsetCronometro,
+            Dettagli = Risultato.Dettagli.ToList()
+        };
+
+        if (Opzioni.Rotazione)
+        {
+            // Coda di domande ancora da padroneggiare. Se siamo nello stato
+            // "in attesa", la domanda corrente e' gia' stata estratta dalla
+            // coda ma non ancora risposta: va rimessa in testa.
+            var coda = new List<string>();
+            if (!RispostaInviata && _domandaCorrente != null)
+                coda.Add(_domandaCorrente.Originale.Id);
+            foreach (var d in _codaRotazione) coda.Add(d.Id);
+
+            pausa.CodaDomandeIds = coda;
+            pausa.TentativiPerId = new Dictionary<string, int>(_tentativiPerId);
+            pausa.CorretteIds = _corretteIds.ToList();
+            pausa.TotaleUnicheRotazione = _totUnicoRotazione;
+            pausa.SbagliateContatore = _sbagliateContatoreRotazione;
+            // In stato "in attesa" l'indice e' gia' stato incrementato in
+            // CaricaProssimaDomanda; per coerenza con il console (vedi
+            // wsa.quiz.cli/Program.cs:431) salvo la posizione "pre-mostra".
+            pausa.IndicePosizioneRotazione = RispostaInviata
+                ? _indicePosizioneRotazione
+                : _indicePosizioneRotazione - 1;
+        }
+        else
+        {
+            // Classica: in stato "in attesa" la domanda corrente NON e' ancora
+            // stata risposta -> coda da _indiceClassica. In stato "post-feedback"
+            // la domanda corrente e' gia' in Dettagli -> coda da _indiceClassica + 1.
+            int skip = RispostaInviata ? _indiceClassica + 1 : _indiceClassica;
+            pausa.CodaDomandeIds = _ordineClassica.Skip(skip).Select(d => d.Id).ToList();
+            pausa.CorretteClassica = _correttoClassica;
+            pausa.EffettuateClassica = skip + _offsetEffettuate;
+        }
+
+        return pausa;
+    }
+
+    /// <summary>
+    /// Costruisce una <see cref="SessioneQuiz"/> a partire da un <see cref="SessionePausa"/>
+    /// salvato (dal console o dalla GUI). Replica la logica di
+    /// <c>Program.RiprendiSessioneInPausa</c> del console.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">
+    /// Se nessuna delle domande della pausa esiste piu' nel pool corrente
+    /// (la pausa e' "orfana" — la <c>MainWindow</c> la elimina).
+    /// </exception>
+    public static SessioneQuiz RiprendiDa(SessionePausa pausa, IDictionary<string, Domanda> mappaPerId)
+    {
+        var ricostruite = new List<Domanda>();
+        foreach (var id in pausa.CodaDomandeIds)
+            if (mappaPerId.TryGetValue(id, out var d)) ricostruite.Add(d);
+
+        if (ricostruite.Count == 0)
+            throw new InvalidOperationException(
+                "Le domande di questa pausa non sono piu' disponibili.");
+
+        var sessione = new SessioneQuiz(ricostruite, pausa.Opzioni)
+        {
+            _sessioneId = pausa.SessioneId,
+            _avviataDaRipresa = true,
+            _offsetCronometro = pausa.TempoTrascorso
+        };
+
+        // Dettagli cumulativi delle risposte gia' date pre-pausa
+        foreach (var dett in pausa.Dettagli) sessione.Risultato.Dettagli.Add(dett);
+
+        if (pausa.Opzioni.Rotazione)
+        {
+            sessione._codaRotazione = new LinkedList<Domanda>(ricostruite);
+            sessione._tentativiPerId = new Dictionary<string, int>(pausa.TentativiPerId);
+            sessione._corretteIds = new HashSet<string>(pausa.CorretteIds);
+            sessione._totUnicoRotazione = pausa.TotaleUnicheRotazione;
+            sessione._sbagliateContatoreRotazione = pausa.SbagliateContatore;
+            sessione._indicePosizioneRotazione = pausa.IndicePosizioneRotazione;
+            sessione.Corrette = sessione._corretteIds.Count;
+            sessione.Errate = sessione._sbagliateContatoreRotazione;
+        }
+        else
+        {
+            sessione._ordineClassica = ricostruite;
+            sessione._indiceClassica = 0;
+            sessione._correttoClassica = pausa.CorretteClassica;
+            sessione._offsetEffettuate = pausa.EffettuateClassica;
+            sessione.Corrette = pausa.CorretteClassica;
+            sessione.Errate = pausa.EffettuateClassica - pausa.CorretteClassica;
+        }
+
+        return sessione;
     }
 }

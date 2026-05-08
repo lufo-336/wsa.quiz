@@ -6,20 +6,26 @@ using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Wsa.Quiz.App.State;
+using Wsa.Quiz.Core.Models;
 using Wsa.Quiz.Core.Services;
 
 namespace Wsa.Quiz.App.Views;
 
 /// <summary>
 /// Tab "Sospesi": elenco delle sessioni messe in pausa.
-/// Per ora le pause sono create solo dal console (la pausa GUI arriva nello step 4),
-/// ma essendo lo storage condiviso le vediamo qui.
-/// Il bottone Riprendi e' disabilitato finche' non c'e' la factory dello step 4;
-/// l'azione Elimina e' attiva con conferma inline.
+/// Lo storage e' condiviso fra console e GUI, quindi vediamo qui anche le
+/// pause create dal console.
+/// Riprendi (step 4) solleva <see cref="RiprendiRichiesto"/> con la pausa
+/// originale; la <c>MainWindow</c> costruisce la <c>SessioneQuiz</c> e naviga
+/// al <c>QuizView</c>. Elimina ha conferma inline.
 /// </summary>
 public partial class SospesiView : UserControl, INotifyPropertyChanged
 {
     public new event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>L'utente ha cliccato "Riprendi" su una pausa: la <c>MainWindow</c>
+    /// costruisce la sessione e cambia view.</summary>
+    public event EventHandler<SessionePausa>? RiprendiRichiesto;
 
     private StorageService? _storage;
 
@@ -87,6 +93,14 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
     private void OnAggiornaClick(object? sender, RoutedEventArgs e)
     {
         Ricarica();
+    }
+
+    /// <summary>Chiede alla <c>MainWindow</c> di riprendere questa sessione.</summary>
+    private void OnRiprendiClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not SessioneSospesaItem item) return;
+        RiprendiRichiesto?.Invoke(this, item.Pausa);
     }
 
     /// <summary>Primo click su "Elimina": entra in stato di conferma per quella riga.</summary>

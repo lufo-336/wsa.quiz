@@ -43,7 +43,7 @@
                 <TextBlock Text="Nessuna sessione in pausa"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"/>
-                <TextBlock Text="Le sessioni messe in pausa (per ora dal console) compaiono qui. La pausa dalla GUI arrivera' nello step 4."
+                <TextBlock Text="Le sessioni messe in pausa compaiono qui. Premi ESC durante un quiz per metterlo in pausa."
                            FontSize="12"
                            Foreground="{DynamicResource SystemBaseMediumColor}"
                            TextWrapping="Wrap"
@@ -127,10 +127,10 @@
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding NonInAttesaConferma}">
                                     <Button Content="Riprendi"
-                                            IsEnabled="False"
+                                            Classes="accent"
+                                            Click="OnRiprendiClick"
                                             Padding="14,6"
-                                            FontSize="12"
-                                            ToolTip.Tip="Disponibile dallo step 4. Per ora puoi riprendere la sessione dal console."/>
+                                            FontSize="12"/>
                                     <Button Content="Elimina"
                                             Click="OnEliminaClick"
                                             Classes="danger"
