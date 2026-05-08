@@ -29,6 +29,12 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/Views/CronologiaDettaglioView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/Views/CronologiaView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/Views/HomeView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
@@ -39,4 +45,7 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/Views/RiepilogoView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/luca.foglia/Documents/Quiz/wsa_quiz_step1/wsa.quiz.app/Views/SospesiView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

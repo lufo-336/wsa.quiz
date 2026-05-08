@@ -9,3 +9,4 @@ C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.core\obj\Debug\net8.
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.core\obj\Debug\net8.0\refint\Wsa.Quiz.Core.dll
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.core\obj\Debug\net8.0\Wsa.Quiz.Core.pdb
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.core\obj\Debug\net8.0\ref\Wsa.Quiz.Core.dll
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.core\obj\Debug\net8.0\Wsa.Quiz.Core.sourcelink.json

@@ -2,38 +2,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="using:Wsa.Quiz.Core.Models"
+             xmlns:state="using:Wsa.Quiz.App.State"
              xmlns:views="using:Wsa.Quiz.App.Views"
              mc:Ignorable="d"
-             x:Class="Wsa.Quiz.App.Views.RiepilogoView"
-             x:DataType="views:RiepilogoView">
+             x:Class="Wsa.Quiz.App.Views.CronologiaDettaglioView"
+             x:DataType="views:CronologiaDettaglioView">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="20">
 
-        <!-- TITOLO -->
-        <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,12">
-            <TextBlock Text="{Binding Titolo}"
-                       FontSize="24" FontWeight="SemiBold"/>
-            <TextBlock Text="{Binding Sottotitolo}"
-                       FontSize="13"
-                       Foreground="{DynamicResource SystemBaseMediumColor}"/>
-        </StackPanel>
+        <!-- TOP BAR (indietro + titolo) -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,12">
+            <Button Content="&#x2190;  Cronologia"
+                    Click="OnIndietroClick"
+                    Padding="12,6"
+                    FontSize="12"
+                    ToolTip.Tip="Torna alla lista delle sessioni."/>
+            <StackPanel Grid.Column="1" Spacing="2" Margin="16,0,0,0" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Titolo}"
+                           FontSize="20" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding Sottotitolo}"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+            </StackPanel>
+        </Grid>
 
-        <!-- STATISTICHE -->
+        <!-- STATISTICHE (stesso pattern di RiepilogoView) -->
         <Border Grid.Row="1"
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
                 BorderThickness="1"
                 CornerRadius="6"
                 Padding="20"
-                Margin="0,0,0,16">
+                Margin="0,0,0,12">
             <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="Auto,Auto">
-
                 <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             Spacing="2">
                     <TextBlock Text="{Binding PercentualeFormattata}"
-                               FontSize="38" FontWeight="Bold"
+                               FontSize="34" FontWeight="Bold"
                                Foreground="{Binding ColorePercentuale}"/>
                     <TextBlock Text="corrette"
                                FontSize="11"
@@ -87,41 +93,57 @@
                         <TextBlock Text="{Binding Modalita}"
                                    FontSize="12" FontWeight="SemiBold"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Materia:"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        <TextBlock Text="{Binding MateriaEtichetta}"
+                                   FontSize="12" FontWeight="SemiBold"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <!-- LISTA SBAGLIATE -->
+        <!-- LISTA DETTAGLI (stesso template di RiepilogoView, ma con colore dal flag Corretta) -->
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel Spacing="10">
                 <TextBlock Text="{Binding TitoloLista}"
                            FontWeight="SemiBold"
                            FontSize="14"/>
 
-                <TextBlock Text="Tutte le risposte sono corrette. Bravo!"
-                           IsVisible="{Binding NessunaSbagliata}"
+                <TextBlock Text="Nessuna risposta registrata in questa sessione."
+                           IsVisible="{Binding NessunDettaglio}"
                            Foreground="{DynamicResource SystemBaseMediumColor}"
                            FontStyle="Italic"/>
 
-                <ItemsControl ItemsSource="{Binding Sbagliate}">
+                <ItemsControl ItemsSource="{Binding Dettagli}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="models:DettaglioRisposta">
+                        <DataTemplate DataType="state:DettaglioRispostaItem">
                             <Border Background="{DynamicResource SystemRegionBrush}"
-                                    BorderBrush="{DynamicResource SystemBaseLowColor}"
-                                    BorderThickness="1"
+                                    BorderBrush="{Binding ColoreBordo}"
+                                    BorderThickness="2"
                                     CornerRadius="6"
                                     Padding="14,10"
                                     Margin="0,0,0,6">
                                 <StackPanel Spacing="4">
-                                    <TextBlock FontSize="11"
-                                               Foreground="{DynamicResource SystemBaseMediumColor}">
-                                        <Run Text="{Binding MateriaNome}"/>
-                                        <Run Text="·"/>
-                                        <Run Text="{Binding Categoria}"/>
-                                    </TextBlock>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock FontSize="11"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}">
+                                            <Run Text="{Binding MateriaNome}"/>
+                                            <Run Text="·"/>
+                                            <Run Text="{Binding Categoria}"/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding EsitoEtichetta}"
+                                                   FontSize="11"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{Binding ColoreEsito}"/>
+                                    </Grid>
+
                                     <TextBlock Text="{Binding TestoDomanda}"
                                                TextWrapping="Wrap"
                                                FontWeight="SemiBold"/>
+
                                     <Grid ColumnDefinitions="Auto,*" Margin="0,4,0,0">
                                         <TextBlock Text="Tu hai risposto:"
                                                    FontSize="11"
@@ -130,10 +152,12 @@
                                         <TextBlock Grid.Column="1"
                                                    Text="{Binding RispostaData}"
                                                    FontSize="12"
-                                                   Foreground="#B85450"
+                                                   Foreground="{Binding ColoreRisposta}"
                                                    TextWrapping="Wrap"/>
                                     </Grid>
-                                    <Grid ColumnDefinitions="Auto,*">
+
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          IsVisible="{Binding MostraRispostaCorretta}">
                                         <TextBlock Text="Corretta:"
                                                    FontSize="11"
                                                    Foreground="{DynamicResource SystemBaseMediumColor}"
@@ -144,6 +168,13 @@
                                                    Foreground="#1F7A4D"
                                                    TextWrapping="Wrap"/>
                                     </Grid>
+
+                                    <TextBlock Text="{Binding TentativiEtichetta}"
+                                               IsVisible="{Binding MostraTentativi}"
+                                               FontSize="11"
+                                               FontStyle="Italic"
+                                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+
                                     <TextBlock Text="{Binding Spiegazione}"
                                                FontSize="11"
                                                TextWrapping="Wrap"
@@ -158,10 +189,10 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- TORNA ALLA HOME -->
+        <!-- INDIETRO IN BASSO (duplicato di quello in alto, comodo dopo lo scroll) -->
         <Button Grid.Row="3"
-                Content="Torna alla Home"
-                Click="OnTornaClick"
+                Content="Torna alla cronologia"
+                Click="OnIndietroClick"
                 Classes="accent"
                 Padding="22,10"
                 FontSize="14"

@@ -26,3 +26,4 @@ C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\Wsa.Quiz.Cli.pdb
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\obj\Debug\net8.0\Wsa.Quiz.Cli.genruntimeconfig.cache
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\obj\Debug\net8.0\ref\Wsa.Quiz.Cli.dll
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\obj\Debug\net8.0\Wsa.Quiz.Cli.sourcelink.json
