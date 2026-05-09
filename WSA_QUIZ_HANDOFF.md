@@ -8,7 +8,7 @@ App di quiz per il corso WsA. Esisteva una versione **console** (C#, .NET 8) che
 
 L'utente (Luca) sta imparando C# in parallelo a un corso. Il progetto è anche un esercizio didattico, quindi le scelte tendono a privilegiare chiarezza e separazione dei concetti.
 
-## Stato attuale: STEP 4 COMPLETO
+## Stato attuale: STEP 5 COMPLETO
 
 L'app Avalonia ha ora tastiera completa nel Quiz (`A/B/C/D` selezionano la risposta, `Invio` avanza, `ESC` apre il menu pausa modale Riprendi/Salva e esci/Annulla) e il ciclo pausa→sospeso→ripresa funziona end-to-end nella GUI. Il bottone "Riprendi" della SospesiView è attivo: ricostruisce la sessione dalla pausa, naviga al QuizView e — al termine — la pausa originale viene rimossa automaticamente (stesso comportamento del console). Le tre tab restano popolate (Home, Cronologia, Sospesi). Cronologia condivisa fra console e GUI verificata via shared storage in `%APPDATA%\WsaQuiz`.
 
@@ -140,8 +140,8 @@ Tab "Cronologia" con tabella sessioni passate (data, modalità, % corrette, dura
 ### ✅ Step 4 — Tastiera + Pausa
 Invio = avanti, A/B/C/D = risposta, ESC = menu pausa (Riprendi / Salva e esci / Annulla). Pausa salvata dalla GUI confluisce nei sospesi e Riprendi ricostruisce la sessione (cumulativa: dettagli, durata e contatori sopravvivono al ciclo pausa/ripresa). A fine sessione ripresa la pausa originale viene rimossa. Spec: `docs/superpowers/specs/2026-05-08-step4-tastiera-pausa-design.md`. **Fatto.**
 
-### ⏳ Step 5 — Eliminazione cronologia
-Possibilità di cancellare una singola partita dalla Cronologia e/o svuotarla del tutto. Decisioni UX da definire (vedi sezione "Decisioni UX da implementare"). Lavoro lato Core: aggiungere `StorageService.EliminaRisultato(string)` e `StorageService.SvuotaCronologia()`, e dare un Id stabile al `RisultatoQuiz` (Guid o hash deterministico assegnato a `SalvaRisultato`). Non c'è un Id oggi: è il principale lavoro infrastrutturale di questo step.
+### ✅ Step 5 — Eliminazione cronologia
+`RisultatoQuiz.Id` (Guid stringa) generato in `SalvaRisultato`, migrazione lazy una-tantum dei record esistenti in `CaricaCronologia` (al primo caricamento, i record senza Id ne ricevono uno e il file viene riscritto; idempotente nelle chiamate successive). Due nuovi metodi su `StorageService`: `EliminaRisultato(string)` e `SvuotaCronologia()`. GUI: bottone "Elimina" inline su ogni riga della Cronologia con conferma in-place (pattern dei Sospesi: prima conferma azzera le altre, max una alla volta), bottone "Svuota cronologia" nell'header con dialog modale di conferma (riusa il pattern di `ChiediConfermaAbbandono` — Window 420×180, CenterOwner, ESC=Annulla, bottone "Sì, cancella tutto" `Classes="danger"`, disabilitato quando la lista è vuota), bottone "Elimina questa partita" nel `CronologiaDettaglioView` con conferma inline ed evento `EliminazioneRichiesta` che la `CronologiaView` gestisce eseguendo l'eliminazione, chiudendo il dettaglio e ricaricando. Spec: `docs/superpowers/specs/2026-05-09-step5-eliminazione-cronologia-design.md`. Plan: `docs/superpowers/plans/2026-05-09-step5-eliminazione-cronologia.md`. **Fatto.**
 
 ### ⏳ Step 6 — Navigazione tra domande
 ←/→ tra domanda corrente e domande passate (sola lettura), ↑/↓ per selezionare risposta sulla corrente. Richiede di mantenere un "view-index" separato dal "answering-index".
