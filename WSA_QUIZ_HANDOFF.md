@@ -149,6 +149,18 @@ Possibilità di cancellare una singola partita dalla Cronologia e/o svuotarla de
 ### ⏳ Step 7 — Grafici
 LiveCharts2 in tab "Statistiche" (quarto tab da aggiungere). % corrette per materia (bar chart), drill-down su categorie. Da verificare al momento dell'installazione che esista una versione di LiveCharts2 compatibile con Avalonia 12.
 
+### ⏳ Step 8 — Dark mode
+Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow? menu impostazioni?). Persistenza della scelta nelle preferenze utente (vedi step 10).
+
+### ⏳ Step 9 — Esportazione e filtri cronologia
+Export della cronologia in CSV e/o JSON (utile come backup prima di "Cancella tutto" dello step 5). Filtri sulla CronologiaView per materia, range di date, percentuale. Da definire se l'export è "tutto" o rispetta i filtri attivi.
+
+### ⏳ Step 10 — Preferenze utente persistite
+File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 8). Da decidere se persistere anche le ultime materie/categorie selezionate.
+
+### ⏳ Step 11 — Rifiniture distribuzione
+Icona app (.ico per Windows, .icns per macOS), schermata "About" con versione/licenza, build portable e/o installer (es. `dotnet publish` self-contained, oppure pacchetti per piattaforma). Da affrontare quando il resto è stabile.
+
 ## Trappole già scoperte (non rifare)
 
 1. **`System.Console` shadowing**: usare un namespace `Wsa.Quiz.Console` rompe tutte le chiamate `Console.WriteLine`. Il compilatore risolve `Console` come sotto-namespace di se stesso prima di guardare in `System`. Soluzione: `Wsa.Quiz.Cli`.
