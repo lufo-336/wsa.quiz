@@ -260,6 +260,34 @@ public class StorageService
         File.WriteAllText(_fileCronologia, json);
     }
 
+    /// <summary>
+    /// Elimina il risultato con l'Id specificato dalla cronologia.
+    /// No-op silenzioso se l'Id non esiste o se il file non c'e' (es. cronologia mai creata).
+    /// </summary>
+    public void EliminaRisultato(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return;
+        if (!File.Exists(_fileCronologia)) return;
+
+        var cronologia = CaricaCronologia();
+        int rimossi = cronologia.RemoveAll(r => r.Id == id);
+        if (rimossi == 0) return;
+
+        string json = JsonSerializer.Serialize(cronologia, OpzioniScrittura);
+        File.WriteAllText(_fileCronologia, json);
+    }
+
+    /// <summary>
+    /// Svuota completamente la cronologia. Scrive una lista vuota nel file
+    /// (non lo elimina) per evitare race con scritture concorrenti successive
+    /// e per coerenza con il pattern di <see cref="CaricaCronologia"/>.
+    /// </summary>
+    public void SvuotaCronologia()
+    {
+        string json = JsonSerializer.Serialize(new List<RisultatoQuiz>(), OpzioniScrittura);
+        File.WriteAllText(_fileCronologia, json);
+    }
+
     // ---------------------------------------------------------------- PAUSA SESSIONE
 
     public List<SessionePausa> CaricaPause()
