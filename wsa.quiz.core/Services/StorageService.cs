@@ -209,16 +209,44 @@ public class StorageService
     public List<RisultatoQuiz> CaricaCronologia()
     {
         if (!File.Exists(_fileCronologia)) return new List<RisultatoQuiz>();
+        List<RisultatoQuiz> lista;
         try
         {
             string json = File.ReadAllText(_fileCronologia);
-            return JsonSerializer.Deserialize<List<RisultatoQuiz>>(json, OpzioniLettura) ?? new();
+            lista = JsonSerializer.Deserialize<List<RisultatoQuiz>>(json, OpzioniLettura) ?? new();
         }
         catch
         {
             // File corrotto: non blocco l'app, ricomincio da lista vuota.
             return new List<RisultatoQuiz>();
         }
+
+        // Migrazione lazy una-tantum: i record vecchi senza Id ne ricevono uno
+        // e il file viene riscritto. Idempotente: dalla seconda chiamata in poi e' un no-op.
+        bool serveRiscrittura = false;
+        foreach (var r in lista)
+        {
+            if (string.IsNullOrEmpty(r.Id))
+            {
+                r.Id = Guid.NewGuid().ToString();
+                serveRiscrittura = true;
+            }
+        }
+        if (serveRiscrittura)
+        {
+            try
+            {
+                string json = JsonSerializer.Serialize(lista, OpzioniScrittura);
+                File.WriteAllText(_fileCronologia, json);
+            }
+            catch
+            {
+                // Se la riscrittura fallisce (file in lock, disco pieno), restituisco
+                // comunque la lista in memoria con gli Id assegnati: l'app continua a
+                // funzionare, e al prossimo caricamento riproveremo la migrazione.
+            }
+        }
+        return lista;
     }
 
     public void SalvaRisultato(RisultatoQuiz risultato)
