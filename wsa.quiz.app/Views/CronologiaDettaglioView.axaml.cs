@@ -22,6 +22,11 @@ public partial class CronologiaDettaglioView : UserControl, INotifyPropertyChang
     /// <summary>Sollevato al click di "Torna alla cronologia". La <see cref="CronologiaView"/> torna alla lista.</summary>
     public event EventHandler? IndietroRichiesto;
 
+    /// <summary>Sollevato quando l'utente conferma l'eliminazione di questa partita
+    /// dal dettaglio. La <see cref="CronologiaView"/> esegue l'eliminazione su storage,
+    /// torna alla lista e ricarica.</summary>
+    public event EventHandler<string>? EliminazioneRichiesta;
+
     public new event PropertyChangedEventHandler? PropertyChanged;
 
     private readonly RisultatoQuiz _risultato;
@@ -46,6 +51,23 @@ public partial class CronologiaDettaglioView : UserControl, INotifyPropertyChang
 
     public IList<DettaglioRispostaItem> Dettagli { get; }
     public bool NessunDettaglio => Dettagli.Count == 0;
+
+    // ------------------------------------------------------------------ STATO CONFERMA ELIMINA
+
+    private bool _inAttesaConferma;
+    public bool InAttesaConfermaEliminazione
+    {
+        get => _inAttesaConferma;
+        private set
+        {
+            if (_inAttesaConferma == value) return;
+            _inAttesaConferma = value;
+            Raise();
+            Raise(nameof(NonInAttesaConferma));
+        }
+    }
+
+    public bool NonInAttesaConferma => !_inAttesaConferma;
 
     // ------------------------------------------------------------------ COSTRUZIONE
 
@@ -85,4 +107,22 @@ public partial class CronologiaDettaglioView : UserControl, INotifyPropertyChang
     {
         IndietroRichiesto?.Invoke(this, EventArgs.Empty);
     }
+
+    private void OnEliminaClick(object? sender, RoutedEventArgs e)
+    {
+        InAttesaConfermaEliminazione = true;
+    }
+
+    private void OnAnnullaEliminaClick(object? sender, RoutedEventArgs e)
+    {
+        InAttesaConfermaEliminazione = false;
+    }
+
+    private void OnConfermaEliminaClick(object? sender, RoutedEventArgs e)
+    {
+        EliminazioneRichiesta?.Invoke(this, _risultato.Id);
+    }
+
+    private void Raise([System.Runtime.CompilerServices.CallerMemberName] string? name = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }
