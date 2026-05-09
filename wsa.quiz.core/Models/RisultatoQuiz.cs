@@ -5,6 +5,14 @@ namespace Wsa.Quiz.Core.Models;
 /// </summary>
 public class RisultatoQuiz
 {
+    /// <summary>
+    /// Id stabile generato in <see cref="Services.StorageService.SalvaRisultato"/>.
+    /// I record vecchi senza Id ricevono un Guid generato al primo
+    /// <see cref="Services.StorageService.CaricaCronologia"/> che li incontra
+    /// (migrazione lazy una-tantum).
+    /// </summary>
+    public string Id { get; set; } = "";
+
     public DateTime DataOra { get; set; }
     public string Modalita { get; set; } = string.Empty;
     public string MateriaNome { get; set; } = string.Empty;
