@@ -164,6 +164,7 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     {
         var dettaglio = new CronologiaDettaglioView(item.Risultato);
         dettaglio.IndietroRichiesto += OnIndietroDalDettaglio;
+        dettaglio.EliminazioneRichiesta += OnEliminaDalDettaglio;
         DettaglioArea.Content = dettaglio;
         ModoDettaglio = true;
     }
@@ -172,6 +173,25 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     {
         DettaglioArea.Content = null;
         ModoDettaglio = false;
+    }
+
+    private void OnEliminaDalDettaglio(object? sender, string id)
+    {
+        if (_storage == null) return;
+        try
+        {
+            _storage.EliminaRisultato(id);
+        }
+        catch (Exception ex)
+        {
+            Sottotitolo = $"Errore nell'eliminazione: {ex.Message}";
+            return;
+        }
+
+        // chiudi il dettaglio e torna alla lista, ricaricata da disco
+        DettaglioArea.Content = null;
+        ModoDettaglio = false;
+        Ricarica();
     }
 
     private void OnSvuotaCronologiaClick(object? sender, RoutedEventArgs e)
