@@ -118,6 +118,48 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         ApriDettaglio(item);
     }
 
+    /// <summary>Primo click su "Elimina" sulla riga: entra in stato di conferma per quella riga.</summary>
+    private void OnEliminaRigaClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not RisultatoCronologiaItem item) return;
+        // azzera eventuali altre conferme aperte (al massimo una alla volta, come SospesiView)
+        foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
+        item.InAttesaConfermaEliminazione = true;
+    }
+
+    /// <summary>Conferma definitiva: elimina dal disco e dalla lista.</summary>
+    private void OnConfermaEliminaRigaClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not RisultatoCronologiaItem item) return;
+        if (_storage == null) return;
+
+        try
+        {
+            _storage.EliminaRisultato(item.Id);
+        }
+        catch (Exception ex)
+        {
+            Sottotitolo = $"Errore nell'eliminazione: {ex.Message}";
+            return;
+        }
+
+        Sessioni.Remove(item);
+        NessunaSessione = Sessioni.Count == 0;
+        Sottotitolo = NessunaSessione
+            ? "Nessuna sessione registrata."
+            : $"{Sessioni.Count} sessioni registrate.";
+    }
+
+    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
+    private void OnAnnullaEliminaRigaClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not RisultatoCronologiaItem item) return;
+        item.InAttesaConfermaEliminazione = false;
+    }
+
     private void ApriDettaglio(RisultatoCronologiaItem item)
     {
         var dettaglio = new CronologiaDettaglioView(item.Risultato);
