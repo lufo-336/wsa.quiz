@@ -29,6 +29,15 @@
                     FontSize="12"
                     Margin="0,0,8,0"
                     ToolTip.Tip="Ricarica la cronologia dal disco. Utile se hai fatto un quiz dal console mentre l'app era aperta."/>
+
+            <Button Grid.Column="2"
+                    Content="Svuota cronologia"
+                    Click="OnSvuotaCronologiaClick"
+                    Classes="danger"
+                    Padding="14,6"
+                    FontSize="12"
+                    IsEnabled="{Binding !NessunaSessione}"
+                    ToolTip.Tip="Elimina TUTTE le sessioni dalla cronologia. Verra' chiesta conferma."/>
         </Grid>
 
         <!-- ======================================== LISTA + DETTAGLIO (swap) -->
