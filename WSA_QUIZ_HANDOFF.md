@@ -143,22 +143,27 @@ Invio = avanti, A/B/C/D = risposta, ESC = menu pausa (Riprendi / Salva e esci / 
 ### ✅ Step 5 — Eliminazione cronologia
 `RisultatoQuiz.Id` (Guid stringa) generato in `SalvaRisultato`, migrazione lazy una-tantum dei record esistenti in `CaricaCronologia` (al primo caricamento, i record senza Id ne ricevono uno e il file viene riscritto; idempotente nelle chiamate successive). Due nuovi metodi su `StorageService`: `EliminaRisultato(string)` e `SvuotaCronologia()`. GUI: bottone "Elimina" inline su ogni riga della Cronologia con conferma in-place (pattern dei Sospesi: prima conferma azzera le altre, max una alla volta), bottone "Svuota cronologia" nell'header con dialog modale di conferma (riusa il pattern di `ChiediConfermaAbbandono` — Window 420×180, CenterOwner, ESC=Annulla, bottone "Sì, cancella tutto" `Classes="danger"`, disabilitato quando la lista è vuota), bottone "Elimina questa partita" nel `CronologiaDettaglioView` con conferma inline ed evento `EliminazioneRichiesta` che la `CronologiaView` gestisce eseguendo l'eliminazione, chiudendo il dettaglio e ricaricando. Spec: `docs/superpowers/specs/2026-05-09-step5-eliminazione-cronologia-design.md`. Plan: `docs/superpowers/plans/2026-05-09-step5-eliminazione-cronologia.md`. **Fatto.**
 
-### ⏳ Step 6 — Navigazione tra domande
+### ⏳ Step 6 — UX rifiniture (Home sticky + Pausa unificata)
+Due fix UX raccolti durante il test dello step 5:
+1. **Home — barra "Avvia" sticky**. Oggi tutto `HomeView` è dentro un `ScrollViewer` con `StackPanel` verticale; man mano che si selezionano materie/categorie il bottone "Avvia quiz" scivola sotto la fold e diventa difficile cliccarlo. Soluzione: estrarre la barra "AVVIO" come `DockPanel.Dock="Bottom"` fuori dallo `ScrollViewer` (sempre visibile) e aggiungere `MaxHeight=240` al pannello Materie (oggi non ce l'ha, mentre Categorie sì) per evitare che la lista cresca indefinitamente.
+2. **Pausa unificata**. Oggi ESC apre il "menu pausa" (Annulla/Salva e esci/Riprendi) e il bottone "Abbandona" apre una conferma separata (Continua/Abbandona). Si fondono in **una sola** modale, raggiungibile sia da ESC sia dal bottone in alto, con tre voci: Annulla / Abbandona (`danger`) / Salva e esci (`accent`). Il bottone in alto si rinomina in "**Pausa**". ESC dentro la modale = Annulla.
+
+### ⏳ Step 7 — Navigazione tra domande
 ←/→ tra domanda corrente e domande passate (sola lettura), ↑/↓ per selezionare risposta sulla corrente. Richiede di mantenere un "view-index" separato dal "answering-index".
 
-### ⏳ Step 7 — Grafici
+### ⏳ Step 8 — Grafici
 LiveCharts2 in tab "Statistiche" (quarto tab da aggiungere). % corrette per materia (bar chart), drill-down su categorie. Da verificare al momento dell'installazione che esista una versione di LiveCharts2 compatibile con Avalonia 12.
 
-### ⏳ Step 8 — Dark mode
-Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow? menu impostazioni?). Persistenza della scelta nelle preferenze utente (vedi step 10).
+### ⏳ Step 9 — Dark mode
+Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow? menu impostazioni?). Persistenza della scelta nelle preferenze utente (vedi step 11).
 
-### ⏳ Step 9 — Esportazione e filtri cronologia
+### ⏳ Step 10 — Esportazione e filtri cronologia
 Export della cronologia in CSV e/o JSON (utile come backup prima di "Cancella tutto" dello step 5). Filtri sulla CronologiaView per materia, range di date, percentuale. Da definire se l'export è "tutto" o rispetta i filtri attivi.
 
-### ⏳ Step 10 — Preferenze utente persistite
-File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 8). Da decidere se persistere anche le ultime materie/categorie selezionate.
+### ⏳ Step 11 — Preferenze utente persistite
+File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 9). Da decidere se persistere anche le ultime materie/categorie selezionate.
 
-### ⏳ Step 11 — Rifiniture distribuzione
+### ⏳ Step 12 — Rifiniture distribuzione
 Icona app (.ico per Windows, .icns per macOS), schermata "About" con versione/licenza, build portable e/o installer (es. `dotnet publish` self-contained, oppure pacchetti per piattaforma). Da affrontare quando il resto è stabile.
 
 ## Trappole già scoperte (non rifare)
