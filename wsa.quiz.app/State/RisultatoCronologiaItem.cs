@@ -6,13 +6,17 @@ namespace Wsa.Quiz.App.State;
 /// <summary>
 /// Wrapper di una riga della tabella cronologia. Espone proprieta' gia' formattate
 /// per il binding XAML (data, durata, etichetta materie, colore della percentuale).
-/// Costruito una sola volta dal <see cref="Wsa.Quiz.App.Views.CronologiaView"/>;
-/// non cambia dopo la creazione, quindi non implementa INPC.
+/// E' observable per supportare la conferma inline dell'azione Elimina:
+/// <see cref="InAttesaConfermaEliminazione"/> commuta i bottoni della riga
+/// fra "Elimina" e "Si', elimina/Annulla" (stesso pattern di <see cref="SessioneSospesaItem"/>).
 /// </summary>
-public class RisultatoCronologiaItem
+public class RisultatoCronologiaItem : ObservableObject
 {
-    /// <summary>Riferimento al risultato originale, usato per aprire il dettaglio.</summary>
+    /// <summary>Riferimento al risultato originale, usato per aprire il dettaglio e per Elimina.</summary>
     public RisultatoQuiz Risultato { get; }
+
+    /// <summary>Id del risultato, propagato per comodita' sui binding/handler.</summary>
+    public string Id => Risultato.Id;
 
     public string DataFormattata { get; }
     public string Modalita { get; }
@@ -23,6 +27,24 @@ public class RisultatoCronologiaItem
     public string Conteggio { get; }
     public bool Abbandonato { get; }
     public string StatoEtichetta { get; }
+
+    // ------------------------------------------------------------------ STATO CONFERMA ELIMINA
+
+    private bool _inAttesaConferma;
+    public bool InAttesaConfermaEliminazione
+    {
+        get => _inAttesaConferma;
+        set
+        {
+            if (SetField(ref _inAttesaConferma, value))
+                RaisePropertyChanged(nameof(NonInAttesaConferma));
+        }
+    }
+
+    /// <summary>Inverso di <see cref="InAttesaConfermaEliminazione"/>, comodo per l'XAML.</summary>
+    public bool NonInAttesaConferma => !_inAttesaConferma;
+
+    // ------------------------------------------------------------------ COSTRUZIONE
 
     public RisultatoCronologiaItem(RisultatoQuiz r)
     {
