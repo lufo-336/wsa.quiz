@@ -174,6 +174,107 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         ModoDettaglio = false;
     }
 
+    private void OnSvuotaCronologiaClick(object? sender, RoutedEventArgs e)
+    {
+        ChiediConfermaSvuotaCronologia();
+    }
+
+    /// <summary>
+    /// Dialog modale di conferma per "Svuota cronologia". Stesso pattern di
+    /// <c>QuizView.ChiediConfermaAbbandono</c>: Window 420x180, CenterOwner,
+    /// no resize, no taskbar. ESC chiude come Annulla.
+    /// </summary>
+    private async void ChiediConfermaSvuotaCronologia()
+    {
+        if (_storage == null) return;
+
+        int n = Sessioni.Count;
+        var w = new Window
+        {
+            Title = "Svuota cronologia",
+            Width = 420,
+            Height = 180,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = false,
+            ShowInTaskbar = false
+        };
+
+        bool conferma = false;
+        var contenuto = new StackPanel
+        {
+            Margin = new global::Avalonia.Thickness(20),
+            Spacing = 14
+        };
+        contenuto.Children.Add(new TextBlock
+        {
+            Text = "Svuota tutta la cronologia?",
+            FontSize = 14,
+            FontWeight = global::Avalonia.Media.FontWeight.SemiBold
+        });
+        contenuto.Children.Add(new TextBlock
+        {
+            Text = $"Verranno eliminate {n} partite dalla cronologia. L'azione non e' reversibile.",
+            FontSize = 12,
+            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+            Foreground = global::Avalonia.Media.Brushes.DimGray
+        });
+
+        var pulsantiera = new StackPanel
+        {
+            Orientation = global::Avalonia.Layout.Orientation.Horizontal,
+            Spacing = 8,
+            HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right
+        };
+        var annullaBtn = new Button
+        {
+            Content = "Annulla",
+            Padding = new global::Avalonia.Thickness(14, 5)
+        };
+        var siBtn = new Button
+        {
+            Content = "Si', cancella tutto",
+            Padding = new global::Avalonia.Thickness(14, 5)
+        };
+        siBtn.Classes.Add("danger");
+        annullaBtn.Click += (_, _) => w.Close();
+        siBtn.Click += (_, _) => { conferma = true; w.Close(); };
+
+        // ESC = Annulla (stesso pattern del menu pausa)
+        w.KeyDown += (_, ev) =>
+        {
+            if (ev.Key == Key.Escape)
+            {
+                ev.Handled = true;
+                w.Close();
+            }
+        };
+
+        pulsantiera.Children.Add(annullaBtn);
+        pulsantiera.Children.Add(siBtn);
+        contenuto.Children.Add(pulsantiera);
+        w.Content = contenuto;
+
+        var owner = TopLevel.GetTopLevel(this) as Window;
+        if (owner != null)
+            await w.ShowDialog(owner);
+        else
+            w.Show();
+
+        if (!conferma) return;
+
+        try
+        {
+            _storage.SvuotaCronologia();
+        }
+        catch (Exception ex)
+        {
+            Sottotitolo = $"Errore nello svuotamento: {ex.Message}";
+            return;
+        }
+
+        Ricarica();
+    }
+
     // ------------------------------------------------------------------ INPC
 
     private void Raise([CallerMemberName] string? name = null)
