@@ -223,6 +223,9 @@ public class StorageService
 
     public void SalvaRisultato(RisultatoQuiz risultato)
     {
+        if (string.IsNullOrEmpty(risultato.Id))
+            risultato.Id = Guid.NewGuid().ToString();
+
         var cronologia = CaricaCronologia();
         cronologia.Add(risultato);
         string json = JsonSerializer.Serialize(cronologia, OpzioniScrittura);
