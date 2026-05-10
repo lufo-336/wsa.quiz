@@ -67,10 +67,34 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto,*,Auto,Auto" Margin="20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="20">
+
+        <!-- BANNER VIEW-MODE (step 7): visibile solo quando si sta rivedendo una passata -->
+        <Border Grid.Row="0"
+                Background="#FFF8E1"
+                BorderBrush="#E0C36C"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="14,8"
+                Margin="0,0,0,10"
+                IsVisible="{Binding InViewMode}">
+            <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                <TextBlock Text="{Binding EtichettaDomanda}"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#5C4A12"
+                           VerticalAlignment="Center"/>
+                <Button Grid.Column="1"
+                        Content="Torna alla corrente"
+                        Click="OnTornaACorrenteClick"
+                        Classes="accent"
+                        Padding="14,5"
+                        FontSize="12"/>
+            </Grid>
+        </Border>
 
         <!-- HEADER -->
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
                 BorderThickness="1"
@@ -79,12 +103,9 @@
                 Margin="0,0,0,12">
             <Grid ColumnDefinitions="*,Auto,Auto" VerticalAlignment="Center">
                 <StackPanel Orientation="Vertical" Spacing="2">
-                    <TextBlock FontSize="13" FontWeight="SemiBold">
-                        <Run Text="Domanda"/>
-                        <Run Text="{Binding NumeroDomandaCorrente}"/>
-                        <Run Text="di"/>
-                        <Run Text="{Binding TotalePrevisto}"/>
-                    </TextBlock>
+                    <TextBlock Text="{Binding EtichettaDomanda}"
+                               FontSize="13"
+                               FontWeight="SemiBold"/>
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <TextBlock Text="{Binding MateriaCorrente}"
                                    FontSize="11"
@@ -115,7 +136,7 @@
         </Border>
 
         <!-- DOMANDA + RISPOSTE -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel Spacing="14">
 
                 <Border Background="{DynamicResource SystemRegionBrush}"
@@ -154,7 +175,7 @@
         </ScrollViewer>
 
         <!-- FEEDBACK -->
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 Padding="14,12"
                 CornerRadius="6"
                 BorderThickness="1"
@@ -187,7 +208,7 @@
         </Border>
 
         <!-- PROGRESSO -->
-        <ProgressBar Grid.Row="3"
+        <ProgressBar Grid.Row="4"
                      Margin="0,12,0,0"
                      Minimum="0" Maximum="100"
                      Value="{Binding ProgressoPercentuale}"
