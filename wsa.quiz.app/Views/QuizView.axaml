@@ -102,8 +102,8 @@
                            IsVisible="{Binding MostraTempo}"/>
 
                 <Button Grid.Column="2"
-                        Content="Abbandona"
-                        Click="OnAbbandonaClick"
+                        Content="Pausa"
+                        Click="OnPausaClick"
                         Padding="12,5"
                         FontSize="12"/>
             </Grid>
