@@ -10,11 +10,11 @@
 
     <DockPanel>
 
-        <!-- ============================== AVVIO (sticky) ============================== -->
-        <Border DockPanel.Dock="Bottom"
+        <!-- ============================== AVVIO (sticky in alto) ============================== -->
+        <Border DockPanel.Dock="Top"
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
-                BorderThickness="0,1,0,0"
+                BorderThickness="0,0,0,1"
                 Padding="20,12,20,12">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel>
@@ -43,12 +43,6 @@
         <!-- ============================== CONTENUTO SCROLLABILE ============================== -->
         <ScrollViewer Padding="20">
             <StackPanel Spacing="16" MaxWidth="980" HorizontalAlignment="Stretch">
-
-                <TextBlock Text="Configura un nuovo quiz"
-                           FontSize="22" FontWeight="SemiBold"/>
-                <TextBlock Text="Scegli una o piu' materie. Se vuoi, restringi a categorie specifiche e regola le opzioni della sessione."
-                           Foreground="{DynamicResource SystemBaseMediumColor}"
-                           TextWrapping="Wrap"/>
 
                 <!-- Materie + Categorie -->
                 <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
