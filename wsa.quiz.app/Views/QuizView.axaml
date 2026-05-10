@@ -160,13 +160,14 @@
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Text="{Binding FeedbackTitolo}"
                            FontWeight="Bold"
-                           FontSize="14"/>
+                           FontSize="14"
+                           Foreground="#1F1F1F"/>
                 <TextBlock Grid.Row="1" Grid.Column="0"
                            Text="{Binding SpiegazioneTesto}"
                            FontSize="12"
                            TextWrapping="Wrap"
                            Margin="0,4,0,0"
-                           Foreground="{DynamicResource SystemBaseHighColor}"
+                           Foreground="#1F1F1F"
                            IsVisible="{Binding SpiegazioneTesto, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                 <Button Grid.RowSpan="2" Grid.Column="1"
                         Content="Prossima domanda"
