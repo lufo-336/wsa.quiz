@@ -14,7 +14,8 @@ namespace Wsa.Quiz.App.Views;
 /// parte solo quando la view e' effettivamente visibile.
 ///
 /// Tastiera (step 4): A/B/C/D selezionano la risposta, Invio avanza, ESC apre il
-/// menu pausa modale (Riprendi / Salva e esci / Annulla).
+/// menu pausa modale unificato (Annulla / Abbandona / Salva e esci) — anche il
+/// bottone "Pausa" del header apre la stessa modale (step 6).
 /// </summary>
 public partial class QuizView : UserControl
 {
@@ -103,23 +104,26 @@ public partial class QuizView : UserControl
     }
 
     /// <summary>
-    /// Menu pausa: Riprendi (chiude e basta), Salva e esci (persiste pausa
-    /// + solleva evento), Annulla (chiude e basta). ESC dentro la modale = Annulla.
+    /// Modale pausa unificata (step 6). Tre uscite possibili veicolate da una
+    /// variabile locale <c>azione</c>: <c>"annulla"</c> (default + ESC), <c>"abbandona"</c>,
+    /// <c>"salva"</c>. Layout: Abbandona (danger) a sinistra, Annulla + Salva e esci
+    /// (accent) a destra. Default focus su Annulla.
     /// </summary>
     private async void ApriMenuPausa()
     {
         var w = new Window
         {
             Title = "Quiz in pausa",
-            Width = 420,
-            Height = 180,
+            Width = 480,
+            Height = 210,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             CanResize = false,
             ShowInTaskbar = false
         };
 
-        bool salva = false;
-        var contenuto = new StackPanel { Margin = new global::Avalonia.Thickness(20), Spacing = 14 };
+        string azione = "annulla";
+
+        var contenuto = new StackPanel { Margin = new global::Avalonia.Thickness(20), Spacing = 12 };
         contenuto.Children.Add(new TextBlock
         {
             Text = "Quiz in pausa. Cosa vuoi fare?",
@@ -128,64 +132,87 @@ public partial class QuizView : UserControl
         });
         contenuto.Children.Add(new TextBlock
         {
-            Text = "Salvando, la sessione resta nei Sospesi e potrai riprenderla dopo dalla relativa tab.",
+            Text = "Annulla riprende il quiz. Abbandona lo chiude e lo registra in cronologia come abbandonato. Salva e esci lo mette nei Sospesi: lo riprenderai dalla relativa tab.",
             FontSize = 12,
             TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
             Foreground = global::Avalonia.Media.Brushes.DimGray
         });
-        var pulsantiera = new StackPanel
+
+        // Pulsantiera: Abbandona (sx, danger) | spazio | Annulla, Salva e esci (dx, accent)
+        var pulsantiera = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"),
+            Margin = new global::Avalonia.Thickness(0, 4, 0, 0)
+        };
+
+        var abbandonaBtn = new Button { Content = "Abbandona", Padding = new global::Avalonia.Thickness(14, 5) };
+        abbandonaBtn.Classes.Add("danger");
+        Grid.SetColumn(abbandonaBtn, 0);
+
+        var destra = new StackPanel
         {
             Orientation = global::Avalonia.Layout.Orientation.Horizontal,
             Spacing = 8,
             HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right
         };
+        Grid.SetColumn(destra, 2);
+
         var annullaBtn = new Button { Content = "Annulla", Padding = new global::Avalonia.Thickness(14, 5) };
         var salvaBtn = new Button { Content = "Salva e esci", Padding = new global::Avalonia.Thickness(14, 5) };
-        var riprendiBtn = new Button { Content = "Riprendi" };
-        riprendiBtn.Classes.Add("accent");
-        riprendiBtn.Padding = new global::Avalonia.Thickness(14, 5);
+        salvaBtn.Classes.Add("accent");
 
-        annullaBtn.Click += (_, _) => w.Close();
-        riprendiBtn.Click += (_, _) => w.Close();
-        salvaBtn.Click += (_, _) => { salva = true; w.Close(); };
+        abbandonaBtn.Click += (_, _) => { azione = "abbandona"; w.Close(); };
+        annullaBtn.Click += (_, _) => { azione = "annulla"; w.Close(); };
+        salvaBtn.Click += (_, _) => { azione = "salva"; w.Close(); };
 
-        pulsantiera.Children.Add(annullaBtn);
-        pulsantiera.Children.Add(salvaBtn);
-        pulsantiera.Children.Add(riprendiBtn);
+        destra.Children.Add(annullaBtn);
+        destra.Children.Add(salvaBtn);
+
+        pulsantiera.Children.Add(abbandonaBtn);
+        pulsantiera.Children.Add(destra);
+
         contenuto.Children.Add(pulsantiera);
         w.Content = contenuto;
 
-        // ESC dentro la modale = Annulla (chiude la finestra senza azione)
+        // ESC dentro la modale = Annulla (chiude senza azione)
         w.KeyDown += (_, ke) =>
         {
-            if (ke.Key == Key.Escape) { ke.Handled = true; w.Close(); }
+            if (ke.Key == Key.Escape) { ke.Handled = true; azione = "annulla"; w.Close(); }
         };
+
+        // Focus di default su Annulla quando la finestra si apre
+        w.Opened += (_, _) => annullaBtn.Focus();
 
         var owner = TopLevel.GetTopLevel(this) as Window;
         if (owner != null) await w.ShowDialog(owner);
         else w.Show();
 
-        // Riprendo focus per le scorciatoie
+        // Riprendo focus per le scorciatoie del Quiz
         Focus();
 
-        if (!salva) return;
-
-        try
+        switch (azione)
         {
-            var pausa = _sessione.EsportaPausa();
-            _storage.SalvaPausa(pausa);
-        }
-        catch (Exception ex)
-        {
-            // Se il salvataggio fallisce, segnalo e riprendo la sessione (cronometro fermo).
-            // Una soluzione piu' raffinata mostrerebbe un dialog; per ora lascio la sessione
-            // viva cosi' l'utente puo' riprovare con Salva e esci, e il timer ripartira'
-            // alla prossima interazione che lo richiede. Tracciamento minimo.
-            System.Diagnostics.Debug.WriteLine($"SalvaPausa failed: {ex}");
-            return;
-        }
+            case "abbandona":
+                _sessione.Abbandona();
+                return;
 
-        QuizMessoInPausa?.Invoke(this, EventArgs.Empty);
+            case "salva":
+                try
+                {
+                    var pausa = _sessione.EsportaPausa();
+                    _storage.SalvaPausa(pausa);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"SalvaPausa failed: {ex}");
+                    return;
+                }
+                QuizMessoInPausa?.Invoke(this, EventArgs.Empty);
+                return;
+
+            default: // "annulla"
+                return;
+        }
     }
 
     private void OnSessioneConclusa(object? sender, EventArgs e)
