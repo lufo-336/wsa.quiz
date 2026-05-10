@@ -200,9 +200,8 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Dialog modale di conferma per "Svuota cronologia". Stesso pattern di
-    /// <c>QuizView.ChiediConfermaAbbandono</c>: Window 420x180, CenterOwner,
-    /// no resize, no taskbar. ESC chiude come Annulla.
+    /// Dialog modale di conferma per "Svuota cronologia". Window 420x180,
+    /// CenterOwner, no resize, no taskbar. ESC chiude come Annulla.
     /// </summary>
     private async void ChiediConfermaSvuotaCronologia()
     {
