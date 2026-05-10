@@ -103,6 +103,12 @@ public partial class QuizView : UserControl
         ApriMenuPausa();
     }
 
+    private void OnTornaACorrenteClick(object? sender, RoutedEventArgs e)
+    {
+        _sessione.TornaACorrente();
+        Focus();
+    }
+
     /// <summary>
     /// Modale pausa unificata (step 6). Tre uscite possibili veicolate da una
     /// variabile locale <c>azione</c>: <c>"annulla"</c> (default + ESC), <c>"abbandona"</c>,
