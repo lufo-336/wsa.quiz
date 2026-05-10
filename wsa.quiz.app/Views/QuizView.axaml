@@ -52,8 +52,15 @@
         </Style>
 
         <Style Selector="Button.risposta.highlighted">
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColorBrush}"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#FFD500"/>
+            <Setter Property="BorderThickness" Value="3"/>
+        </Style>
+
+        <Style Selector="Button.prossima /template/ ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="#1F1F1F"/>
+        </Style>
+        <Style Selector="Button.prossima:pointerover /template/ ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="#1F1F1F"/>
         </Style>
 
         <!-- Feedback box, colore dipende da UltimaRispostaCorretta -->
@@ -199,7 +206,7 @@
                 <Button Grid.RowSpan="2" Grid.Column="1"
                         Content="Prossima domanda"
                         Click="OnAvanzaClick"
-                        Classes="accent"
+                        Classes="accent prossima"
                         Padding="16,8"
                         FontWeight="SemiBold"
                         VerticalAlignment="Center"
