@@ -341,6 +341,7 @@ public class SessioneQuiz : ObservableObject
         UltimaRispostaCorretta = false;
 
         RaisePropertyChanged(nameof(ProgressoPercentuale));
+        IndiceHighlight = null;
     }
 
     /// <summary>Registrazione della risposta e transizione allo stato di feedback.</summary>
@@ -348,6 +349,8 @@ public class SessioneQuiz : ObservableObject
     {
         if (RispostaInviata) return;            // gia' risposto: ignora doppi click
         if (_domandaCorrente == null) return;
+
+        IndiceHighlight = null;
 
         bool ok = indiceShufflato == _domandaCorrente.IndiceCorrettoShufflato;
         string lettera = ((char)('A' + indiceShufflato)).ToString();
@@ -493,6 +496,7 @@ public class SessioneQuiz : ObservableObject
     /// </summary>
     public SessionePausa EsportaPausa()
     {
+        if (InViewMode) TornaACorrente();
         _cron.Stop();
         _timer.Stop();
 
@@ -739,5 +743,36 @@ public class SessioneQuiz : ObservableObject
         if (_viewIndex == null) return;
         IndiceVisualizzazione = null;
         RipristinaStatoLive();
+    }
+
+    /// <summary>↑ : sposta highlight in su (clamp 0). Inizializza a 3 se null.</summary>
+    public void HighlightSu()
+    {
+        if (InViewMode || RispostaInviata) return;
+        if (Risposte.Count == 0) return;
+        int next = _indiceHighlight.HasValue
+            ? Math.Max(0, _indiceHighlight.Value - 1)
+            : Risposte.Count - 1;
+        IndiceHighlight = next;
+    }
+
+    /// <summary>↓ : sposta highlight in giù (clamp 3). Inizializza a 0 se null.</summary>
+    public void HighlightGiu()
+    {
+        if (InViewMode || RispostaInviata) return;
+        if (Risposte.Count == 0) return;
+        int next = _indiceHighlight.HasValue
+            ? Math.Min(Risposte.Count - 1, _indiceHighlight.Value + 1)
+            : 0;
+        IndiceHighlight = next;
+    }
+
+    /// <summary>Invio quando c'è un highlight: conferma quella risposta.</summary>
+    public bool ConfermaHighlight()
+    {
+        if (InViewMode || RispostaInviata) return false;
+        if (!_indiceHighlight.HasValue) return false;
+        RispondiA(_indiceHighlight.Value);
+        return true;
     }
 }
