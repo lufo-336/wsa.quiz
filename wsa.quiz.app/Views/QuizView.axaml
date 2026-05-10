@@ -51,6 +51,11 @@
             <Setter Property="Opacity" Value="1"/>
         </Style>
 
+        <Style Selector="Button.risposta.highlighted">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColorBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
         <!-- Feedback box, colore dipende da UltimaRispostaCorretta -->
         <Style Selector="Border.feedbackOk">
             <Setter Property="Background" Value="#E5F4EC"/>
@@ -130,8 +135,9 @@
                             <Button Classes="risposta"
                                     Classes.corretta="{Binding IsCorretta}"
                                     Classes.sbagliata="{Binding IsSbagliata}"
+                                    Classes.highlighted="{Binding IsHighlighted}"
                                     Click="OnRispostaClick"
-                                    IsEnabled="{Binding IsNeutra}">
+                                    IsEnabled="{Binding PuoCliccare}">
                                 <Grid ColumnDefinitions="32,*">
                                     <TextBlock Text="{Binding EtichettaLettera}"
                                                FontWeight="Bold"
