@@ -15,6 +15,7 @@
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
                 BorderThickness="0,1,0,0"
+                BoxShadow="0 -2 8 0 #28000000"
                 Padding="20,12,20,12">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel>
@@ -49,6 +50,45 @@
                 <TextBlock Text="Scegli una o piu' materie. Se vuoi, restringi a categorie specifiche e regola le opzioni della sessione."
                            Foreground="{DynamicResource SystemBaseMediumColor}"
                            TextWrapping="Wrap"/>
+
+                <!-- ============================== OPZIONI ============================== -->
+                <Border Background="{DynamicResource SystemRegionBrush}"
+                        BorderBrush="{DynamicResource SystemBaseLowColor}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="14">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Opzioni"
+                                   FontWeight="SemiBold"/>
+
+                        <CheckBox Content="Randomizza l'ordine delle domande"
+                                  IsChecked="{Binding RandomizzaOrdine, Mode=TwoWay}"
+                                  ToolTip.Tip="Se disattivato, le domande seguono l'ordine dei file JSON."/>
+
+                        <CheckBox Content="Modalita' rotazione (le sbagliate rientrano in coda)"
+                                  IsChecked="{Binding Rotazione, Mode=TwoWay}"
+                                  ToolTip.Tip="Il quiz termina solo quando tutte le domande sono state risposte correttamente almeno una volta."/>
+
+                        <CheckBox Content="Mostra cronometro durante il quiz"
+                                  IsChecked="{Binding Cronometro, Mode=TwoWay}"/>
+
+                        <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="0,4,0,0">
+                            <CheckBox Content="Limita a"
+                                      IsChecked="{Binding LimitaDomande, Mode=TwoWay}"
+                                      VerticalAlignment="Center"/>
+                            <NumericUpDown Grid.Column="1"
+                                           Minimum="1" Maximum="9999"
+                                           Value="{Binding LimiteN, Mode=TwoWay}"
+                                           Increment="5"
+                                           Width="120"
+                                           Margin="10,0,8,0"
+                                           IsEnabled="{Binding LimitaDomande}"/>
+                            <TextBlock Grid.Column="2"
+                                       Text="domande (estratte casualmente)"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
                 <!-- Materie + Categorie -->
                 <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
@@ -131,45 +171,6 @@
                         </DockPanel>
                     </Border>
                 </Grid>
-
-                <!-- ============================== OPZIONI ============================== -->
-                <Border Background="{DynamicResource SystemRegionBrush}"
-                        BorderBrush="{DynamicResource SystemBaseLowColor}"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Padding="14">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Opzioni"
-                                   FontWeight="SemiBold"/>
-
-                        <CheckBox Content="Randomizza l'ordine delle domande"
-                                  IsChecked="{Binding RandomizzaOrdine, Mode=TwoWay}"
-                                  ToolTip.Tip="Se disattivato, le domande seguono l'ordine dei file JSON."/>
-
-                        <CheckBox Content="Modalita' rotazione (le sbagliate rientrano in coda)"
-                                  IsChecked="{Binding Rotazione, Mode=TwoWay}"
-                                  ToolTip.Tip="Il quiz termina solo quando tutte le domande sono state risposte correttamente almeno una volta."/>
-
-                        <CheckBox Content="Mostra cronometro durante il quiz"
-                                  IsChecked="{Binding Cronometro, Mode=TwoWay}"/>
-
-                        <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="0,4,0,0">
-                            <CheckBox Content="Limita a"
-                                      IsChecked="{Binding LimitaDomande, Mode=TwoWay}"
-                                      VerticalAlignment="Center"/>
-                            <NumericUpDown Grid.Column="1"
-                                           Minimum="1" Maximum="9999"
-                                           Value="{Binding LimiteN, Mode=TwoWay}"
-                                           Increment="5"
-                                           Width="120"
-                                           Margin="10,0,8,0"
-                                           IsEnabled="{Binding LimitaDomande}"/>
-                            <TextBlock Grid.Column="2"
-                                       Text="domande (estratte casualmente)"
-                                       VerticalAlignment="Center"/>
-                        </Grid>
-                    </StackPanel>
-                </Border>
 
             </StackPanel>
         </ScrollViewer>
