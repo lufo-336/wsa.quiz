@@ -51,6 +51,82 @@
                            Foreground="{DynamicResource SystemBaseMediumColor}"
                            TextWrapping="Wrap"/>
 
+                <!-- Materie + Categorie -->
+                <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
+
+                    <!-- ============================== MATERIE ============================== -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                            Background="{DynamicResource SystemRegionBrush}"
+                            BorderBrush="{DynamicResource SystemBaseLowColor}"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="14">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top"
+                                       Text="Materie"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8"/>
+                            <ItemsControl ItemsSource="{Binding Materie}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="state:MateriaSelezionabile">
+                                        <CheckBox Content="{Binding Etichetta}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Margin="0,3"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- ============================== CATEGORIE ============================== -->
+                    <Border Grid.Row="0" Grid.Column="2"
+                            Background="{DynamicResource SystemRegionBrush}"
+                            BorderBrush="{DynamicResource SystemBaseLowColor}"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="14"
+                            MinHeight="180">
+                        <DockPanel>
+                            <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+                                <TextBlock Text="Categorie  (lascia vuoto per includerle tutte)"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"/>
+                                <Button Grid.Column="1"
+                                        Content="Pulisci"
+                                        Click="OnPulisciCategorieClick"
+                                        Padding="10,3"
+                                        FontSize="11"
+                                        IsEnabled="{Binding HaCategorieSelezionate}"/>
+                            </Grid>
+
+                            <TextBlock x:Name="EmptyCategorieText"
+                                       Text="Seleziona una materia per vedere le categorie disponibili."
+                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                       FontStyle="Italic"
+                                       TextWrapping="Wrap"
+                                       IsVisible="{Binding NessunaCategoriaDisponibile}"/>
+
+                            <ItemsControl ItemsSource="{Binding CategorieVisibili}"
+                                          IsVisible="{Binding !NessunaCategoriaDisponibile}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="state:CategoriaSelezionabile">
+                                        <Grid ColumnDefinitions="*,Auto" Margin="0,2">
+                                            <CheckBox Content="{Binding Etichetta}"
+                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding MateriaNome}"
+                                                       FontSize="11"
+                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="8,0,0,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
                 <!-- ============================== OPZIONI ============================== -->
                 <Border Background="{DynamicResource SystemRegionBrush}"
                         BorderBrush="{DynamicResource SystemBaseLowColor}"
@@ -89,88 +165,6 @@
                         </Grid>
                     </StackPanel>
                 </Border>
-
-                <!-- Materie + Categorie -->
-                <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
-
-                    <!-- ============================== MATERIE ============================== -->
-                    <Border Grid.Row="0" Grid.Column="0"
-                            Background="{DynamicResource SystemRegionBrush}"
-                            BorderBrush="{DynamicResource SystemBaseLowColor}"
-                            BorderThickness="1"
-                            CornerRadius="6"
-                            Padding="14">
-                        <DockPanel>
-                            <TextBlock DockPanel.Dock="Top"
-                                       Text="Materie"
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,0,8"/>
-                            <ScrollViewer MaxHeight="240"
-                                          VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding Materie}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="state:MateriaSelezionabile">
-                                            <CheckBox Content="{Binding Etichetta}"
-                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                                      Margin="0,3"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </DockPanel>
-                    </Border>
-
-                    <!-- ============================== CATEGORIE ============================== -->
-                    <Border Grid.Row="0" Grid.Column="2"
-                            Background="{DynamicResource SystemRegionBrush}"
-                            BorderBrush="{DynamicResource SystemBaseLowColor}"
-                            BorderThickness="1"
-                            CornerRadius="6"
-                            Padding="14"
-                            MinHeight="180">
-                        <DockPanel>
-                            <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
-                                <TextBlock Text="Categorie  (lascia vuoto per includerle tutte)"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"/>
-                                <Button Grid.Column="1"
-                                        Content="Pulisci"
-                                        Click="OnPulisciCategorieClick"
-                                        Padding="10,3"
-                                        FontSize="11"
-                                        IsEnabled="{Binding HaCategorieSelezionate}"/>
-                            </Grid>
-
-                            <TextBlock x:Name="EmptyCategorieText"
-                                       Text="Seleziona una materia per vedere le categorie disponibili."
-                                       Foreground="{DynamicResource SystemBaseMediumColor}"
-                                       FontStyle="Italic"
-                                       TextWrapping="Wrap"
-                                       IsVisible="{Binding NessunaCategoriaDisponibile}"/>
-
-                            <ScrollViewer MaxHeight="240"
-                                          VerticalScrollBarVisibility="Auto"
-                                          IsVisible="{Binding !NessunaCategoriaDisponibile}">
-                                <ItemsControl ItemsSource="{Binding CategorieVisibili}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="state:CategoriaSelezionabile">
-                                            <Grid ColumnDefinitions="*,Auto" Margin="0,2">
-                                                <CheckBox Content="{Binding Etichetta}"
-                                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                                                <TextBlock Grid.Column="1"
-                                                           Text="{Binding MateriaNome}"
-                                                           FontSize="11"
-                                                           Foreground="{DynamicResource SystemBaseMediumColor}"
-                                                           VerticalAlignment="Center"
-                                                           Margin="8,0,0,0"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </DockPanel>
-                    </Border>
-                </Grid>
 
             </StackPanel>
         </ScrollViewer>
