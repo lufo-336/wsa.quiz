@@ -43,6 +43,26 @@ public class SessioneQuiz : ObservableObject
     private TimeSpan _offsetCronometro = TimeSpan.Zero;
     private int _offsetEffettuate; // classica: domande gia' fatte nelle sessioni pregresse
 
+    // ----- Step 7: navigazione view-mode -----
+    private int? _viewIndex;       // null = corrente, 0..N-1 = passata in Risultato.Dettagli
+    private _StatoLive? _backupLive;
+    private int? _indiceHighlight;
+
+    /// <summary>Snapshot dello stato live, salvato all'ingresso in view-mode e ripristinato all'uscita.</summary>
+    private record _StatoLive(
+        DomandaPreparata? DomandaCorrente,
+        string DomandaTesto,
+        string CategoriaCorrente,
+        string MateriaCorrente,
+        int NumeroDomandaCorrente,
+        bool RispostaInviata,
+        bool UltimaRispostaCorretta,
+        string FeedbackTitolo,
+        string SpiegazioneTesto,
+        string LetteraCorretta,
+        string TestoRispostaCorretta,
+        List<(string Testo, StatoRisposta Stato)> Risposte);
+
     // Sessione classica
     private List<Domanda> _ordineClassica = new();
     private int _indiceClassica;
@@ -90,7 +110,18 @@ public class SessioneQuiz : ObservableObject
     public string MateriaCorrente { get => _materiaCorrente; private set => SetField(ref _materiaCorrente, value); }
 
     private int _numeroDomandaCorrente;
-    public int NumeroDomandaCorrente { get => _numeroDomandaCorrente; private set => SetField(ref _numeroDomandaCorrente, value); }
+    public int NumeroDomandaCorrente
+    {
+        get => _numeroDomandaCorrente;
+        private set
+        {
+            if (SetField(ref _numeroDomandaCorrente, value))
+            {
+                RaisePropertyChanged(nameof(EtichettaDomanda));
+                RaisePropertyChanged(nameof(ProgressoPercentuale));
+            }
+        }
+    }
 
     private int _totalePrevisto;
     public int TotalePrevisto
@@ -99,7 +130,10 @@ public class SessioneQuiz : ObservableObject
         private set
         {
             if (SetField(ref _totalePrevisto, value))
+            {
                 RaisePropertyChanged(nameof(ProgressoPercentuale));
+                RaisePropertyChanged(nameof(EtichettaDomanda));
+            }
         }
     }
 
@@ -148,6 +182,65 @@ public class SessioneQuiz : ObservableObject
 
     private string _testoRispostaCorretta = string.Empty;
     public string TestoRispostaCorretta { get => _testoRispostaCorretta; private set => SetField(ref _testoRispostaCorretta, value); }
+
+    // ----- Step 7 -----
+
+    /// <summary>Indice della passata visualizzata (0..Dettagli.Count-1) o null se sulla corrente.</summary>
+    public int? IndiceVisualizzazione
+    {
+        get => _viewIndex;
+        private set
+        {
+            if (_viewIndex != value)
+            {
+                _viewIndex = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(InViewMode));
+                RaisePropertyChanged(nameof(EtichettaDomanda));
+                RaisePropertyChanged(nameof(PuoIndietro));
+                RaisePropertyChanged(nameof(PuoAvanti));
+            }
+        }
+    }
+
+    /// <summary>True quando si sta guardando una passata (read-only).</summary>
+    public bool InViewMode => _viewIndex.HasValue;
+
+    /// <summary>Etichetta header: "Domanda X di Y" o "Domanda X di Y (vista)" in view-mode.</summary>
+    public string EtichettaDomanda => InViewMode
+        ? $"Domanda {_viewIndex!.Value + 1} di {TotalePrevisto} (vista)"
+        : $"Domanda {NumeroDomandaCorrente} di {TotalePrevisto}";
+
+    /// <summary>True se ← è significativo: ci sono passate e non sono già sulla prima.</summary>
+    public bool PuoIndietro =>
+        Risultato.Dettagli.Count > 0 &&
+        (_viewIndex ?? Risultato.Dettagli.Count) > 0;
+
+    /// <summary>True se → è significativo: sono in view-mode.</summary>
+    public bool PuoAvanti => InViewMode;
+
+    /// <summary>
+    /// Indice (0..3) della risposta evidenziata da ↑/↓, o null se nessuna.
+    /// Settato da HighlightSu/HighlightGiu, resettato a null da RispondiA,
+    /// CaricaProssimaDomanda e quando si entra/esce dalla view-mode.
+    /// </summary>
+    public int? IndiceHighlight
+    {
+        get => _indiceHighlight;
+        private set
+        {
+            if (_indiceHighlight != value)
+            {
+                int? old = _indiceHighlight;
+                _indiceHighlight = value;
+                RaisePropertyChanged();
+                if (old.HasValue && old.Value < Risposte.Count)
+                    Risposte[old.Value].IsHighlighted = false;
+                if (value.HasValue && value.Value < Risposte.Count)
+                    Risposte[value.Value].IsHighlighted = true;
+            }
+        }
+    }
 
     // ------------------------------------------------------------------ COSTRUZIONE
 
@@ -283,6 +376,7 @@ public class SessioneQuiz : ObservableObject
             IndiceCorrettoShufflato = _domandaCorrente.IndiceCorrettoShufflato,
             IndiceDataShufflato = indiceShufflato
         });
+        RaisePropertyChanged(nameof(PuoIndietro));
 
         // Aggiorno gli stati visibili delle risposte
         for (int i = 0; i < Risposte.Count; i++)
@@ -499,5 +593,151 @@ public class SessioneQuiz : ObservableObject
         }
 
         return sessione;
+    }
+
+    // ------------------------------------------------------------------ STEP 7: VIEW-MODE
+
+    /// <summary>
+    /// Salva lo stato live (domanda corrente + risposte + feedback) prima di
+    /// sostituirlo con quello della passata. Chiamato solo quando si entra in
+    /// view-mode, NON quando si naviga fra una passata e un'altra.
+    /// </summary>
+    private void SalvaStatoLive()
+    {
+        _backupLive = new _StatoLive(
+            DomandaCorrente: _domandaCorrente,
+            DomandaTesto: _domandaTesto,
+            CategoriaCorrente: _categoriaCorrente,
+            MateriaCorrente: _materiaCorrente,
+            NumeroDomandaCorrente: _numeroDomandaCorrente,
+            RispostaInviata: _rispostaInviata,
+            UltimaRispostaCorretta: _ultimaRispostaCorretta,
+            FeedbackTitolo: _feedbackTitolo,
+            SpiegazioneTesto: _spiegazioneTesto,
+            LetteraCorretta: _letteraCorretta,
+            TestoRispostaCorretta: _testoRispostaCorretta,
+            Risposte: Risposte.Select(r => (r.Testo, r.Stato)).ToList());
+    }
+
+    /// <summary>
+    /// Ripristina lo stato live salvato da <see cref="SalvaStatoLive"/>. Idempotente
+    /// se chiamato senza un backup attivo (no-op).
+    /// </summary>
+    private void RipristinaStatoLive()
+    {
+        if (_backupLive == null) return;
+        IndiceHighlight = null;
+        var b = _backupLive;
+        _domandaCorrente = b.DomandaCorrente;
+        DomandaTesto = b.DomandaTesto;
+        CategoriaCorrente = b.CategoriaCorrente;
+        MateriaCorrente = b.MateriaCorrente;
+        NumeroDomandaCorrente = b.NumeroDomandaCorrente;
+
+        Risposte.Clear();
+        for (int i = 0; i < b.Risposte.Count; i++)
+        {
+            var (testo, stato) = b.Risposte[i];
+            var item = new RispostaItem(i, testo) { Stato = stato, IsEnabled = true };
+            Risposte.Add(item);
+        }
+
+        FeedbackTitolo = b.FeedbackTitolo;
+        SpiegazioneTesto = b.SpiegazioneTesto;
+        LetteraCorretta = b.LetteraCorretta;
+        TestoRispostaCorretta = b.TestoRispostaCorretta;
+        UltimaRispostaCorretta = b.UltimaRispostaCorretta;
+        RispostaInviata = b.RispostaInviata;
+
+        _backupLive = null;
+    }
+
+    /// <summary>
+    /// Sovrascrive lo stato osservabile con quello della passata indicata.
+    /// Non salva il backup (lo fa il chiamante solo all'ingresso in view-mode).
+    /// </summary>
+    private void MostraPassata(int indice)
+    {
+        IndiceHighlight = null;
+        var d = Risultato.Dettagli[indice];
+
+        DomandaTesto = d.TestoDomanda;
+        CategoriaCorrente = d.Categoria;
+        MateriaCorrente = d.MateriaNome;
+
+        Risposte.Clear();
+        for (int i = 0; i < d.RisposteShufflate.Count; i++)
+        {
+            StatoRisposta stato;
+            if (i == d.IndiceCorrettoShufflato) stato = StatoRisposta.Corretta;
+            else if (i == d.IndiceDataShufflato && !d.Corretta) stato = StatoRisposta.Sbagliata;
+            else stato = StatoRisposta.Neutra;
+
+            Risposte.Add(new RispostaItem(i, d.RisposteShufflate[i])
+            {
+                Stato = stato,
+                IsEnabled = false
+            });
+        }
+
+        UltimaRispostaCorretta = d.Corretta;
+        FeedbackTitolo = d.Corretta ? "Corretto!" : "Sbagliato";
+        SpiegazioneTesto = d.Spiegazione ?? string.Empty;
+        LetteraCorretta = d.IndiceCorrettoShufflato >= 0
+            ? ((char)('A' + d.IndiceCorrettoShufflato)).ToString()
+            : string.Empty;
+        TestoRispostaCorretta = d.IndiceCorrettoShufflato >= 0 && d.IndiceCorrettoShufflato < d.RisposteShufflate.Count
+            ? d.RisposteShufflate[d.IndiceCorrettoShufflato]
+            : string.Empty;
+        RispostaInviata = true;
+    }
+
+    /// <summary>← : entra in view-mode (se non c'è già) o scorre alla passata precedente.</summary>
+    public void VaiAPassataPrecedente()
+    {
+        if (Risultato.Dettagli.Count == 0) return;
+
+        int target;
+        if (_viewIndex == null)
+        {
+            SalvaStatoLive();
+            target = Risultato.Dettagli.Count - 1;
+        }
+        else if (_viewIndex.Value > 0)
+        {
+            target = _viewIndex.Value - 1;
+        }
+        else
+        {
+            return;
+        }
+
+        IndiceVisualizzazione = target;
+        MostraPassata(target);
+    }
+
+    /// <summary>→ : scorre alla passata successiva o torna alla corrente.</summary>
+    public void VaiAPassataSuccessiva()
+    {
+        if (_viewIndex == null) return;
+
+        int next = _viewIndex.Value + 1;
+        if (next >= Risultato.Dettagli.Count)
+        {
+            TornaACorrente();
+        }
+        else
+        {
+            IndiceVisualizzazione = next;
+            MostraPassata(next);
+        }
+    }
+
+    /// <summary>Esce dalla view-mode e torna alla domanda corrente live.</summary>
+    public void TornaACorrente()
+    {
+        if (_viewIndex == null) return;
+        IndiceVisualizzazione = null;
+        RipristinaStatoLive();
     }
 }
