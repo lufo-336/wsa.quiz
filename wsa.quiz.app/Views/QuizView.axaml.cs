@@ -64,7 +64,7 @@ public partial class QuizView : UserControl
         switch (e.Key)
         {
             case Key.A: case Key.B: case Key.C: case Key.D:
-                if (_sessione.InAttesaRisposta)
+                if (!_sessione.InViewMode && _sessione.InAttesaRisposta)
                 {
                     int idx = e.Key - Key.A;
                     if (idx < _sessione.Risposte.Count)
@@ -73,8 +73,32 @@ public partial class QuizView : UserControl
                 e.Handled = true;
                 return;
 
+            case Key.Up:
+                if (!_sessione.InViewMode) _sessione.HighlightSu();
+                e.Handled = true;
+                return;
+
+            case Key.Down:
+                if (!_sessione.InViewMode) _sessione.HighlightGiu();
+                e.Handled = true;
+                return;
+
+            case Key.Left:
+                _sessione.VaiAPassataPrecedente();
+                e.Handled = true;
+                return;
+
+            case Key.Right:
+                _sessione.VaiAPassataSuccessiva();
+                e.Handled = true;
+                return;
+
             case Key.Enter:
-                if (_sessione.RispostaInviata) _sessione.Avanza();
+                if (!_sessione.InViewMode)
+                {
+                    if (!_sessione.ConfermaHighlight() && _sessione.RispostaInviata)
+                        _sessione.Avanza();
+                }
                 e.Handled = true;
                 return;
 
