@@ -15,7 +15,6 @@
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
                 BorderThickness="0,1,0,0"
-                BoxShadow="0 -2 8 0 #28000000"
                 Padding="20,12,20,12">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel>
@@ -106,23 +105,26 @@
                                        TextWrapping="Wrap"
                                        IsVisible="{Binding NessunaCategoriaDisponibile}"/>
 
-                            <ItemsControl ItemsSource="{Binding CategorieVisibili}"
+                            <ScrollViewer MaxHeight="240"
+                                          VerticalScrollBarVisibility="Auto"
                                           IsVisible="{Binding !NessunaCategoriaDisponibile}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="state:CategoriaSelezionabile">
-                                        <Grid ColumnDefinitions="*,Auto" Margin="0,2">
-                                            <CheckBox Content="{Binding Etichetta}"
-                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding MateriaNome}"
-                                                       FontSize="11"
-                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
-                                                       VerticalAlignment="Center"
-                                                       Margin="8,0,0,0"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding CategorieVisibili}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="state:CategoriaSelezionabile">
+                                            <Grid ColumnDefinitions="*,Auto" Margin="0,2">
+                                                <CheckBox Content="{Binding Etichetta}"
+                                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                                                <TextBlock Grid.Column="1"
+                                                           Text="{Binding MateriaNome}"
+                                                           FontSize="11"
+                                                           Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                           VerticalAlignment="Center"
+                                                           Margin="8,0,0,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </DockPanel>
                     </Border>
                 </Grid>
