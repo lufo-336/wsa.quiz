@@ -97,55 +97,9 @@ public partial class QuizView : UserControl
         _sessione.Avanza();
     }
 
-    private void OnAbbandonaClick(object? sender, RoutedEventArgs e)
+    private void OnPausaClick(object? sender, RoutedEventArgs e)
     {
-        // Conferma rapida via finestra modale
-        ChiediConfermaAbbandono();
-    }
-
-    private async void ChiediConfermaAbbandono()
-    {
-        var w = new Window
-        {
-            Title = "Abbandona quiz",
-            Width = 380,
-            Height = 160,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            CanResize = false,
-            ShowInTaskbar = false
-        };
-        bool conferma = false;
-        var contenuto = new StackPanel { Margin = new global::Avalonia.Thickness(20), Spacing = 14 };
-        contenuto.Children.Add(new TextBlock
-        {
-            Text = "Sei sicuro di voler abbandonare il quiz? Le risposte gia' date verranno comunque salvate in cronologia.",
-            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
-        });
-        var pulsantiera = new StackPanel
-        {
-            Orientation = global::Avalonia.Layout.Orientation.Horizontal,
-            Spacing = 8,
-            HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right
-        };
-        var siBtn = new Button { Content = "Abbandona", Padding = new global::Avalonia.Thickness(14, 5) };
-        var noBtn = new Button { Content = "Continua", Padding = new global::Avalonia.Thickness(14, 5) };
-        siBtn.Click += (_, _) => { conferma = true; w.Close(); };
-        noBtn.Click += (_, _) => w.Close();
-        pulsantiera.Children.Add(noBtn);
-        pulsantiera.Children.Add(siBtn);
-        contenuto.Children.Add(pulsantiera);
-        w.Content = contenuto;
-
-        var owner = TopLevel.GetTopLevel(this) as Window;
-        if (owner != null)
-            await w.ShowDialog(owner);
-        else
-            w.Show();
-
-        // Riprendo focus per le scorciatoie
-        Focus();
-
-        if (conferma) _sessione.Abbandona();
+        ApriMenuPausa();
     }
 
     /// <summary>
