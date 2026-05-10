@@ -172,12 +172,11 @@
                 <Button Grid.RowSpan="2" Grid.Column="1"
                         Content="Prossima domanda"
                         Click="OnAvanzaClick"
+                        Classes="accent"
                         Padding="16,8"
                         FontWeight="SemiBold"
                         VerticalAlignment="Center"
-                        Margin="14,0,0,0"
-                        Background="{DynamicResource SystemAccentColorBrush}"
-                        Foreground="White"/>
+                        Margin="14,0,0,0"/>
             </Grid>
         </Border>
 
