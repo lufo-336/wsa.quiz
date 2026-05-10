@@ -278,7 +278,10 @@ public class SessioneQuiz : ObservableObject
             RispostaCorretta = $"[{_domandaCorrente.LetteraCorretta}] {_domandaCorrente.TestoRispostaCorretta}",
             Corretta = ok,
             Spiegazione = _domandaCorrente.Originale.Spiegazione,
-            Tentativi = tentativi
+            Tentativi = tentativi,
+            RisposteShufflate = _domandaCorrente.RisposteShufflate.ToList(),
+            IndiceCorrettoShufflato = _domandaCorrente.IndiceCorrettoShufflato,
+            IndiceDataShufflato = indiceShufflato
         });
 
         // Aggiorno gli stati visibili delle risposte
