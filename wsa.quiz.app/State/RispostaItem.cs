@@ -37,6 +37,7 @@ public class RispostaItem : ObservableObject
                 RaisePropertyChanged(nameof(IsCorretta));
                 RaisePropertyChanged(nameof(IsSbagliata));
                 RaisePropertyChanged(nameof(IsNeutra));
+                RaisePropertyChanged(nameof(PuoCliccare));
             }
         }
     }
@@ -45,6 +46,40 @@ public class RispostaItem : ObservableObject
     public bool IsNeutra    => _stato == StatoRisposta.Neutra;
     public bool IsCorretta  => _stato == StatoRisposta.Corretta;
     public bool IsSbagliata => _stato == StatoRisposta.Sbagliata;
+
+    // ----- Step 7 -----
+
+    private bool _isEnabled = true;
+    /// <summary>
+    /// Flag indipendente dallo stato. La <c>SessioneQuiz</c> lo mette a <c>false</c>
+    /// quando entra in view-mode (i bottoni vanno disabilitati anche se Neutri).
+    /// </summary>
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set
+        {
+            if (SetField(ref _isEnabled, value))
+                RaisePropertyChanged(nameof(PuoCliccare));
+        }
+    }
+
+    private bool _isHighlighted;
+    /// <summary>
+    /// Bottone evidenziato dalle frecce ↑/↓. Lo style XAML applica un bordo accent
+    /// quando questa proprieta' e' vera e lo stato e' <see cref="StatoRisposta.Neutra"/>.
+    /// </summary>
+    public bool IsHighlighted
+    {
+        get => _isHighlighted;
+        set => SetField(ref _isHighlighted, value);
+    }
+
+    /// <summary>
+    /// Computed: il bottone risposta e' cliccabile solo se enabled E ancora in
+    /// stato neutro (anti doppio-click + view-mode).
+    /// </summary>
+    public bool PuoCliccare => _isEnabled && _stato == StatoRisposta.Neutra;
 
     public RispostaItem(int indice, string testo)
     {
