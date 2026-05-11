@@ -8,7 +8,8 @@
       "PowerShell(Get-ChildItem C:\\\\Users\\\\luca.foglia\\\\Documents\\\\Quiz\\\\wsa_quiz_step1\\\\wsa.quiz.app -File | Format-Table Name; Get-ChildItem C:\\\\Users\\\\luca.foglia\\\\Documents\\\\Quiz\\\\wsa_quiz_step1\\\\wsa.quiz.app -Directory | Where-Object { $_.Name -ne 'bin' -and $_.Name -ne 'obj' } | Format-Table Name)",
       "PowerShell(git *)",
       "Bash(Measure-Object -Line)",
-      "Bash(xargs grep -l \"SystemRegionBrush\")"
+      "Bash(xargs grep -l \"SystemRegionBrush\")",
+      "Bash(dotnet run *)"
     ]
   }
 }
