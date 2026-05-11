@@ -8,9 +8,9 @@ App di quiz per il corso WsA. Esisteva una versione **console** (C#, .NET 8) che
 
 L'utente (Luca) sta imparando C# in parallelo a un corso. Il progetto è anche un esercizio didattico, quindi le scelte tendono a privilegiare chiarezza e separazione dei concetti.
 
-## Stato attuale: STEP 6 COMPLETO
+## Stato attuale: STEP 7 COMPLETO
 
-L'app Avalonia ha ora tastiera completa nel Quiz (`A/B/C/D` selezionano la risposta, `Invio` avanza, `ESC` apre la modale pausa unificata Annulla/Abbandona/Salva e esci — step 6) e il ciclo pausa→sospeso→ripresa funziona end-to-end nella GUI. Bottone "Pausa" in alto a destra del Quiz apre la stessa modale. La Home ha la barra "Avvia quiz" sticky **in alto** (al posto del vecchio titolo/sottotitolo, ora rimossi) e scroll globale del resto della pagina (Materie, Categorie, Opzioni). Solo Categorie ha uno scroll interno con `MaxHeight=240` perché può crescere molto quando si selezionano tutte le materie; Materie no, ha poche voci. Il bottone "Riprendi" della SospesiView è attivo: ricostruisce la sessione dalla pausa, naviga al QuizView e — al termine — la pausa originale viene rimossa automaticamente (stesso comportamento del console). Le tre tab restano popolate (Home, Cronologia, Sospesi). Cronologia condivisa fra console e GUI verificata via shared storage in `%APPDATA%\WsaQuiz`.
+L'app Avalonia ha ora navigazione tastiera completa **dentro il quiz**: `A/B/C/D` rispondono direttamente, `↑/↓` evidenziano una risposta con bordo giallo `#FFD500` 3px e `Invio` la conferma, `←/→` scorrono le passate già date in modalità read-only (banner giallo crema in alto + bottone "Torna alla corrente"), `Invio` in feedback avanza, `ESC` apre la modale pausa unificata Annulla/Abbandona/Salva e esci. Il ciclo pausa→sospeso→ripresa funziona end-to-end nella GUI: anche dopo una ripresa le passate pre-pausa restano navigabili con i 4 bottoni colorati (grazie a 3 campi additivi su `DettaglioRisposta` — vedi sotto). Bottone "Pausa" in alto a destra del Quiz apre la stessa modale. La Home ha la barra "Avvia quiz" sticky **in alto** (al posto del vecchio titolo/sottotitolo, ora rimossi) e scroll globale del resto della pagina (Materie, Categorie, Opzioni). Solo Categorie ha uno scroll interno con `MaxHeight=240` perché può crescere molto quando si selezionano tutte le materie; Materie no, ha poche voci. Il bottone "Riprendi" della SospesiView è attivo: ricostruisce la sessione dalla pausa, naviga al QuizView e — al termine — la pausa originale viene rimossa automaticamente (stesso comportamento del console). Le tre tab restano popolate (Home, Cronologia, Sospesi). Cronologia condivisa fra console e GUI verificata via shared storage in `%APPDATA%\WsaQuiz`.
 
 Lo step 4 introduce due metodi su `SessioneQuiz`: `EsportaPausa()` (snapshot consistente sia in stato "in attesa" sia in stato "feedback") e factory statica `RiprendiDa(SessionePausa, mappaPerId)`. Stato interno aggiunto: `_sessioneId`, `_avviataDaRipresa`, `_offsetCronometro`, `_offsetEffettuate` (classica). Esposta proprietà pubblica `IdSessionePausa` per consentire alla `MainWindow` di eliminare la pausa originale a fine sessione.
 
@@ -154,22 +154,27 @@ Fix UX laterali emersi nel test manuale e applicati nello stesso step:
 
 Spec: `docs/superpowers/specs/2026-05-09-step6-rifiniture-ux-design.md`. Plan: `docs/superpowers/plans/2026-05-10-step6-rifiniture-ux.md`. **Fatto.**
 
-### ⏳ Step 7 — Navigazione tra domande
-←/→ tra domanda corrente e domande passate (sola lettura), ↑/↓ per selezionare risposta sulla corrente. Richiede di mantenere un "view-index" separato dal "answering-index".
+### ✅ Step 7 — Navigazione tra domande
+`←/→` scorrono le passate già date dentro la sessione corrente in modalità read-only (banner giallo crema `#FFF8E1` + bottone "Torna alla corrente"; i 4 bottoni A/B/C/D vengono ricostruiti con colorazione verde/rosso/neutra e `IsEnabled=false`). `↑/↓` evidenziano una risposta sulla corrente con bordo giallo `#FFD500` 3px; `Invio` conferma quella evidenziata, o avanza se siamo già in feedback. Modello dati: 3 campi additivi su `DettaglioRisposta` (`RisposteShufflate`, `IndiceCorrettoShufflato`, `IndiceDataShufflato`) popolati in `SessioneQuiz.RispondiA`, necessari per ricostruire i 4 bottoni anche dopo pausa/ripresa (default vuoto/-1 per record JSON vecchi → backward compatible). Stato: `SessioneQuiz._viewIndex` (null=corrente, altrimenti indice in `Risultato.Dettagli`) + `_indiceHighlight`. Opzione A della spec (riusare le proprietà observable correnti con backup/restore via `_StatoLive`) implementata. `EsportaPausa` chiama `TornaACorrente()` come prima cosa per evitare di catturare lo stato view-mode invece del live. `RispostaItem` ha 2 nuovi flag (`IsEnabled` e `IsHighlighted`) + computed `PuoCliccare = IsEnabled && IsNeutra` che sostituisce `IsNeutra` nel binding `Button.IsEnabled`. Iterazione UX rispetto alla spec: l'highlight con bordo accent 2px era poco visibile nel test pratico, sostituito con giallo `#FFD500` 3px (vedi memoria "Iterazione UX su spec"). Spec: `docs/superpowers/specs/2026-05-10-step7-navigazione-domande-design.md`. Plan: `docs/superpowers/plans/2026-05-10-step7-navigazione-domande.md`. **Fatto.**
 
-### ⏳ Step 8 — Grafici
+Fix UX laterale emerso nel test manuale: il bottone "Prossima domanda" (`Classes="accent"`) aveva il testo bianco illeggibile in dark mode. Risolto con uno style `Button.prossima /template/ ContentPresenter` che imposta `TextBlock.Foreground="#1F1F1F"` — il `Foreground` diretto sull'attributo del Button non vinceva perché lo style globale `.accent` lo ridefinisce nel template (vedi trappola 12).
+
+### ⏳ Step 8 — Navigazione tastiera globale
+Estendere `↑/↓ + Invio` (e `Tab` dove appropriato) fuori dal Quiz: dentro la modale pausa (Esc) per navigare fra Abbandona / Annulla / Salva e esci; dentro la Home per scegliere fra le sezioni/funzioni; `Tab` come scorciatoia per passare fra Cronologia e Sospesi nel TabControl principale. Decisioni UX da prendere: come si rappresenta visivamente il "selezionato" su un bottone della Home (riusare bordo giallo dello step 7? bordo accent? cambio background?), in quale ordine si naviga (a griglia o per zone?), e se le frecce devono spostare il focus nativo di Avalonia o un nostro indice. Probabile riuso dei pattern di `SessioneQuiz._indiceHighlight` ma generalizzato.
+
+### ⏳ Step 9 — Grafici
 LiveCharts2 in tab "Statistiche" (quarto tab da aggiungere). % corrette per materia (bar chart), drill-down su categorie. Da verificare al momento dell'installazione che esista una versione di LiveCharts2 compatibile con Avalonia 12.
 
-### ⏳ Step 9 — Dark mode
-Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow? menu impostazioni?). Persistenza della scelta nelle preferenze utente (vedi step 11).
+### ⏳ Step 10 — Dark mode
+Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow? menu impostazioni?). Persistenza della scelta nelle preferenze utente (vedi step 12).
 
-### ⏳ Step 10 — Esportazione e filtri cronologia
+### ⏳ Step 11 — Esportazione e filtri cronologia
 Export della cronologia in CSV e/o JSON (utile come backup prima di "Cancella tutto" dello step 5). Filtri sulla CronologiaView per materia, range di date, percentuale. Da definire se l'export è "tutto" o rispetta i filtri attivi.
 
-### ⏳ Step 11 — Preferenze utente persistite
-File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 9). Da decidere se persistere anche le ultime materie/categorie selezionate.
+### ⏳ Step 12 — Preferenze utente persistite
+File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 10). Da decidere se persistere anche le ultime materie/categorie selezionate.
 
-### ⏳ Step 12 — Rifiniture distribuzione
+### ⏳ Step 13 — Rifiniture distribuzione
 Icona app (.ico per Windows, .icns per macOS), schermata "About" con versione/licenza, build portable e/o installer (es. `dotnet publish` self-contained, oppure pacchetti per piattaforma). Da affrontare quando il resto è stabile.
 
 ## Trappole già scoperte (non rifare)
@@ -185,6 +190,7 @@ Icona app (.ico per Windows, .icns per macOS), schermata "About" con versione/li
 9. **`SystemBaseHighColor` come `Foreground` su background hardcoded chiaro = illeggibile in dark mode** *(scoperta in step 6)*: i brush "Color" di sistema (`SystemBaseHighColor`, `SystemBaseMediumColor`...) si invertono a seconda del tema. Se il `Background` del contenitore è hardcoded chiaro (es. il feedback box `#E5F4EC` / `#F9E7E6`), in dark mode il foreground diventa quasi-bianco e si fonde con il chiaro. Soluzione: usare un `Foreground` hex esplicito (es. `#1F1F1F`) quando il background è anch'esso hex esplicito.
 10. **`BoxShadow` su sticky bar adiacente a `ScrollViewer`** *(scoperta in step 6)*: aggiungere `BoxShadow="0 -2 8 0 #28000000"` su una `Border DockPanel.Dock="Bottom"` proietta l'ombra di 8px verso l'alto, e quei 8px coprono visivamente il bordo inferiore del viewport del `ScrollViewer` adiacente. Effetto "ultimo elemento tagliato" anche con scroll a fondo. Soluzione: niente shadow, basta `BorderThickness` di 1px sul lato che separa.
 11. **Doppio scroll innestato (pagina + pannello con `MaxHeight`)** *(scoperta in step 6)*: avere un `ScrollViewer` esterno alla pagina + un `ScrollViewer MaxHeight=240` su un pannello interno è confondente — la rotella del mouse "perde" il pannello interno appena esci con il puntatore, e i pannelli con `MaxHeight` sembrano "tagliati" più che intenzionalmente limitati. Regola: un solo scroll dove possibile; se serve un cap interno, deve essere giustificato da una vera differenza di volume di dati (Categorie può avere 50+ voci → cap sì; Materie ne ha 5 → cap no).
+12. **`Foreground` diretto su `Button Classes="accent"` non vince** *(scoperta in step 7)*: assegnare `Foreground="#1F1F1F"` come attributo del Button non sovrascrive il colore del testo se il bottone ha `Classes="accent"`. Lo style globale `Button.accent` definito in `App.axaml` colpisce il `ContentPresenter#PART_ContentPresenter` del template, che ha priorità sul `Foreground` dell'attributo. Soluzione: aggiungere una classe locale (es. `Classes="accent prossima"`) e definire uno style con selector `Button.prossima /template/ ContentPresenter` che setti `TextBlock.Foreground`. Stesso pattern già usato per `Button.risposta.corretta/sbagliata` in `QuizView.axaml`.
 
 ## Stato dei file
 
@@ -227,5 +233,5 @@ L'utente sta lavorando **sulla sandbox Windows** (`C:\Users\luca.foglia\Document
 ## Per ripartire
 
 1. Apri questo MD in chat
-2. Conferma stato attuale (sandbox Windows, step 4 funzionante: tastiera + pausa GUI + ripresa dai sospesi)
-3. Si parte dallo step 5: eliminazione cronologia (singole partite e/o intera). Vedi sezione "Eliminazione cronologia (step 5 prossimo)" per i punti aperti — Id stabile per `RisultatoQuiz`, due nuovi metodi su `StorageService`, decisioni UX per la riga e per "Cancella tutto".
+2. Conferma stato attuale (sandbox Windows, step 7 funzionante: navigazione `←/→/↑/↓ + Invio` dentro il quiz, view-mode read-only sulle passate anche post-pausa)
+3. Si parte dallo step 8: navigazione tastiera globale (modale Esc con frecce, Home con frecce, Tab fra Cronologia/Sospesi). Da brainstormare le decisioni UX (visivo del "selezionato" su Home, ordine di navigazione, focus nativo vs indice nostro) prima di scrivere la spec.
