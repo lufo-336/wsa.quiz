@@ -204,10 +204,36 @@ public partial class QuizView : UserControl
         contenuto.Children.Add(pulsantiera);
         w.Content = contenuto;
 
-        // ESC dentro la modale = Annulla (chiude senza azione)
+        // Step 8: gestione tastiera estesa nella modale pausa.
+        // ESC = Annulla; frecce sinistra/destra muovono il focus fra i 3 bottoni
+        // in modo ciclico (ordine visivo: Abbandona, Annulla, Salva); Ctrl+Tab
+        // bloccato per non cambiare tab con la modale aperta.
+        var bottoniInOrdine = new Button[] { abbandonaBtn, annullaBtn, salvaBtn };
         w.KeyDown += (_, ke) =>
         {
-            if (ke.Key == Key.Escape) { ke.Handled = true; azione = "annulla"; w.Close(); }
+            if (ke.Key == Key.Escape)
+            {
+                ke.Handled = true;
+                azione = "annulla";
+                w.Close();
+                return;
+            }
+            if (ke.Key == Key.Tab && ke.KeyModifiers.HasFlag(KeyModifiers.Control))
+            {
+                // Blocca Ctrl+Tab dentro la modale: niente cambio tab globale.
+                ke.Handled = true;
+                return;
+            }
+            if (ke.Key == Key.Left || ke.Key == Key.Right)
+            {
+                int idx = System.Array.IndexOf(bottoniInOrdine,
+                    w.FocusManager?.GetFocusedElement() as Button);
+                if (idx < 0) idx = 1; // default su Annulla
+                int delta = ke.Key == Key.Right ? +1 : -1;
+                int nuovo = (idx + delta + bottoniInOrdine.Length) % bottoniInOrdine.Length;
+                bottoniInOrdine[nuovo].Focus();
+                ke.Handled = true;
+            }
         };
 
         // Focus di default su Annulla quando la finestra si apre
