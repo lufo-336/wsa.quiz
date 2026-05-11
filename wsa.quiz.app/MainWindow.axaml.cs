@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Wsa.Quiz.App.State;
 using Wsa.Quiz.App.Views;
 using Wsa.Quiz.Core.Models;
@@ -27,6 +28,35 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Caricamento();
+    }
+
+    // ------------------------------------------------------------------ TASTIERA GLOBALE
+
+    /// <summary>
+    /// Step 8: Ctrl+Tab / Ctrl+Shift+Tab cambiano tab principale in modo ciclico.
+    /// Funziona ovunque nell'app, anche dentro al quiz (il quiz resta vivo sotto
+    /// e si ritrova quando si torna sulla tab Home).
+    /// </summary>
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (e.Key == Key.Tab && e.KeyModifiers.HasFlag(KeyModifiers.Control))
+        {
+            int n = Tabs.ItemCount;
+            if (n <= 0) { base.OnKeyDown(e); return; }
+            int delta = e.KeyModifiers.HasFlag(KeyModifiers.Shift) ? -1 : +1;
+            Tabs.SelectedIndex = (Tabs.SelectedIndex + delta + n) % n;
+            // Sposto il focus nella view appena attivata cosi' le scorciatoie locali
+            // partono immediate senza dover cliccare.
+            switch (Tabs.SelectedIndex)
+            {
+                case 0: (HomeArea.Content as Control)?.Focus(); break;
+                case 1: (CronologiaArea.Content as Control)?.Focus(); break;
+                case 2: (SospesiArea.Content as Control)?.Focus(); break;
+            }
+            e.Handled = true;
+            return;
+        }
+        base.OnKeyDown(e);
     }
 
     // ------------------------------------------------------------------ BOOT
