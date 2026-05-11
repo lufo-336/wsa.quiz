@@ -62,6 +62,49 @@
             <Setter Property="Foreground" Value="#7A7A7A"/>
             <Setter Property="BorderBrush" Value="#D6D6D6"/>
         </Style>
+
+        <!--
+          Step 8: indicatore visivo unificato per il focus da tastiera.
+          In Avalonia 12 il FocusAdorner viene mostrato SOLO quando il focus
+          arriva da tastiera (Tab/frecce), non da click del mouse. Definendolo
+          a livello globale otteniamo il bordo giallo 3px ovunque senza codice
+          aggiuntivo nelle view. Stesso colore del highlight dello step 7.
+        -->
+        <Style Selector="Button">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
+                </FocusAdornerTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="CheckBox">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
+                </FocusAdornerTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
+                </FocusAdornerTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
+                </FocusAdornerTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
+                </FocusAdornerTemplate>
+            </Setter>
+        </Style>
     </Application.Styles>
 
 </Application>
