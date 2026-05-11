@@ -171,10 +171,13 @@ Toggle Fluent chiaro/scuro. Posizione del toggle da decidere (header MainWindow?
 ### ⏳ Step 11 — Esportazione e filtri cronologia
 Export della cronologia in CSV e/o JSON (utile come backup prima di "Cancella tutto" dello step 5). Filtri sulla CronologiaView per materia, range di date, percentuale. Da definire se l'export è "tutto" o rispetta i filtri attivi.
 
-### ⏳ Step 12 — Preferenze utente persistite
+### ⏳ Step 12 — Import domande/materie da GUI
+Schermata "Gestione contenuti" (nuova tab? menu? dialog?) per aggiungere domande direttamente dall'interfaccia caricando un file `.json` conforme allo schema descritto nel `README.md`. Due flussi: (a) **aggiungi a materia esistente** — l'utente sceglie la materia dal pool corrente, seleziona il file, l'app valida lo schema (4 risposte, indici 0..3, id univoci dentro il file, categoria stringa) e lo copia in `domande/<cartella materia>/<nome file>.json`; (b) **crea nuova materia** — form con `id`/`nome`/`cartella` + selezione file iniziale, l'app crea la cartella, appende la voce a `materie.json` e copia il file. Decisioni UX da prendere: dove vive (tab dedicata "Contenuti"? bottone in Home? menu?), come si gestiscono i conflitti di `id` domanda (rifiuta il file? rinumera in automatico?), se serve un'anteprima del contenuto prima di confermare. Implicazioni storage: oggi `materie.json` e `domande/` vengono copiati al build da `..\<file>` con `<None Include="...">`; vanno scritti nella cartella **sorgente** (non in `bin/`) altrimenti le modifiche si perdono al `dotnet clean`. Da valutare anche un import "incolla JSON da clipboard" oltre al file picker (utile per il flusso generazione-da-IA descritto nel README).
+
+### ⏳ Step 13 — Preferenze utente persistite
 File `settings.json` nella cartella utente (`%APPDATA%\WsaQuiz` ecc.) per ricordare: ultime opzioni quiz scelte (rotazione, cronometro, randomizza, N domande), ultima tab aperta, scelta dark mode (step 10). Da decidere se persistere anche le ultime materie/categorie selezionate.
 
-### ⏳ Step 13 — Rifiniture distribuzione
+### ⏳ Step 14 — Rifiniture distribuzione
 Icona app (.ico per Windows, .icns per macOS), schermata "About" con versione/licenza, build portable e/o installer (es. `dotnet publish` self-contained, oppure pacchetti per piattaforma). Da affrontare quando il resto è stabile.
 
 ## Trappole già scoperte (non rifare)
