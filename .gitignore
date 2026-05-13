@@ -1,0 +1,72 @@
+# ---------- .NET build output ----------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pidb
+*.svclog
+*.scc
+
+# ---------- Visual Studio / Rider / VS Code ----------
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- Pacchetti / cache NuGet ----------
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ---------- Pubblicazione ----------
+publish/
+PublishProfiles/
+*.pubxml
+*.pubxml.user
+*.publishproj
+
+# ---------- Coverage / test ----------
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# ---------- File temporanei / OS ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.bak
+*.cache
+*.log
+
+# ---------- Roslyn / build cache ----------
+.vs/
+*.binlog
+*.tlog
+*.ilk
+*.pdb
+*.iobj
+*.ipdb
+*.lastbuildstate
+*.unsuccessfulbuild
