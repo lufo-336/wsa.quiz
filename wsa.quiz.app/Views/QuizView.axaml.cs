@@ -115,11 +115,18 @@ public partial class QuizView : UserControl
     {
         if (sender is Button { DataContext: RispostaItem r })
             _sessione.RispondiA(r.Indice);
+        // Riprendo il focus sulla view: dopo il click il focus va sul Button
+        // risposta, che diventa disabilitato; senza riprenderlo, A/B/C/D e frecce
+        // non arrivano piu' al QuizView.
+        Focus();
     }
 
     private void OnAvanzaClick(object? sender, RoutedEventArgs e)
     {
         _sessione.Avanza();
+        // Dopo Avanza il bottone "Prossima domanda" sparisce (IsVisible=false
+        // perche' RispostaInviata torna false), e il focus si perde. Riprendolo.
+        Focus();
     }
 
     private void OnPausaClick(object? sender, RoutedEventArgs e)
