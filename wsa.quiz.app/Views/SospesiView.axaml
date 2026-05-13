@@ -56,8 +56,12 @@
         <ScrollViewer Margin="20,8,20,16"
                       VerticalScrollBarVisibility="Auto"
                       IsVisible="{Binding !NessunaPausa}">
-            <ItemsControl ItemsSource="{Binding Sessioni}">
-                <ItemsControl.ItemTemplate>
+            <ListBox x:Name="ListaPause"
+                     ItemsSource="{Binding Sessioni}"
+                     SelectionMode="Single"
+                     Background="Transparent"
+                     BorderThickness="0">
+                <ListBox.ItemTemplate>
                     <DataTemplate DataType="state:SessioneSospesaItem">
                         <Border Background="{DynamicResource SystemRegionBrush}"
                                 BorderBrush="{DynamicResource SystemBaseLowColor}"
@@ -164,8 +168,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </ScrollViewer>
 
     </DockPanel>
