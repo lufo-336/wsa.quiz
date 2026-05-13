@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Wsa.Quiz.App.State;
 using Wsa.Quiz.Core.Models;
@@ -113,6 +114,13 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
         AggiornaRiepilogo();
+        // Step 8: handler in fase di tunneling (capture). Se restassimo sul
+        // classico override OnKeyDown (bubble), la ScrollViewer che avvolge
+        // tutto il contenuto di HomeView intercetta su/giu' per lo scroll e
+        // marca l'evento come Handled prima che arrivi a noi. Con il Tunnel
+        // riceviamo l'evento dall'alto verso il focused element, prima della
+        // ScrollViewer.
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
     }
 
     // ------------------------------------------------------------------ TASTIERA HOME (step 8)
@@ -122,29 +130,22 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
     /// spostano il focus fra i controlli focusable della zona stessa.
     /// Filtro: sul NumericUpDown lasciamo che le frecce incrementino il valore.
     /// </summary>
-    protected override void OnKeyDown(KeyEventArgs e)
+    private void OnKeyDownTunnel(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Up && e.Key != Key.Down)
-        {
-            base.OnKeyDown(e);
-            return;
-        }
+        if (e.Key != Key.Up && e.Key != Key.Down) return;
 
         var focused = TopLevel.GetTopLevel(this)?.FocusManager?.GetFocusedElement() as Control;
-        if (focused == null) { base.OnKeyDown(e); return; }
+        if (focused == null) return;
 
         // Se il focus e' su un NumericUpDown (o suo interno), lascia il comportamento nativo.
         if (focused is NumericUpDown || focused.FindAncestorOfType<NumericUpDown>() != null)
-        {
-            base.OnKeyDown(e);
             return;
-        }
 
         // Trova il Border-zona piu' vicino antenato.
         var zona = focused.GetVisualAncestors()
             .OfType<Border>()
             .FirstOrDefault(b => b.Name is "ZonaAvvia" or "ZonaMaterie" or "ZonaCategorie" or "ZonaOpzioni");
-        if (zona == null) { base.OnKeyDown(e); return; }
+        if (zona == null) return;
 
         // Raccogli tutti i controlli focusable dentro la zona, in ordine visivo.
         var focusables = zona.GetVisualDescendants()
@@ -152,12 +153,11 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
             .Where(c => c.Focusable && c.IsEffectivelyVisible && c.IsEffectivelyEnabled)
             .Where(c => c is Button || c is CheckBox || c is NumericUpDown)
             .ToList();
-        if (focusables.Count == 0) { base.OnKeyDown(e); return; }
+        if (focusables.Count == 0) return;
 
         int idx = focusables.IndexOf(focused);
         if (idx < 0)
         {
-            // Il focused non e' uno dei nostri candidati: prendi il primo.
             focusables[0].Focus();
             e.Handled = true;
             return;

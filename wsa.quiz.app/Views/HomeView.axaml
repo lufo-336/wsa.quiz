@@ -8,7 +8,9 @@
              x:Class="Wsa.Quiz.App.Views.HomeView"
              x:DataType="views:HomeView">
 
-    <DockPanel>
+    <!-- Step 8: Tab cicla DENTRO la Home (le 4 zone) e non scappa fuori, cosi'
+         dopo l'ultima zona si ritorna alla prima invece di perdere il focus. -->
+    <DockPanel KeyboardNavigation.TabNavigation="Cycle">
 
         <!-- ============================== AVVIO (sticky in alto) ============================== -->
         <Border x:Name="ZonaAvvia"

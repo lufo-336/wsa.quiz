@@ -54,6 +54,7 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         DataContext = this;
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
     }
 
     public void Inizializza(StorageService storage)
@@ -136,13 +137,9 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
     /// Step 8: Invio sulla riga selezionata = Riprendi; Canc avvia conferma
     /// inline (secondo Canc = conferma definitiva); Esc annulla la conferma.
     /// </summary>
-    protected override void OnKeyDown(KeyEventArgs e)
+    private void OnKeyDownTunnel(object? sender, KeyEventArgs e)
     {
-        if (ListaPause.SelectedItem is not SessioneSospesaItem item)
-        {
-            base.OnKeyDown(e);
-            return;
-        }
+        if (ListaPause.SelectedItem is not SessioneSospesaItem item) return;
 
         switch (e.Key)
         {
@@ -172,8 +169,6 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
                 }
                 return;
         }
-
-        base.OnKeyDown(e);
     }
 
     /// <summary>Estratto da OnConfermaEliminaClick: serve a poter eliminare anche da tastiera.</summary>

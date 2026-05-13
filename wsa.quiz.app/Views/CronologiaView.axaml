@@ -162,7 +162,13 @@
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Center"/>
 
-                                    <!-- Bottoni: stato normale -->
+                                    <!-- Bottoni: stato normale.
+                                         IsTabStop=False perche' altrimenti il Tab entrerebbe
+                                         dentro i bottoni della riga al posto di restare sul
+                                         ListBoxItem: cosi' frecce e Invio funzionano come
+                                         si aspetta l'utente sulla riga selezionata. Il
+                                         click di mouse continua a funzionare; per eliminare
+                                         da tastiera c'e' il tasto Canc. -->
                                     <StackPanel Grid.Column="6"
                                                 Orientation="Horizontal"
                                                 Spacing="6"
@@ -172,6 +178,7 @@
                                                 IsVisible="{Binding NonInAttesaConferma}">
                                         <Button Content="Elimina"
                                                 Click="OnEliminaRigaClick"
+                                                IsTabStop="False"
                                                 Classes="danger"
                                                 Padding="12,4"
                                                 FontSize="11"/>
@@ -187,11 +194,13 @@
                                                 IsVisible="{Binding InAttesaConfermaEliminazione}">
                                         <Button Content="Si', elimina"
                                                 Click="OnConfermaEliminaRigaClick"
+                                                IsTabStop="False"
                                                 Classes="danger"
                                                 Padding="10,4"
                                                 FontSize="11"/>
                                         <Button Content="Annulla"
                                                 Click="OnAnnullaEliminaRigaClick"
+                                                IsTabStop="False"
                                                 Padding="10,4"
                                                 FontSize="11"/>
                                     </StackPanel>
