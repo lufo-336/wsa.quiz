@@ -54,7 +54,7 @@ public partial class RiepilogoView : UserControl, INotifyPropertyChanged
             : "Ecco com'e' andata.";
 
         PercentualeFormattata = $"{Math.Round(risultato.PercentualeCorrette)}%";
-        ColorePercentuale = ColoreDaPercentuale(risultato.PercentualeCorrette);
+        ColorePercentuale = QuizColors.Percentuale(risultato.PercentualeCorrette);
 
         var d = risultato.DurataQuiz;
         DurataFormattata = d.TotalHours >= 1
@@ -66,13 +66,6 @@ public partial class RiepilogoView : UserControl, INotifyPropertyChanged
         DataContext = this;
     }
 
-    private static IBrush ColoreDaPercentuale(double pct)
-    {
-        // verde >= 80, ambra 50-79, rosso < 50
-        if (pct >= 80) return new SolidColorBrush(Color.Parse("#1F7A4D"));
-        if (pct >= 50) return new SolidColorBrush(Color.Parse("#B8860B"));
-        return new SolidColorBrush(Color.Parse("#B85450"));
-    }
 
     private void OnTornaClick(object? sender, RoutedEventArgs e)
     {

@@ -7,7 +7,7 @@ namespace Wsa.Quiz.Core.Services;
 /// </summary>
 public static class QuizService
 {
-    private static readonly Random Rng = new();
+    // Random.Shared e' thread-safe (.NET 6+) — sostituisce l'istanza statica non thread-safe.
 
     // --------------------------------------------------------- SHUFFLE / FILTRI
 
@@ -16,7 +16,7 @@ public static class QuizService
         var lista = sorgente.ToList();
         for (int i = lista.Count - 1; i > 0; i--)
         {
-            int j = Rng.Next(i + 1);
+            int j = Random.Shared.Next(i + 1);
             (lista[i], lista[j]) = (lista[j], lista[i]);
         }
         return lista;
@@ -73,7 +73,7 @@ public static class QuizService
         var shuffled = d.Risposte.ToList();
         for (int i = shuffled.Count - 1; i > 0; i--)
         {
-            int j = Rng.Next(i + 1);
+            int j = Random.Shared.Next(i + 1);
             (shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
         }
 

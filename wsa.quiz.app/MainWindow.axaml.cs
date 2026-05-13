@@ -111,7 +111,8 @@ public partial class MainWindow : Window
 
     private void AvviaQuizView(SessioneQuiz sessione)
     {
-        var quizView = new QuizView(sessione, _storage!);
+        if (_storage == null) return;
+        var quizView = new QuizView(sessione, _storage);
         quizView.QuizConcluso += OnQuizConcluso;
         quizView.QuizMessoInPausa += OnQuizMessoInPausa;
         HomeArea.Content = quizView;

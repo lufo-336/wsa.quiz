@@ -21,15 +21,15 @@ public class StorageService
 
     private static readonly JsonSerializerOptions OpzioniScrittura = new()
     {
-        WriteIndented = true,
-        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        WriteIndented = true
     };
 
     private static readonly JsonSerializerOptions OpzioniLettura = new()
     {
         PropertyNameCaseInsensitive = true,
         ReadCommentHandling = JsonCommentHandling.Skip,
-        AllowTrailingCommas = true
+        AllowTrailingCommas = true,
+        MaxDepth = 64
     };
 
     /// <summary>
@@ -44,11 +44,20 @@ public class StorageService
     /// <param name="cartellaUtente">Cartella dove leggere/scrivere cronologia.json e quiz_in_pausa.json.</param>
     public StorageService(string cartellaDati, string cartellaUtente)
     {
-        _cartellaDati = cartellaDati;
-        _cartellaUtente = cartellaUtente;
-        _fileMaterie    = Path.Combine(_cartellaDati,   "materie.json");
-        _fileCronologia = Path.Combine(_cartellaUtente, "cronologia.json");
-        _filePausa      = Path.Combine(_cartellaUtente, "quiz_in_pausa.json");
+        _cartellaDati = Path.GetFullPath(cartellaDati);
+        _cartellaUtente = Path.GetFullPath(cartellaUtente);
+        _fileMaterie    = Path.GetFullPath(Path.Combine(_cartellaDati,   "materie.json"));
+        _fileCronologia = Path.GetFullPath(Path.Combine(_cartellaUtente, "cronologia.json"));
+        _filePausa      = Path.GetFullPath(Path.Combine(_cartellaUtente, "quiz_in_pausa.json"));
+
+        // Validazione anti-directory-traversal: i file risolti devono stare dentro le cartelle base.
+        if (!_fileMaterie.StartsWith(_cartellaDati + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+            throw new ArgumentException("Percorso materie.json fuori dalla cartella dati.", nameof(cartellaDati));
+        if (!_fileCronologia.StartsWith(_cartellaUtente + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+            throw new ArgumentException("Percorso cronologia.json fuori dalla cartella utente.", nameof(cartellaUtente));
+        if (!_filePausa.StartsWith(_cartellaUtente + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+            throw new ArgumentException("Percorso quiz_in_pausa.json fuori dalla cartella utente.", nameof(cartellaUtente));
+
         if (!Directory.Exists(_cartellaUtente))
             Directory.CreateDirectory(_cartellaUtente);
     }
@@ -72,7 +81,7 @@ public class StorageService
         if (!File.Exists(_fileMaterie))
             throw new FileNotFoundException("File materie.json non trovato.", _fileMaterie);
 
-        string json = File.ReadAllText(_fileMaterie);
+        string json = LeggiFileCondiviso(_fileMaterie);
         var materie = JsonSerializer.Deserialize<List<Materia>>(json, OpzioniLettura)
                       ?? new List<Materia>();
         return materie;
@@ -158,7 +167,7 @@ public class StorageService
 
     private List<Domanda> LeggiFileDomande(string percorso, string formato)
     {
-        string json = File.ReadAllText(percorso);
+        string json = LeggiFileCondiviso(percorso);
         return formato switch
         {
             "nested" => ParseNested(json),
@@ -191,7 +200,6 @@ public class StorageService
             {
                 Categoria        = q.TryGetProperty("category", out var cat)    ? cat.GetString() ?? "" : "",
                 DomandaTesto     = q.TryGetProperty("question", out var qt)     ? qt.GetString() ?? ""  : "",
-                RispostaCorretta = q.TryGetProperty("correct_index", out var ci) && ci.ValueKind == JsonValueKind.Number ? ci.GetInt32() : 0,
                 Spiegazione      = q.TryGetProperty("explanation", out var ex)  ? ex.GetString() ?? ""  : ""
             };
             if (q.TryGetProperty("options", out var opts) && opts.ValueKind == JsonValueKind.Array)
@@ -199,9 +207,36 @@ public class StorageService
                 foreach (var o in opts.EnumerateArray())
                     d.Risposte.Add(o.GetString() ?? "");
             }
+            // Validazione: correct_index deve essere all'interno dei bounds delle opzioni.
+            int correctIndex = q.TryGetProperty("correct_index", out var ci) && ci.ValueKind == JsonValueKind.Number ? ci.GetInt32() : 0;
+            d.RispostaCorretta = correctIndex >= 0 && correctIndex < d.Risposte.Count ? correctIndex : 0;
             risultato.Add(d);
         }
         return risultato;
+    }
+
+    // ---------------------------------------------------------------- ATOMIC I/O
+
+    /// <summary>
+    /// Scrive il contenuto su file in modo atomico (temp + rename) per evitare
+    /// file corrotti in caso di crash o scritture concorrenti.
+    /// </summary>
+    private static void ScriviAtomico(string percorso, string contenuto)
+    {
+        string temp = percorso + ".tmp";
+        File.WriteAllText(temp, contenuto);
+        File.Move(temp, percorso, overwrite: true);
+    }
+
+    /// <summary>
+    /// Legge tutto il testo da un file con lock condiviso (permette letture
+    /// concorrenti, blocca scritture).
+    /// </summary>
+    private static string LeggiFileCondiviso(string percorso)
+    {
+        using var stream = new FileStream(percorso, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new StreamReader(stream, Encoding.UTF8);
+        return reader.ReadToEnd();
     }
 
     // ---------------------------------------------------------------- CRONOLOGIA
@@ -212,7 +247,7 @@ public class StorageService
         List<RisultatoQuiz> lista;
         try
         {
-            string json = File.ReadAllText(_fileCronologia);
+            string json = LeggiFileCondiviso(_fileCronologia);
             lista = JsonSerializer.Deserialize<List<RisultatoQuiz>>(json, OpzioniLettura) ?? new();
         }
         catch
@@ -237,7 +272,7 @@ public class StorageService
             try
             {
                 string json = JsonSerializer.Serialize(lista, OpzioniScrittura);
-                File.WriteAllText(_fileCronologia, json);
+                ScriviAtomico(_fileCronologia, json);
             }
             catch
             {
@@ -257,7 +292,7 @@ public class StorageService
         var cronologia = CaricaCronologia();
         cronologia.Add(risultato);
         string json = JsonSerializer.Serialize(cronologia, OpzioniScrittura);
-        File.WriteAllText(_fileCronologia, json);
+        ScriviAtomico(_fileCronologia, json);
     }
 
     /// <summary>
@@ -274,7 +309,7 @@ public class StorageService
         if (rimossi == 0) return;
 
         string json = JsonSerializer.Serialize(cronologia, OpzioniScrittura);
-        File.WriteAllText(_fileCronologia, json);
+        ScriviAtomico(_fileCronologia, json);
     }
 
     /// <summary>
@@ -285,7 +320,7 @@ public class StorageService
     public void SvuotaCronologia()
     {
         string json = JsonSerializer.Serialize(new List<RisultatoQuiz>(), OpzioniScrittura);
-        File.WriteAllText(_fileCronologia, json);
+        ScriviAtomico(_fileCronologia, json);
     }
 
     // ---------------------------------------------------------------- PAUSA SESSIONE
@@ -295,7 +330,7 @@ public class StorageService
         if (!File.Exists(_filePausa)) return new List<SessionePausa>();
         try
         {
-            string json = File.ReadAllText(_filePausa);
+            string json = LeggiFileCondiviso(_filePausa);
             var lista = JsonSerializer.Deserialize<List<SessionePausa>>(json, OpzioniLettura);
             if (lista != null)
             {
@@ -325,7 +360,7 @@ public class StorageService
         if (idx >= 0) pause[idx] = stato;
         else pause.Add(stato);
         string json = JsonSerializer.Serialize(pause, OpzioniScrittura);
-        File.WriteAllText(_filePausa, json);
+        ScriviAtomico(_filePausa, json);
     }
 
     public void EliminaPausa(string sessioneId)
@@ -339,6 +374,6 @@ public class StorageService
             return;
         }
         string json = JsonSerializer.Serialize(pause, OpzioniScrittura);
-        File.WriteAllText(_filePausa, json);
+        ScriviAtomico(_filePausa, json);
     }
 }
