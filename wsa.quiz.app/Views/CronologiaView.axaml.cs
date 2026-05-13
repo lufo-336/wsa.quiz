@@ -133,8 +133,72 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     {
         if (sender is not Button b) return;
         if (b.DataContext is not RisultatoCronologiaItem item) return;
-        if (_storage == null) return;
+        EseguiEliminazione(item);
+    }
 
+    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
+    private void OnAnnullaEliminaRigaClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not RisultatoCronologiaItem item) return;
+        item.InAttesaConfermaEliminazione = false;
+    }
+
+    // ------------------------------------------------------------------ TASTIERA (step 8)
+
+    /// <summary>
+    /// Step 8: Invio apre il dettaglio della riga selezionata; Canc avvia la
+    /// conferma inline (e secondo Canc la conferma definitiva); Esc annulla la
+    /// conferma se attiva. Attivo solo quando NON siamo nel dettaglio.
+    /// </summary>
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (ModoDettaglio) { base.OnKeyDown(e); return; }
+
+        if (ListaSessioni.SelectedItem is not RisultatoCronologiaItem item)
+        {
+            base.OnKeyDown(e);
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case Key.Enter:
+                e.Handled = true;
+                ApriDettaglio(item);
+                return;
+
+            case Key.Delete:
+                e.Handled = true;
+                if (item.InAttesaConfermaEliminazione)
+                {
+                    // Secondo Canc: conferma definitiva.
+                    EseguiEliminazione(item);
+                }
+                else
+                {
+                    // Primo Canc: avvia conferma inline (replica OnEliminaRigaClick).
+                    foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
+                    item.InAttesaConfermaEliminazione = true;
+                }
+                return;
+
+            case Key.Escape:
+                if (item.InAttesaConfermaEliminazione)
+                {
+                    e.Handled = true;
+                    item.InAttesaConfermaEliminazione = false;
+                }
+                return;
+        }
+
+        base.OnKeyDown(e);
+    }
+
+    /// <summary>Estratto da OnConfermaEliminaRigaClick: serve a poter eliminare anche da tastiera (Canc).</summary>
+    private void EseguiEliminazione(RisultatoCronologiaItem item)
+    {
+        if (_storage == null) return;
         try
         {
             _storage.EliminaRisultato(item.Id);
@@ -150,14 +214,6 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         Sottotitolo = NessunaSessione
             ? "Nessuna sessione registrata."
             : $"{Sessioni.Count} sessioni registrate.";
-    }
-
-    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
-    private void OnAnnullaEliminaRigaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not RisultatoCronologiaItem item) return;
-        item.InAttesaConfermaEliminazione = false;
     }
 
     private void ApriDettaglio(RisultatoCronologiaItem item)
