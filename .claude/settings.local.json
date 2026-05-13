@@ -9,7 +9,8 @@
       "PowerShell(git *)",
       "Bash(Measure-Object -Line)",
       "Bash(xargs grep -l \"SystemRegionBrush\")",
-      "Bash(dotnet run *)"
+      "Bash(dotnet run *)",
+      "Bash(awk -F'/' '{print $1\"/\"$2}')"
     ]
   }
 }
