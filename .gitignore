@@ -71,6 +71,6 @@ Desktop.ini
 *.lastbuildstate
 *.unsuccessfulbuild
 
-#---------- Aggiunti Manualmente ----------
-*.claude/
+# ---------- Aggiunti manualmente ----------
+.claude/
 docs/
