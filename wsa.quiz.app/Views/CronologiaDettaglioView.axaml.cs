@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Wsa.Quiz.App.State;
@@ -94,6 +95,9 @@ public partial class CronologiaDettaglioView : UserControl, INotifyPropertyChang
             .ToList();
 
         DataContext = this;
+
+        Focusable = true;
+        AttachedToVisualTree += (_, _) => Focus();
     }
 
     private static IBrush ColoreDaPercentuale(double pct)
@@ -121,6 +125,30 @@ public partial class CronologiaDettaglioView : UserControl, INotifyPropertyChang
     private void OnConfermaEliminaClick(object? sender, RoutedEventArgs e)
     {
         EliminazioneRichiesta?.Invoke(this, _risultato.Id);
+    }
+
+    // ------------------------------------------------------------------ TASTIERA (step 8)
+
+    /// <summary>
+    /// Step 8: Esc chiude il dettaglio e torna alla lista (= bottone Indietro).
+    /// Se la conferma di eliminazione e' attiva, Esc la annulla invece di chiudere.
+    /// </summary>
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+        {
+            e.Handled = true;
+            if (InAttesaConfermaEliminazione)
+            {
+                InAttesaConfermaEliminazione = false;
+            }
+            else
+            {
+                IndietroRichiesto?.Invoke(this, EventArgs.Empty);
+            }
+            return;
+        }
+        base.OnKeyDown(e);
     }
 
     private void Raise([System.Runtime.CompilerServices.CallerMemberName] string? name = null)
