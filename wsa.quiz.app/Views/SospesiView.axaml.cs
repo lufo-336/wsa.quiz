@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Wsa.Quiz.App.State;
 using Wsa.Quiz.Core.Models;
@@ -118,15 +119,73 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
     {
         if (sender is not Button b) return;
         if (b.DataContext is not SessioneSospesaItem item) return;
-        if (_storage == null) return;
+        EseguiEliminazione(item);
+    }
 
+    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
+    private void OnAnnullaEliminaClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button b) return;
+        if (b.DataContext is not SessioneSospesaItem item) return;
+        item.InAttesaConfermaEliminazione = false;
+    }
+
+    // ------------------------------------------------------------------ TASTIERA (step 8)
+
+    /// <summary>
+    /// Step 8: Invio sulla riga selezionata = Riprendi; Canc avvia conferma
+    /// inline (secondo Canc = conferma definitiva); Esc annulla la conferma.
+    /// </summary>
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (ListaPause.SelectedItem is not SessioneSospesaItem item)
+        {
+            base.OnKeyDown(e);
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case Key.Enter:
+                e.Handled = true;
+                RiprendiRichiesto?.Invoke(this, item.Pausa);
+                return;
+
+            case Key.Delete:
+                e.Handled = true;
+                if (item.InAttesaConfermaEliminazione)
+                {
+                    EseguiEliminazione(item);
+                }
+                else
+                {
+                    foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
+                    item.InAttesaConfermaEliminazione = true;
+                }
+                return;
+
+            case Key.Escape:
+                if (item.InAttesaConfermaEliminazione)
+                {
+                    e.Handled = true;
+                    item.InAttesaConfermaEliminazione = false;
+                }
+                return;
+        }
+
+        base.OnKeyDown(e);
+    }
+
+    /// <summary>Estratto da OnConfermaEliminaClick: serve a poter eliminare anche da tastiera.</summary>
+    private void EseguiEliminazione(SessioneSospesaItem item)
+    {
+        if (_storage == null) return;
         try
         {
             _storage.EliminaPausa(item.SessioneId);
         }
         catch (Exception ex)
         {
-            // Non blocco l'app: lascio la riga in lista e segnalo nel sottotitolo.
             Sottotitolo = $"Errore nell'eliminazione: {ex.Message}";
             return;
         }
@@ -136,14 +195,6 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
         Sottotitolo = NessunaPausa
             ? "Nessuna sessione in pausa."
             : $"{Sessioni.Count} sessioni in pausa.";
-    }
-
-    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
-    private void OnAnnullaEliminaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not SessioneSospesaItem item) return;
-        item.InAttesaConfermaEliminazione = false;
     }
 
     // ------------------------------------------------------------------ INPC
