@@ -59,6 +59,10 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         DataContext = this;
+        // Tunnel routing: il ListBoxItem di Avalonia gestisce Enter per la
+        // selezione (e marca Handled), quindi un override OnKeyDown classico
+        // non riceverebbe mai l'evento. Con il Tunnel intercettiamo prima.
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
     }
 
     /// <summary>
@@ -151,15 +155,10 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     /// conferma inline (e secondo Canc la conferma definitiva); Esc annulla la
     /// conferma se attiva. Attivo solo quando NON siamo nel dettaglio.
     /// </summary>
-    protected override void OnKeyDown(KeyEventArgs e)
+    private void OnKeyDownTunnel(object? sender, KeyEventArgs e)
     {
-        if (ModoDettaglio) { base.OnKeyDown(e); return; }
-
-        if (ListaSessioni.SelectedItem is not RisultatoCronologiaItem item)
-        {
-            base.OnKeyDown(e);
-            return;
-        }
+        if (ModoDettaglio) return;
+        if (ListaSessioni.SelectedItem is not RisultatoCronologiaItem item) return;
 
         switch (e.Key)
         {
@@ -172,12 +171,10 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
                 e.Handled = true;
                 if (item.InAttesaConfermaEliminazione)
                 {
-                    // Secondo Canc: conferma definitiva.
                     EseguiEliminazione(item);
                 }
                 else
                 {
-                    // Primo Canc: avvia conferma inline (replica OnEliminaRigaClick).
                     foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
                     item.InAttesaConfermaEliminazione = true;
                 }
@@ -191,8 +188,6 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
                 }
                 return;
         }
-
-        base.OnKeyDown(e);
     }
 
     /// <summary>Estratto da OnConfermaEliminaRigaClick: serve a poter eliminare anche da tastiera (Canc).</summary>
@@ -229,6 +224,10 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     {
         DettaglioArea.Content = null;
         ModoDettaglio = false;
+        // Senza questo, il focus resta sul bottone "Indietro" del dettaglio che
+        // pero' e' appena stato rimosso dal visual tree: di conseguenza Tab e
+        // frecce smettono di funzionare finche' non si clicca con il mouse.
+        ListaSessioni.Focus();
     }
 
     private void OnEliminaDalDettaglio(object? sender, string id)

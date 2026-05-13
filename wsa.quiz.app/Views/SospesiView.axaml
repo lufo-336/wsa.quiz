@@ -124,7 +124,11 @@
                                     </StackPanel>
                                 </StackPanel>
 
-                                <!-- Bottoni: stato normale -->
+                                <!-- Bottoni: stato normale.
+                                     IsTabStop=False per le stesse ragioni della Cronologia:
+                                     Tab atterra sul ListBoxItem (= riga), non sui bottoni
+                                     interni. Riprendi/Elimina da tastiera: Invio = Riprendi,
+                                     Canc = elimina. -->
                                 <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                                             Orientation="Horizontal"
                                             Spacing="6"
@@ -133,10 +137,12 @@
                                     <Button Content="Riprendi"
                                             Classes="accent"
                                             Click="OnRiprendiClick"
+                                            IsTabStop="False"
                                             Padding="14,6"
                                             FontSize="12"/>
                                     <Button Content="Elimina"
                                             Click="OnEliminaClick"
+                                            IsTabStop="False"
                                             Classes="danger"
                                             Padding="14,6"
                                             FontSize="12"/>
@@ -156,11 +162,13 @@
                                                Margin="0,0,4,0"/>
                                     <Button Content="Si', elimina"
                                             Click="OnConfermaEliminaClick"
+                                            IsTabStop="False"
                                             Classes="danger"
                                             Padding="14,6"
                                             FontSize="12"/>
                                     <Button Content="Annulla"
                                             Click="OnAnnullaEliminaClick"
+                                            IsTabStop="False"
                                             Padding="14,6"
                                             FontSize="12"/>
                                 </StackPanel>

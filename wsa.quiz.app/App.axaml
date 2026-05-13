@@ -91,7 +91,15 @@
                 </FocusAdornerTemplate>
             </Setter>
         </Style>
+        <!--
+          Step 8: i TabItem (header Home/Cronologia/Sospesi) NON entrano nel Tab
+          order: Ctrl+Tab e' la scorciatoia per cambiare tab, il Tab semplice
+          deve restare dentro il contenuto della tab corrente (altrimenti dopo
+          aver ciclato fra le 4 zone della Home il focus 'scappava' sull'header
+          della tab successiva e le frecce su/giu' smettevano di funzionare).
+        -->
         <Style Selector="TabItem">
+            <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="FocusAdorner">
                 <FocusAdornerTemplate>
                     <Border BorderBrush="#FFD500" BorderThickness="3" CornerRadius="4"/>
