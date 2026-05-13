@@ -85,9 +85,6 @@ C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\obj\Debug\net8.0
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\obj\Debug\net8.0\Wsa.Quiz.App.pdb
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cpp\cpp_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_2.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_3.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_4.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\frontend\frontend_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\infra\infra_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\infra\infra_domande_2.json
@@ -99,3 +96,9 @@ C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\obj\Debug\net8.0\Wsa.Quiz.App.genruntimeconfig.cache
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\obj\Debug\net8.0\ref\Wsa.Quiz.App.dll
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\obj\Debug\net8.0\Wsa.Quiz.App.sourcelink.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_2.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_3.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_4.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_5_C_50.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_6_A_50.json
+C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.app\bin\Debug\net8.0\domande\cs\csharp_domande_7_30.json

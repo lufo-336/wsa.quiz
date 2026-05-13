@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wsa.Quiz.App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f5fac75e960e500649d32b803e107ada8451d99")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf9b7bab82d106fa874aaaa7dbfb8e8c1e50c03e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wsa.Quiz.App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wsa.Quiz.App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -13,9 +13,6 @@ C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\obj\Debug\net8.0
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\obj\Debug\net8.0\Wsa.Quiz.Cli.pdb
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\cpp\cpp_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\cs\csharp_domande.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\cs\csharp_domande_2.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\cs\csharp_domande_3.json
-C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\cs\csharp_domande_4.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\frontend\frontend_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\infra\infra_domande.json
 C:\Users\luca.foglia\Documents\Quiz\wsa_quiz_step1\wsa.quiz.cli\bin\Debug\net8.0\domande\infra\infra_domande_2.json
