@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.VisualTree;
 using Wsa.Quiz.App.State;
 using Wsa.Quiz.Core.Models;
 
@@ -111,6 +113,62 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
         AggiornaRiepilogo();
+    }
+
+    // ------------------------------------------------------------------ TASTIERA HOME (step 8)
+
+    /// <summary>
+    /// Step 8: dentro una zona (Materie, Categorie, Opzioni, Avvia) le frecce su/giu'
+    /// spostano il focus fra i controlli focusable della zona stessa.
+    /// Filtro: sul NumericUpDown lasciamo che le frecce incrementino il valore.
+    /// </summary>
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (e.Key != Key.Up && e.Key != Key.Down)
+        {
+            base.OnKeyDown(e);
+            return;
+        }
+
+        var focused = TopLevel.GetTopLevel(this)?.FocusManager?.GetFocusedElement() as Control;
+        if (focused == null) { base.OnKeyDown(e); return; }
+
+        // Se il focus e' su un NumericUpDown (o suo interno), lascia il comportamento nativo.
+        if (focused is NumericUpDown || focused.FindAncestorOfType<NumericUpDown>() != null)
+        {
+            base.OnKeyDown(e);
+            return;
+        }
+
+        // Trova il Border-zona piu' vicino antenato.
+        var zona = focused.GetVisualAncestors()
+            .OfType<Border>()
+            .FirstOrDefault(b => b.Name is "ZonaAvvia" or "ZonaMaterie" or "ZonaCategorie" or "ZonaOpzioni");
+        if (zona == null) { base.OnKeyDown(e); return; }
+
+        // Raccogli tutti i controlli focusable dentro la zona, in ordine visivo.
+        var focusables = zona.GetVisualDescendants()
+            .OfType<Control>()
+            .Where(c => c.Focusable && c.IsEffectivelyVisible && c.IsEffectivelyEnabled)
+            .Where(c => c is Button || c is CheckBox || c is NumericUpDown)
+            .ToList();
+        if (focusables.Count == 0) { base.OnKeyDown(e); return; }
+
+        int idx = focusables.IndexOf(focused);
+        if (idx < 0)
+        {
+            // Il focused non e' uno dei nostri candidati: prendi il primo.
+            focusables[0].Focus();
+            e.Handled = true;
+            return;
+        }
+
+        int delta = e.Key == Key.Down ? +1 : -1;
+        int nuovo = idx + delta;
+        // No wrap: se sforiamo, restiamo dove siamo (Tab serve a cambiare zona).
+        if (nuovo < 0 || nuovo >= focusables.Count) { e.Handled = true; return; }
+        focusables[nuovo].Focus();
+        e.Handled = true;
     }
 
     /// <summary>
