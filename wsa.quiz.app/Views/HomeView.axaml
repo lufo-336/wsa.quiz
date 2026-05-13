@@ -11,7 +11,9 @@
     <DockPanel>
 
         <!-- ============================== AVVIO (sticky in alto) ============================== -->
-        <Border DockPanel.Dock="Top"
+        <Border x:Name="ZonaAvvia"
+                KeyboardNavigation.TabNavigation="Once"
+                DockPanel.Dock="Top"
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
                 BorderThickness="0,0,0,1"
@@ -48,7 +50,9 @@
                 <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
 
                     <!-- ============================== MATERIE ============================== -->
-                    <Border Grid.Row="0" Grid.Column="0"
+                    <Border x:Name="ZonaMaterie"
+                            KeyboardNavigation.TabNavigation="Once"
+                            Grid.Row="0" Grid.Column="0"
                             Background="{DynamicResource SystemRegionBrush}"
                             BorderBrush="{DynamicResource SystemBaseLowColor}"
                             BorderThickness="1"
@@ -72,7 +76,9 @@
                     </Border>
 
                     <!-- ============================== CATEGORIE ============================== -->
-                    <Border Grid.Row="0" Grid.Column="2"
+                    <Border x:Name="ZonaCategorie"
+                            KeyboardNavigation.TabNavigation="Once"
+                            Grid.Row="0" Grid.Column="2"
                             Background="{DynamicResource SystemRegionBrush}"
                             BorderBrush="{DynamicResource SystemBaseLowColor}"
                             BorderThickness="1"
@@ -124,7 +130,9 @@
                 </Grid>
 
                 <!-- ============================== OPZIONI ============================== -->
-                <Border Background="{DynamicResource SystemRegionBrush}"
+                <Border x:Name="ZonaOpzioni"
+                        KeyboardNavigation.TabNavigation="Once"
+                        Background="{DynamicResource SystemRegionBrush}"
                         BorderBrush="{DynamicResource SystemBaseLowColor}"
                         BorderThickness="1"
                         CornerRadius="6"
