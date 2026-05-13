@@ -303,12 +303,12 @@ public static class Program
         int totalePrevisto = effettuatePregresse + ordine.Count;
         var risultato = new RisultatoQuiz
         {
-            DataOra = DateTime.Now,
+            DataOra = DateTime.UtcNow,
             TotaleDomande = totalePrevisto,
             Dettagli = stato?.Dettagli?.ToList() ?? new List<DettaglioRisposta>()
         };
         var tempoPregresso = stato?.TempoTrascorso ?? TimeSpan.Zero;
-        var inizio = DateTime.Now - tempoPregresso;
+        var inizio = DateTime.UtcNow - tempoPregresso;
         var cron = System.Diagnostics.Stopwatch.StartNew();
         int corrette = stato?.CorretteClassica ?? 0;
         int effettuate = effettuatePregresse;
@@ -327,7 +327,7 @@ public static class Program
                 storage.SalvaPausa(new SessionePausa
                 {
                     SessioneId = stato?.SessioneId ?? Guid.NewGuid().ToString("N"),
-                    DataOraPausa = DateTime.Now,
+                    DataOraPausa = DateTime.UtcNow,
                     Opzioni = opz,
                     ModalitaRotazione = false,
                     CodaDomandeIds = ordine.Skip(i).Select(d => d.Id).ToList(),
@@ -382,12 +382,12 @@ public static class Program
     {
         var risultato = new RisultatoQuiz
         {
-            DataOra = DateTime.Now,
+            DataOra = DateTime.UtcNow,
             TotaleDomande = ordine.Count,
             Dettagli = stato?.Dettagli?.ToList() ?? new List<DettaglioRisposta>()
         };
         var tempoPregresso = stato?.TempoTrascorso ?? TimeSpan.Zero;
-        var inizio = DateTime.Now - tempoPregresso;
+        var inizio = DateTime.UtcNow - tempoPregresso;
         var cron = System.Diagnostics.Stopwatch.StartNew();
 
         // Coda di domande ancora da padroneggiare (id → tentativi fatti)
@@ -420,7 +420,7 @@ public static class Program
                 storage.SalvaPausa(new SessionePausa
                 {
                     SessioneId = stato?.SessioneId ?? Guid.NewGuid().ToString("N"),
-                    DataOraPausa = DateTime.Now,
+                    DataOraPausa = DateTime.UtcNow,
                     Opzioni = opz,
                     ModalitaRotazione = true,
                     CodaDomandeIds = daFare.Prepend(corrente).Select(d => d.Id).ToList(),

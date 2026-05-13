@@ -11,5 +11,8 @@ public class DomandaPreparata
     public int IndiceCorrettoShufflato { get; set; }
 
     public char LetteraCorretta => (char)('A' + IndiceCorrettoShufflato);
-    public string TestoRispostaCorretta => RisposteShufflate[IndiceCorrettoShufflato];
+    public string TestoRispostaCorretta =>
+        IndiceCorrettoShufflato >= 0 && IndiceCorrettoShufflato < RisposteShufflate.Count
+            ? RisposteShufflate[IndiceCorrettoShufflato]
+            : string.Empty;
 }

@@ -38,19 +38,9 @@ public class DettaglioRispostaItem
     public DettaglioRispostaItem(DettaglioRisposta d)
     {
         Dettaglio = d;
-        if (d.Corretta)
-        {
-            ColoreBordo = new SolidColorBrush(Color.Parse("#1F7A4D"));
-            ColoreRisposta = new SolidColorBrush(Color.Parse("#1F7A4D"));
-            EsitoEtichetta = "Corretto";
-            ColoreEsito = new SolidColorBrush(Color.Parse("#1F7A4D"));
-        }
-        else
-        {
-            ColoreBordo = new SolidColorBrush(Color.Parse("#B85450"));
-            ColoreRisposta = new SolidColorBrush(Color.Parse("#B85450"));
-            EsitoEtichetta = "Sbagliato";
-            ColoreEsito = new SolidColorBrush(Color.Parse("#B85450"));
-        }
+        ColoreBordo = QuizColors.Esito(d.Corretta);
+        ColoreRisposta = QuizColors.Esito(d.Corretta);
+        EsitoEtichetta = d.Corretta ? "Corretto" : "Sbagliato";
+        ColoreEsito = QuizColors.Esito(d.Corretta);
     }
 }

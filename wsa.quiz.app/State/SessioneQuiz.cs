@@ -75,7 +75,7 @@ public class SessioneQuiz : ObservableObject
     private int _totUnicoRotazione;
     private int _sbagliateContatoreRotazione;
     private int _indicePosizioneRotazione;
-    private static readonly Random Rng = new();
+    // Random.Shared e' thread-safe (.NET 6+) — sostituisce l'istanza statica non thread-safe.
 
     /// <summary>
     /// Id della pausa da cui questa sessione e' stata ripresa, o <c>null</c> se la sessione
@@ -144,7 +144,7 @@ public class SessioneQuiz : ObservableObject
     public int Errate { get => _errate; private set => SetField(ref _errate, value); }
 
     public double ProgressoPercentuale =>
-        _totalePrevisto == 0 ? 0 : 100.0 * (_numeroDomandaCorrente - 1) / _totalePrevisto;
+        _totalePrevisto == 0 ? 0 : Math.Min(100.0, 100.0 * (_numeroDomandaCorrente - 1) / _totalePrevisto);
 
     private string _tempo = "00:00";
     public string Tempo { get => _tempo; private set => SetField(ref _tempo, value); }
@@ -285,14 +285,14 @@ public class SessioneQuiz : ObservableObject
                 : _ordineClassica.Count + _offsetEffettuate;
         }
 
-        Risultato.DataOra = DateTime.Now;
+        Risultato.DataOra = DateTime.UtcNow;
         Risultato.Modalita = Opzioni.NomeModalita + (Opzioni.Rotazione ? " ↻" : "");
         Risultato.MateriaNome = Opzioni.MateriaNomeLabel;
         Risultato.CategorieSelezionate = Opzioni.Categorie;
         Risultato.ModalitaRotazione = Opzioni.Rotazione;
         Risultato.CronometroAttivo = Opzioni.Cronometro;
 
-        _inizio = DateTime.Now - _offsetCronometro;
+        _inizio = DateTime.UtcNow - _offsetCronometro;
         _cron.Start();
         if (Opzioni.Cronometro) _timer.Start();
 
@@ -349,6 +349,7 @@ public class SessioneQuiz : ObservableObject
     {
         if (RispostaInviata) return;            // gia' risposto: ignora doppi click
         if (_domandaCorrente == null) return;
+        if (indiceShufflato < 0 || indiceShufflato >= _domandaCorrente.RisposteShufflate.Count) return;
 
         IndiceHighlight = null;
 
@@ -401,7 +402,7 @@ public class SessioneQuiz : ObservableObject
             {
                 _sbagliateContatoreRotazione++;
                 // rimetti in coda in posizione casuale (stesso algoritmo di Program.EseguiSessioneRotazione)
-                int pos = _codaRotazione.Count == 0 ? 0 : Rng.Next(1, _codaRotazione.Count + 1);
+                int pos = _codaRotazione.Count == 0 ? 0 : Random.Shared.Next(1, _codaRotazione.Count + 1);
                 if (pos >= _codaRotazione.Count) _codaRotazione.AddLast(_domandaCorrente.Originale);
                 else
                 {
@@ -503,7 +504,7 @@ public class SessioneQuiz : ObservableObject
         var pausa = new SessionePausa
         {
             SessioneId = _sessioneId,
-            DataOraPausa = DateTime.Now,
+            DataOraPausa = DateTime.UtcNow,
             Opzioni = Opzioni,
             ModalitaRotazione = Opzioni.Rotazione,
             TempoTrascorso = _cron.Elapsed + _offsetCronometro,

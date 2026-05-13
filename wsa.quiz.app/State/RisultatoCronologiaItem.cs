@@ -57,7 +57,7 @@ public class RisultatoCronologiaItem : ObservableObject
         MateriaEtichetta = string.IsNullOrWhiteSpace(r.MateriaNome) ? "—" : r.MateriaNome;
 
         PercentualeFormattata = $"{System.Math.Round(r.PercentualeCorrette)}%";
-        ColorePercentuale = ColoreDaPercentuale(r.PercentualeCorrette);
+        ColorePercentuale = QuizColors.Percentuale(r.PercentualeCorrette);
 
         var d = r.DurataQuiz;
         DurataFormattata = d.TotalHours >= 1
@@ -70,11 +70,4 @@ public class RisultatoCronologiaItem : ObservableObject
         StatoEtichetta = r.Abbandonato ? "Abbandonato" : "Concluso";
     }
 
-    private static IBrush ColoreDaPercentuale(double pct)
-    {
-        // Stessa scala di RiepilogoView: verde >=80, ambra 50-79, rosso <50.
-        if (pct >= 80) return new SolidColorBrush(Color.Parse("#1F7A4D"));
-        if (pct >= 50) return new SolidColorBrush(Color.Parse("#B8860B"));
-        return new SolidColorBrush(Color.Parse("#B85450"));
-    }
 }
