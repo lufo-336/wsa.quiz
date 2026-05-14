@@ -51,11 +51,12 @@ public class StorageService
         _filePausa      = Path.GetFullPath(Path.Combine(_cartellaUtente, "quiz_in_pausa.json"));
 
         // Validazione anti-directory-traversal: i file risolti devono stare dentro le cartelle base.
-        if (!_fileMaterie.StartsWith(_cartellaDati + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+        static string ConSep(string dir) => dir.EndsWith(Path.DirectorySeparatorChar) ? dir : dir + Path.DirectorySeparatorChar;
+        if (!_fileMaterie.StartsWith(ConSep(_cartellaDati), StringComparison.Ordinal))
             throw new ArgumentException("Percorso materie.json fuori dalla cartella dati.", nameof(cartellaDati));
-        if (!_fileCronologia.StartsWith(_cartellaUtente + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+        if (!_fileCronologia.StartsWith(ConSep(_cartellaUtente), StringComparison.Ordinal))
             throw new ArgumentException("Percorso cronologia.json fuori dalla cartella utente.", nameof(cartellaUtente));
-        if (!_filePausa.StartsWith(_cartellaUtente + Path.DirectorySeparatorChar, StringComparison.Ordinal))
+        if (!_filePausa.StartsWith(ConSep(_cartellaUtente), StringComparison.Ordinal))
             throw new ArgumentException("Percorso quiz_in_pausa.json fuori dalla cartella utente.", nameof(cartellaUtente));
 
         if (!Directory.Exists(_cartellaUtente))
