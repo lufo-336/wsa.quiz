@@ -19,6 +19,7 @@ public partial class MainWindow : Window
     private StorageService? _storage;
     private List<Materia> _materie = new();
     private List<Domanda> _tutteDomande = new();
+    private Dictionary<string, Domanda> _mappaDomande = new();
 
     private HomeView? _homeView;
     private CronologiaView? _cronologiaView;
@@ -72,6 +73,7 @@ public partial class MainWindow : Window
             _storage = new StorageService(cartellaDati, cartellaUtente);
             _materie = _storage.CaricaMaterie();
             _tutteDomande = _storage.CaricaTutteLeDomande(_materie);
+            _mappaDomande = _tutteDomande.ToDictionary(d => d.Id, d => d);
 
             StatoHeaderText.Text = $"{_materie.Count} materie · {_tutteDomande.Count} domande";
 
@@ -170,9 +172,7 @@ public partial class MainWindow : Window
         if (_storage == null) return;
         try
         {
-            var mappa = new Dictionary<string, Domanda>();
-            foreach (var d in _tutteDomande) mappa[d.Id] = d;
-            var sessione = SessioneQuiz.RiprendiDa(pausa, mappa);
+            var sessione = SessioneQuiz.RiprendiDa(pausa, _mappaDomande);
             ErrorePanel.IsVisible = false;
             AvviaQuizView(sessione);
         }

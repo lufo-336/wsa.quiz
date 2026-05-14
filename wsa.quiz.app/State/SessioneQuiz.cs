@@ -285,14 +285,14 @@ public class SessioneQuiz : ObservableObject
                 : _ordineClassica.Count + _offsetEffettuate;
         }
 
-        Risultato.DataOra = DateTime.UtcNow;
+        Risultato.DataOra = DateTime.Now;
         Risultato.Modalita = Opzioni.NomeModalita + (Opzioni.Rotazione ? " ↻" : "");
         Risultato.MateriaNome = Opzioni.MateriaNomeLabel;
         Risultato.CategorieSelezionate = Opzioni.Categorie;
         Risultato.ModalitaRotazione = Opzioni.Rotazione;
         Risultato.CronometroAttivo = Opzioni.Cronometro;
 
-        _inizio = DateTime.UtcNow - _offsetCronometro;
+        _inizio = DateTime.Now - _offsetCronometro;
         _cron.Start();
         if (Opzioni.Cronometro) _timer.Start();
 
@@ -480,9 +480,7 @@ public class SessioneQuiz : ObservableObject
     private void AggiornaTempo()
     {
         var t = _cron.Elapsed + _offsetCronometro;
-        Tempo = t.TotalHours >= 1
-            ? $"{(int)t.TotalHours:00}:{t.Minutes:00}:{t.Seconds:00}"
-            : $"{t.Minutes:00}:{t.Seconds:00}";
+        Tempo = QuizService.FormattaDurata(t);
     }
 
     // ------------------------------------------------------------------ PAUSA: ESPORTA / RIPRENDI
@@ -504,7 +502,7 @@ public class SessioneQuiz : ObservableObject
         var pausa = new SessionePausa
         {
             SessioneId = _sessioneId,
-            DataOraPausa = DateTime.UtcNow,
+            DataOraPausa = DateTime.Now,
             Opzioni = Opzioni,
             ModalitaRotazione = Opzioni.Rotazione,
             TempoTrascorso = _cron.Elapsed + _offsetCronometro,

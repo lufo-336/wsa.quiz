@@ -32,7 +32,8 @@
                                Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <Button Grid.Column="1"
+                <Button x:Name="AvviaBtn"
+                        Grid.Column="1"
                         Content="Avvia quiz"
                         Click="OnAvviaClick"
                         IsEnabled="{Binding PuoAvviare}"

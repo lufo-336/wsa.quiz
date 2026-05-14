@@ -1,8 +1,5 @@
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -15,32 +12,13 @@ namespace Wsa.Quiz.App.Views;
 /// Tab "Cronologia": tabella delle sessioni passate in ordine cronologico inverso
 /// (piu' recente in alto), con swap a una vista di dettaglio domanda-per-domanda
 /// al doppio click di una riga. La cronologia viene ricaricata da disco a ogni
-/// chiamata di <see cref="Ricarica"/> (al boot, al click di "Aggiorna" e quando
-/// la <c>MainWindow</c> ne fa richiesta dopo la conclusione di un quiz).
+/// chiamata di <see cref="TabellaViewBase{TItem}.Ricarica"/> (al boot, al click di
+/// "Aggiorna" e quando la <c>MainWindow</c> ne fa richiesta dopo la conclusione
+/// di un quiz).
 /// </summary>
-public partial class CronologiaView : UserControl, INotifyPropertyChanged
+public partial class CronologiaView : TabellaViewBase<RisultatoCronologiaItem>
 {
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
-    private StorageService? _storage;
-
-    public ObservableCollection<RisultatoCronologiaItem> Sessioni { get; } = new();
-
     // ------------------------------------------------------------------ STATO
-
-    private bool _nessunaSessione = true;
-    public bool NessunaSessione
-    {
-        get => _nessunaSessione;
-        private set { if (_nessunaSessione != value) { _nessunaSessione = value; Raise(); } }
-    }
-
-    private string _sottotitolo = "Caricamento...";
-    public string Sottotitolo
-    {
-        get => _sottotitolo;
-        private set { if (_sottotitolo != value) { _sottotitolo = value; Raise(); } }
-    }
 
     private bool _modoDettaglio;
     /// <summary>
@@ -58,94 +36,45 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
     public CronologiaView()
     {
         InitializeComponent();
-        DataContext = this;
-        // Tunnel routing: il ListBoxItem di Avalonia gestisce Enter per la
-        // selezione (e marca Handled), quindi un override OnKeyDown classico
-        // non riceverebbe mai l'evento. Con il Tunnel intercettiamo prima.
-        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
-    }
-
-    /// <summary>
-    /// Inietta lo storage. Chiamato dalla <see cref="MainWindow"/> al boot,
-    /// dopo che lo storage e' stato istanziato.
-    /// </summary>
-    public void Inizializza(StorageService storage)
-    {
-        _storage = storage;
-        Ricarica();
+        Focusable = true;
+        // Step 15: Tunnel + handledEventsToo per intercettare anche eventi
+        // gia' marcati Handled da ListBoxItem o ScrollViewer.
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel, handledEventsToo: true);
+        // Se il focus arriva sullo UserControl stesso (es. Ctrl+Tab dal
+        // MainWindow), lo trasferiamo alla lista e selezioniamo il primo item.
+        GotFocus += (_, e) =>
+        {
+            if (e.Source == this && !ModoDettaglio)
+            {
+                ListaSessioni.Focus();
+                if (ListaSessioni.SelectedItem == null && ListaSessioni.ItemCount > 0)
+                    ListaSessioni.SelectedIndex = 0;
+            }
+        };
     }
 
     // ------------------------------------------------------------------ CARICAMENTO
 
-    /// <summary>
-    /// Rilegge la cronologia dal disco. Idempotente; sicuro da chiamare ripetutamente.
-    /// </summary>
-    public void Ricarica()
+    protected override void RicaricaCore()
     {
-        if (_storage == null) return;
-
-        // Se siamo nel dettaglio quando arriva un Ricarica, non lo chiudiamo
-        // di nascosto: la lista sotto si aggiorna lo stesso e quando l'utente
-        // tornera' indietro vedra' il nuovo stato.
-        Sessioni.Clear();
-        try
-        {
-            var lista = _storage.CaricaCronologia();
-            // Piu' recente prima
-            foreach (var r in lista.OrderByDescending(x => x.DataOra))
-                Sessioni.Add(new RisultatoCronologiaItem(r));
-        }
-        catch (Exception ex)
-        {
-            Sottotitolo = $"Errore nel caricamento: {ex.Message}";
-            NessunaSessione = true;
-            return;
-        }
-
-        NessunaSessione = Sessioni.Count == 0;
-        Sottotitolo = NessunaSessione
-            ? "Nessuna sessione registrata."
-            : $"{Sessioni.Count} sessioni registrate.";
+        var lista = _storage!.CaricaCronologia();
+        foreach (var r in lista.OrderByDescending(x => x.DataOra))
+            Sessioni.Add(new RisultatoCronologiaItem(r));
     }
+
+    protected override string FormatSottotitolo(int count) =>
+        count == 0 ? "Nessuna sessione registrata." : $"{count} sessioni registrate.";
+
+    protected override void EliminaDaStorage(RisultatoCronologiaItem item)
+        => _storage!.EliminaRisultato(item.Id);
 
     // ------------------------------------------------------------------ HANDLER
-
-    private void OnAggiornaClick(object? sender, RoutedEventArgs e)
-    {
-        Ricarica();
-    }
 
     private void OnSessioneDoubleTapped(object? sender, TappedEventArgs e)
     {
         if (sender is not ListBox lb) return;
         if (lb.SelectedItem is not RisultatoCronologiaItem item) return;
         ApriDettaglio(item);
-    }
-
-    /// <summary>Primo click su "Elimina" sulla riga: entra in stato di conferma per quella riga.</summary>
-    private void OnEliminaRigaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not RisultatoCronologiaItem item) return;
-        // azzera eventuali altre conferme aperte (al massimo una alla volta, come SospesiView)
-        foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
-        item.InAttesaConfermaEliminazione = true;
-    }
-
-    /// <summary>Conferma definitiva: elimina dal disco e dalla lista.</summary>
-    private void OnConfermaEliminaRigaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not RisultatoCronologiaItem item) return;
-        EseguiEliminazione(item);
-    }
-
-    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
-    private void OnAnnullaEliminaRigaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not RisultatoCronologiaItem item) return;
-        item.InAttesaConfermaEliminazione = false;
     }
 
     // ------------------------------------------------------------------ TASTIERA (step 8)
@@ -175,7 +104,7 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
                 }
                 else
                 {
-                    foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
+                    AzzeraConferme();
                     item.InAttesaConfermaEliminazione = true;
                 }
                 return;
@@ -190,26 +119,7 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         }
     }
 
-    /// <summary>Estratto da OnConfermaEliminaRigaClick: serve a poter eliminare anche da tastiera (Canc).</summary>
-    private void EseguiEliminazione(RisultatoCronologiaItem item)
-    {
-        if (_storage == null) return;
-        try
-        {
-            _storage.EliminaRisultato(item.Id);
-        }
-        catch (Exception ex)
-        {
-            Sottotitolo = $"Errore nell'eliminazione: {ex.Message}";
-            return;
-        }
-
-        Sessioni.Remove(item);
-        NessunaSessione = Sessioni.Count == 0;
-        Sottotitolo = NessunaSessione
-            ? "Nessuna sessione registrata."
-            : $"{Sessioni.Count} sessioni registrate.";
-    }
+    // ------------------------------------------------------------------ DETTAGLIO
 
     private void ApriDettaglio(RisultatoCronologiaItem item)
     {
@@ -218,6 +128,10 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         dettaglio.EliminazioneRichiesta += OnEliminaDalDettaglio;
         DettaglioArea.Content = dettaglio;
         ModoDettaglio = true;
+        // Defer focus al prossimo frame: il binding IsVisible deve aggiornarsi
+        // prima che il dettaglio possa ricevere focus (Focus() fallisce se
+        // l'elemento non e' ancora IsVisible).
+        Avalonia.Threading.Dispatcher.UIThread.Post(() => dettaglio.Focus());
     }
 
     private void OnIndietroDalDettaglio(object? sender, EventArgs e)
@@ -232,10 +146,9 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
 
     private void OnEliminaDalDettaglio(object? sender, string id)
     {
-        if (_storage == null) return;
         try
         {
-            _storage.EliminaRisultato(id);
+            _storage!.EliminaRisultato(id);
         }
         catch (Exception ex)
         {
@@ -249,92 +162,36 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
         Ricarica();
     }
 
-    private void OnSvuotaCronologiaClick(object? sender, RoutedEventArgs e)
+    // ------------------------------------------------------------------ SVUOTA
+
+    private async void OnSvuotaCronologiaClick(object? sender, RoutedEventArgs e)
     {
-        ChiediConfermaSvuotaCronologia();
+        try { await ChiediConfermaSvuotaCronologiaAsync(); }
+        catch (Exception) { /* best effort */ }
     }
 
     /// <summary>
-    /// Dialog modale di conferma per "Svuota cronologia". Window 420x180,
-    /// CenterOwner, no resize, no taskbar. ESC chiude come Annulla.
+    /// Dialog modale di conferma per "Svuota cronologia".
     /// </summary>
-    private async void ChiediConfermaSvuotaCronologia()
+    private async Task ChiediConfermaSvuotaCronologiaAsync()
     {
         if (_storage == null) return;
 
         int n = Sessioni.Count;
-        var w = new Window
-        {
-            Title = "Svuota cronologia",
-            Width = 420,
-            Height = 180,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            CanResize = false,
-            ShowInTaskbar = false
-        };
-
-        bool conferma = false;
-        var contenuto = new StackPanel
-        {
-            Margin = new global::Avalonia.Thickness(20),
-            Spacing = 14
-        };
-        contenuto.Children.Add(new TextBlock
-        {
-            Text = "Svuota tutta la cronologia?",
-            FontSize = 14,
-            FontWeight = global::Avalonia.Media.FontWeight.SemiBold
-        });
-        contenuto.Children.Add(new TextBlock
-        {
-            Text = $"Verranno eliminate {n} partite dalla cronologia. L'azione non e' reversibile.",
-            FontSize = 12,
-            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
-            Foreground = global::Avalonia.Media.Brushes.DimGray
-        });
-
-        var pulsantiera = new StackPanel
-        {
-            Orientation = global::Avalonia.Layout.Orientation.Horizontal,
-            Spacing = 8,
-            HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right
-        };
-        var annullaBtn = new Button
-        {
-            Content = "Annulla",
-            Padding = new global::Avalonia.Thickness(14, 5)
-        };
-        var siBtn = new Button
-        {
-            Content = "Si', cancella tutto",
-            Padding = new global::Avalonia.Thickness(14, 5)
-        };
-        siBtn.Classes.Add("danger");
-        annullaBtn.Click += (_, _) => w.Close();
-        siBtn.Click += (_, _) => { conferma = true; w.Close(); };
-
-        // ESC = Annulla (stesso pattern del menu pausa)
-        w.KeyDown += (_, ev) =>
-        {
-            if (ev.Key == Key.Escape)
-            {
-                ev.Handled = true;
-                w.Close();
-            }
-        };
-
-        pulsantiera.Children.Add(annullaBtn);
-        pulsantiera.Children.Add(siBtn);
-        contenuto.Children.Add(pulsantiera);
-        w.Content = contenuto;
+        var dialog = new ConfermaDialog(
+            "Svuota cronologia",
+            "Svuota tutta la cronologia?",
+            $"Verranno eliminate {n} partite dalla cronologia. L'azione non e' reversibile.",
+            "Si', cancella tutto",
+            "danger");
 
         var owner = TopLevel.GetTopLevel(this) as Window;
         if (owner != null)
-            await w.ShowDialog(owner);
+            await dialog.ShowDialog(owner);
         else
-            w.Show();
+            dialog.Show();
 
-        if (!conferma) return;
+        if (!dialog.Confermato) return;
 
         try
         {
@@ -348,9 +205,4 @@ public partial class CronologiaView : UserControl, INotifyPropertyChanged
 
         Ricarica();
     }
-
-    // ------------------------------------------------------------------ INPC
-
-    private void Raise([CallerMemberName] string? name = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }

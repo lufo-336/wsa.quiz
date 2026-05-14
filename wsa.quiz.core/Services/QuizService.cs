@@ -88,6 +88,18 @@ public static class QuizService
         };
     }
 
+    // ---------------------------------------------------------- FORMATTAZIONE
+
+    /// <summary>
+    /// Formatta una durata in modo leggibile: "hh:mm:ss" se >= 1 ora, altrimenti "mm:ss".
+    /// </summary>
+    public static string FormattaDurata(TimeSpan t)
+    {
+        return t.TotalHours >= 1
+            ? $"{(int)t.TotalHours}:{t.Minutes:00}:{t.Seconds:00}"
+            : $"{t.Minutes:00}:{t.Seconds:00}";
+    }
+
     // ---------------------------------------------------------- PUNTEGGIO
 
     /// <summary>

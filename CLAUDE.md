@@ -521,24 +521,6 @@ Una volta capita la causa, applicare il fix minimo possibile.
 - `Random.Shared` (.NET 6+) sostituisce le istanze statiche `Random` non
   thread-safe in `QuizService` e `SessioneQuiz`.
 
-### ⚠️ Regressione UTC (post-merge PR #1)
-PR #1 ha cambiato `DateTime.Now` → `DateTime.UtcNow` nei *writer*
-(`SessioneQuiz`, `Program.cs`, `ConsoleUI`) ma **non** nei punti di
-visualizzazione che continuano a formattare il `DateTime` direttamente:
-
-- `wsa.quiz.app/Views/CronologiaDettaglioView.axaml.cs:83`
-- `wsa.quiz.app/State/RisultatoCronologiaItem.cs:53`
-- `wsa.quiz.app/State/SessioneSospesaItem.cs:47`
-- `wsa.quiz.cli/Services/ConsoleUI.cs:680,734`
-
-Conseguenza: a Roma in ora legale, l'utente vede ogni nuovo quiz con orario
-sbagliato di **2 ore**. Inoltre `cronologia.json` ora contiene un mix
-permanente di timestamp locali (vecchi) e UTC (nuovi), indistinguibili dopo
-il round-trip JSON. **Da fixare** con uno dei due approcci:
-- tornare a `DateTime.Now` (annotare il caveat),
-- aggiungere `.ToLocalTime()` in tutti i punti di formattazione *e*
-  serializzare con `Kind=Utc` esplicito.
-
 ## Per ripartire
 
 1. Leggi questa pagina.

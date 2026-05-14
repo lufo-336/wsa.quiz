@@ -114,13 +114,17 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
         AggiornaRiepilogo();
-        // Step 8: handler in fase di tunneling (capture). Se restassimo sul
-        // classico override OnKeyDown (bubble), la ScrollViewer che avvolge
-        // tutto il contenuto di HomeView intercetta su/giu' per lo scroll e
-        // marca l'evento come Handled prima che arrivi a noi. Con il Tunnel
-        // riceviamo l'evento dall'alto verso il focused element, prima della
-        // ScrollViewer.
-        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
+        // Step 15: Tunnel + handledEventsToo per intercettare anche eventi gia'
+        // marcati Handled da controlli intermedi (ScrollViewer, ListBoxItem).
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel, handledEventsToo: true);
+        // Se il focus arriva sullo UserControl stesso (es. Ctrl+Tab dal
+        // MainWindow), lo trasferiamo al primo elemento focusable della prima
+        // zona, cosi' le frecce e Tab funzionano immediatamente.
+        GotFocus += (_, e) =>
+        {
+            if (e.Source == this)
+                this.FindControl<Button>("AvviaBtn")?.Focus();
+        };
     }
 
     // ------------------------------------------------------------------ TASTIERA HOME (step 8)

@@ -1,8 +1,5 @@
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -20,82 +17,46 @@ namespace Wsa.Quiz.App.Views;
 /// originale; la <c>MainWindow</c> costruisce la <c>SessioneQuiz</c> e naviga
 /// al <c>QuizView</c>. Elimina ha conferma inline.
 /// </summary>
-public partial class SospesiView : UserControl, INotifyPropertyChanged
+public partial class SospesiView : TabellaViewBase<SessioneSospesaItem>
 {
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
     /// <summary>L'utente ha cliccato "Riprendi" su una pausa: la <c>MainWindow</c>
     /// costruisce la sessione e cambia view.</summary>
     public event EventHandler<SessionePausa>? RiprendiRichiesto;
 
-    private StorageService? _storage;
-
-    public ObservableCollection<SessioneSospesaItem> Sessioni { get; } = new();
-
-    // ------------------------------------------------------------------ STATO
-
-    private bool _nessunaPausa = true;
-    public bool NessunaPausa
-    {
-        get => _nessunaPausa;
-        private set { if (_nessunaPausa != value) { _nessunaPausa = value; Raise(); } }
-    }
-
-    private string _sottotitolo = "Caricamento...";
-    public string Sottotitolo
-    {
-        get => _sottotitolo;
-        private set { if (_sottotitolo != value) { _sottotitolo = value; Raise(); } }
-    }
-
-    // ------------------------------------------------------------------ COSTRUZIONE
-
     public SospesiView()
     {
         InitializeComponent();
-        DataContext = this;
-        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel);
-    }
-
-    public void Inizializza(StorageService storage)
-    {
-        _storage = storage;
-        Ricarica();
-    }
-
-    // ------------------------------------------------------------------ CARICAMENTO
-
-    public void Ricarica()
-    {
-        if (_storage == null) return;
-
-        Sessioni.Clear();
-        try
+        Focusable = true;
+        // Step 15: Tunnel + handledEventsToo per intercettare anche eventi
+        // gia' marcati Handled da ListBoxItem o ScrollViewer.
+        AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel, handledEventsToo: true);
+        // Se il focus arriva sullo UserControl stesso (es. Ctrl+Tab dal
+        // MainWindow), lo trasferiamo alla lista e selezioniamo il primo item.
+        GotFocus += (_, e) =>
         {
-            var pause = _storage.CaricaPause();
-            // Piu' recente prima
-            foreach (var p in pause.OrderByDescending(x => x.DataOraPausa))
-                Sessioni.Add(new SessioneSospesaItem(p));
-        }
-        catch (Exception ex)
-        {
-            Sottotitolo = $"Errore nel caricamento: {ex.Message}";
-            NessunaPausa = true;
-            return;
-        }
-
-        NessunaPausa = Sessioni.Count == 0;
-        Sottotitolo = NessunaPausa
-            ? "Nessuna sessione in pausa."
-            : $"{Sessioni.Count} sessioni in pausa.";
+            if (e.Source == this)
+            {
+                ListaPause.Focus();
+                if (ListaPause.SelectedItem == null && ListaPause.ItemCount > 0)
+                    ListaPause.SelectedIndex = 0;
+            }
+        };
     }
+
+    protected override void RicaricaCore()
+    {
+        var pause = _storage!.CaricaPause();
+        foreach (var p in pause.OrderByDescending(x => x.DataOraPausa))
+            Sessioni.Add(new SessioneSospesaItem(p));
+    }
+
+    protected override string FormatSottotitolo(int count) =>
+        count == 0 ? "Nessuna sessione in pausa." : $"{count} sessioni in pausa.";
+
+    protected override void EliminaDaStorage(SessioneSospesaItem item)
+        => _storage!.EliminaPausa(item.SessioneId);
 
     // ------------------------------------------------------------------ HANDLER
-
-    private void OnAggiornaClick(object? sender, RoutedEventArgs e)
-    {
-        Ricarica();
-    }
 
     /// <summary>Chiede alla <c>MainWindow</c> di riprendere questa sessione.</summary>
     private void OnRiprendiClick(object? sender, RoutedEventArgs e)
@@ -103,32 +64,6 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
         if (sender is not Button b) return;
         if (b.DataContext is not SessioneSospesaItem item) return;
         RiprendiRichiesto?.Invoke(this, item.Pausa);
-    }
-
-    /// <summary>Primo click su "Elimina": entra in stato di conferma per quella riga.</summary>
-    private void OnEliminaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not SessioneSospesaItem item) return;
-        // azzera eventuali altre conferme aperte (al massimo una alla volta)
-        foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
-        item.InAttesaConfermaEliminazione = true;
-    }
-
-    /// <summary>Conferma definitiva: elimina dal disco e dalla lista.</summary>
-    private void OnConfermaEliminaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not SessioneSospesaItem item) return;
-        EseguiEliminazione(item);
-    }
-
-    /// <summary>Annulla la conferma e torna al layout normale della riga.</summary>
-    private void OnAnnullaEliminaClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button b) return;
-        if (b.DataContext is not SessioneSospesaItem item) return;
-        item.InAttesaConfermaEliminazione = false;
     }
 
     // ------------------------------------------------------------------ TASTIERA (step 8)
@@ -156,7 +91,7 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
                 }
                 else
                 {
-                    foreach (var s in Sessioni) s.InAttesaConfermaEliminazione = false;
+                    AzzeraConferme();
                     item.InAttesaConfermaEliminazione = true;
                 }
                 return;
@@ -170,30 +105,4 @@ public partial class SospesiView : UserControl, INotifyPropertyChanged
                 return;
         }
     }
-
-    /// <summary>Estratto da OnConfermaEliminaClick: serve a poter eliminare anche da tastiera.</summary>
-    private void EseguiEliminazione(SessioneSospesaItem item)
-    {
-        if (_storage == null) return;
-        try
-        {
-            _storage.EliminaPausa(item.SessioneId);
-        }
-        catch (Exception ex)
-        {
-            Sottotitolo = $"Errore nell'eliminazione: {ex.Message}";
-            return;
-        }
-
-        Sessioni.Remove(item);
-        NessunaPausa = Sessioni.Count == 0;
-        Sottotitolo = NessunaPausa
-            ? "Nessuna sessione in pausa."
-            : $"{Sessioni.Count} sessioni in pausa.";
-    }
-
-    // ------------------------------------------------------------------ INPC
-
-    private void Raise([CallerMemberName] string? name = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }

@@ -56,10 +56,7 @@ public partial class RiepilogoView : UserControl, INotifyPropertyChanged
         PercentualeFormattata = $"{Math.Round(risultato.PercentualeCorrette)}%";
         ColorePercentuale = QuizColors.Percentuale(risultato.PercentualeCorrette);
 
-        var d = risultato.DurataQuiz;
-        DurataFormattata = d.TotalHours >= 1
-            ? $"{(int)d.TotalHours}:{d.Minutes:00}:{d.Seconds:00}"
-            : $"{d.Minutes:00}:{d.Seconds:00}";
+        DurataFormattata = Core.Services.QuizService.FormattaDurata(risultato.DurataQuiz);
 
         Sbagliate = risultato.Dettagli.Where(x => !x.Corretta).ToList();
 
