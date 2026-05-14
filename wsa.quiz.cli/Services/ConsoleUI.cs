@@ -490,7 +490,7 @@ public static class ConsoleUI
         Scrivi($"   ✓ {corrette}", C_Ok);
         if (cronometro)
         {
-            var trascorso = DateTime.UtcNow - inizio;
+            var trascorso = DateTime.Now - inizio;
             Scrivi($"   ⏱ {trascorso:mm\\:ss}", C_Soft);
         }
         Console.WriteLine();

@@ -1,4 +1,5 @@
 using Avalonia.Media;
+using Wsa.Quiz.App.Views;
 using Wsa.Quiz.Core.Models;
 
 namespace Wsa.Quiz.App.State;
@@ -10,7 +11,7 @@ namespace Wsa.Quiz.App.State;
 /// <see cref="InAttesaConfermaEliminazione"/> commuta i bottoni della riga
 /// fra "Elimina" e "Si', elimina/Annulla" (stesso pattern di <see cref="SessioneSospesaItem"/>).
 /// </summary>
-public class RisultatoCronologiaItem : ObservableObject
+public class RisultatoCronologiaItem : ObservableObject, IConfermaEliminazione
 {
     /// <summary>Riferimento al risultato originale, usato per aprire il dettaglio e per Elimina.</summary>
     public RisultatoQuiz Risultato { get; }
@@ -59,10 +60,7 @@ public class RisultatoCronologiaItem : ObservableObject
         PercentualeFormattata = $"{System.Math.Round(r.PercentualeCorrette)}%";
         ColorePercentuale = QuizColors.Percentuale(r.PercentualeCorrette);
 
-        var d = r.DurataQuiz;
-        DurataFormattata = d.TotalHours >= 1
-            ? $"{(int)d.TotalHours}:{d.Minutes:00}:{d.Seconds:00}"
-            : $"{d.Minutes:00}:{d.Seconds:00}";
+        DurataFormattata = Core.Services.QuizService.FormattaDurata(r.DurataQuiz);
 
         Conteggio = $"{r.RisposteCorrette} / {r.TotaleDomande}";
 

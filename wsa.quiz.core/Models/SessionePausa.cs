@@ -6,7 +6,7 @@ namespace Wsa.Quiz.Core.Models;
 public class SessionePausa
 {
     public string SessioneId { get; set; } = Guid.NewGuid().ToString("N");
-    public DateTime DataOraPausa { get; set; } = DateTime.UtcNow;
+    public DateTime DataOraPausa { get; set; } = DateTime.Now;
     public OpzioniQuiz Opzioni { get; set; } = new();
     public bool ModalitaRotazione { get; set; }
     public List<string> CodaDomandeIds { get; set; } = new();

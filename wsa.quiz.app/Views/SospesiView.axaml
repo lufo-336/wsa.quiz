@@ -32,7 +32,7 @@
 
         <!-- ======================================== STATO VUOTO -->
         <Border DockPanel.Dock="Top"
-                IsVisible="{Binding NessunaPausa}"
+                IsVisible="{Binding NessunaSessione}"
                 Margin="20,8,20,0"
                 Background="{DynamicResource SystemRegionBrush}"
                 BorderBrush="{DynamicResource SystemBaseLowColor}"
@@ -55,7 +55,7 @@
         <!-- ======================================== LISTA -->
         <ScrollViewer Margin="20,8,20,16"
                       VerticalScrollBarVisibility="Auto"
-                      IsVisible="{Binding !NessunaPausa}">
+                      IsVisible="{Binding !NessunaSessione}">
             <ListBox x:Name="ListaPause"
                      ItemsSource="{Binding Sessioni}"
                      SelectionMode="Single"

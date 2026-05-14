@@ -177,7 +177,7 @@
                                                 Margin="8,0,0,0"
                                                 IsVisible="{Binding NonInAttesaConferma}">
                                         <Button Content="Elimina"
-                                                Click="OnEliminaRigaClick"
+                                                Click="OnEliminaClick"
                                                 IsTabStop="False"
                                                 Classes="danger"
                                                 Padding="12,4"
@@ -193,13 +193,13 @@
                                                 Margin="8,0,0,0"
                                                 IsVisible="{Binding InAttesaConfermaEliminazione}">
                                         <Button Content="Si', elimina"
-                                                Click="OnConfermaEliminaRigaClick"
+                                                Click="OnConfermaEliminaClick"
                                                 IsTabStop="False"
                                                 Classes="danger"
                                                 Padding="10,4"
                                                 FontSize="11"/>
                                         <Button Content="Annulla"
-                                                Click="OnAnnullaEliminaRigaClick"
+                                                Click="OnAnnullaEliminaClick"
                                                 IsTabStop="False"
                                                 Padding="10,4"
                                                 FontSize="11"/>

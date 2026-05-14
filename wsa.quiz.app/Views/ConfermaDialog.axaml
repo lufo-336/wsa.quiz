@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Wsa.Quiz.App.Views.ConfermaDialog"
+        Width="420" Height="180"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+
+  <StackPanel Margin="20" Spacing="14">
+    <TextBlock x:Name="MessaggioText"
+               FontSize="14"
+               FontWeight="SemiBold"/>
+    <TextBlock x:Name="DettaglioText"
+               FontSize="12"
+               TextWrapping="Wrap"
+               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+    <StackPanel Orientation="Horizontal"
+                Spacing="8"
+                HorizontalAlignment="Right">
+      <Button x:Name="AnnullaBtn"
+              Content="Annulla"
+              Padding="14,5"
+              Click="OnAnnullaClick"/>
+      <Button x:Name="ConfermaBtn"
+              Padding="14,5"
+              Click="OnConfermaClick"/>
+    </StackPanel>
+  </StackPanel>
+
+</Window>

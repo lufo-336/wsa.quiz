@@ -1,3 +1,4 @@
+using Wsa.Quiz.App.Views;
 using Wsa.Quiz.Core.Models;
 
 namespace Wsa.Quiz.App.State;
@@ -9,7 +10,7 @@ namespace Wsa.Quiz.App.State;
 /// <see cref="InAttesaConfermaEliminazione"/> commuta i bottoni della riga
 /// fra "Riprendi/Elimina" e "Si', elimina/Annulla".
 /// </summary>
-public class SessioneSospesaItem : ObservableObject
+public class SessioneSospesaItem : ObservableObject, IConfermaEliminazione
 {
     /// <summary>Riferimento alla pausa originale, usata per il bottone Riprendi (step 4) e per Elimina.</summary>
     public SessionePausa Pausa { get; }
@@ -74,9 +75,6 @@ public class SessioneSospesaItem : ObservableObject
             TipoEtichetta = "Classica";
         }
 
-        var t = p.TempoTrascorso;
-        TempoTrascorsoFormattato = t.TotalHours >= 1
-            ? $"{(int)t.TotalHours}:{t.Minutes:00}:{t.Seconds:00}"
-            : $"{t.Minutes:00}:{t.Seconds:00}";
+        TempoTrascorsoFormattato = Core.Services.QuizService.FormattaDurata(p.TempoTrascorso);
     }
 }
