@@ -1,0 +1,483 @@
+[
+  {
+    "id": 1000,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale direttiva using è necessaria per utilizzare SQLite nel progetto BibliotecaApp?",
+    "risposte": [
+      "using Microsoft.Data.Sqlite;",
+      "using System.Data.SQLite.Core per il driver alternativo",
+      "using Microsoft.Sqlite.Data.Client con i namespace invertiti",
+      "using SQLite.Data.EntityFramework per l'ORM integrato"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il pacchetto NuGet corretto è Microsoft.Data.Sqlite, quindi il using è `using Microsoft.Data.Sqlite;`. System.Data.SQLite.Core è un altro driver non usato nella dispensa. Microsoft.Sqlite.Data.Client inverte l'ordine dei termini ed è errato. SQLite.Data.EntityFramework non esiste nel contesto del corso."
+  },
+  {
+    "id": 1001,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale pattern di progettazione implementa la classe DatabaseManager?",
+    "risposte": [
+      "Il pattern Singleton per avere una sola connessione globale attiva",
+      "Il pattern Repository per isolare la logica di accesso ai dati",
+      "Il pattern Factory per creare oggetti MaterialeBiblioteca su richiesta",
+      "Il pattern Observer per notificare i cambiamenti alla UI in tempo reale"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "DatabaseManager implementa il pattern Repository, incapsulando tutta la logica SQL e isolando il resto dell'applicazione. Singleton non è menzionato nella dispensa. Factory non è il ruolo di DatabaseManager, che non crea oggetti ma li persiste. Observer è irrilevante per la gestione del database."
+  },
+  {
+    "id": 1002,
+    "categoria": "Eccezioni",
+    "domanda": "Perché è necessario racchiudere `_db.Aggiungi()` in un blocco try-catch nel gestore BtnAggiungiLibro_Click?",
+    "risposte": [
+      "Per evitare che l'utente possa inserire più di dieci materiali contemporaneamente",
+      "Per intercettare errori di sintassi nel codice C# prima della compilazione",
+      "Per gestire violazioni del vincolo UNIQUE sul campo Codice",
+      "Per impedire la chiusura accidentale della connessione SQLite durante l'inserimento"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il try-catch cattura eccezioni come la violazione del vincolo UNIQUE sul Codice, mostrando un MessageBox all'utente. Non esiste un limite di dieci materiali. Errori di sintassi C# sono rilevati a compile-time, non a runtime. La chiusura della connessione è gestita automaticamente dal blocco `using`."
+  },
+  {
+    "id": 1003,
+    "categoria": "Ereditarietà",
+    "domanda": "Nella strategia Table Per Hierarchy, quante tabelle vengono create nel database per la gerarchia Libro/Rivista/Dvd?",
+    "risposte": [
+      "Tre tabelle distinte collegate da chiavi esterne tra loro",
+      "Due tabelle: una per i materiali comuni e una per i tipi specifici",
+      "Una tabella unica con una colonna Tipo come discriminatore",
+      "Nessuna tabella: i dati restano solo in memoria RAM volatile"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La strategia Table Per Hierarchy (TPH) usa una tabella sola con una colonna Tipo che distingue le classi derivate. Tre tabelle distinte corrispondono alla strategia TPT (Table Per Type). Due tabelle non è la strategia adottata. Nessuna tabella contraddice lo scopo della persistenza su SQLite."
+  },
+  {
+    "id": 1004,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale metodo di SqliteCommand si usa per eseguire una query SELECT che restituisce righe?",
+    "risposte": [
+      "ExecuteReader()",
+      "ExecuteNonQuery() per leggere i dati dal database",
+      "ExecuteScalar() per ottenere l'intera tabella come lista",
+      "ExecuteQuery() con parametri di ricerca avanzata"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "ExecuteReader() restituisce un SqliteDataReader per scorrere le righe risultato. ExecuteNonQuery() è per INSERT, UPDATE, DELETE e non restituisce righe. ExecuteScalar() restituisce un solo valore scalare, non l'intera tabella. ExecuteQuery() non esiste in Microsoft.Data.Sqlite."
+  },
+  {
+    "id": 1005,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Cosa rappresenta il campo `_connectionString` nella classe DatabaseManager?",
+    "risposte": [
+      "La query SQL principale per caricare tutti i materiali dalla tabella",
+      "Il percorso del file .db e i parametri di connessione a SQLite",
+      "L'indirizzo IP del server database remoto da contattare via rete",
+      "La lista degli oggetti MaterialeBiblioteca mantenuti in memoria RAM"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`_connectionString` contiene la stringa di connessione come `Data Source={path}`, indicando dove risiede il file .db. Non è una query SQL. SQLite è file-based, quindi non usa server remoti con indirizzo IP. La lista in memoria è gestita separatamente nel MainForm, non nella connection string."
+  },
+  {
+    "id": 1006,
+    "categoria": "Interfacce",
+    "domanda": "Quale vantaggio offre l'interfaccia IRepository<T> nel Livello 5 dell'esercitazione?",
+    "risposte": [
+      "Permette di ereditare direttamente da più classi concrete contemporaneamente",
+      "Forza l'implementazione dei metodi CRUD in ogni classe derivata",
+      "Separa il contratto dall'implementazione, permettendo di sostituire DatabaseManager con InMemoryRepository",
+      "Riduce automaticamente il numero di righe di codice necessarie per ogni metodo"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "IRepository<T> definisce il contratto (interfaccia) indipendentemente dall'implementazione, consentendo di usare DatabaseManager in produzione e InMemoryRepository nei test. C# non supporta l'ereditarietà multipla di classi. L'interfaccia non forza solo i metodi CRUD ma li definisce. Non riduce automaticamente le righe di codice."
+  },
+  {
+    "id": 1007,
+    "categoria": "Tipi e Conversioni",
+    "domanda": "Quale valore viene usato nel codice per indicare che un campo del database non si applica a un certo tipo di materiale?",
+    "risposte": [
+      "null con tipo stringa generica",
+      "0 come valore predefinito per tutti i campi opzionali",
+      "DBNull.Value per rappresentare il NULL SQL",
+      "string.Empty per distinguere i campi non compilati"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Quando un parametro non si applica al tipo (es. Autore per un Dvd), si usa `DBNull.Value` per passare NULL al database SQL. `null` C# puro non è corretto per i parametri SqliteCommand in questo contesto. 0 è un valore numerico, non rappresenta l'assenza. string.Empty indica una stringa vuota, diversa dal concetto di NULL."
+  },
+  {
+    "id": 1008,
+    "categoria": "Array e Liste",
+    "domanda": "Che tipo di collezione viene restituito dal metodo `CaricaTutti()` di DatabaseManager?",
+    "risposte": [
+      "List<MaterialeBiblioteca>",
+      "Array di MaterialeBiblioteca con dimensione fissa",
+      "Dictionary<string, MaterialeBiblioteca> indicizzata per Codice",
+      "IEnumerable<MaterialeBiblioteca> senza possibilità di aggiunta"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`CaricaTutti()` restituisce `List<MaterialeBiblioteca>`, come visibile nella firma del metodo. Non usa un array a dimensione fissa. Non restituisce un Dictionary, anche se il Codice è univoco. Non restituisce IEnumerable, ma una lista concreta che supporta l'aggiunta."
+  },
+  {
+    "id": 1009,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale classe si occupa di creare lo schema della tabella Materiali alla prima esecuzione dell'applicazione?",
+    "risposte": [
+      "MainForm, nel suo costruttore dopo InitializeComponent",
+      "DatabaseManager, nel metodo privato InitializeDatabase",
+      "MaterialeBiblioteca, attraverso il suo costruttore statico",
+      "Program.cs, prima di avviare l'applicazione WinForms"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "DatabaseManager chiama `InitializeDatabase()` nel proprio costruttore, eseguendo `CREATE TABLE IF NOT EXISTS`. MainForm non gestisce lo schema. MaterialeBiblioteca è il modello di dominio e non crea tabelle. Program.cs avvia solo l'applicazione senza toccare il database."
+  },
+  {
+    "id": 1010,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Perché si usa il costrutto `using (var conn = new SqliteConnection(...))` nel codice della dispensa?",
+    "risposte": [
+      "Per importare automaticamente il namespace Microsoft.Data.Sqlite",
+      "Per dichiarare una variabile conn visibile solo all'interno del blocco",
+      "Per garantire che la connessione venga chiusa e rilasciata anche in caso di eccezione",
+      "Per creare una nuova istanza del database senza specificare il percorso"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il blocco `using` assicura la chiusura automatica della connessione e il dispose delle risorse, anche se si verifica un errore. Non importa namespace. La visibilità limitata è un effetto collaterale ma non lo scopo principale. Il percorso è sempre specificato tramite connection string."
+  },
+  {
+    "id": 1011,
+    "categoria": "Ereditarietà",
+    "domanda": "Nella tabella Materiali, quale colonna funge da discriminatore per la gerarchia di classi?",
+    "risposte": [
+      "La colonna Id che identifica univocamente ogni record",
+      "La colonna Codice con vincolo UNIQUE",
+      "La colonna Tipo che contiene 'Libro', 'Rivista' o 'Dvd'",
+      "La colonna Disponibile che vale 0 o 1"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La colonna Tipo contiene il nome della classe concreta e permette al metodo `CaricaTutti()` di istanziare il tipo corretto. Id è la chiave primaria auto-incrementale. Codice è un identificativo univoco business. Disponibile è un flag booleano per lo stato del prestito."
+  },
+  {
+    "id": 1012,
+    "categoria": "Eccezioni",
+    "domanda": "Cosa succede se si tenta di inserire un materiale con un Codice già presente nel database?",
+    "risposte": [
+      "Viene generata un'eccezione catturata dal try-catch e mostrata all'utente",
+      "Il record esistente viene automaticamente sovrascritto con i nuovi dati",
+      "SQLite ignora silenziosamente l'inserimento e restituisce 0 righe modificate",
+      "Il programma termina immediatamente con un errore non gestito"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il vincolo UNIQUE su Codice genera un'eccezione che il try-catch in MainForm cattura, mostrando un MessageBox. Non avviene alcuna sovrascrittura automatica. SQLite non ignora l'errore: lo segnala con un'eccezione. Il programma non termina grazie alla gestione dell'errore."
+  },
+  {
+    "id": 1013,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale metodo di DatabaseManager aggiorna lo stato di disponibilità di un materiale esistente?",
+    "risposte": [
+      "Aggiorna() che richiede l'intero oggetto MaterialeBiblioteca",
+      "AggiornaDisponibilita() che accetta codice e un bool",
+      "ModificaStato() che cambia solo il flag Disponibile",
+      "SalvaModifiche() che persiste tutta la lista in memoria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il metodo `AggiornaDisponibilita(string codice, bool disponibile)` esegue un UPDATE specifico. Non esiste un metodo `Aggiorna()` generico nella dispensa. `ModificaStato()` non è il nome usato. `SalvaModifiche()` non è presente: le modifiche sono immediate tramite SQL."
+  },
+  {
+    "id": 1014,
+    "categoria": "Interfacce",
+    "domanda": "Nel Livello 5, quale tipo di dato viene dichiarato nel MainForm per poter scambiare facilmente l'implementazione?",
+    "risposte": [
+      "DatabaseManager come campo privato concreto",
+      "List<MaterialeBiblioteca> come unica sorgente dati",
+      "IRepository<MaterialeBiblioteca> come campo privato del form",
+      "SqliteConnection mantenuta aperta per tutta la durata dell'app"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Dichiarando `private IRepository<MaterialeBiblioteca> _repo;`, MainForm dipende dall'interfaccia e non sa se i dati vengono da SQLite o RAM. Usare DatabaseManager concreto violerebbe il principio. List<> è la sorgente dati della UI ma non l'astrazione di persistenza. SqliteConnection non resta aperta: viene chiusa dopo ogni operazione."
+  },
+  {
+    "id": 1015,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Come si protegge una query SQL dall'inserimento di valori malevoli nel metodo Aggiungi?",
+    "risposte": [
+      "Concatenando le stringhe con operatore + e verificando manualmente i caratteri",
+      "Creando una stored procedure nel file .db e invocandola dal codice C#",
+      "Usando parametri con nome @titolo e il metodo AddWithValue",
+      "Sostituendo i caratteri speciali con equivalenti HTML prima dell'inserimento"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I parametri `@nome` con `AddWithValue` sanificano automaticamente i valori, prevenendo SQL Injection. La concatenazione manuale è esattamente ciò che la dispensa definisce 'SBAGLIATO'. SQLite non usa stored procedure in questo contesto. La codifica HTML non protegge da SQL Injection."
+  },
+  {
+    "id": 1016,
+    "categoria": "Ereditarietà",
+    "domanda": "Quali campi della tabella Materiali possono contenere NULL in base al tipo di materiale?",
+    "risposte": [
+      "Autore, NumeroPagine, Genere per Rivista e Dvd; Regista per Libro e Rivista",
+      "Tutti i campi tranne Id e Tipo, perché ogni tipo usa solo le proprie colonne",
+      "Solo Titolo e Codice possono essere NULL; tutti gli altri sono obbligatori",
+      "Id e Disponibile sono NULL; tutti gli altri dipendono dal tipo specifico"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Nella strategia TPH, i campi non applicabili a un tipo restano NULL: Autore, NumeroPagine e Genere sono NULL per Rivista e Dvd, mentre Regista è NULL per Libro e Rivista. Titolo e Codice sono NOT NULL per tutti. Id è PRIMARY KEY AUTOINCREMENT, mai NULL. Disponibile ha DEFAULT 1, non NULL."
+  },
+  {
+    "id": 1017,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Cosa accade quando si chiude l'applicazione BibliotecaApp senza aver integrato DatabaseManager?",
+    "risposte": [
+      "I dati vengono salvati automaticamente in un file .txt nella cartella dell'app",
+      "Tutti i materiali inseriti nella List<> vengono persi perché esistevano solo in RAM",
+      "SQLite crea un database temporaneo in memoria che si cancella alla chiusura",
+      "I dati restano nel ListBox ma non sono più accessibili al riavvio"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Senza DatabaseManager, la `List<MaterialeBiblioteca>` vive solo in RAM: chiudendo l'app il tavolo viene 'rovesciato'. Non c'è salvataggio automatico in .txt. SQLite non entra in gioco se non integrato. I dati nel ListBox sono legati alla lista in memoria, quindi scompaiono insieme."
+  },
+  {
+    "id": 1018,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale caratteristica distingue SQLite da SQL Server o MySQL nel contesto del corso?",
+    "risposte": [
+      "Richiede l'installazione di un servizio Windows in background per funzionare",
+      "Memorizza i dati esclusivamente in RAM senza persistenza su disco",
+      "È un database relazionale serverless che salva tutto in un unico file .db locale",
+      "Supporta solo tabelle con chiavi primarie composte da più colonne"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SQLite è un database relazionale serverless che persiste in un singolo file .db, perfetto per app desktop. SQL Server e MySQL richiedono un server separato. SQLite non memorizza solo in RAM: il file .db è persistente. Le chiavi primarie possono essere semplici (come Id AUTOINCREMENT)."
+  },
+  {
+    "id": 1019,
+    "categoria": "Interfacce",
+    "domanda": "Qual è lo scopo principale della classe InMemoryRepository nel Livello 5 dell'esercitazione?",
+    "risposte": [
+      "Sostituire definitivamente DatabaseManager per migliorare le prestazioni",
+      "Memorizzare solo i dati dei DVD escludendo Libri e Riviste",
+      "Fornire un'implementazione di test che non richiede un file .db reale",
+      "Gestire la connessione SQLite in modalità esclusiva senza altri utenti"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "InMemoryRepository implementa IRepository<T> usando una List<<>, utile per i test senza dipendere da un database file-based. Non sostituisce definitivamente DatabaseManager in produzione. Non filtra per tipo di materiale. Non gestisce connessioni SQLite: è appunto 'in memory'."
+  },
+  {
+    "id": 1020,
+    "categoria": "Eccezioni",
+    "domanda": "Nel metodo RegistraPrestito del Livello 4, cosa garantisce l'uso di `tx.Commit()` e `tx.Rollback()`?",
+    "risposte": [
+      "L'atomicità della transazione: entrambe le operazioni vengono eseguite completamente o annullate",
+      "La velocità di esecuzione delle query grazie alla cache interna",
+      "La possibilità di eseguire più thread contemporaneamente sullo stesso database",
+      "La cifratura automatica dei dati sensibili come NomeUtente e Codice"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`Commit()` rende permanenti le operazioni solo se tutte hanno successo; `Rollback()` annulla tutto in caso di errore, garantendo atomicità. Non migliora la velocità come cache. Non gestisce il multithreading. Non cifra i dati: è una funzionalità di integrità, non di sicurezza."
+  },
+  {
+    "id": 1021,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale affermazione descrive correttamente il ruolo del metodo `Elimina(string codice)` in DatabaseManager?",
+    "risposte": [
+      "Rimuove l'elemento dalla List<> in memoria e basta",
+      "Esegue DELETE FROM Materiali WHERE Codice = @codice e rimuove il record dal database persistente",
+      "Imposta il flag Disponibile a 0 senza cancellare fisicamente il record",
+      "Cerca l'elemento per titolo e lo rimuove solo se è un Libro"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`Elimina` esegue una query SQL DELETE con parametro @codice, rimuovendo il record dal file .db. Non agisce solo sulla List<> in memoria. Non modifica Disponibile: quello è compito di AggiornaDisponibilita. Non filtra per tipo di materiale."
+  },
+  {
+    "id": 1022,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale sintassi SQL viene usata per creare la tabella solo se non esiste già nel file biblioteca.db?",
+    "risposte": [
+      "CREATE TABLE Materiali (Id INTEGER PRIMARY KEY);",
+      "IF NOT EXISTS CREATE TABLE Materiali WITH COLUMNS (...);",
+      "CREATE TABLE IF NOT EXISTS Materiali (Id INTEGER PRIMARY KEY AUTOINCREMENT, ...);",
+      "CREATE OR REPLACE TABLE Materiali AS SELECT * FROM Temp;"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "`CREATE TABLE IF NOT EXISTS` è la sintassi SQLite corretta per evitare errori se la tabella esiste già. La prima opzione manca di IF NOT EXISTS. La seconda opzione ha sintassi inventata. La quarta opzione è valida in altri dialetti SQL ma non per SQLite in questo contesto."
+  },
+  {
+    "id": 1023,
+    "categoria": "Ereditarietà",
+    "domanda": "Nel metodo CaricaTutti, come viene determinato il tipo concreto da istanziare per ogni riga letta dal database?",
+    "risposte": [
+      "Controllando il valore numerico della colonna Id",
+      "Verificando quali colonne specifiche contengono valori diversi da NULL",
+      "Usando uno switch sulla colonna Tipo che restituisce 'Libro', 'Rivista' o 'Dvd'",
+      "Confrontando il Titolo con una lista di titoli noti per ciascuna categoria"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il codice legge `reader['Tipo'].ToString()` e usa uno switch per istanziare `new Libro(...)`, `new Rivista(...)` o `new Dvd(...)`. Id è solo un numero progressivo. Verificare i NULL sarebbe fragile. Il Titolo non indica il tipo di materiale."
+  },
+  {
+    "id": 1024,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Perché la dispensa definisce DatabaseManager come 'il magazziniere della biblioteca'?",
+    "risposte": [
+      "Perché conosce dove si trovano gli scaffali, apre e chiude le porte e gestisce oggetti senza che MainForm sappia nulla di SQL",
+      "Perché calcola automaticamente le statistiche di vendita dei materiali",
+      "Perché ordina fisicamente i libri nello scaffale virtuale per genere letterario",
+      "Perché gestisce solo la connessione e lascia a MainForm tutte le query SQL"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La metafora del magazziniere spiega il pattern Repository: DatabaseManager incapsula SQL e connessioni, mentre MainForm parla solo con lui. Non calcola statistiche di vendita. Non ordina fisicamente per genere: l'ORDER BY è nella query. Non lascia le query a MainForm: è proprio il contrario."
+  },
+  {
+    "id": 1025,
+    "categoria": "Array e Liste",
+    "domanda": "Nel Livello 2, quale parametro deve essere passato alla query per implementare la ricerca parziale per titolo?",
+    "risposte": [
+      "Il termine esatto tra apici singoli '%termine%'",
+      "La stringa '%' + termine + '%' come valore del parametro @termine",
+      "Un array di stringhe contenente tutti i titoli già presenti in lista",
+      "Il codice numerico del materiale convertito in stringa di ricerca"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Per usare LIKE con ricerca parziale, il parametro deve contenere i caratteri jolly: `'%' + termine + '%'`. Passare solo il termine troverebbe corrispondenze esatte. Un array non è supportato da LIKE in questo modo. Il Codice non serve per la ricerca per titolo."
+  },
+  {
+    "id": 1026,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale affermazione è vera riguardo al metodo `GetStatistiche()` proposto nel Livello 3?",
+    "risposte": [
+      "Usa funzioni aggregate come COUNT(*) e GROUP BY Tipo per contare i materiali",
+      "Restituisce sempre un dizionario con chiavi stringa e valori double",
+      "Legge tutti i record in memoria e calcola le somme con un ciclo foreach",
+      "Modifica direttamente la struttura della tabella aggiungendo colonne contatore"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`GetStatistiche()` usa query SQL aggregate come `COUNT(*)` e `GROUP BY Tipo` per ottenere i conteggi direttamente dal database. Non restituisce un Dictionary. Non legge tutto in memoria: delega il calcolo a SQLite. Non altera lo schema della tabella."
+  },
+  {
+    "id": 1027,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale tipo di dato C# corrisponde alla colonna INTEGER del database SQLite per il flag Disponibile?",
+    "risposte": [
+      "string, perché SQLite memorizza tutto come testo",
+      "int, usato direttamente senza conversione nel codice C#",
+      "bool, convertito esplicitamente con `disponibile ? 1 : 0`",
+      "byte, per occupare solo 8 bit in memoria"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nel codice C# Disponibile è un bool, ma nel database SQLite viene salvato come INTEGER 0/1 con conversione esplicita `disponibile ? 1 : 0`. Non è string. Non è int puro nel modello C#. Non è byte: la dispensa usa bool e conversione ternaria."
+  },
+  {
+    "id": 1028,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Dove viene inizializzata la lista `listaMateriali` all'avvio dell'applicazione dopo l'integrazione del database?",
+    "risposte": [
+      "Nel costruttore di MainForm chiamando `_db.CaricaTutti()`",
+      "Nella classe Program.cs prima di istanziare MainForm",
+      "Nel metodo InitializeDatabase della classe DatabaseManager",
+      "Nel gestore dell'evento Load del form, sovrascrivendo i dati del DB"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il costruttore di MainForm assegna `listaMateriali = _db.CaricaTutti();` per popolare la lista all'avvio. Program.cs non gestisce dati. InitializeDatabase crea solo lo schema, non carica i dati in una List. L'evento Load non è usato nella dispensa: il caricamento avviene nel costruttore."
+  },
+  {
+    "id": 1029,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale colonna della tabella Materiali è marcata come PRIMARY KEY AUTOINCREMENT?",
+    "risposte": [
+      "Codice, perché deve essere univoco per ogni materiale inserito",
+      "Id, perché si incrementa automaticamente per ogni nuovo record",
+      "Tipo, perché distingue la gerarchia delle classi derivate",
+      "Disponibile, perché assume valori 0 o 1 in sequenza"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Id è PRIMARY KEY AUTOINCREMENT: SQLite lo genera automaticamente. Codice è UNIQUE ma non auto-incrementale. Tipo è un discriminatore testuale. Disponibile è un flag booleano, non una chiave."
+  },
+  {
+    "id": 1030,
+    "categoria": "Interfacce",
+    "domanda": "Quale metodo è obbligatorio nell'interfaccia IRepository<T> ma NON è presente nella firma mostrata nel Livello 5?",
+    "risposte": [
+      "void Aggiungi(T item); perché è opzionale nelle interfacce generiche",
+      "List<T> Cerca(string termine); che è incluso nell'interfaccia completa",
+      "void SalvaSuFile(string percorso); che non fa parte del contratto",
+      "T GetById(int id); che è implicito in CaricaTutti"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'interfaccia IRepository<T> mostrata include Aggiungi, CaricaTutti, Aggiorna, Elimina e Cerca. `Cerca` è presente nell'elenco completo del Livello 5. `SalvaSuFile` non è nel contratto. `GetById` non è menzionato. Aggiungi è obbligatorio, non opzionale."
+  },
+  {
+    "id": 1031,
+    "categoria": "Eccezioni",
+    "domanda": "Nel blocco catch del metodo BtnAggiungiLibro_Click, cosa viene mostrato all'utente in caso di errore?",
+    "risposte": [
+      "Il percorso completo del file .db che ha causato il conflitto",
+      "La stack trace completa in una console di debug nascosta",
+      "Un MessageBox con titolo 'Errore DB' e il messaggio dell'eccezione",
+      "Una finestra di dialogo per scegliere un nuovo nome per il database"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il catch mostra `MessageBox.Show($\\\"Errore salvataggio:\\n{ex.Message}\\\", \\\"Errore DB\\\", ...)` con il titolo 'Errore DB'. Non mostra il percorso del file. Non usa una console nascosta. Non chiede di rinominare il database."
+  },
+  {
+    "id": 1032,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Quale oggetto viene istanziato dentro il blocco `using` per eseguire i comandi SQL?",
+    "risposte": [
+      "SqliteCommand, creato con `new SqliteCommand(sql, conn)`",
+      "SqliteDataReader, aperto con `cmd.ExecuteReader()`",
+      "SqliteTransaction, iniziato con `conn.BeginTransaction()`",
+      "SqliteParameter, aggiunto con `cmd.Parameters.AddWithValue()`"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "`SqliteCommand` è l'oggetto che incapsula la query SQL e la connessione, spesso creato dentro un `using`. SqliteDataReader è il risultato di ExecuteReader, non l'oggetto di esecuzione. SqliteTransaction è per il Livello 4. SqliteParameter è un elemento del comando, non l'oggetto principale del blocco."
+  },
+  {
+    "id": 1033,
+    "categoria": "Basi del linguaggio",
+    "domanda": "Quale operatore SQL viene usato nel Livello 2 per cercare titoli che contengono una parola parzialmente?",
+    "risposte": [
+      "= (uguale) per confronto esatto del titolo",
+      "LIKE con il pattern '%termine%' per corrispondenza parziale",
+      "IN con una lista di titoli predefiniti",
+      "BETWEEN per un intervallo alfabetico di titoli"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "`LIKE` con i caratteri jolly `%` permette la ricerca parziale: `%termine%` trova il termine in qualsiasi posizione. `=` richiede l'uguaglianza esatta. `IN` verifica l'appartenenza a un elenco. `BETWEEN` è per intervalli numerici o alfabetici, non per ricerca testuale libera."
+  },
+  {
+    "id": 1034,
+    "categoria": "OOP - Classi e Oggetti",
+    "domanda": "Cosa succede se il file biblioteca.db non esiste quando si istanzia DatabaseManager per la prima volta?",
+    "risposte": [
+      "Viene lanciata un'eccezione FileNotFoundException che blocca l'app",
+      "Il programma mostra un dialogo per chiedere all'utente dove salvare il database",
+      "SQLite crea automaticamente il file .db e DatabaseManager crea la tabella Materiali",
+      "I dati vengono mantenuti in una List<> temporanea fino al primo salvataggio manuale"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SQLite crea automaticamente il file .db se mancante, e `InitializeDatabase()` esegue `CREATE TABLE IF NOT EXISTS`, preparando lo schema. Non lancia FileNotFoundException. Non chiede all'utente il percorso: usa quello di default. Non usa una List<> temporanea: il Repository gestisce direttamente il file."
+  },
+  {
+    "id": 1035,
+    "categoria": "Ereditarietà",
+    "domanda": "Quale campo della classe Libro viene mappato sulla colonna NumeroPagine della tabella Materiali?",
+    "risposte": [
+      "Il campo Codice, che rappresenta l'ISBN del libro",
+      "La proprietà NumeroPagine, passata come parametro @pagine",
+      "Il campo AnnoPubblicazione, convertito in pagine totali",
+      "La proprietà Genere, che indica la categoria letteraria"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Nel metodo Aggiungi, quando `m is Libro l`, si passa `l.NumeroPagine` al parametro `@pagine`. Codice è mappato su @codice. AnnoPubblicazione è @anno. Genere è @genere."
+  },
+  {
+    "id": 1036,
+    "categoria": "Interfacce",
+    "domanda": "Quale principio di programmazione viene rispettato dichiarando `_repo` come IRepository<MaterialeBiblioteca> invece di DatabaseManager?",
+    "risposte": [
+      "Il principio di inversione delle dipendenze: MainForm dipende dall'interfaccia, non dall'implementazione concreta",
+      "Il principio di sostituzione di Liskov: ogni classe figlia può sostituire la classe base",
+      "Il principio open/closed: il form è aperto per l'estensione ma chiuso per la modifica",
+      "Il principio di responsabilità unica: ogni metodo fa esattamente una cosa sola"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Dipendere dall'interfaccia IRepository invece che dalla classe concreta DatabaseManager è applicazione del principio di inversione delle dipendenze (DIP). Liskov riguarda l'ereditarietà tra classi. Open/closed riguarda la modifica del codice esistente. Responsabilità unica riguarda la coesione di una classe, non l'accoppiamento."
+  }
+]
