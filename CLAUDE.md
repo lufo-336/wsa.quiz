@@ -5,7 +5,7 @@
 
 ## Cos'è
 
-App di quiz per il corso WsA. Esisteva una versione **console** (C#, .NET 8) che
+App di quiz per il corso WsA. Esisteva una versione **console** (C#, .NET 10) che
 funziona e che Luca usa per studiare. È stata aggiunta un'app con **interfaccia
 grafica** (Avalonia) che condivide la stessa logica e gli stessi dati. Lungo
 termine: anche Android/iOS.
@@ -15,7 +15,10 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 
 ## Stato attuale
 
-**Step 7 completo + Step 8 parziale (rimandato a Step 15).**
+**Step 7 + Step 9 completi. Step 8 ancora parziale.** Due tentativi falliti
+sulla navigazione tastiera nelle liste/Home (vedi sezione Step 8 e
+Trappola 13). Step 9: tab Statistiche con heatmap punti deboli per
+categoria + drill-down domande sbagliate (no LiveCharts2, no grafici veri).
 
 L'app Avalonia ha navigazione tastiera completa **dentro il quiz**:
 `A/B/C/D` rispondono direttamente, `↑/↓` evidenziano una risposta con bordo
@@ -29,9 +32,9 @@ verificata via shared storage in `%APPDATA%\WsaQuiz`.
 
 ## Stack
 
-- **.NET 8** (target framework)
-- **Avalonia 12.0.2** (release del 28 aprile 2026, .NET 8 minimo, mobile
-  improvement notevoli — buono per il futuro Android/iOS)
+- **.NET 10** (target framework — `net10.0` su tutti e tre i csproj)
+- **Avalonia 12.0.2** (release del 28 aprile 2026, mobile improvement notevoli
+  — buono per il futuro Android/iOS)
 - **Tema Fluent** + font **Inter**
 - **LiveCharts2** prevista per i grafici (step 9, non ancora installata)
 - **MVVM no**: code-behind con `INotifyPropertyChanged`. È la strada
@@ -44,12 +47,13 @@ wsa.quiz/
 ├── Wsa.Quiz.sln
 ├── materie.json                ← editabile, copiato nei bin a ogni build
 ├── domande/                    ← editabile, idem
-│   ├── cpp/, cs/, frontend/, infra/, sql/
+│   ├── cpp/, cs/, cybersecurity/, frontend/, infra/, sql/
 ├── wsa.quiz.core/              (class library)
 │   ├── Wsa.Quiz.Core.csproj
 │   ├── Models/   (RisultatoQuiz, DettaglioRisposta, SessionePausa,
-│   │              Materia, Domanda, DomandaPreparata, OpzioniQuiz)
-│   └── Services/ (QuizService, StorageService)
+│   │              Materia, Domanda, DomandaPreparata, OpzioniQuiz,
+│   │              Statistiche/{CategoriaStat, DomandaSbagliata, StatistichePerMateria})
+│   └── Services/ (QuizService, StorageService, StatisticheService)
 ├── wsa.quiz.cli/               (console)
 │   ├── Wsa.Quiz.Cli.csproj
 │   ├── Program.cs
@@ -69,15 +73,22 @@ wsa.quiz/
     │   ├── SessioneQuiz.cs               ← state machine event-driven
     │   ├── RisultatoCronologiaItem.cs
     │   ├── SessioneSospesaItem.cs
-    │   └── DettaglioRispostaItem.cs
+    │   ├── DettaglioRispostaItem.cs
+    │   ├── CategoriaCellaItem.cs         ← cella heatmap statistiche
+    │   └── MateriaRigaItem.cs            ← riga heatmap statistiche
     └── Views/
         ├── HomeView.axaml(.cs)
         ├── QuizView.axaml(.cs)
         ├── RiepilogoView.axaml(.cs)
         ├── PlaceholderView.axaml(.cs)    ← ramo "impossibile avviare"
+        ├── PausaDialog.axaml(.cs)        ← modale pausa (estratta da QuizView)
+        ├── ConfermaDialog.axaml(.cs)     ← dialog conferma generico
+        ├── TabellaViewBase.axaml.cs      ← base astratta per Cronologia/Sospesi
         ├── CronologiaView.axaml(.cs)
         ├── CronologiaDettaglioView.axaml(.cs)
-        └── SospesiView.axaml(.cs)
+        ├── SospesiView.axaml(.cs)
+        ├── StatisticheView.axaml(.cs)         ← step 9: tab Statistiche heatmap
+        └── CategoriaDettaglioView.axaml(.cs)  ← step 9: drill-down domande sbagliate
 ```
 
 ### Naming
@@ -344,7 +355,7 @@ highlight giallo `#FFD500` 3px invece di accent 2px. Fix laterale: bottone
 `Button.prossima /template/ ContentPresenter` con `TextBlock.Foreground="#1F1F1F"`
 (Trappola 12).
 
-### ⚠️ Step 8 — Navigazione tastiera globale (parziale)
+### ⚠️ Step 8 — Navigazione tastiera globale (parziale, ancora aperto)
 
 **Funziona**:
 - `FocusAdorner` globale (bordo giallo `#FFD500` 3px sul focus da tastiera).
@@ -356,29 +367,37 @@ highlight giallo `#FFD500` 3px invece di accent 2px. Fix laterale: bottone
   e sugli header `TabItem`.
 - `SospesiView` convertita da `ItemsControl` a `ListBox` (`SelectionMode="Single"`).
 
-**NON funziona** (rimandato a Step 15):
+**Tentativo PR #2 (Facundo Fanti, 14 maggio 2026)**: introdotto pattern
+`AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel, handledEventsToo: true)`
+su `HomeView`, `CronologiaView` e `SospesiView`. La `handledEventsToo: true` era
+la pezza mancante rispetto al tentativo originale dello step 8 (vedi
+Trappola 13 aggiornata): intercetta gli eventi anche dopo che
+`ListBoxItem`/`ScrollViewer` li hanno marcati `Handled`. Verifica pratica
+del **18 maggio 2026**: la tastiera "continua a non funzionare perfettamente".
+Non è stato fatto l'apporofondimento diagnostico raccomandato in Trappola 13
+(stampare `e.Source`/`e.RoutedEvent`/`e.Handled` per vedere davvero il flusso
+del routing) — quindi prima di tentare un terzo fix, **fare quello**.
+
+**NON funziona ancora** (da indagare seriamente):
 - Frecce `↑/↓` dentro la zona corrente della Home.
-- `Invio` per aprire dettaglio su una riga di Cronologia (visivamente la riga
-  diventa selezionata "viola" ma il dettaglio non si apre).
+- `Invio` per aprire dettaglio su una riga di Cronologia.
 - `Invio` per Riprendere su una riga di Sospesi.
 - `Canc` per avviare la conferma elimina inline da tastiera.
 - `Esc` sul `CronologiaDettaglioView` per tornare alla lista.
 
-Sintomi: il bordo giallo di evidenza compare e poi sparisce dopo un'azione,
-le frecce non spostano la selezione nelle liste, e dopo aver perso il focus
-solo un click di mouse lo rimette in carreggiata.
+Status: **lo step 8 resta aperto**; non incolonnato come "Step 15" separato
+perché è la stessa cosa.
 
-Ipotesi non confermate: la `ScrollViewer` che avvolge la `HomeView` intercetta
-`↑/↓` per lo scroll prima del nostro `OnKeyDown` marcandoli `Handled`; il
-`ListBoxItem` di Avalonia 12 imposta la selezione su `Enter` e marca
-`Handled`. Tentativo di soluzione: convertire da override `OnKeyDown` (bubble)
-ad `AddHandler(KeyDownEvent, ..., RoutingStrategies.Tunnel)` — non ha
-sbloccato niente nei test pratici. Vedi Trappola 13.
-
-### ⏳ Step 9 — Grafici
-LiveCharts2 in nuova tab "Statistiche" (quarta). % corrette per materia
-(bar chart), drill-down su categorie. Verificare al momento dell'installazione
-una versione di LiveCharts2 compatibile con Avalonia 12.
+### ✅ Step 9 — Statistiche (mappa punti deboli)
+Tab "Statistiche" (quarta) con heatmap per categoria: una riga per materia,
+celle ordinate per % errore decrescente, colori verde/ambra/rosso. Click su
+una cella apre il drill-down con le domande sbagliate di quella categoria.
+Toggle "Tutto" / "Ultime N partite" (NumericUpDown, default 30). **Senza
+LiveCharts2**: tutto fatto con ItemsControl/WrapPanel/Border. Definizione di
+"errore" = !(Corretta && Tentativi==1) — unifica modalita' classica e
+rotazione. Servizio puro in `Wsa.Quiz.Core.Services.StatisticheService`.
+Smoke test 2026-05-18: ok complessivo, `Esc` su drill-down funziona.
+Spec: `docs/superpowers/specs/2026-05-18-step9-grafici-statistiche-design.md`.
 
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
@@ -405,14 +424,15 @@ ultima tab aperta, scelta dark mode.
 Icona app, schermata "About", build portable e/o installer (`dotnet publish`
 self-contained, o pacchetti per piattaforma).
 
-### ⏳ Step 15 — Riprendere Step 8
+### 🔁 Da riprendere — chiudere Step 8
 Far funzionare `↑/↓` dentro la Home e `Invio`/`Canc`/`Esc` sulle righe di
 Cronologia/Sospesi. Da indagare seriamente, **non a tentativi**:
 
 1. Verificare in che fase del routing arriva effettivamente l'evento
    (aggiungere `Debug.WriteLine` o un overlay diagnostico che mostri
    `e.Source`/`e.Route`/`e.Handled` e l'elemento focused — questo passaggio
-   non è stato fatto e probabilmente è la radice del nostro avanzare a tentoni).
+   non è stato fatto né nel tentativo originale né nella PR #2, ed è
+   probabilmente la radice del nostro avanzare a tentoni).
 2. Capire come `ListBoxItem` di Avalonia 12 tratta `Enter`.
 3. Verificare se le `ScrollViewer` annidate nella Home consumano davvero
    `↑/↓` (mini-progetto Avalonia di prova fuori dal repo se serve).
@@ -482,17 +502,20 @@ Una volta capita la causa, applicare il fix minimo possibile.
     `Button.risposta.corretta/sbagliata` in `QuizView.axaml`.
 13. **`OnKeyDown` override su `UserControl` non basta per intercettare
     frecce/Invio quando ci sono `ScrollViewer` o `ListBox` sopra**
-    *(scoperta step 8, **non risolta**)*: l'override viene chiamato in fase
-    di **bubbling** ed è registrato dalle class-handler interne con
-    `handledEventsToo=false`. Se un controllo intermedio (es. `ScrollViewer`
-    per `↑/↓`, o `ListBoxItem` per `Enter`) marca l'evento come `Handled`
-    durante il bubble, l'override non riceve mai la notifica. Tentativo:
-    convertire ad `AddHandler(KeyDownEvent, handler, RoutingStrategies.Tunnel)`
-    per intercettare in fase di capture (top-down). In test pratico
-    nello step 8 questo NON ha sbloccato le frecce nelle liste/Home — quindi
-    la radice è probabilmente altrove. Prima di toccare ancora codice:
+    *(scoperta step 8, **ancora non risolta** al 18 maggio 2026)*: l'override
+    viene chiamato in fase di **bubbling** ed è registrato dalle class-handler
+    interne con `handledEventsToo=false`. Se un controllo intermedio (es.
+    `ScrollViewer` per `↑/↓`, o `ListBoxItem` per `Enter`) marca l'evento come
+    `Handled` durante il bubble, l'override non riceve mai la notifica.
+    Tentativo originale step 8: convertire ad `AddHandler(KeyDownEvent, ...,
+    RoutingStrategies.Tunnel)` per intercettare in fase di capture (top-down)
+    — non ha sbloccato niente. Secondo tentativo (PR #2, Facundo Fanti): stesso
+    `AddHandler` ma con `handledEventsToo: true` per ricevere anche gli eventi
+    già marcati `Handled`. Verifica pratica: **ancora non funziona perfettamente**.
+    La radice è probabilmente altrove. Prima di toccare ancora codice:
     `Debug.WriteLine` o overlay diagnostico per vedere `e.Source`/
-    `e.RoutedEvent`/`e.Handled` e l'elemento focused.
+    `e.RoutedEvent`/`e.Handled` e l'elemento focused (suggerimento ripetuto
+    da due tentativi, mai eseguito).
 
 ## Note per i prossimi step
 
@@ -524,9 +547,14 @@ Una volta capita la causa, applicare il fix minimo possibile.
 ## Per ripartire
 
 1. Leggi questa pagina.
-2. Conferma stato attuale (sandbox Windows, step 7 completo + step 8 parziale).
-3. Si parte dallo **Step 9** (Grafici) o dallo **Step 15** (riprendere step 8
-   con un'indagine vera del routing eventi tastiera in Avalonia 12, vedi
-   trappola 13). La scelta dipende dalla priorità della navigazione tastiera
-   nelle liste rispetto alle statistiche. **Prima**, valutare se chiudere la
-   regressione UTC sopra.
+2. Conferma stato attuale (sandbox Windows, step 7 completo + step 8 ancora
+   parziale dopo due tentativi).
+3. Si parte dallo **Step 9** (Grafici LiveCharts2) o dal **proseguimento di
+   Step 8** con un'indagine vera del routing eventi tastiera in Avalonia 12
+   (vedi Trappola 13: prima di toccare codice, stampare diagnostica). La
+   scelta dipende dalla priorità della navigazione tastiera nelle liste
+   rispetto alle statistiche.
+4. Nota PR #2 (Facundo Fanti, 14 mag 2026): refactor che ha estratto
+   `TabellaViewBase<TItem>`, `PausaDialog`, `ConfermaDialog`, fixato il bug
+   timestamp UTC tornando a `DateTime.Now` ovunque, e tentato (senza
+   successo) di chiudere Step 8 con `handledEventsToo: true`.
