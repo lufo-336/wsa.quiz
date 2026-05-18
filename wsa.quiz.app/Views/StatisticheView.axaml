@@ -1,0 +1,145 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:state="using:Wsa.Quiz.App.State"
+             xmlns:views="using:Wsa.Quiz.App.Views"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.StatisticheView"
+             x:DataType="views:StatisticheView">
+
+    <DockPanel>
+
+        <!-- Header -->
+        <Grid DockPanel.Dock="Top"
+              ColumnDefinitions="*,Auto"
+              Margin="20,16,20,8">
+            <StackPanel Spacing="6">
+                <TextBlock Text="Statistiche"
+                           FontSize="22" FontWeight="SemiBold"/>
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <RadioButton Content="Tutto"
+                                 GroupName="FiltroPeriodo"
+                                 IsChecked="{Binding ModalitaTutto}"/>
+                    <RadioButton Content="Ultime"
+                                 GroupName="FiltroPeriodo"
+                                 IsChecked="{Binding !ModalitaTutto}"/>
+                    <NumericUpDown Value="{Binding LimiteUltimeN}"
+                                   Minimum="1"
+                                   Maximum="9999"
+                                   Increment="1"
+                                   FormatString="0"
+                                   Width="100"
+                                   IsEnabled="{Binding !ModalitaTutto}"
+                                   ValueChanged="OnLimiteChanged"/>
+                    <TextBlock Text="partite"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                </StackPanel>
+                <TextBlock Text="Categorie ordinate dalle piu' deboli alle piu' forti."
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+            </StackPanel>
+            <Button Grid.Column="1"
+                    Content="Aggiorna"
+                    Click="OnAggiornaClick"
+                    Padding="14,6"
+                    FontSize="12"/>
+        </Grid>
+
+        <!-- Heatmap + Dettaglio (swap) -->
+        <Grid>
+            <!-- HEATMAP -->
+            <ScrollViewer Margin="20,0,20,16"
+                          VerticalScrollBarVisibility="Auto"
+                          IsVisible="{Binding HeatmapVisibile}">
+                <ItemsControl ItemsSource="{Binding Righe}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="state:MateriaRigaItem">
+                            <Grid ColumnDefinitions="120,*" Margin="0,4">
+                                <TextBlock Text="{Binding Materia}"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"/>
+                                <ItemsControl Grid.Column="1"
+                                              ItemsSource="{Binding Celle}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="state:CategoriaCellaItem">
+                                            <Border BorderBrush="{Binding ColoreBordo}"
+                                                    Background="{Binding ColoreSfondo}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="2"
+                                                    Padding="8,4"
+                                                    Margin="2"
+                                                    Cursor="Hand"
+                                                    ToolTip.Tip="{Binding Tooltip}"
+                                                    PointerPressed="OnCellaPressed">
+                                                <TextBlock Text="{Binding Etichetta}"
+                                                           FontSize="12"
+                                                           Foreground="#1F1F1F"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- EMPTY: cronologia totalmente vuota -->
+            <Border IsVisible="{Binding NessunDato}"
+                    Margin="20,8,20,16"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource SystemRegionBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="20">
+                <StackPanel HorizontalAlignment="Center" Spacing="6">
+                    <TextBlock Text="Nessun quiz completato"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Fai un quiz dalla Home per vedere le statistiche dei tuoi punti deboli."
+                               FontSize="12"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               MaxWidth="460"/>
+                </StackPanel>
+            </Border>
+
+            <!-- EMPTY: filtro troppo stretto -->
+            <Border IsVisible="{Binding FiltroTroppoStretto}"
+                    Margin="20,8,20,16"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource SystemRegionBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="20">
+                <StackPanel HorizontalAlignment="Center" Spacing="6">
+                    <TextBlock Text="Nessuna sessione nelle ultime N partite"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Aumenta il limite N oppure passa a 'Tutto'."
+                               FontSize="12"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               MaxWidth="460"/>
+                </StackPanel>
+            </Border>
+
+            <!-- DETTAGLIO -->
+            <ContentControl x:Name="DettaglioArea"
+                            IsVisible="{Binding ModoDettaglio}"/>
+        </Grid>
+
+    </DockPanel>
+
+</UserControl>

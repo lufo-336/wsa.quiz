@@ -68,6 +68,9 @@
             <TabItem Header="Sospesi">
                 <ContentControl x:Name="SospesiArea"/>
             </TabItem>
+            <TabItem Header="Statistiche">
+                <ContentControl x:Name="StatisticheArea"/>
+            </TabItem>
         </TabControl>
 
     </DockPanel>

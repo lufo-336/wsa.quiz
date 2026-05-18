@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:stats="using:Wsa.Quiz.Core.Models.Statistiche"
+             xmlns:views="using:Wsa.Quiz.App.Views"
+             mc:Ignorable="d"
+             x:Class="Wsa.Quiz.App.Views.CategoriaDettaglioView"
+             x:DataType="views:CategoriaDettaglioView">
+
+    <DockPanel>
+
+        <!-- Header con bottone indietro + titolo -->
+        <Grid DockPanel.Dock="Top"
+              ColumnDefinitions="Auto,*"
+              Margin="20,16,20,8">
+            <Button Content="&#x2190; Statistiche"
+                    Click="OnIndietroClick"
+                    Padding="14,6"
+                    FontSize="12"/>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding Titolo}"
+                       FontSize="18" FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       Margin="16,0,0,0"
+                       TextTrimming="CharacterEllipsis"/>
+        </Grid>
+
+        <!-- Lista domande sbagliate -->
+        <ScrollViewer Margin="20,0,20,16"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Sbagliate}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="stats:DomandaSbagliata">
+                        <Border BorderBrush="#B85450"
+                                Background="#F9E7E6"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                Padding="10"
+                                Margin="0,4">
+                            <StackPanel Spacing="6">
+                                <TextBlock FontWeight="SemiBold"
+                                           Foreground="#B85450"
+                                           FontSize="12">
+                                    <Run Text="&#x274C; sbagliata "/>
+                                    <Run Text="{Binding VolteSbagliata}"/>
+                                    <Run Text="/"/>
+                                    <Run Text="{Binding VolteVista}"/>
+                                    <Run Text=" volte"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Testo}"
+                                           TextWrapping="Wrap"
+                                           Foreground="#1F1F1F"/>
+                                <TextBlock TextWrapping="Wrap"
+                                           Foreground="#1F7A4D"
+                                           FontSize="12">
+                                    <Run Text="&#x2713; corretta: "/>
+                                    <Run Text="{Binding RispostaCorretta}"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Spiegazione}"
+                                           TextWrapping="Wrap"
+                                           FontStyle="Italic"
+                                           FontSize="12"
+                                           Foreground="#5A5A5A"
+                                           IsVisible="{Binding Spiegazione, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+
+</UserControl>

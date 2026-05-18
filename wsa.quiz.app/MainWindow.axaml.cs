@@ -24,6 +24,7 @@ public partial class MainWindow : Window
     private HomeView? _homeView;
     private CronologiaView? _cronologiaView;
     private SospesiView? _sospesiView;
+    private StatisticheView? _statisticheView;
 
     public MainWindow()
     {
@@ -53,6 +54,7 @@ public partial class MainWindow : Window
                 case 0: (HomeArea.Content as Control)?.Focus(); break;
                 case 1: (CronologiaArea.Content as Control)?.Focus(); break;
                 case 2: (SospesiArea.Content as Control)?.Focus(); break;
+                case 3: (StatisticheArea.Content as Control)?.Focus(); break;
             }
             e.Handled = true;
             return;
@@ -93,6 +95,11 @@ public partial class MainWindow : Window
             _sospesiView.Inizializza(_storage);
             _sospesiView.RiprendiRichiesto += OnRiprendiSospesa;
             SospesiArea.Content = _sospesiView;
+
+            // ---------- Tab Statistiche ----------
+            _statisticheView = new StatisticheView();
+            _statisticheView.Inizializza(_storage);
+            StatisticheArea.Content = _statisticheView;
         }
         catch (Exception ex)
         {
@@ -131,6 +138,7 @@ public partial class MainWindow : Window
                 _storage.SalvaRisultato(sessione.Risultato);
                 // La nuova sessione dev'essere visibile la prossima volta che si apre il tab.
                 _cronologiaView?.Ricarica();
+                _statisticheView?.Ricarica();
             }
             catch (Exception ex)
             {
