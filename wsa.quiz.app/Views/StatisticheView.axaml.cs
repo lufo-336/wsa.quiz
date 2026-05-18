@@ -26,6 +26,35 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
 
     public ObservableCollection<MateriaRigaItem> Righe { get; } = new();
 
+    private bool _modalitaTutto = false;
+    public bool ModalitaTutto
+    {
+        get => _modalitaTutto;
+        set
+        {
+            if (_modalitaTutto != value)
+            {
+                _modalitaTutto = value;
+                Raise();
+                Ricarica();
+            }
+        }
+    }
+
+    private int _limiteUltimeN = 30;
+    public int LimiteUltimeN
+    {
+        get => _limiteUltimeN;
+        set
+        {
+            if (_limiteUltimeN != value)
+            {
+                _limiteUltimeN = value;
+                Raise();
+            }
+        }
+    }
+
     public StatisticheView()
     {
         InitializeComponent();
@@ -45,7 +74,8 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
         try
         {
             var cronologia = _storage.CaricaCronologia();
-            var stat = _servizio.Calcola(cronologia);
+            int? limite = ModalitaTutto ? null : LimiteUltimeN;
+            var stat = _servizio.Calcola(cronologia, limite);
             foreach (var r in stat)
                 Righe.Add(new MateriaRigaItem(r));
         }
@@ -56,6 +86,11 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
     }
 
     private void OnAggiornaClick(object? sender, RoutedEventArgs e) => Ricarica();
+
+    private void OnLimiteChanged(object? sender, NumericUpDownValueChangedEventArgs e)
+    {
+        if (!ModalitaTutto) Ricarica();
+    }
 
     private void OnCellaPressed(object? sender, PointerPressedEventArgs e)
     {
