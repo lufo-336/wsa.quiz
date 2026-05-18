@@ -55,6 +55,15 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
         }
     }
 
+    private bool _modoDettaglio;
+    public bool ModoDettaglio
+    {
+        get => _modoDettaglio;
+        private set { if (_modoDettaglio != value) { _modoDettaglio = value; Raise(); } }
+    }
+
+    private CategoriaDettaglioView? _dettaglio;
+
     public StatisticheView()
     {
         InitializeComponent();
@@ -94,8 +103,24 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
 
     private void OnCellaPressed(object? sender, PointerPressedEventArgs e)
     {
-        // Verra' agganciato nel Task 8 (drill-down). Per ora niente.
+        if (sender is not Border b) return;
+        if (b.DataContext is not CategoriaCellaItem cella) return;
+        ApriDettaglio(cella.Stat);
     }
+
+    private void ApriDettaglio(CategoriaStat stat)
+    {
+        if (_dettaglio == null)
+        {
+            _dettaglio = new CategoriaDettaglioView();
+            _dettaglio.IndietroRichiesto += (_, _) => ChiudiDettaglio();
+            DettaglioArea.Content = _dettaglio;
+        }
+        _dettaglio.Mostra(stat);
+        ModoDettaglio = true;
+    }
+
+    private void ChiudiDettaglio() => ModoDettaglio = false;
 
     private void Raise([CallerMemberName] string? name = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

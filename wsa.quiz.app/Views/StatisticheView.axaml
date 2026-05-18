@@ -47,46 +47,54 @@
                     FontSize="12"/>
         </Grid>
 
-        <!-- Heatmap (riga = materia, celle = categorie) -->
-        <ScrollViewer Margin="20,0,20,16"
-                      VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Righe}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="state:MateriaRigaItem">
-                        <Grid ColumnDefinitions="120,*" Margin="0,4">
-                            <TextBlock Text="{Binding Materia}"
-                                       FontWeight="SemiBold"
-                                       VerticalAlignment="Center"/>
-                            <ItemsControl Grid.Column="1"
-                                          ItemsSource="{Binding Celle}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="state:CategoriaCellaItem">
-                                        <Border BorderBrush="{Binding ColoreBordo}"
-                                                Background="{Binding ColoreSfondo}"
-                                                BorderThickness="1"
-                                                CornerRadius="2"
-                                                Padding="8,4"
-                                                Margin="2"
-                                                Cursor="Hand"
-                                                ToolTip.Tip="{Binding Tooltip}"
-                                                PointerPressed="OnCellaPressed">
-                                            <TextBlock Text="{Binding Etichetta}"
-                                                       FontSize="12"
-                                                       Foreground="#1F1F1F"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <!-- Heatmap + Dettaglio (swap) -->
+        <Grid>
+            <!-- HEATMAP -->
+            <ScrollViewer Margin="20,0,20,16"
+                          VerticalScrollBarVisibility="Auto"
+                          IsVisible="{Binding !ModoDettaglio}">
+                <ItemsControl ItemsSource="{Binding Righe}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="state:MateriaRigaItem">
+                            <Grid ColumnDefinitions="120,*" Margin="0,4">
+                                <TextBlock Text="{Binding Materia}"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"/>
+                                <ItemsControl Grid.Column="1"
+                                              ItemsSource="{Binding Celle}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="state:CategoriaCellaItem">
+                                            <Border BorderBrush="{Binding ColoreBordo}"
+                                                    Background="{Binding ColoreSfondo}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="2"
+                                                    Padding="8,4"
+                                                    Margin="2"
+                                                    Cursor="Hand"
+                                                    ToolTip.Tip="{Binding Tooltip}"
+                                                    PointerPressed="OnCellaPressed">
+                                                <TextBlock Text="{Binding Etichetta}"
+                                                           FontSize="12"
+                                                           Foreground="#1F1F1F"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- DETTAGLIO -->
+            <ContentControl x:Name="DettaglioArea"
+                            IsVisible="{Binding ModoDettaglio}"/>
+        </Grid>
 
     </DockPanel>
 
