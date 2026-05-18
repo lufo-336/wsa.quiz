@@ -22,6 +22,32 @@ public static class QuizColors
     private static readonly IBrush _ambraBrush  = new SolidColorBrush(Color.Parse(Ambra));
     private static readonly IBrush _rossoBrush  = new SolidColorBrush(Color.Parse(Rosso));
 
+    // Sfondi tenui per le celle della heatmap statistiche (step 9).
+    private static readonly IBrush _verdeBrushSfondo = new SolidColorBrush(Color.Parse("#E5F4EC"));
+    private static readonly IBrush _ambraBrushSfondo = new SolidColorBrush(Color.Parse("#FFF4D6"));
+    private static readonly IBrush _rossoBrushSfondo = new SolidColorBrush(Color.Parse("#F9E7E6"));
+
+    /// <summary>
+    /// Bordo cella heatmap in base alla percentuale di errore (0..1):
+    /// verde &lt; 20%, ambra 20-59%, rosso &gt;= 60%.
+    /// </summary>
+    public static IBrush HeatmapBordo(double pctErrore)
+    {
+        if (pctErrore < 0.20) return _verdeBrush;
+        if (pctErrore < 0.60) return _ambraBrush;
+        return _rossoBrush;
+    }
+
+    /// <summary>
+    /// Sfondo tenue cella heatmap, abbinato a <see cref="HeatmapBordo"/>.
+    /// </summary>
+    public static IBrush HeatmapSfondo(double pctErrore)
+    {
+        if (pctErrore < 0.20) return _verdeBrushSfondo;
+        if (pctErrore < 0.60) return _ambraBrushSfondo;
+        return _rossoBrushSfondo;
+    }
+
     /// <summary>
     /// Restituisce il colore associato a una percentuale:
     /// verde &gt;= 80%, ambra 50-79%, rosso &lt; 50%.
