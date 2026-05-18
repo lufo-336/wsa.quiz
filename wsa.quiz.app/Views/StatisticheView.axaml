@@ -52,7 +52,7 @@
             <!-- HEATMAP -->
             <ScrollViewer Margin="20,0,20,16"
                           VerticalScrollBarVisibility="Auto"
-                          IsVisible="{Binding !ModoDettaglio}">
+                          IsVisible="{Binding HeatmapVisibile}">
                 <ItemsControl ItemsSource="{Binding Righe}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="state:MateriaRigaItem">
@@ -90,6 +90,50 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <!-- EMPTY: cronologia totalmente vuota -->
+            <Border IsVisible="{Binding NessunDato}"
+                    Margin="20,8,20,16"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource SystemRegionBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="20">
+                <StackPanel HorizontalAlignment="Center" Spacing="6">
+                    <TextBlock Text="Nessun quiz completato"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Fai un quiz dalla Home per vedere le statistiche dei tuoi punti deboli."
+                               FontSize="12"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               MaxWidth="460"/>
+                </StackPanel>
+            </Border>
+
+            <!-- EMPTY: filtro troppo stretto -->
+            <Border IsVisible="{Binding FiltroTroppoStretto}"
+                    Margin="20,8,20,16"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource SystemRegionBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="20">
+                <StackPanel HorizontalAlignment="Center" Spacing="6">
+                    <TextBlock Text="Nessuna sessione nelle ultime N partite"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Aumenta il limite N oppure passa a 'Tutto'."
+                               FontSize="12"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               MaxWidth="460"/>
+                </StackPanel>
+            </Border>
 
             <!-- DETTAGLIO -->
             <ContentControl x:Name="DettaglioArea"

@@ -59,8 +59,48 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
     public bool ModoDettaglio
     {
         get => _modoDettaglio;
-        private set { if (_modoDettaglio != value) { _modoDettaglio = value; Raise(); } }
+        private set
+        {
+            if (_modoDettaglio != value)
+            {
+                _modoDettaglio = value;
+                Raise();
+                Raise(nameof(HeatmapVisibile));
+            }
+        }
     }
+
+    private bool _nessunDato = true;
+    public bool NessunDato
+    {
+        get => _nessunDato;
+        private set
+        {
+            if (_nessunDato != value)
+            {
+                _nessunDato = value;
+                Raise();
+                Raise(nameof(HeatmapVisibile));
+            }
+        }
+    }
+
+    private bool _filtroTroppoStretto;
+    public bool FiltroTroppoStretto
+    {
+        get => _filtroTroppoStretto;
+        private set
+        {
+            if (_filtroTroppoStretto != value)
+            {
+                _filtroTroppoStretto = value;
+                Raise();
+                Raise(nameof(HeatmapVisibile));
+            }
+        }
+    }
+
+    public bool HeatmapVisibile => !ModoDettaglio && !NessunDato && !FiltroTroppoStretto;
 
     private CategoriaDettaglioView? _dettaglio;
 
@@ -87,10 +127,14 @@ public partial class StatisticheView : UserControl, INotifyPropertyChanged
             var stat = _servizio.Calcola(cronologia, limite);
             foreach (var r in stat)
                 Righe.Add(new MateriaRigaItem(r));
+
+            NessunDato = cronologia.Count == 0;
+            FiltroTroppoStretto = !NessunDato && Righe.Count == 0;
         }
         catch
         {
-            // Best effort: lasciamo Righe vuoto. L'empty state arrivera' al Task 9.
+            NessunDato = true;
+            FiltroTroppoStretto = false;
         }
     }
 
