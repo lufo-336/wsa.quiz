@@ -36,7 +36,10 @@ verificata via shared storage in `%APPDATA%\WsaQuiz`.
 - **Avalonia 12.0.2** (release del 28 aprile 2026, mobile improvement notevoli
   — buono per il futuro Android/iOS)
 - **Tema Fluent** + font **Inter**
-- **LiveCharts2** prevista per i grafici (step 9, non ancora installata)
+- **Nessuna libreria di grafici**: la heatmap statistiche di Step 9 è fatta
+  con `ItemsControl`/`WrapPanel`/`Border` nativi. LiveCharts2 era previsto in
+  origine, scartato per YAGNI. Se in futuro servirà un line chart vero
+  (es. andamento nel tempo) valutarla allora.
 - **MVVM no**: code-behind con `INotifyPropertyChanged`. È la strada
   intrapresa, non rifattorizziamo.
 
@@ -547,13 +550,12 @@ Una volta capita la causa, applicare il fix minimo possibile.
 ## Per ripartire
 
 1. Leggi questa pagina.
-2. Conferma stato attuale (sandbox Windows, step 7 completo + step 8 ancora
-   parziale dopo due tentativi).
-3. Si parte dallo **Step 9** (Grafici LiveCharts2) o dal **proseguimento di
-   Step 8** con un'indagine vera del routing eventi tastiera in Avalonia 12
-   (vedi Trappola 13: prima di toccare codice, stampare diagnostica). La
-   scelta dipende dalla priorità della navigazione tastiera nelle liste
-   rispetto alle statistiche.
+2. Conferma stato attuale (sandbox Windows, step 7 + step 9 completi, step 8
+   ancora parziale dopo due tentativi).
+3. Candidati per il prossimo step: **Step 10** (Dark mode), **proseguimento
+   di Step 8** con un'indagine vera del routing eventi tastiera in
+   Avalonia 12 (vedi Trappola 13: prima di toccare codice, stampare
+   diagnostica), o **Step 11** (Export CSV/JSON cronologia).
 4. Nota PR #2 (Facundo Fanti, 14 mag 2026): refactor che ha estratto
    `TabellaViewBase<TItem>`, `PausaDialog`, `ConfermaDialog`, fixato il bug
    timestamp UTC tornando a `DateTime.Now` ovunque, e tentato (senza
