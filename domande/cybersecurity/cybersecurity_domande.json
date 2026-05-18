@@ -1,0 +1,782 @@
+[
+  {
+    "id": 1,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Nella CIA triad, cosa indica il principio di Integrità?",
+    "risposte": [
+      "Identificazione degli utenti tramite credenziali certificate",
+      "Il dato non viene modificato senza l'autorizzazione del proprietario",
+      "I sistemi sono sempre raggiungibili dagli utenti autorizzati",
+      "La cifratura del traffico tra il client e il server remoto"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "L'Integrità garantisce che i dati non vengano alterati senza autorizzazione (es. SQL injection o ransomware la violano). La A descrive l'autenticazione, non l'integrità. La C corrisponde alla Disponibilità della triade. La D è una proprietà di HTTPS/TLS, non un principio della CIA triad."
+  },
+  {
+    "id": 2,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Quale tipo di phishing è specificamente diretto a dirigenti aziendali di alto livello?",
+    "risposte": [
+      "Lo smishing tramite SMS personalizzati su misura",
+      "Il phishing generico inviato a indirizzi casuali",
+      "Il whaling, che mira a CEO, CFO e figure apicali aziendali",
+      "Il vishing tramite chiamate con voce sintetica"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il whaling è il phishing dei 'grandi pesci' diretto a CEO, CFO e dirigenti, spesso noto come Business Email Compromise. Lo smishing arriva via SMS a chiunque, non specificamente ai dirigenti. Il phishing generico è di massa e non personalizzato sui VIP. Il vishing usa la voce ma non è mirato specificamente alla C-suite."
+  },
+  {
+    "id": 3,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Cosa rende bcrypt più resistente del semplice SHA-256 per l'hashing delle password?",
+    "risposte": [
+      "Bcrypt utilizza una chiave significativamente più lunga",
+      "Un work factor configurabile che rallenta volutamente il calcolo",
+      "Bcrypt si basa su algoritmi crittografici asimmetrici",
+      "Bcrypt comprime l'hash per occupare meno spazio in disco"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Bcrypt usa un work factor (es. cost=12) che ricalcola l'hash 2^12 volte, rendendo il brute-force su GPU economicamente impraticabile. La A è errata: bcrypt non lavora con 'chiavi' ma con hash. La C confonde bcrypt con RSA: bcrypt è basato su Blowfish, simmetrico. La D è inventata: l'hash bcrypt ha lunghezza fissa, non comprime nulla."
+  },
+  {
+    "id": 4,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Qual è la caratteristica fondamentale della crittografia asimmetrica?",
+    "risposte": [
+      "Si compone di una chiave pubblica e di una chiave privata distinte",
+      "Si usa la stessa chiave segreta per cifrare e per decifrare",
+      "Cifra solo testo in chiaro, mai file binari o immagini",
+      "Funziona unicamente con messaggi di lunghezza prefissata"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La crittografia asimmetrica (es. RSA, ECC) usa una coppia chiave pubblica/privata: la pubblica cifra e solo la privata decifra. La B descrive la crittografia simmetrica come AES. La C è falsa: si cifrano dati binari arbitrari. La D è inventata: il messaggio può avere lunghezza variabile, eventualmente con padding."
+  },
+  {
+    "id": 5,
+    "categoria": "VPN e Privacy",
+    "domanda": "Quale affermazione sulle VPN è effettivamente corretta?",
+    "risposte": [
+      "La VPN garantisce un completo anonimato online durante ogni sessione",
+      "La VPN protegge il dispositivo da virus e da qualsiasi tipo di malware",
+      "La VPN cifra il tunnel ma il provider VPN può comunque vedere il traffico",
+      "Una VPN gratuita offre le stesse garanzie di privacy di una a pagamento"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il provider VPN diventa il nuovo 'intermediario': vede il traffico in chiaro all'uscita dal tunnel, quindi la fiducia si sposta su di lui. La A è un falso mito: anonimato e privacy non coincidono. La B è errata: la VPN cifra ma non scansiona i contenuti. La D è falsa: i servizi gratuiti spesso monetizzano i dati degli utenti."
+  },
+  {
+    "id": 6,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "Qual è la principale differenza tra un firewall stateless e uno stateful?",
+    "risposte": [
+      "Lo stateful supporta un maggior numero di protocolli del livello 7",
+      "Lo stateful tiene traccia dello stato delle connessioni e dei pacchetti correlati",
+      "Lo stateful opera unicamente sul livello fisico del modello OSI",
+      "Lo stateful viene implementato esclusivamente su appliance hardware"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il firewall stateful mantiene una tabella delle connessioni attive e sa se un pacchetto fa parte di una sessione legittima, bloccando risposte non richieste. La A confonde lo stateful con il NGFW (deep packet inspection a layer 7). La C è falsa: il firewall lavora dal livello 3 in su. La D è errata: esistono firewall stateful anche software (iptables, pf)."
+  },
+  {
+    "id": 7,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Cosa stabilisce il principio di minimizzazione dei dati nel GDPR?",
+    "risposte": [
+      "Si raccolgono solo i dati strettamente necessari per le finalità dichiarate del trattamento",
+      "I dati personali vanno conservati il più a lungo tecnicamente possibile",
+      "I dati possono essere riutilizzati liberamente per ogni finalità aziendale",
+      "Tutti i dati raccolti devono essere resi pubblici per garantire trasparenza"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "L'Art. 5 GDPR impone di raccogliere solo dati adeguati, pertinenti e limitati a quanto necessario per la finalità. La B è l'opposto: vige la limitazione della conservazione. La C viola la limitazione delle finalità: ogni nuovo scopo richiede base giuridica autonoma. La D confonde trasparenza con pubblicazione: trasparenza significa informare l'interessato, non rendere pubblico tutto."
+  },
+  {
+    "id": 8,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Quale tra questi è un obbligo introdotto dalla direttiva NIS2 per i soggetti essenziali?",
+    "risposte": [
+      "Devono cancellare i dati di tutti gli utenti europei al termine del trattamento",
+      "Devono notificare gli incidenti significativi entro i tempi previsti dalla normativa",
+      "Devono mantenere un firewall stateful sempre aggiornato all'ultima versione",
+      "Devono pubblicare online le proprie password di amministrazione di sistema"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "NIS2 obbliga alla notifica tempestiva degli incidenti significativi (early warning 24h, notifica 72h, report finale 30gg). La A è un obbligo GDPR sulla cancellazione, non NIS2. La C indica una buona pratica ma non un obbligo specifico NIS2: la direttiva richiede misure di rischio, non un firewall specifico. La D è palesemente assurda e violerebbe ogni norma di sicurezza."
+  },
+  {
+    "id": 9,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Cos'è la prompt injection indiretta in un'applicazione basata su LLM?",
+    "risposte": [
+      "L'utente chiede direttamente all'AI di rivelare la sua system prompt interna",
+      "L'AI rifiuta automaticamente di rispondere quando rileva input pericolosi",
+      "Istruzioni malevole nascoste in contenuti esterni che l'AI elabora come legittimi",
+      "Un errore dell'AI nel tradurre testo da una lingua a un'altra differente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nella prompt injection indiretta, l'attaccante nasconde istruzioni in un documento o pagina web che l'AI processa, eseguendole come se venissero dall'utente legittimo. La A descrive la prompt injection diretta, non indiretta. La B descrive un comportamento difensivo dell'AI, non un attacco. La D è un comune errore di output, non un'iniezione di istruzioni."
+  },
+  {
+    "id": 10,
+    "categoria": "Secure Coding",
+    "domanda": "Qual è la difesa definitiva contro la SQL injection nel codice applicativo?",
+    "risposte": [
+      "Filtrare i caratteri speciali come apici e doppi apici nelle query",
+      "Cifrare l'intero database con algoritmo AES-256 e chiave robusta",
+      "Limitare in modo rigoroso i privilegi dell'utente del database",
+      "Usare prepared statement con query parametrizzate in ogni interrogazione"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "I prepared statement separano codice SQL dai dati, rendendo strutturalmente impossibile l'iniezione. Il filtering (A) è una blacklist debole: gli attaccanti trovano sempre bypass. La cifratura (B) protegge i dati a riposo ma non impedisce l'injection. Il least privilege (C) è una mitigazione utile a limitare i danni, ma non previene l'attacco in sé."
+  },
+  {
+    "id": 11,
+    "categoria": "Web Security (XSS)",
+    "domanda": "Cosa caratterizza il Cross-Site Scripting di tipo Stored?",
+    "risposte": [
+      "Il payload arriva sempre dall'URL della pagina web vulnerabile aperta dall'utente",
+      "Il payload viene memorizzato sul server e colpisce ogni utente che visita la pagina",
+      "Il payload manipola solo il DOM lato client del browser del singolo utente",
+      "Il payload viene eseguito esclusivamente nel browser dell'attaccante stesso"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Lo Stored XSS persiste nel database del server (es. campo commento) ed è il più pericoloso perché colpisce ogni utente che carica la pagina. La A descrive il Reflected XSS, in cui il payload arriva dall'URL. La C descrive il DOM-based XSS, che vive client-side. La D è non sensata: nel XSS è la vittima a eseguire il codice, mai l'attaccante."
+  },
+  {
+    "id": 12,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Nella kill chain di Lockheed Martin, in cosa consiste la fase di Delivery?",
+    "risposte": [
+      "Nell'installazione di una backdoor persistente sul sistema della vittima",
+      "Nello sfruttamento di una vulnerabilità per eseguire codice arbitrario",
+      "Nella consegna del payload alla vittima tramite email, USB o sito compromesso",
+      "Nella ricognizione iniziale delle informazioni sulla vittima tramite OSINT"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La Delivery è la 3ª fase: il payload viene recapitato alla vittima (phishing, USB drop, drive-by download). La A corrisponde alla fase Installation. La B descrive l'Exploitation. La D è la Reconnaissance, prima fase della kill chain."
+  },
+  {
+    "id": 13,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Cosa indica un fallimento dei controlli SPF, DKIM e DMARC su un'email ricevuta?",
+    "risposte": [
+      "L'email è stata inviata da un mittente affidabile e ufficialmente verificato",
+      "L'allegato contenuto nell'email è stato cifrato e firmato correttamente",
+      "L'email contiene segnali concreti che la fanno apparire non autentica e malevola",
+      "L'email è una comunicazione interna dell'organizzazione ricevente"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "SPF/DKIM/DMARC verificano che il mittente sia autorizzato a inviare per quel dominio; un fail è una prova concreta di possibile spoofing o phishing. La A è l'opposto: un pass, non un fail. La B riguarda crittografia di payload (S/MIME, PGP), non i controlli del mittente. La D è errata: i controlli si applicano a tutte le email, interne incluse, e un fail non implica origine interna."
+  },
+  {
+    "id": 14,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Perché FIDO2/Passkey è considerato immune al phishing tradizionale?",
+    "risposte": [
+      "Perché utilizza codici numerici validi per soli 30 secondi consecutivi",
+      "Perché si basa su una challenge-response crittografica legata al dominio originale",
+      "Perché viene sempre inviato via SMS al numero registrato dall'utente",
+      "Perché richiede sempre una password aggiuntiva oltre al dispositivo"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "FIDO2 firma una challenge legata al dominio reale (origin binding): un sito di phishing su un dominio diverso non ottiene mai una firma valida. La A descrive TOTP (phishable se l'utente lo inserisce sul sito fake). La C descrive l'SMS OTP, il metodo MFA più debole. La D è inesatta: passkey può sostituire del tutto la password."
+  },
+  {
+    "id": 15,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Cosa avviene durante la fase di ServerHello del TLS handshake?",
+    "risposte": [
+      "Il client trasmette al server una richiesta esplicita di credenziali utente",
+      "Vengono cifrati i dati di sessione con l'algoritmo AES-256-GCM in uso",
+      "Il server risponde con versione TLS scelta, certificato X.509 e chiave pubblica",
+      "Il client trasmette tutte le sue credenziali utente al server remoto"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nel ServerHello il server seleziona la versione TLS e cipher suite, e invia il proprio certificato X.509 con la chiave pubblica. La A è errata: il TLS handshake non riguarda credenziali di login. La B descrive l'ultima fase (Dati cifrati), dopo il completamento dell'handshake. La D mescola autenticazione applicativa col layer TLS, che non scambia credenziali utente."
+  },
+  {
+    "id": 16,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "Qual è la differenza chiave tra IDS e IPS?",
+    "risposte": [
+      "L'IDS è solo hardware mentre l'IPS è soltanto software",
+      "L'IDS funziona solo in cloud, mentre l'IPS solo on-premise",
+      "L'IDS protegge dal phishing, l'IPS soltanto dai virus",
+      "L'IDS rileva e avvisa, l'IPS blocca attivamente il traffico inline"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'IDS opera in modalità passiva (monitor + alert), l'IPS inline blocca il traffico malevolo in tempo reale, con rischio di falsi positivi. La A è falsa: entrambi esistono sia in versione hardware che software (es. Snort, Suricata). La B è inventata: entrambi funzionano in qualunque ambiente. La C confonde i tool: né IDS né IPS sono pensati per phishing email."
+  },
+  {
+    "id": 17,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Quale tra queste è una funzione del Data Protection Officer (DPO)?",
+    "risposte": [
+      "Approvare tutte le richieste di marketing dei clienti aziendali",
+      "Vendere i dati raccolti a partner commerciali ritenuti fidati",
+      "Sviluppare il software di gestione delle email per l'azienda",
+      "Sorvegliare la conformità al GDPR e fungere da contatto con il Garante"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "Il DPO (artt. 37-39 GDPR) vigila sulla conformità, fa formazione interna e funge da punto di contatto col Garante e con gli interessati. La A è un'attività operativa di marketing, non un compito del DPO. La B è esattamente ciò che il DPO deve impedire. La C è un ruolo di sviluppo software, totalmente estraneo alle funzioni del DPO."
+  },
+  {
+    "id": 18,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Cos'è il TLPT (Threat-Led Penetration Testing) previsto da DORA?",
+    "risposte": [
+      "Un test di penetrazione realistico basato su scenari di minaccia attuali",
+      "Un test antivirus mensile da fare sui server di produzione interni",
+      "Una scansione automatica periodica delle vulnerabilità di rete",
+      "Una verifica annuale delle policy aziendali di backup dei dati"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il TLPT è un red team obbligatorio ogni 3 anni per i soggetti DORA significativi, basato su threat intelligence reale (TIBER-EU). La B descrive un controllo antimalware operativo, non un TLPT. La C è una vulnerability assessment automatizzata, ben diversa da un attacco simulato. La D è un audit di backup, attinente al disaster recovery ma non al TLPT."
+  },
+  {
+    "id": 19,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Qual è una pratica fondamentale per sviluppare applicazioni AI sicure?",
+    "risposte": [
+      "Cifrare tutte le conversazioni utente con AES-128 in transito",
+      "Eseguire direttamente sul server il codice generato dall'agente AI",
+      "Affidarsi al modello stesso per validare l'input dell'utente",
+      "Separare il system prompt dall'input utente e validare l'output dell'AI"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'isolamento del system prompt e la validazione dell'output sono difese centrali contro prompt injection e Insecure Output Handling (OWASP LLM Top 10). La A è utile ma non specifica per AI: TLS già lo fa. La B è esattamente la vulnerabilità da evitare (exec sul codice generato). La C è circolare: un modello non può proteggersi da solo dalle sue stesse iniezioni."
+  },
+  {
+    "id": 20,
+    "categoria": "Web Security (XSS)",
+    "domanda": "A cosa serve la Content Security Policy (CSP) come difesa contro XSS?",
+    "risposte": [
+      "A bloccare automaticamente le richieste DNS verso domini sospetti",
+      "A cifrare i cookie di sessione dell'utente attualmente connesso",
+      "A rallentare le richieste verso il server per evitare attacchi DDoS",
+      "A indicare al browser quali origini sono autorizzate per gli script in pagina"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La CSP è un header HTTP che istruisce il browser a eseguire solo script da fonti approvate (nonce, hash, allowlist), neutralizzando script iniettati. La A descrive un filtro DNS, non la CSP. La B è una funzione del flag Secure/HttpOnly sui cookie. La C confonde la CSP con misure di rate limiting o WAF anti-DDoS."
+  },
+  {
+    "id": 21,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Qual è la caratteristica principale di un attaccante APT (Advanced Persistent Threat)?",
+    "risposte": [
+      "Persistenza e capacità operative molto elevate",
+      "Si limita a defacciare siti web di partiti politici avversari",
+      "Agisce esclusivamente per ottenere notorietà personale e fama",
+      "Lancia attacchi automatici di massa contro chiunque ne abbia"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Gli APT sono attori state-sponsored con skill molto alte, motivati da spionaggio o sabotaggio, che mantengono accesso per mesi o anni. La B descrive gli hacktivisti, non gli APT. La C identifica gli script kiddie. La D è tipica dei cybercriminali generici, non degli APT che invece selezionano target di alto valore."
+  },
+  {
+    "id": 22,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Quale tecnica caratterizza il vishing rispetto agli altri tipi di phishing?",
+    "risposte": [
+      "Si basa sull'invio di SMS con link verso siti malevoli",
+      "Si svolge tramite chiamate telefoniche fraudolente",
+      "Sfrutta PDF con script JavaScript embedded ostili nascosti",
+      "Avviene mediante chat sui social network più frequentati"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il vishing (voice phishing) usa chiamate da numeri spoofed, spesso con voce sintetica o deepfake audio, sfruttando la pressione psicologica in tempo reale. La A descrive lo smishing, che usa SMS. La C è un vettore di phishing via email con allegati malevoli, non vishing. La D si riferisce a forme di social engineering su piattaforme di messaggistica, distinte dal vishing telefonico."
+  },
+  {
+    "id": 23,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Tra questi fattori, quale incide di più sull'entropia di una password?",
+    "risposte": [
+      "Il numero di simboli e caratteri speciali presenti",
+      "L'inserimento di numeri casuali distribuiti nel testo",
+      "La lunghezza complessiva della password scelta",
+      "La presenza di lettere maiuscole e minuscole alternate"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La formula H = log₂(N^l) mostra che la lunghezza (l) ha effetto esponenziale, mentre l'aumento del charset (N) ha solo effetto lineare nei bit. La A è meno efficace della lunghezza: il NIST stesso preferisce passphrase lunghe. La B aggiunge entropia solo se i numeri sono davvero casuali e non in posizioni prevedibili. La D aggiunge appena 1 bit per ogni lettera, contributo irrisorio rispetto al raddoppio di lunghezza."
+  },
+  {
+    "id": 24,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Perché MD5 è considerato un algoritmo di hashing non più sicuro?",
+    "risposte": [
+      "È vulnerabile a collisioni ormai facilmente generabili",
+      "Richiede troppo tempo per calcolare l'hash di una singola stringa",
+      "Funziona solo per stringhe di lunghezza inferiore ai 16 caratteri",
+      "Restituisce un output di lunghezza variabile a seconda dell'input"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Sono state dimostrate collisioni pratiche su MD5 fin dal 2004, rendendolo inadatto a integrità e firme digitali. La B è l'opposto: MD5 è velocissimo, ed è proprio questo che lo rende vulnerabile a brute-force. La C è inventata: MD5 accetta input di qualsiasi lunghezza. La D è errata: MD5 produce sempre un digest fisso di 128 bit."
+  },
+  {
+    "id": 25,
+    "categoria": "VPN e Privacy",
+    "domanda": "Cosa rivela il SNI (Server Name Indication) durante una connessione HTTPS, anche se sotto VPN?",
+    "risposte": [
+      "Il dominio del sito web a cui ci si connette",
+      "Il contenuto completo della richiesta HTTP al server",
+      "La password trasmessa al server di autenticazione",
+      "Il numero di carta di credito digitato in pagamento"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il SNI nell'handshake TLS rivela in chiaro l'hostname richiesto (a meno di ECH), motivo per cui HTTPS non nasconde a chi ti connetti. La B è falsa: il contenuto è cifrato da TLS. La C è cifrata dentro TLS dopo l'handshake e non viaggia nel SNI. La D è cifrata anch'essa nel canale TLS già stabilito, mai esposta come metadata."
+  },
+  {
+    "id": 26,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "Quale porta TCP è associata al protocollo SSH per l'accesso remoto sicuro?",
+    "risposte": [
+      "La porta 21 destinata al trasferimento file FTP",
+      "La porta 22 TCP, configurata di default",
+      "La porta 80 utilizzata per il traffico HTTP",
+      "La porta 443 dedicata al traffico HTTPS cifrato"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "SSH usa di default la porta 22/TCP per l'accesso remoto cifrato (consigliata spesso da cambiare per ridurre il rumore di scansione). La A è la porta FTP in chiaro, da evitare. La C è HTTP web non cifrato. La D è HTTPS, che cifra il web ma non è correlato a SSH."
+  },
+  {
+    "id": 27,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Quale tra questi è uno dei sei diritti chiave attribuiti agli interessati dal GDPR?",
+    "risposte": [
+      "Il diritto a vendere i dati al titolare del trattamento",
+      "Il diritto a ricevere un compenso per ogni trattamento",
+      "Il diritto alla portabilità dei propri dati",
+      "Il diritto a essere automaticamente esonerati dal GDPR"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La portabilità (Art. 20) consente all'interessato di ricevere i propri dati in formato strutturato e trasferirli ad altro titolare. La A non esiste: il GDPR tratta i dati come diritto fondamentale, non come merce. La B confonde il GDPR con una sorta di compenso commerciale, mai previsto dalla norma. La D è priva di senso: il GDPR si applica per legge, non si decide di farne a meno."
+  },
+  {
+    "id": 28,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Qual è la sanzione massima prevista da NIS2 per i soggetti essenziali?",
+    "risposte": [
+      "Una multa amministrativa di soli 100 euro per violazione",
+      "10 milioni di euro o il 2% del fatturato annuo",
+      "L'esclusione permanente dal mercato europeo per cinque anni",
+      "Il sequestro dei beni dei soci della società che gestisce"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "NIS2 fissa per i soggetti essenziali una sanzione massima di 10M€ o 2% del fatturato globale (7M€ o 1,4% per gli importanti). La A è palesemente sottodimensionata. La C è una sanzione di natura diversa, non prevista come massimale standard. La D è una misura penale eccezionale, estranea al regime amministrativo NIS2."
+  },
+  {
+    "id": 29,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Cosa può accadere ai dati inseriti in un tier gratuito di un servizio AI generativo?",
+    "risposte": [
+      "Sono cancellati automaticamente entro pochi minuti d'uso",
+      "Vengono sempre cifrati end-to-end senza eccezione alcuna",
+      "Possono essere usati per allenare il modello AI",
+      "Vengono restituiti solo a chi paga abbonamento Enterprise"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Sui free tier i prompt possono essere usati per il training del modello, come dimostrato dal caso Samsung 2023 (codice sorgente esposto). La A non è garantita: la conservazione varia per policy. La B è ingannevole: il trasporto è cifrato, ma il provider ha accesso al contenuto. La D inverte la logica: i dati a pagamento sono protetti da DPA, non 'restituiti'."
+  },
+  {
+    "id": 30,
+    "categoria": "Secure Coding",
+    "domanda": "Quale tra queste pratiche è più sicura per gestire le credenziali nel codice?",
+    "risposte": [
+      "Hardcodare le credenziali direttamente nel codice sorgente",
+      "Inserire le credenziali nei messaggi di commit di Git",
+      "Passare le credenziali tramite la query string degli URL",
+      "Usare un secret manager o variabili d'ambiente"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "I secret manager (Vault, AWS Secrets Manager) e le variabili d'ambiente con .gitignore sono lo standard moderno per evitare leak. La A finisce in repository pubblici, vulnerabilità ricorrente. La B rimane nella storia di Git anche dopo il rewrite, è quasi impossibile da ripulire davvero. La C espone le credenziali in log di server, proxy e browser history."
+  },
+  {
+    "id": 31,
+    "categoria": "Web Security (XSS)",
+    "domanda": "Quale soluzione previene l'XSS quando si inserisce input utente nella pagina HTML?",
+    "risposte": [
+      "Aggiungere un commento HTML attorno all'input dell'utente",
+      "Aumentare la dimensione del campo input dell'utente",
+      "Inserire l'input in una variabile globale JavaScript",
+      "Usare textContent al posto di innerHTML insicuro"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "textContent tratta tutto come testo puro: nessun HTML viene parsato e nessun script eseguito, eliminando il vettore XSS. La A è inutile: i commenti HTML non bloccano script al loro interno (e ci sono trick per uscirne). La B non c'entra nulla con XSS, riguarda solo limiti UX. La C aggrava il problema: una variabile globale è facilmente accessibile da altri script potenzialmente iniettati."
+  },
+  {
+    "id": 32,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Quale principio della CIA triad viene violato principalmente da un attacco DDoS?",
+    "risposte": [
+      "La Confidenzialità delle informazioni utente",
+      "La Disponibilità del servizio web colpito",
+      "L'Integrità dei dati conservati nel database",
+      "L'autenticazione degli utenti che accedono"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Un DDoS satura risorse di rete o applicative impedendo l'accesso legittimo, colpendo direttamente la Disponibilità (es. Dyn DNS 2016). La A è violata da data breach o intercettazione, non da DDoS. La C viene violata da SQL injection, ransomware o tampering. La D non fa parte della CIA triad classica e non è il bersaglio diretto del DDoS."
+  },
+  {
+    "id": 33,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Quale tra questi è un tipico segnale di smishing in un SMS ricevuto?",
+    "risposte": [
+      "Lunghi paragrafi con riferimenti tecnici approfonditi",
+      "URL abbreviato verso un dominio sospetto e ostile",
+      "Allegati video di alta qualità nel corpo del messaggio",
+      "Firma digitale crittografica in fondo al testo del messaggio"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Lo smishing tipicamente usa URL shortener o domini fake (es. poste-it.xyz) abbinati a urgency e piccoli pagamenti richiesti. La A è atipica: gli SMS di smishing sono brevi e incalzanti, non tecnici. La C è impraticabile nell'SMS standard e non rappresenta un segnale comune. La D è il contrario di un segnale di phishing: indicherebbe semmai autenticità."
+  },
+  {
+    "id": 34,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Qual è la principale debolezza che rende l'SMS OTP un fattore MFA debole?",
+    "risposte": [
+      "La necessità di una connessione internet sempre attiva",
+      "Il fatto che richieda una password aggiuntiva alfanumerica",
+      "L'esposizione concreta agli attacchi di SIM swapping",
+      "L'esigenza di registrare un indirizzo email valido prima"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Il SIM swapping permette all'attaccante di ricevere gli OTP della vittima dopo aver ottenuto il porting del numero, e si aggiungono attacchi SS7 e intercettazione. La A è falsa: l'SMS usa la rete cellulare, non internet. La B confonde con altri sistemi: SMS OTP non richiede password aggiuntive di quella già inserita prima. La D è inventata: tipicamente l'SMS OTP non dipende dalla registrazione email."
+  },
+  {
+    "id": 35,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Qual è il compito principale di una Certificate Authority (CA)?",
+    "risposte": [
+      "Generare il traffico cifrato tra client e server remoto",
+      "Eseguire scansioni di vulnerabilità sui server web esposti",
+      "Firmare i certificati X.509 per validare l'identità",
+      "Memorizzare le password degli utenti in formato cifrato sicuro"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La CA firma certificati X.509 legando un'identità (dominio) a una chiave pubblica, generando la catena di fiducia Root → Intermediate → Leaf. La A è compito di TLS, non della CA. La B è ciò che fanno vulnerability scanner come Nessus o Qualys, non le CA. La D è il ruolo del database di autenticazione o di un password manager, mai della CA."
+  },
+  {
+    "id": 36,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "Qual è lo scopo principale di una DMZ nella rete aziendale?",
+    "risposte": [
+      "Cifrare il traffico tra i dispositivi della LAN locale",
+      "Sostituire integralmente il ruolo di un firewall stateful",
+      "Distribuire automaticamente gli IP ai client connessi",
+      "Isolare i server pubblici dalla LAN interna"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La DMZ è una zona di rete intermedia che ospita web e mail server: una compromissione lì non dà accesso diretto alla LAN. La A è compito di IPSec o VPN interne, non della DMZ. La B è errata: la DMZ è una topologia, il firewall ne resta componente essenziale. La C è la funzione del DHCP, non di una DMZ."
+  },
+  {
+    "id": 37,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Entro quanto tempo va notificato al Garante un data breach a rischio per gli interessati?",
+    "risposte": [
+      "Entro 30 giorni dal momento di scoperta della violazione",
+      "Entro 24 ore al massimo dall'inizio dell'evento di breach",
+      "Entro 7 giorni lavorativi dall'identificazione iniziale",
+      "Entro 72 ore dalla scoperta del data breach"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "L'Art. 33 GDPR stabilisce 72 ore dalla scoperta come termine per notificare al Garante. La A è troppo lunga: la finestra è di soli tre giorni. La B confonde con altre normative (es. DORA early warning 24h) e parte erroneamente dall'evento anziché dalla scoperta. La C è inventata e non corrisponde ad alcun termine GDPR."
+  },
+  {
+    "id": 38,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Quale tra questi soggetti rientra nell'ambito di applicazione di DORA?",
+    "risposte": [
+      "I produttori di hardware di consumo come smartphone",
+      "Le banche e gli istituti di credito europei",
+      "Le società di costruzioni e di ingegneria civile",
+      "Le piattaforme di streaming di video on demand"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "DORA (Reg. UE 2022/2554) si applica al settore finanziario: banche, SGR, SIM, assicurazioni, PSP, EMI e fornitori ICT critici. La A è eventualmente coperta da altre normative (es. CRA), non DORA. La C non è settore finanziario e non rientra in DORA. La D appartiene al digital entertainment, soggetta semmai al DSA, non a DORA."
+  },
+  {
+    "id": 39,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Cosa rappresenta principalmente la minaccia dei deepfake nel contesto del Business Email Compromise?",
+    "risposte": [
+      "Documenti PDF con allegati malevoli e script di tipo VBA",
+      "Email di phishing inviate da indirizzi simili a quelli reali",
+      "Voci e video clonati per impersonare i dirigenti",
+      "Siti web copiati con domini quasi identici agli originali"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "I deepfake clonano voce e video di dirigenti per autorizzare bonifici fraudolenti (caso CFO Hong Kong 2024: 25M USD rubati). La A descrive macro malware tradizionali, non deepfake. La B identifica il phishing classico con typosquatting, senza componente AI generativa. La D descrive il pharming/sito clone, vettore separato dal deepfake audiovisivo."
+  },
+  {
+    "id": 40,
+    "categoria": "Web Security (XSS)",
+    "domanda": "A cosa serve il flag HttpOnly su un cookie di sessione?",
+    "risposte": [
+      "Cifrare automaticamente il valore del cookie con TLS",
+      "Forzare l'utente a riautenticarsi ogni dieci minuti",
+      "Inviare il cookie soltanto verso il dominio di origine",
+      "Impedire l'accesso al cookie tramite JavaScript"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "HttpOnly rende il cookie inaccessibile a document.cookie, mitigando il furto di sessione tramite XSS. La A è il ruolo del flag Secure (e di TLS in generale), non di HttpOnly. La B descrive politiche di expiration o idle timeout, non l'HttpOnly. La C corrisponde al flag SameSite, che controlla l'invio cross-site del cookie."
+  },
+  {
+    "id": 41,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Quale tipo di violazione ha rappresentato il data breach di Yahoo nel 2013?",
+    "risposte": [
+      "Violazione della Confidenzialità per esposizione account utente",
+      "Violazione dell'Integrità per modifica dei messaggi conservati",
+      "Violazione della Disponibilità per blocco totale del sistema mail",
+      "Violazione del non-ripudio in operazioni di firma digitale utente"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il breach Yahoo del 2013 espose 3 miliardi di account compromettendo la riservatezza dei dati. La B descrive una violazione di Integrità che si verifica con tampering o ransomware, non con un data leak. La C corrisponde a scenari come DDoS o cifratura ransomware, non al furto di credenziali. La D non è nemmeno parte della CIA triad classica e non rappresenta ciò che è accaduto in Yahoo."
+  },
+  {
+    "id": 42,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Cosa verifica il controllo DMARC su un'email ricevuta?",
+    "risposte": [
+      "Indica l'allineamento tra il dominio mittente, SPF e DKIM",
+      "Indica la dimensione massima degli allegati ammessi nel messaggio",
+      "Indica che il messaggio non superi una lunghezza massima totale",
+      "Indica che l'oggetto contenga parole chiave non sospette"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "DMARC verifica l'allineamento tra il dominio del From: e i risultati di SPF/DKIM, applicando una policy (none/quarantine/reject) in caso di fallimento. La B confonde con limiti antispam su allegati, gestiti dal MTA. La C riguarda dimensioni dei messaggi, non l'autenticazione del mittente. La D descrive filtri antispam basati su keyword, non un protocollo di autenticazione del dominio."
+  },
+  {
+    "id": 43,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Quale tra queste è una corretta combinazione di fattori MFA?",
+    "risposte": [
+      "Una password unita a un codice TOTP generato dall'app autenticatore",
+      "Una password seguita da una domanda di sicurezza personale dell'utente",
+      "Due password complesse memorizzate dall'utente per servizi differenti",
+      "Due impronte digitali registrate su dispositivi sicuri diversi"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La combinazione password ('qualcosa che sai') + TOTP ('qualcosa che hai') usa due categorie distinte, rispettando la definizione di MFA. La B combina due elementi della stessa categoria 'qualcosa che sai', quindi non è vero MFA. La C usa due volte la stessa categoria, non aggiunge un fattore distinto. La D usa due elementi entrambi della categoria 'qualcosa che sei', sempre stessa tipologia."
+  },
+  {
+    "id": 44,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Quale algoritmo è considerato sicuro per l'hashing delle password nel 2025?",
+    "risposte": [
+      "MD5, veloce e ampiamente diffuso in molti linguaggi",
+      "Argon2id, vincitore della Password Hashing Competition",
+      "SHA-1, ancora supportato da diverse librerie legacy",
+      "CRC32, semplice da implementare in sistemi embedded leggeri"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Argon2id è il vincitore della PHC 2015 ed è memory-hard, resistente a GPU e ASIC, raccomandato da OWASP. La A è insicura: MD5 ha collisioni note ed è troppo veloce per le password. La C è deprecato per uso crittografico e altrettanto rapido da brute-forzare. La D non è nemmeno un hash crittografico ma un checksum per integrità, completamente inadatto."
+  },
+  {
+    "id": 45,
+    "categoria": "VPN e Privacy",
+    "domanda": "Da cosa NON protegge una VPN, anche se ben configurata?",
+    "risposte": [
+      "Dall'intercettazione del traffico su WiFi pubblico",
+      "Dal phishing tramite email apparentemente legittime ricevute",
+      "Dal tracciamento dell'ISP nelle attività di navigazione",
+      "Dall'osservazione del traffico da parte di un attaccante locale"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La VPN cifra il tunnel di rete ma non analizza il contenuto delle email né blocca attacchi di social engineering. La A è proprio uno dei benefici principali della VPN. La C è ciò che la VPN risolve sostituendo il proprio operatore come visibilità del traffico. La D è esattamente ciò che il tunnel cifrato impedisce: un attaccante sulla rete locale vede solo traffico cifrato."
+  },
+  {
+    "id": 46,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "A cosa serve principalmente lo strumento Nmap nel pentesting?",
+    "risposte": [
+      "A modificare gli IP dei pacchetti in uscita verso Internet",
+      "A scansionare host e porte aperte per la ricognizione di rete",
+      "A cifrare il traffico tra il client e il server di destinazione",
+      "A bloccare il traffico malevolo verso i server pubblicati in DMZ"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Nmap è lo strumento standard per port scanning, host discovery, service e OS fingerprinting, usato sia da admin che da pentester. La A descrive funzioni di NAT, non di Nmap. La C corrisponde a TLS o VPN, totalmente fuori scopo. La D è ciò che fa un firewall o un IPS, l'opposto della funzione ricognitiva offensiva di Nmap."
+  },
+  {
+    "id": 47,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Quale tra queste NON è una base giuridica valida per il trattamento secondo il GDPR?",
+    "risposte": [
+      "Il legittimo interesse del titolare del trattamento",
+      "L'esecuzione di un contratto con l'interessato del trattamento",
+      "Il piacere personale del responsabile del trattamento dei dati",
+      "L'adempimento di un obbligo legale a cui è soggetto il titolare"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'Art. 6 GDPR elenca sei basi giuridiche tassative; il 'piacere personale' non vi rientra ed è anzi l'opposto del principio di liceità. La A è una base esplicitamente prevista, da bilanciare con i diritti dell'interessato. La B è la base contrattuale, una delle più comuni nella pratica. La D è l'obbligo legale, base giuridica autonoma per trattamenti imposti da norme."
+  },
+  {
+    "id": 48,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Quale tra queste è una delle 10 misure minime di sicurezza richieste da NIS2?",
+    "risposte": [
+      "Il bilancio di esercizio firmato dal CEO della società",
+      "L'organizzazione periodica di eventi promozionali con i clienti",
+      "Politiche di gestione del rischio ICT documentate e aggiornate",
+      "L'apertura di un negozio fisico in tutte le capitali europee"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "NIS2 richiede policy di gestione del rischio ICT documentate tra le 10 misure minime, insieme a gestione incidenti, business continuity e security testing. La A è un obbligo civilistico-fiscale per le società, estraneo alla cyber-resilienza. La B è attività di marketing, totalmente fuori scopo. La D non ha nessun nesso con i requisiti di sicurezza cibernetica della direttiva."
+  },
+  {
+    "id": 49,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Cos'è una prompt injection diretta in un'applicazione basata su LLM?",
+    "risposte": [
+      "Cifratura del modello AI tramite un algoritmo simmetrico",
+      "Un documento contiene istruzioni nascoste eseguite senza filtri",
+      "L'utente chiede direttamente di ignorare le istruzioni iniziali",
+      "L'AI viene allenata su dati pubblici acquisiti senza autorizzazione"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "Nella prompt injection diretta l'utente inserisce nel prompt comandi che cercano di scavalcare le istruzioni di sistema (es. 'Ignora le istruzioni precedenti'). La A confonde con problemi di model security o model theft, distinti dalla prompt injection. La B descrive la prompt injection INDIRETTA, che viene da contenuti esterni. La D è il Training Data Poisoning, un altro rischio dell'OWASP LLM Top 10."
+  },
+  {
+    "id": 50,
+    "categoria": "Secure Coding",
+    "domanda": "Dove dovrebbe avvenire la validazione degli input dell'utente nel codice?",
+    "risposte": [
+      "Soltanto sul lato client perché più veloce e immediato per l'utente",
+      "Soltanto al deployment sull'ambiente di produzione live",
+      "Nessuna validazione, affidandosi solo al WAF perimetrale",
+      "Lato server, anche se già validato preliminarmente sul client"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "La validazione server-side è non negoziabile perché il client è untrusted e può essere modificato o bypassato dall'attaccante (es. con Burp Suite). La A è un classico anti-pattern: un attaccante invia la richiesta senza passare dalla UI. La B non ha senso: la validazione è runtime, non un controllo da deploy. La C è errata: il WAF è difesa in profondità, non sostituisce la validazione applicativa."
+  },
+  {
+    "id": 51,
+    "categoria": "Web Security (XSS)",
+    "domanda": "Quale misura mitiga il furto del cookie di sessione anche se un XSS riesce?",
+    "risposte": [
+      "Una CSP permissiva con direttiva unsafe-inline abilitata sempre",
+      "Un browser moderno aggiornato senza ulteriori configurazioni",
+      "Solo il flag Secure applicato ai cookie senza HttpOnly attivo",
+      "Il flag HttpOnly applicato ai cookie di sessione del sito web"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "HttpOnly impedisce a document.cookie di restituire il valore, mitigando il furto della sessione anche in caso di XSS riuscito. La A è esattamente ciò che vanifica la CSP: unsafe-inline permette gli script iniettati. La B è insufficiente: i browser moderni hanno rimosso il XSS auditor proprio perché aggirabile. La C protegge dal MitM in chiaro ma non impedisce a uno script malevolo di leggere il cookie."
+  },
+  {
+    "id": 52,
+    "categoria": "Fondamenti di Cybersecurity",
+    "domanda": "Cosa significa il principio per cui 'la sicurezza al 100% non esiste'?",
+    "risposte": [
+      "La sicurezza si gestisce come un processo di gestione del rischio",
+      "Tutti i sistemi vanno disconnessi dalla rete il prima possibile",
+      "Non bisogna spendere alcun budget nella sicurezza informatica",
+      "Bisogna affidarsi solo a sistemi proprietari per la sicurezza totale"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La sicurezza è un processo continuo di valutazione e mitigazione del rischio, non uno stato raggiungibile. La B è irrealistico e renderebbe inutilizzabile qualunque sistema produttivo. La C è opposta al principio: la sicurezza richiede investimento proporzionale al rischio. La D è il classico errore della security by obscurity: il software proprietario non è intrinsecamente più sicuro di quello open source."
+  },
+  {
+    "id": 53,
+    "categoria": "Phishing e Ingegneria Sociale",
+    "domanda": "Cosa indica un display name spoofing in un'email di phishing?",
+    "risposte": [
+      "Il nome visualizzato del mittente viene falsificato dall'attaccante",
+      "L'oggetto del messaggio contiene caratteri Unicode invisibili nascosti",
+      "L'allegato presenta una doppia estensione per simulare un PDF lecito",
+      "Il link nel messaggio reindirizza tramite un URL shortener generico"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "Il display name spoofing falsifica solo il nome 'amichevole' visibile, mentre il dominio raw resta diverso da quello legittimo. La B descrive un homoglyph attack o Unicode spoofing nel testo, tecnica differente. La C è il 'double extension trick', tipico di malware in allegato. La D descrive l'uso di URL shortener per nascondere il dominio reale del link."
+  },
+  {
+    "id": 54,
+    "categoria": "Password e Autenticazione",
+    "domanda": "Cosa raccomanda il NIST sulle policy moderne per le password aziendali?",
+    "risposte": [
+      "Cambiare la password ogni 30 giorni come buona prassi minima",
+      "Non imporre la rotazione obbligatoria senza un motivo specifico",
+      "Richiedere sempre almeno cinque caratteri speciali nella password",
+      "Vietare l'uso di password manager per evitare punti di compromissione"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "Il NIST SP 800-63B sconsiglia la rotazione periodica obbligatoria perché induce a password più deboli e prevedibili. La A è esattamente la prassi che il NIST ha abbandonato. La C è una regola di complessità ormai deprecata: meglio lunghezza ed entropia che simboli forzati. La D va contro le raccomandazioni: i password manager sono lo strumento consigliato."
+  },
+  {
+    "id": 55,
+    "categoria": "Crittografia e HTTPS",
+    "domanda": "Cos'è la forward secrecy garantita da TLS 1.3?",
+    "risposte": [
+      "Un meccanismo che cifra i certificati X.509 prima dell'handshake",
+      "L'uso di chiavi effimere che proteggono sessioni passate compromesse",
+      "Una funzione che permette di decifrare velocemente il traffico HTTP",
+      "Un protocollo che invia in anticipo la chiave pubblica al client per verifica"
+    ],
+    "rispostaCorretta": 1,
+    "spiegazione": "La forward secrecy usa scambi ephemeral (ECDHE) per sessione: anche compromettendo poi la chiave privata del server, le sessioni passate restano protette. La A è inventata: i certificati nell'handshake TLS sono trasmessi non cifrati prima dell'inizio del canale. La C è opposto: la PFS non facilita affatto la decifratura. La D inverte la logica: la chiave pubblica è nel certificato del server, non c'è 'anticipo' speciale."
+  },
+  {
+    "id": 56,
+    "categoria": "Networking e Difesa Perimetrale",
+    "domanda": "Cosa fa una VLAN nel contesto della segmentazione di rete?",
+    "risposte": [
+      "Cifra il traffico tra i dispositivi di un singolo switch fisico aziendale",
+      "Sostituisce il firewall perimetrale assicurando funzionalità simili",
+      "Divide logicamente lo stesso switch in più reti separate distinte",
+      "Permette di assegnare automaticamente gli indirizzi IP ai client"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "La VLAN segmenta logicamente uno o più switch fisici in reti separate (es. VLAN HR, IT, Guest), limitando il lateral movement. La A è errata: la VLAN segmenta, non cifra (cifratura è IPSec/MACsec). La B è falsa: la VLAN è una segmentazione di livello 2, non sostituisce il firewall. La D corrisponde alla funzione del DHCP, non della VLAN."
+  },
+  {
+    "id": 57,
+    "categoria": "GDPR e Privacy",
+    "domanda": "Cosa deve contenere il Registro dei Trattamenti previsto dall'Art. 30 GDPR?",
+    "risposte": [
+      "Solo l'elenco degli utenti che hanno dato il consenso esplicito",
+      "Il fatturato annuale dell'azienda e l'elenco completo del personale",
+      "Finalità del trattamento, categorie di interessati e conservazione",
+      "Solo il nome del DPO e l'indirizzo della sede legale della società"
+    ],
+    "rispostaCorretta": 2,
+    "spiegazione": "L'Art. 30 GDPR impone al titolare un registro con finalità, categorie di interessati e dati, destinatari, trasferimenti, termini di conservazione e misure di sicurezza. La A è un elenco molto parziale, non sufficiente. La B mescola dati di natura societaria che non sono richiesti dall'Art. 30. La D è incompleto: nome del DPO e sede non bastano da soli."
+  },
+  {
+    "id": 58,
+    "categoria": "NIS2 e DORA",
+    "domanda": "Quale tra questi è uno dei 5 pilastri di DORA?",
+    "risposte": [
+      "L'obbligo di pubblicare i dati finanziari sui social network ufficiali",
+      "Il sostegno economico ai dipendenti per acquistare hardware moderno",
+      "L'apertura di nuove filiali bancarie in ogni comune italiano sopra 1000 abitanti",
+      "La gestione del rischio derivante dalle terze parti ICT critiche aziendali"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "DORA ha 5 pilastri: ICT risk management, gestione incidenti, TLPT, rischio terze parti ICT, condivisione informazioni. La A è disclosure di natura finanziaria, estranea a DORA. La B è un benefit aziendale, irrilevante per la resilienza operativa. La C è una scelta di rete commerciale bancaria, non un requisito DORA."
+  },
+  {
+    "id": 59,
+    "categoria": "AI e Cybersecurity",
+    "domanda": "Quale rischio è elencato dall'OWASP LLM Top 10 come LLM01?",
+    "risposte": [
+      "Acquisto fraudolento di nuovi modelli di AI nel mercato grigio digitale",
+      "Furto fisico dell'hardware su cui gira il modello AI deployato",
+      "Furto di credenziali bancarie generate dal modello dell'utente",
+      "Iniezione di istruzioni malevole nei prompt forniti al modello"
+    ],
+    "rispostaCorretta": 3,
+    "spiegazione": "LLM01 nell'OWASP Top 10 for LLM è la Prompt Injection, classificata come rischio più rilevante per applicazioni basate su modelli generativi. La A è più affine a problemi di Supply Chain (LLM05) o Model Theft (LLM10). La B è un attacco fisico, non un rischio specifico LLM. La C confonde con altri attacchi: la credential theft tramite AI non è LLM01 ma rientra in altri vettori."
+  },
+  {
+    "id": 60,
+    "categoria": "Web Security (XSS)",
+    "domanda": "Cosa permette di fare un Content Security Policy con la direttiva 'nonce'?",
+    "risposte": [
+      "Autorizzare solo script con il valore casuale generato dal server",
+      "Bloccare ogni script ed eseguire soltanto i contenuti HTML statici",
+      "Disabilitare totalmente CSP per i percorsi indicati nella policy",
+      "Cifrare il payload degli script con una chiave casuale a runtime"
+    ],
+    "rispostaCorretta": 0,
+    "spiegazione": "La direttiva nonce autorizza solo gli script che presentano un valore casuale coincidente con quello dichiarato nell'header CSP. La B descrive una CSP estremamente restrittiva senza nonce (script-src 'none'), non l'uso del nonce. La C è un anti-pattern: rimuoverebbe la protezione. La D confonde l'autorizzazione (CSP) con la cifratura (TLS): la CSP non cifra nulla."
+  }
+]

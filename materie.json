@@ -29,4 +29,10 @@
     "cartella": "domande/infra",
     "formato": "standard"
   }
+  {
+    "id": "cybersecurity",
+    "nome": "Sicurezza Informatica",
+    "cartella": "domande/cybersecurity",
+    "formato": "standard"
+  }
 ]
