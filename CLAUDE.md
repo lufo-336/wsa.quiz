@@ -15,10 +15,14 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 
 ## Stato attuale
 
-**Step 7 + Step 9 completi. Step 8 ancora parziale.** Due tentativi falliti
-sulla navigazione tastiera nelle liste/Home (vedi sezione Step 8 e
-Trappola 13). Step 9: tab Statistiche con heatmap punti deboli per
-categoria + drill-down domande sbagliate (no LiveCharts2, no grafici veri).
+**Step 7 + Step 9 completi + Extra "tempo" (2026-06-03). Step 8 ancora
+parziale.** Due tentativi falliti sulla navigazione tastiera nelle liste/Home
+(vedi sezione Step 8 e Trappola 13). Step 9: tab Statistiche con heatmap punti
+deboli per categoria + drill-down domande sbagliate (no LiveCharts2, no grafici
+veri). Extra 2026-06-03: la modale pausa **congela il cronometro** (riparte su
+Annulla) e c'è una **modalità a tempo** (countdown in alto, ambra <60s / rosso
+<10s; allo scadere la partita termina subito, esito "Tempo scaduto", combinabile
+con tutte le altre opzioni). Vedi sezione roadmap "Extra".
 
 L'app Avalonia ha navigazione tastiera completa **dentro il quiz**:
 `A/B/C/D` rispondono direttamente, `↑/↓` evidenziano una risposta con bordo
@@ -402,9 +406,36 @@ rotazione. Servizio puro in `Wsa.Quiz.Core.Services.StatisticheService`.
 Smoke test 2026-05-18: ok complessivo, `Esc` su drill-down funziona.
 Spec: `docs/superpowers/specs/2026-05-18-step9-grafici-statistiche-design.md`.
 
+### ✅ Extra (2026-06-03) — Pausa congela timer + Modalità a tempo
+Due funzionalità richieste fuori roadmap:
+- **Pausa congela il cronometro**: `SessioneQuiz.SospendiCronometro()` /
+  `RiprendiCronometro()`. `QuizView.ApriMenuPausaAsync` sospende prima di
+  aprire la modale e riprende solo sul ramo "Annulla". Usa `Stopwatch.Stop()/
+  Start()` (accumula → nessuna aritmetica di offset). Abbandona/Salva non
+  riprendono (la sessione finisce/esporta, `Stop()` idempotenti).
+- **Modalità a tempo**: `OpzioniQuiz.LimiteTempoMinuti` (0 = off). Quando >0 il
+  cronometro fa il **countdown** (visibile anche con "Mostra cronometro" off);
+  colore via `QuizColors.TempoRimanente` (neutro, ambra ≤60s, rosso ≤10s),
+  bindato a `SessioneQuiz.TempoBrush`. Allo scadere `AggiornaTempo` chiama
+  `Concludi(abbandonato:false, tempoScaduto:true)` → **termina subito**; la
+  domanda corrente non ancora risposta NON è conteggiata (non è in `Dettagli`).
+  `RisultatoQuiz.TempoScaduto` (additivo) guida titolo "Tempo scaduto" nel
+  Riepilogo e badge ambra "⏱ Tempo scaduto" in Cronologia (precede `Concluso`,
+  dopo `Abbandonato`). Home: checkbox "Modalità a tempo" + NumericUpDown minuti
+  (1–180, default 10), a specchio di "Limita a N domande". Pausa+ripresa
+  coerenti: l'elapsed cavalca `_offsetCronometro`/`pausa.TempoTrascorso`, il
+  limite vive in `pausa.Opzioni` — nessun nuovo campo in `SessionePausa`.
+  `MostraTempo => Cronometro || HaLimiteTempo`; il timer parte su `MostraTempo`.
+  CLI invariato (campi default neutri). Spec/plan in `docs/superpowers/`
+  (`2026-06-03-pausa-timer-modalita-a-tempo*`). Build verde; smoke test
+  interattivo confermato da Luca.
+
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
-nelle preferenze utente (step 13).
+nelle preferenze utente (step 13). **Nota da fare in questo step**: il
+cronometro non a tempo ora ha `Foreground` bindato a `TempoBrush`, il cui
+default `QuizColors.TempoNeutro` è hex hard-coded `#1F1F1F` (leggibile solo in
+tema chiaro). In dark mode va reso theme-aware (stessa famiglia di Trappola 9).
 
 ### ⏳ Step 11 — Esportazione e filtri cronologia
 Export CSV/JSON (utile come backup pre-svuotamento). Filtri per materia,
