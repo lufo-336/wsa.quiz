@@ -170,6 +170,23 @@
                                        Text="domande (estratte casualmente)"
                                        VerticalAlignment="Center"/>
                         </Grid>
+
+                        <Grid ColumnDefinitions="Auto,Auto,Auto" Margin="0,4,0,0">
+                            <CheckBox Content="Modalità a tempo"
+                                      IsChecked="{Binding ModalitaTempo, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      ToolTip.Tip="Allo scadere dei minuti la partita termina automaticamente. Combinabile con le altre opzioni."/>
+                            <NumericUpDown Grid.Column="1"
+                                           Minimum="1" Maximum="180"
+                                           Value="{Binding MinutiTempo, Mode=TwoWay}"
+                                           Increment="5"
+                                           Width="120"
+                                           Margin="10,0,8,0"
+                                           IsEnabled="{Binding ModalitaTempo}"/>
+                            <TextBlock Grid.Column="2"
+                                       Text="minuti"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
                     </StackPanel>
                 </Border>
 
