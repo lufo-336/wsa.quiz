@@ -156,8 +156,8 @@ public class SessioneQuiz : ObservableObject
     /// <summary>True se è attiva la modalità a tempo.</summary>
     public bool HaLimiteTempo => Opzioni.LimiteTempoMinuti > 0;
 
-    private IBrush _tempoBrush = QuizColors.TempoNeutro;
     /// <summary>Colore del testo del cronometro: neutro, o ambra/rosso in modalità a tempo vicino alla scadenza.</summary>
+    private IBrush _tempoBrush = QuizColors.TempoNeutro;
     public IBrush TempoBrush { get => _tempoBrush; private set => SetField(ref _tempoBrush, value); }
 
     public ObservableCollection<RispostaItem> Risposte { get; } = new();
