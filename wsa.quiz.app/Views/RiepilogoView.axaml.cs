@@ -48,10 +48,14 @@ public partial class RiepilogoView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         _risultato = risultato;
 
-        Titolo = risultato.Abbandonato ? "Quiz abbandonato" : "Quiz concluso";
+        Titolo = risultato.Abbandonato ? "Quiz abbandonato"
+               : risultato.TempoScaduto ? "Tempo scaduto"
+               : "Quiz concluso";
         Sottotitolo = risultato.Abbandonato
             ? "Hai abbandonato la sessione. Le risposte gia' date sono state comunque salvate."
-            : "Ecco com'e' andata.";
+            : risultato.TempoScaduto
+                ? "Il tempo e' scaduto. Ecco com'e' andata fino a qui."
+                : "Ecco com'e' andata.";
 
         PercentualeFormattata = $"{Math.Round(risultato.PercentualeCorrette)}%";
         ColorePercentuale = QuizColors.Percentuale(risultato.PercentualeCorrette);

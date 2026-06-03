@@ -131,6 +131,10 @@
                                                    FontSize="10"
                                                    Foreground="#B85450"
                                                    IsVisible="{Binding Abbandonato}"/>
+                                        <TextBlock Text="⏱ Tempo scaduto"
+                                                   FontSize="10"
+                                                   Foreground="#B8860B"
+                                                   IsVisible="{Binding TempoScaduto}"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="2" Spacing="2" VerticalAlignment="Center">
