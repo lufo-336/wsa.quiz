@@ -73,6 +73,20 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
         set { if (_limiteN != value) { _limiteN = value; Raise(); AggiornaRiepilogo(); } }
     }
 
+    private bool _modalitaTempo;
+    public bool ModalitaTempo
+    {
+        get => _modalitaTempo;
+        set { if (_modalitaTempo != value) { _modalitaTempo = value; Raise(); AggiornaRiepilogo(); } }
+    }
+
+    private decimal _minutiTempo = 10;
+    public decimal MinutiTempo
+    {
+        get => _minutiTempo;
+        set { if (_minutiTempo != value) { _minutiTempo = value; Raise(); AggiornaRiepilogo(); } }
+    }
+
     // ------------------------------------------------------------------ STATO DERIVATO (per UI)
 
     public bool NessunaCategoriaDisponibile => CategorieVisibili.Count == 0;
@@ -289,9 +303,13 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
             ? $"{disponibili} domande"
             : $"{giocate} domande (limitate da {disponibili})";
 
+        string testoTempo = (ModalitaTempo && (int)MinutiTempo > 0)
+            ? $"  ·  max {(int)MinutiTempo} min"
+            : string.Empty;
+
         RiepilogoSelezione = nMaterie == 0
             ? testoMaterie
-            : $"{testoMaterie}  ·  {testoCat}  ·  {testoDom}";
+            : $"{testoMaterie}  ·  {testoCat}  ·  {testoDom}{testoTempo}";
 
         if (nMaterie == 0)            AvvisoSelezione = "Seleziona almeno una materia per avviare un quiz.";
         else if (disponibili == 0)    AvvisoSelezione = "Nessuna domanda corrisponde ai filtri scelti.";
@@ -328,6 +346,7 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
             Rotazione               = Rotazione,
             Cronometro              = Cronometro,
             LimiteDomande           = LimitaDomande ? (int)LimiteN : 0,
+            LimiteTempoMinuti       = ModalitaTempo ? (int)MinutiTempo : 0,
             Categorie               = catSel.Select(c => c.ChiaveCombinata).ToList(),
             Materie                 = materieSel.Select(m => m.Id).ToList()
         };

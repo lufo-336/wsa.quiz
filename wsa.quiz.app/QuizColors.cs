@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Media;
 
 namespace Wsa.Quiz.App;
@@ -21,6 +22,10 @@ public static class QuizColors
     private static readonly IBrush _verdeBrush  = new SolidColorBrush(Color.Parse(Verde));
     private static readonly IBrush _ambraBrush  = new SolidColorBrush(Color.Parse(Ambra));
     private static readonly IBrush _rossoBrush  = new SolidColorBrush(Color.Parse(Rosso));
+
+    // Colore neutro del testo (usato dal cronometro fuori soglia di allerta).
+    public const string TestoNeutro = "#1F1F1F";
+    private static readonly IBrush _neutroBrush = new SolidColorBrush(Color.Parse(TestoNeutro));
 
     // Sfondi tenui per le celle della heatmap statistiche (step 9).
     private static readonly IBrush _verdeBrushSfondo = new SolidColorBrush(Color.Parse("#E5F4EC"));
@@ -66,4 +71,18 @@ public static class QuizColors
     {
         return corretto ? _verdeBrush : _rossoBrush;
     }
+
+    /// <summary>
+    /// Colore del countdown in modalità a tempo in base al tempo rimanente:
+    /// rosso &lt;= 10s, ambra &lt;= 60s, neutro oltre.
+    /// </summary>
+    public static IBrush TempoRimanente(TimeSpan rimanente)
+    {
+        if (rimanente.TotalSeconds <= 10) return _rossoBrush;
+        if (rimanente.TotalSeconds <= 60) return _ambraBrush;
+        return _neutroBrush;
+    }
+
+    /// <summary>Colore neutro del cronometro (modalità non a tempo / countdown sopra soglia).</summary>
+    public static IBrush TempoNeutro => _neutroBrush;
 }

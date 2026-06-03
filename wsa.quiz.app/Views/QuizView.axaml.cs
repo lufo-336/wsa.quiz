@@ -146,6 +146,8 @@ public partial class QuizView : UserControl
     /// </summary>
     private async Task ApriMenuPausaAsync()
     {
+        _sessione.SospendiCronometro();
+
         var dialog = new PausaDialog();
         var owner = TopLevel.GetTopLevel(this) as Window;
         if (owner != null)
@@ -176,6 +178,7 @@ public partial class QuizView : UserControl
                 return;
 
             default: // Annulla
+                _sessione.RiprendiCronometro();
                 return;
         }
     }

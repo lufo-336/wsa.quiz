@@ -27,6 +27,7 @@ public class RisultatoCronologiaItem : ObservableObject, IConfermaEliminazione
     public string DurataFormattata { get; }
     public string Conteggio { get; }
     public bool Abbandonato { get; }
+    public bool TempoScaduto { get; }
     public string StatoEtichetta { get; }
 
     // ------------------------------------------------------------------ STATO CONFERMA ELIMINA
@@ -65,7 +66,10 @@ public class RisultatoCronologiaItem : ObservableObject, IConfermaEliminazione
         Conteggio = $"{r.RisposteCorrette} / {r.TotaleDomande}";
 
         Abbandonato = r.Abbandonato;
-        StatoEtichetta = r.Abbandonato ? "Abbandonato" : "Concluso";
+        TempoScaduto = r.TempoScaduto;
+        StatoEtichetta = r.Abbandonato ? "Abbandonato"
+                       : r.TempoScaduto ? "Tempo scaduto"
+                       : "Concluso";
     }
 
 }

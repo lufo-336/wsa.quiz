@@ -23,6 +23,8 @@ public class RisultatoQuiz
     public double PercentualeCorrette { get; set; }
     public TimeSpan DurataQuiz { get; set; }
     public bool Abbandonato { get; set; }
+    /// <summary>True se la sessione è terminata per scadenza del limite di tempo (modalità a tempo). Additivo: i record JSON vecchi restano deserializzabili.</summary>
+    public bool TempoScaduto { get; set; }
     public bool ModalitaRotazione { get; set; }
     public bool CronometroAttivo { get; set; }
     public int Punteggio { get; set; }
