@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using Avalonia.Media;
 using Avalonia.Threading;
 using Wsa.Quiz.Core.Models;
 using Wsa.Quiz.Core.Services;
@@ -150,7 +151,14 @@ public class SessioneQuiz : ObservableObject
     public string Tempo { get => _tempo; private set => SetField(ref _tempo, value); }
 
     /// <summary>Visibilita' del cronometro nell'header.</summary>
-    public bool MostraTempo => Opzioni.Cronometro;
+    public bool MostraTempo => Opzioni.Cronometro || HaLimiteTempo;
+
+    /// <summary>True se è attiva la modalità a tempo.</summary>
+    public bool HaLimiteTempo => Opzioni.LimiteTempoMinuti > 0;
+
+    private IBrush _tempoBrush = QuizColors.TempoNeutro;
+    /// <summary>Colore del testo del cronometro: neutro, o ambra/rosso in modalità a tempo vicino alla scadenza.</summary>
+    public IBrush TempoBrush { get => _tempoBrush; private set => SetField(ref _tempoBrush, value); }
 
     public ObservableCollection<RispostaItem> Risposte { get; } = new();
 
@@ -294,7 +302,7 @@ public class SessioneQuiz : ObservableObject
 
         _inizio = DateTime.Now - _offsetCronometro;
         _cron.Start();
-        if (Opzioni.Cronometro) _timer.Start();
+        if (MostraTempo) _timer.Start();
 
         CaricaProssimaDomanda();
     }
@@ -446,12 +454,13 @@ public class SessioneQuiz : ObservableObject
 
     // ------------------------------------------------------------------ CHIUSURA
 
-    private void Concludi(bool abbandonato)
+    private void Concludi(bool abbandonato, bool tempoScaduto = false)
     {
         _cron.Stop();
         _timer.Stop();
         Abbandonato = abbandonato;
         Risultato.Abbandonato = abbandonato;
+        Risultato.TempoScaduto = tempoScaduto;
         Risultato.DurataQuiz = _cron.Elapsed + _offsetCronometro;
 
         if (Opzioni.Rotazione)
@@ -479,8 +488,25 @@ public class SessioneQuiz : ObservableObject
 
     private void AggiornaTempo()
     {
-        var t = _cron.Elapsed + _offsetCronometro;
-        Tempo = QuizService.FormattaDurata(t);
+        var elapsed = _cron.Elapsed + _offsetCronometro;
+
+        if (HaLimiteTempo)
+        {
+            var rimanente = TimeSpan.FromMinutes(Opzioni.LimiteTempoMinuti) - elapsed;
+            if (rimanente <= TimeSpan.Zero)
+            {
+                Tempo = "00:00";
+                TempoBrush = QuizColors.TempoRimanente(TimeSpan.Zero);
+                Concludi(abbandonato: false, tempoScaduto: true);
+                return;
+            }
+            Tempo = QuizService.FormattaDurata(rimanente);
+            TempoBrush = QuizColors.TempoRimanente(rimanente);
+        }
+        else
+        {
+            Tempo = QuizService.FormattaDurata(elapsed);
+        }
     }
 
     // ------------------------------------------------------------------ SOSPENSIONE TEMPORANEA (modale pausa)
