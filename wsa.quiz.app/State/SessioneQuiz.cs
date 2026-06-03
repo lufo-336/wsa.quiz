@@ -483,6 +483,26 @@ public class SessioneQuiz : ObservableObject
         Tempo = QuizService.FormattaDurata(t);
     }
 
+    // ------------------------------------------------------------------ SOSPENSIONE TEMPORANEA (modale pausa)
+
+    /// <summary>
+    /// Congela cronometro e timer mentre la modale pausa è aperta. Non produce
+    /// uno snapshot: la sessione resta viva. <see cref="Stopwatch"/> accumula,
+    /// quindi al <see cref="RiprendiCronometro"/> il tempo riparte da dov'era.
+    /// </summary>
+    public void SospendiCronometro()
+    {
+        _cron.Stop();
+        _timer.Stop();
+    }
+
+    /// <summary>Riprende cronometro e timer dopo "Annulla" sulla modale pausa.</summary>
+    public void RiprendiCronometro()
+    {
+        _cron.Start();
+        if (MostraTempo) _timer.Start();
+    }
+
     // ------------------------------------------------------------------ PAUSA: ESPORTA / RIPRENDI
 
     /// <summary>
