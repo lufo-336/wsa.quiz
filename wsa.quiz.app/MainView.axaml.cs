@@ -14,7 +14,7 @@ namespace Wsa.Quiz.App;
 /// il TabControl con le tre sezioni (Home / Cronologia / Sospesi)
 /// e la transizione fra Home / Quiz / Riepilogo all'interno del tab Home.
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainView : UserControl
 {
     private StorageService? _storage;
     private List<Materia> _materie = new();
@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     private SospesiView? _sospesiView;
     private StatisticheView? _statisticheView;
 
-    public MainWindow()
+    public MainView()
     {
         InitializeComponent();
         Caricamento();

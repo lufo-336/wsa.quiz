@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wsa.quiz.desktop", "wsa.qui
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Desktop", "wsa.quiz.desktop\Wsa.Quiz.Desktop.csproj", "{F9F7A277-D53D-4382-833C-64385D383BE0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wsa.quiz.app", "wsa.quiz.app", "{9F809A16-5176-7222-A7F6-2508198F2C99}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
