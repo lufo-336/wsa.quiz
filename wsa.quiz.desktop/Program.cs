@@ -1,18 +1,17 @@
 using Avalonia;
 using System;
 
-namespace Wsa.Quiz.App;
+namespace Wsa.Quiz.Desktop;
 
 internal class Program
 {
-    // Inizializzazione richiesta da Avalonia: deve essere il primo statement di Main,
-    // STAThread per compatibilita' con clipboard e dialog su Windows.
+    // STAThread per compatibilita' clipboard/dialog su Windows.
     [STAThread]
     public static void Main(string[] args)
         => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
 
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
+        => AppBuilder.Configure<Wsa.Quiz.App.App>()
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();
