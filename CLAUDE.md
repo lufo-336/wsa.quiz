@@ -15,6 +15,13 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 
 ## Stato attuale
 
+**Port Android M1 completo a livello di codice (2026-06-18): APK firmato
+prodotto, emulatore non eseguibile su questa VM.** Vedi roadmap "Port Android —
+M1" e Trappole 14–16. La struttura ora è una **libreria UI condivisa
+(`Wsa.Quiz.App`) + 2 head** (`Wsa.Quiz.Desktop`, `Wsa.Quiz.Android`): le sezioni
+"Layout repo"/"Stack" più sotto parlano ancora di "tre progetti/csproj" — è
+stale rispetto a M1 (ora 5 progetti), non ancora riscritte.
+
 **Step 7 + Step 9 completi + Extra "tempo" (2026-06-03). Step 8 ancora
 parziale.** Due tentativi falliti sulla navigazione tastiera nelle liste/Home
 (vedi sezione Step 8 e Trappola 13). Step 9: tab Statistiche con heatmap punti
@@ -430,6 +437,24 @@ Due funzionalità richieste fuori roadmap:
   (`2026-06-03-pausa-timer-modalita-a-tempo*`). Build verde; smoke test
   interattivo confermato da Luca.
 
+### ✅ Port Android — M1 (2026-06-18, *codice completo; APK firmato prodotto*)
+`Wsa.Quiz.App` declassata a **libreria UI condivisa**; due head sottili la
+consumano: `Wsa.Quiz.Desktop` (eseguibile Windows, invariato) e
+`Wsa.Quiz.Android` (APK). `MainWindow`→`MainView : UserControl`,
+`App.OnFrameworkInitializationCompleted` sceglie il lifetime
+(desktop = `Window`; Android = single-view `MainView`). Solution flat a 5
+progetti (Core, App, Cli, Desktop, Android). `dotnet build Wsa.Quiz.sln -c Debug`
+verde su tutti. **APK installabile** via `dotnet build wsa.quiz.android -c Release`
+→ `bin/Release/net10.0-android/it.eduits.wsaquiz-Signed.apk` (~29 MB, firmato,
+verificato con `apksigner`). Adattamenti al piano dovuti all'API Avalonia 12 e
+al setup APK: vedi **Trappole 14–16**. **Run su emulatore NON eseguito**: questa
+VM non ha virtualizzazione annidata (`VMMonitorModeExtensions=False`), l'emulatore
+x86_64 con WHPX non può girare; testare l'APK su un dispositivo reale o su una
+macchina con accelerazione hardware. Spec/plan in `docs/superpowers/`
+(`2026-06-16-android-port-*`). Fuori scope M1 (→ M2/M3): asset dati impacchettati
+(oggi l'header materie/domande sarà 0 su Android finché i JSON non sono asset),
+overlay dei dialoghi modali, layout touch.
+
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
 nelle preferenze utente (step 13). **Nota da fare in questo step**: il
@@ -567,19 +592,31 @@ Una volta capita la causa, applicare il fix minimo possibile.
     reali (`Wsa.Quiz.App`...). `dotnet build Wsa.Quiz.sln` falliva con
     "due progetti denominati wsa.quiz.app". Le solution folder sono solo
     cosmetiche (organizzazione VS): rimosse, solution flat a 5 progetti.
-16. **`.NET Android SDK 36.1.69` + runtime .NET 10 = APK packaging rotto
-    (`XABAA7024`)** *(scoperta porting M1, **bug del SDK, ancora aperto**)*:
-    il task `BuildArchive` sceglie il path zip via un version-check che
-    interpreta ".NET 10.0.8" come "**non** .NET 6+" (log: *"Falling back to
-    LibZipSharp because we are not running on .NET 6+"*) — classico bug di
-    parsing della major a due cifre (legge '1' da "10"). Ripiega su LibZipSharp
-    nativo che poi non apre l'APK generato da aapt2 →
-    `Xamarin.Tools.Zip.ZipIOException`. Blocca **ogni** packaging APK
-    (`-t:SignAndroidPackage`, `-t:Run`, `publish`), quindi anche il deploy M1.
-    NON aggirabile via `_AndroidUseLibZipSharp` (già false, il check lo
-    sovrascrive). Fix atteso: `dotnet workload update` a un Android workload che
-    gestisce .NET 10. Il **build/compile** (`dotnet build`) invece è verde: il
-    bug è solo nello step di archiviazione zip.
+16. **APK Android non prodotto / `XABAA7024` `ZipIOException` — vere cause**
+    *(porting M1, **risolto** 2026-06-18)*: tre cose concatenate, e un grosso
+    depistaggio. **Causa risolutiva**: mancava **`<OutputType>Exe</OutputType>`**
+    nel csproj dell'head → il progetto era trattato come **libreria** Android
+    (emetteva `Wsa.Quiz.Android.aar`) e NON impacchettava alcun APK. Il template
+    Avalonia/Android la include sempre; il piano M1 l'aveva omessa. Aggiunta →
+    APK prodotto. Altri due punti correlati:
+    - **Debug = fast-deployment** (`EmbedAssembliesIntoApk=false`): non produce
+      un APK autonomo senza un device. Per un APK installabile su dispositivo:
+      **`dotnet build -c Release`** (embed + sign in un colpo solo) →
+      `bin/Release/net10.0-android/it.eduits.wsaquiz-Signed.apk` (~29 MB,
+      firmato con la Android Debug key, verificato con `apksigner`). Installa
+      con `adb install <file>-Signed.apk`.
+    - **NON invocare `-t:SignAndroidPackage` come target standalone**: dà
+      `XACAF7009 "Assembly compression info not found"` perché
+      `__CompressedAssembliesInfo` è registrato in-memory da un target a monte e
+      vive solo nella **stessa** invocazione MSBuild. Produrre l'APK nel chain
+      normale di build, non con un target isolato.
+    - **Depistaggio**: il log *"Falling back to LibZipSharp because we are not
+      running on .NET 6+"* è **innocuo** — il check del SDK è
+      `FrameworkDescription != ".NET"`, sempre vero (la descrizione contiene la
+      versione), quindi LibZipSharp è il path zip normale **per tutti**. Non era
+      quello il problema; il `ZipIOException "errore lettura ...apk"` era solo il
+      sintomo dell'APK base mai creato (per i punti sopra). Non sprecare tempo su
+      `dotnet workload update` o su `_AndroidUseLibZipSharp`.
 
 ## Note per i prossimi step
 
