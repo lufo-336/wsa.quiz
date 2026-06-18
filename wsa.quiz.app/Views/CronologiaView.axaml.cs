@@ -33,6 +33,26 @@ public partial class CronologiaView : TabellaViewBase<RisultatoCronologiaItem>
 
     // ------------------------------------------------------------------ COSTRUZIONE
 
+    // ------------------------------------------------------------------ PROPRIETA' TOUCH
+
+    /// <summary>
+    /// True su desktop (TouchMode off) quando ci sono sessioni: mostra la tabella.
+    /// Reattivo a NessunaSessione (notificato dal base) e ad AppEnv.TouchMode.
+    /// </summary>
+    public bool MostraTabella => !AppEnv.TouchMode && !NessunaSessione;
+
+    /// <summary>
+    /// True su touch (TouchMode on) quando ci sono sessioni: mostra le card verticali.
+    /// </summary>
+    public bool MostraCard => AppEnv.TouchMode && !NessunaSessione;
+
+    /// <summary>
+    /// True su desktop (TouchMode off) quando ci sono sessioni: mostra l'header colonne.
+    /// </summary>
+    public bool MostraHeaderColonne => !AppEnv.TouchMode && !NessunaSessione;
+
+    // ------------------------------------------------------------------ COSTRUZIONE
+
     public CronologiaView()
     {
         InitializeComponent();
@@ -49,6 +69,17 @@ public partial class CronologiaView : TabellaViewBase<RisultatoCronologiaItem>
                 ListaSessioni.Focus();
                 if (ListaSessioni.SelectedItem == null && ListaSessioni.ItemCount > 0)
                     ListaSessioni.SelectedIndex = 0;
+            }
+        };
+        // Mantieni le proprieta' touch sincronizzate quando NessunaSessione cambia
+        // (Ricarica() e EseguiEliminazione() nel base lo notificano).
+        PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(NessunaSessione))
+            {
+                Raise(nameof(MostraTabella));
+                Raise(nameof(MostraCard));
+                Raise(nameof(MostraHeaderColonne));
             }
         };
     }

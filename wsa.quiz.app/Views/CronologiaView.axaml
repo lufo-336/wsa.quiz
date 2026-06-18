@@ -67,9 +67,10 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Header colonne (visibile solo se la lista non e' vuota) -->
-                <Border DockPanel.Dock="Top"
-                        IsVisible="{Binding !NessunaSessione}"
+                <!-- Header colonne (visibile solo se la lista non e' vuota e siamo su desktop) -->
+                <Border x:Name="HeaderColonne"
+                        DockPanel.Dock="Top"
+                        IsVisible="{Binding MostraHeaderColonne}"
                         Margin="20,8,20,0"
                         BorderBrush="{DynamicResource SystemBaseLowColor}"
                         BorderThickness="0,0,0,1"
@@ -106,9 +107,10 @@
                            Foreground="{DynamicResource SystemBaseMediumColor}"
                            Margin="20,4,20,12"/>
 
-                <ScrollViewer Margin="20,0,20,0"
+                <ScrollViewer x:Name="ScrollTabella"
+                              Margin="20,0,20,0"
                               VerticalScrollBarVisibility="Auto"
-                              IsVisible="{Binding !NessunaSessione}">
+                              IsVisible="{Binding MostraTabella}">
                     <ListBox x:Name="ListaSessioni"
                              ItemsSource="{Binding Sessioni}"
                              SelectionMode="Single"
@@ -209,6 +211,84 @@
                                                 FontSize="11"/>
                                     </StackPanel>
                                 </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+
+                <!-- Lista a card (touch) — visibile solo su touch quando ci sono sessioni -->
+                <ScrollViewer x:Name="ScrollCard"
+                              Margin="20,0,20,0"
+                              VerticalScrollBarVisibility="Auto"
+                              IsVisible="{Binding MostraCard}">
+                    <ListBox x:Name="ListaSessioniCard"
+                             ItemsSource="{Binding Sessioni}"
+                             SelectionMode="Single"
+                             DoubleTapped="OnSessioneDoubleTapped"
+                             Background="Transparent"
+                             BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="state:RisultatoCronologiaItem">
+                                <Border Background="{DynamicResource SystemRegionBrush}"
+                                        BorderBrush="{DynamicResource SystemBaseLowColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Padding="14,12"
+                                        Margin="0,0,0,8">
+                                    <Grid ColumnDefinitions="6,*" RowDefinitions="Auto,Auto,Auto">
+                                        <Border Grid.RowSpan="3" Width="6"
+                                                Background="{Binding ColorePercentuale}"
+                                                CornerRadius="3" Margin="0,0,10,0"/>
+
+                                        <!-- Riga 1: data + % -->
+                                        <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,Auto">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="{Binding DataFormattata}"
+                                                           FontWeight="SemiBold"
+                                                           FontSize="{DynamicResource SzFontBody}"/>
+                                                <TextBlock Text="Abbandonato" FontSize="10" Foreground="#B85450"
+                                                           IsVisible="{Binding Abbandonato}"/>
+                                                <TextBlock Text="⏱ Tempo scaduto" FontSize="10" Foreground="#B8860B"
+                                                           IsVisible="{Binding TempoScaduto}"/>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding PercentualeFormattata}"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="{DynamicResource SzFontBody}"
+                                                       Foreground="{Binding ColorePercentuale}"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+
+                                        <!-- Riga 2: modalita' + materia -->
+                                        <StackPanel Grid.Column="1" Grid.Row="1" Spacing="2" Margin="0,4,0,0">
+                                            <TextBlock Text="{Binding Modalita}" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Text="{Binding MateriaEtichetta}" FontSize="11"
+                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                        </StackPanel>
+
+                                        <!-- Riga 3: conteggio/durata + Elimina -->
+                                        <Grid Grid.Column="1" Grid.Row="2" ColumnDefinitions="*,Auto" Margin="0,6,0,0">
+                                            <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Conteggio}" FontSize="12"/>
+                                                <TextBlock Text="{Binding DurataFormattata}" FontSize="12"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                                        IsVisible="{Binding NonInAttesaConferma}">
+                                                <Button Content="Elimina" Click="OnEliminaClick"
+                                                        Classes="danger" Padding="{DynamicResource SzBtnPadding}"
+                                                        FontSize="11"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                                        IsVisible="{Binding InAttesaConfermaEliminazione}">
+                                                <Button Content="Si', elimina" Click="OnConfermaEliminaClick"
+                                                        Classes="danger" Padding="{DynamicResource SzBtnPadding}" FontSize="11"/>
+                                                <Button Content="Annulla" Click="OnAnnullaEliminaClick"
+                                                        Padding="{DynamicResource SzBtnPadding}" FontSize="11"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
