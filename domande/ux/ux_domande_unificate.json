@@ -1,0 +1,1302 @@
+[
+    {
+        "id": 1,
+        "categoria": "Processo di design",
+        "domanda": "A cosa e' dedicata la fase 'Discover' del Double Diamond?",
+        "risposte": [
+            "A esplorare il problema raccogliendo informazioni su contesto ed esigenze degli utenti",
+            "A pubblicare",
+            "A vendere",
+            "A stampare"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Discover e' esplorazione del problema: interviste, osservazioni, survey, analisi competitor e dati."
+    },
+    {
+        "id": 2,
+        "categoria": "Processo di design",
+        "domanda": "In quale fase del Double Diamond si creano le personas?",
+        "risposte": [
+            "Define",
+            "Nella fase finale di consegna del prodotto al cliente",
+            "Durante la fase iniziale di scoperta del problema",
+            "Nella fase di sviluppo iterativo delle soluzioni"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Nella fase Define si sintetizzano i dati e si creano personas, scenari e storyboard."
+    },
+    {
+        "id": 3,
+        "categoria": "Processo di design",
+        "domanda": "Qual e' il piano piu' concreto nei 5 piani di Garrett?",
+        "risposte": [
+            "La struttura",
+            "Le funzioni",
+            "La superficie",
+            "La strategia"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La Superficie (surface) e' il piano piu' concreto: l'estetica e l'interfaccia finale percepita dall'utente."
+    },
+    {
+        "id": 4,
+        "categoria": "Personas",
+        "domanda": "Di cosa ha soprattutto bisogno Emily, che ha la paralisi cerebrale?",
+        "risposte": [
+            "Testo piccolo",
+            "Audio alto",
+            "Sottotitoli accurati e trascrizioni testuali di tutti i contenuti audio e video",
+            "Target grandi e ben spaziati"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Emily ha uso minimo delle mani: target grandi e spaziati, navigazione da tastiera, niente hover o precisione del mouse."
+    },
+    {
+        "id": 5,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Cosa riguarda il 'Golfo della Valutazione'?",
+        "risposte": [
+            "Capire cosa e' successo dopo aver agito",
+            "Il pagamento",
+            "La posizione fisica del server che ospita l'applicazione web utilizzata",
+            "Il font"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Nel Golfo della Valutazione l'utente cerca di capire l'esito dell'azione; il progettista aiuta a colmare entrambi i golfi."
+    },
+    {
+        "id": 6,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Perche' l'affordance e' 'relativa'?",
+        "risposte": [
+            "Cambia colore",
+            "E' fissa",
+            "Dipende dal prezzo",
+            "Perche' dipende dalla relazione tra l'oggetto e le capacita' di chi vi interagisce"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "L'affordance e' relativa: dipende dal rapporto tra proprieta' dell'oggetto e capacita' dell'utilizzatore (sedia per umano, non per elefante)."
+    },
+    {
+        "id": 7,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Che cos'e' un'anti-affordance?",
+        "risposte": [
+            "Un'animazione di caricamento mostrata durante l'attesa",
+            "Un menu di navigazione particolarmente lungo e ricco",
+            "La prevenzione di un'azione",
+            "Un colore acceso usato per attirare lo sguardo dell'utente"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "L'anti-affordance e' il concetto opposto all'affordance: impedisce o previene un'azione."
+    },
+    {
+        "id": 8,
+        "categoria": "Design Universale",
+        "domanda": "Secondo 'Low Physical Effort', quanto deve misurare almeno un target touch?",
+        "risposte": [
+            "60x60 px",
+            "10x10 px",
+            "44x44 px",
+            "20x20 px"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Per ridurre lo sforzo fisico i target touch dovrebbero essere almeno 44x44 px, con un tab order logico."
+    },
+    {
+        "id": 9,
+        "categoria": "Responsive e reflow",
+        "domanda": "A 320px di larghezza, il contenuto deve essere leggibile:",
+        "risposte": [
+            "Senza scroll orizzontale",
+            "Soltanto utilizzando lo scorrimento in orizzontale della pagina",
+            "Solamente quando viene aperto su uno schermo desktop",
+            "Esclusivamente dopo aver ingrandito molto la pagina"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il requisito di reflow (WCAG 1.4.10) impone che a 320 CSS px il contenuto sia leggibile senza scroll orizzontale."
+    },
+    {
+        "id": 10,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quale principio P.O.U.R. impone che l'interfaccia non abbia barriere all'interazione?",
+        "risposte": [
+            "Il principio comprensibile, legato alla chiarezza",
+            "Utilizzabile",
+            "Il principio percepibile, legato ai canali sensoriali",
+            "Il principio robusto, legato al codice affidabile"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Utilizzabile (Operable): nessuna barriera all'interazione, ad esempio Emily non deve dipendere dalla precisione del mouse."
+    },
+    {
+        "id": 11,
+        "categoria": "Responsive e reflow",
+        "domanda": "Quale impostazione del meta viewport blocca lo zoom e va evitata?",
+        "risposte": [
+            "user-scalable=no",
+            "L'attributo width impostato su device-width della pagina",
+            "La dichiarazione del charset utf-8 nell'intestazione",
+            "L'attributo initial-scale impostato al valore 1.0"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "user-scalable=no (e maximum-scale=1.0) blocca lo zoom e va evitato; corretto e' width=device-width, initial-scale=1.0."
+    },
+    {
+        "id": 12,
+        "categoria": "Fondamenti UX",
+        "domanda": "A cosa corrisponde il 'Why' nel modello Why-What-How?",
+        "risposte": [
+            "Alle motivazioni",
+            "Al prezzo finale",
+            "Al codice tecnico",
+            "Al colore scelto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il 'Why' riguarda motivazioni, valori e visioni: perche' l'utente dovrebbe investire tempo o denaro nel prodotto."
+    },
+    {
+        "id": 13,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quale persona illustra meglio il principio 'Comprensibile'?",
+        "risposte": [
+            "Emily, che ha una paralisi cerebrale e poca mobilita'",
+            "Steven, che e' sordo e usa la lingua dei segni",
+            "Valerio, che ha una bassa visione causata dal glaucoma",
+            "Francesco"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Comprensibile: contenuti e azioni chiari e prevedibili. Francesco (autismo) si orienta con struttura coerente e azioni esplicite."
+    },
+    {
+        "id": 14,
+        "categoria": "Responsive e reflow",
+        "domanda": "Quale unita' di misura e' preferibile per la tipografia secondo il corso?",
+        "risposte": [
+            "I punti assoluti",
+            "I pixel assoluti",
+            "I pollici interi",
+            "Le unita' relative"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Per la tipografia si preferiscono unita' relative (rem o %) per rispettare le preferenze dell'utente; testare sempre zoom e resize del testo."
+    },
+    {
+        "id": 15,
+        "categoria": "Processo di design",
+        "domanda": "Quante fasi ha il modello Double Diamond?",
+        "risposte": [
+            "Sette",
+            "Quattro",
+            "Due",
+            "Cinque"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il Double Diamond ha quattro fasi: Discover, Define, Develop, Deliver."
+    },
+    {
+        "id": 16,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Perche' un wireframe 'non e' solo layout'?",
+        "risposte": [
+            "Perche' utilizza una grande quantita' di colori vivaci",
+            "Perche' e' realizzato esclusivamente in bianco e nero",
+            "Perche' si riesce a disegnarlo in pochissimo tempo",
+            "Organizza contenuti e percorsi"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il wireframe organizza contenuti, percorsi e promesse d'azione prima che diventino interfaccia e HTML."
+    },
+    {
+        "id": 17,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Perche' i link devono avere un testo descrittivo?",
+        "risposte": [
+            "Per estetica",
+            "Perche' vengono ascoltati anche fuori contesto e devono dire da soli dove portano",
+            "Per il SEO",
+            "Per spazio"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Lo screen reader elenca i link isolati dal contesto: ognuno deve dire dove porta o cosa fa anche senza il testo intorno."
+    },
+    {
+        "id": 18,
+        "categoria": "Fondamenti UX",
+        "domanda": "Cosa afferma il principio 'Less is more'?",
+        "risposte": [
+            "Meno colori",
+            "Buona esperienza se si massimizzano i benefici e si minimizzano tempo e sforzo per l'attivita'",
+            "Meno utenti",
+            "Piu' funzioni"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Less is more: buona esperienza quando si massimizzano i benefici e si minimizzano le risorse (tempo, sforzo, passaggi)."
+    },
+    {
+        "id": 19,
+        "categoria": "WCAG e POUR",
+        "domanda": "Cosa richiede il criterio WCAG 2.4.7 (Focus Visible)?",
+        "risposte": [
+            "Focus rosso",
+            "Che chi naviga da tastiera veda sempre quale elemento ha il focus in quel momento",
+            "Nessun focus",
+            "Focus animato"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il criterio 2.4.7 Focus Visible richiede che chi naviga da tastiera veda sempre quale elemento ha il focus."
+    },
+    {
+        "id": 20,
+        "categoria": "Responsive e reflow",
+        "domanda": "Perche' l'ordine del DOM conta per uno screen reader?",
+        "risposte": [
+            "Per i colori",
+            "Per la rete",
+            "Per il prezzo",
+            "Perche' lo screen reader legge nell'ordine del codice HTML, che puo' divergere da quello visivo"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Lo screen reader segue l'ordine del DOM: se il CSS sposta gli elementi, l'utente puo' ricevere la risposta prima della domanda."
+    },
+    {
+        "id": 21,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Oltre quanti livelli di profondita' l'utente perde il filo?",
+        "risposte": [
+            "Venti",
+            "Dieci",
+            "Tre",
+            "Uno"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Oltre tre livelli di profondita' cresce molto il rischio che l'utente perda il filo."
+    },
+    {
+        "id": 22,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "A cosa serve una breadcrumb?",
+        "risposte": [
+            "Al pagamento",
+            "A mostrare dove ci si trova nella struttura e il rapporto con le altre sezioni",
+            "Al login",
+            "Alla lingua"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La breadcrumb indica 'dove sei adesso' e il rapporto della pagina corrente con le altre sezioni."
+    },
+    {
+        "id": 23,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Come considera l'oggetto la classificazione 'a faccette'?",
+        "risposte": [
+            "Lo inserisce in un unico contenitore gerarchico ad albero",
+            "Lo cataloga unicamente in base alla fascia di prezzo",
+            "Secondo piu' proprieta' indipendenti",
+            "Lo organizza prendendo in esame esclusivamente il colore"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La classificazione a faccette descrive l'oggetto secondo piu' proprieta' indipendenti; si contrappone a quella ad albero."
+    },
+    {
+        "id": 24,
+        "categoria": "Responsive e reflow",
+        "domanda": "Perche' 'overflow: hidden' su un testo e' un problema?",
+        "risposte": [
+            "Cambia font",
+            "Il testo che eccede sparisce invece di scorrere, un fallimento noto come WCAG F102",
+            "Scolora",
+            "Rallenta"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Con overflow: hidden il contenuto in eccesso sparisce (fallimento WCAG F102): meglio overflow auto o visible."
+    },
+    {
+        "id": 25,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Per Norman, un cartello 'SPINGERE/TIRARE' su una porta indica:",
+        "risposte": [
+            "Una soluzione di design particolarmente accessibile per tutti",
+            "Un'estetica curata e moderna molto apprezzata",
+            "Un notevole risparmio sui costi di realizzazione",
+            "Un design fallimentare"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il cartello e' prova di un design fallimentare: la porta dovrebbe indicare l'uso da se', senza segni ne' tentativi."
+    },
+    {
+        "id": 26,
+        "categoria": "Responsive e reflow",
+        "domanda": "Quale soluzione CSS e' consigliata al posto di una larghezza fissa in pixel?",
+        "risposte": [
+            "display none",
+            "Usare max-width con width 100%",
+            "Impostare una larghezza espressa in pixel uguale per tutti i dispositivi",
+            "color red"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Meglio max-width (es. 75rem) con width: 100% invece di larghezza fissa: il contenitore si restringe quando serve."
+    },
+    {
+        "id": 27,
+        "categoria": "Design Universale",
+        "domanda": "Qual e' la relazione tra disabilita' e design secondo il corso?",
+        "risposte": [
+            "La disabilita' e' determinata soltanto dall'hardware usato",
+            "La disabilita' dipende esclusivamente dalla singola persona",
+            "Tra design e disabilita' non esiste alcun tipo di relazione",
+            "Nasce da una discrepanza progetto-persona"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il cattivo design e' disabilitante: la disabilita' nasce da una discrepanza tra progetto e persona; si puo' abilitare o disabilitare."
+    },
+    {
+        "id": 28,
+        "categoria": "Design Universale",
+        "domanda": "Quanti sono i principi del Design Universale del CUD?",
+        "risposte": [
+            "Quindici",
+            "Dieci",
+            "Sette",
+            "Tre"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "I principi del Design Universale del Center for Universal Design sono sette."
+    },
+    {
+        "id": 29,
+        "categoria": "Fondamenti UX",
+        "domanda": "Su cosa si concentra l'aspetto 'How' del modello Why-What-How?",
+        "risposte": [
+            "Sull'accessibilita' e sull'estetica dell'interfaccia",
+            "Sui ricavi",
+            "Sulla strategia commerciale e sulle modalita' di vendita del prodotto sul mercato",
+            "Sul prezzo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il 'How' riguarda come rendere operative le funzioni con un'interfaccia ad alta accessibilita' ed estetica."
+    },
+    {
+        "id": 30,
+        "categoria": "Responsive e reflow",
+        "domanda": "Un viewport di 320px equivale a quale zoom su un monitor da 1280px?",
+        "risposte": [
+            "Il 100%",
+            "Il 50%",
+            "Il 400%",
+            "Il 150%"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "320px e' sia il breakpoint mobile sia l'equivalente di un browser a 1280px con zoom al 400%."
+    },
+    {
+        "id": 31,
+        "categoria": "Journey e Flow",
+        "domanda": "Quale di questi e' un 'caso limite' da mappare in uno user flow?",
+        "risposte": [
+            "La registrazione del nome a dominio del sito web",
+            "L'abbandono",
+            "La definizione del prezzo finale del prodotto",
+            "La scelta del colore del logo aziendale principale"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Casi limite da mappare: errore utente, abbandono (i dati si salvano?), ritorno col browser, stato vuoto."
+    },
+    {
+        "id": 32,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Perche' le etichette dei menu sono accessibilita'?",
+        "risposte": [
+            "Sono cio' che Luca sente e Francesco legge",
+            "Occupano spazio",
+            "Sono colorate",
+            "Perche' determinano la velocita' di caricamento complessiva delle pagine del sito"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Le label sono l'unica cosa che Luca sente e la prima che Francesco legge; se vaghe o ambigue escludono prima di aprire la pagina."
+    },
+    {
+        "id": 33,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Cosa rischia Francesco (autismo) con link generici come 'clicca qui'?",
+        "risposte": [
+            "Una maggiore facilita' nel ritrovare le pagine importanti",
+            "Un considerevole risparmio di tempo durante la ricerca",
+            "Un netto miglioramento della velocita' di navigazione complessiva",
+            "Un blocco"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Per Francesco i link generici creano ambiguita' che puo' bloccare completamente la navigazione."
+    },
+    {
+        "id": 34,
+        "categoria": "Design Universale",
+        "domanda": "Quale principio significa 'minimizzare i rischi di azioni accidentali'?",
+        "risposte": [
+            "Il principio della flessibilita' d'uso del prodotto",
+            "Il principio dell'equita' nell'uso per tutti",
+            "Il principio del basso sforzo fisico richiesto",
+            "Tolleranza all'errore"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Tolerance for Error minimizza i rischi delle azioni accidentali; in digitale undo, conferme, validazione live."
+    },
+    {
+        "id": 35,
+        "categoria": "Processo di design",
+        "domanda": "Quale ciclo del processo di design e' particolarmente iterativo?",
+        "risposte": [
+            "Copia-incolla",
+            "Login-logout",
+            "La sequenza completa di raccolta requisiti, analisi e definizione del budget",
+            "Wireframe, prototipo e test"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il processo e' iterativo: in particolare il ciclo wireframe -> prototipo -> test viene ripetuto piu' volte."
+    },
+    {
+        "id": 36,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Perche' gli esperti di screen reader non leggono la pagina in modo lineare?",
+        "risposte": [
+            "Perche' e' lento",
+            "Perche' non sono capaci di farlo correttamente",
+            "Perche' preferiscono comunque utilizzare il mouse",
+            "Perche' nella pagina manca completamente l'audio"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Leggere tutto e' troppo lento: gli esperti usano scorciatoie (H, K, Tab, F) per saltare a titoli, link, elementi e form."
+    },
+    {
+        "id": 37,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Quale di queste e' una buona etichetta di menu?",
+        "risposte": [
+            "Una voce generica chiamata semplicemente 'Varie' o 'Altro'",
+            "Un'etichetta vaga come 'Sezione informativa generale'",
+            "Una categoria contenitore denominata 'Gestione servizi'",
+            "Prenotazione esami"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Le etichette devono essere chiare e prevedibili: 'Prenotazione esami' dice dove porta. Evitare 'Altro', 'Varie', 'Gestione'."
+    },
+    {
+        "id": 38,
+        "categoria": "Processo di design",
+        "domanda": "Quali sono, in ordine, le fasi del Double Diamond?",
+        "risposte": [
+            "Data, Define, Develop, Deploy",
+            "Scopri, Disegna, Sviluppa, Consegna",
+            "Discover, Define, Develop, Deliver",
+            "Draft, Define, Develop, Deliver"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Le quattro fasi sono Discover (scoperta), Define (definizione), Develop (sviluppo), Deliver (consegna)."
+    },
+    {
+        "id": 39,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Cosa significa la sigla CTA?",
+        "risposte": [
+            "Click Track App",
+            "Call To Action",
+            "Color Text Area",
+            "Content Tab Auto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "CTA = Call To Action: l'azione piu' importante che l'utente deve compiere sulla schermata."
+    },
+    {
+        "id": 40,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Su cosa si basano i principi della Gestalt?",
+        "risposte": [
+            "Sull'OS",
+            "Sul prezzo",
+            "Sulla velocita' della connessione di rete usata per caricare la pagina",
+            "Sul fatto che notiamo l'insieme prima delle parti"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "I principi della Gestalt descrivono come il cervello raggruppa e separa: notiamo l'insieme prima delle singole parti."
+    },
+    {
+        "id": 41,
+        "categoria": "Processo di design",
+        "domanda": "Qual e' il piano piu' astratto nei 5 piani di Garrett?",
+        "risposte": [
+            "La superficie",
+            "La strategia",
+            "La struttura",
+            "Lo scheletro"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il piu' astratto e' la Strategia (cos'e' il prodotto, a cosa serve); il piu' concreto, in cima, e' la Superficie."
+    },
+    {
+        "id": 42,
+        "categoria": "Design Universale",
+        "domanda": "Cosa significa il principio 'Equitable Use'?",
+        "risposte": [
+            "E' solo mobile",
+            "Si riferisce alla possibilita' di personalizzare il font e la dimensione del testo",
+            "Non svantaggia ne' stigmatizza nessun gruppo",
+            "Costa poco"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Equitable Use: il design non deve svantaggiare ne' stigmatizzare alcun gruppo; in digitale, un bottone usabile da tastiera e mouse."
+    },
+    {
+        "id": 43,
+        "categoria": "Fondamenti UX",
+        "domanda": "User Experience Design e' considerato sinonimo di:",
+        "risposte": [
+            "Software Testing",
+            "Network Topology",
+            "Database Design",
+            "Human-Centered Design"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "UX Design = Human-Centered Design: senza coinvolgere le persone non esiste vera User Experience."
+    },
+    {
+        "id": 44,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Cosa suggerisce il principio Gestalt della 'vicinanza'?",
+        "risposte": [
+            "Avvicinare gli elementi correlati",
+            "Allontanare gli elementi simili",
+            "Ingrandire gli elementi piccoli",
+            "Colorare gli elementi vicini"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Per la vicinanza gli elementi vicini appaiono piu' correlati: si avvicinano gli elementi effettivamente correlati."
+    },
+    {
+        "id": 45,
+        "categoria": "Journey e Flow",
+        "domanda": "Che cosa descrive una journey map?",
+        "risposte": [
+            "Il prezzo",
+            "Il codice",
+            "Il server",
+            "L'esperienza dell'utente nel tempo, con azioni, pensieri, emozioni e problemi"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "La journey map rappresenta il percorso dell'utente nel tempo: azioni, pensieri, emozioni e problemi per ogni momento."
+    },
+    {
+        "id": 46,
+        "categoria": "WCAG e POUR",
+        "domanda": "Cosa riguarda il principio WCAG 'Robusto'?",
+        "risposte": [
+            "Che il contenuto sia interpretato in modo affidabile da browser e tecnologie assistive",
+            "Il peso file",
+            "La velocita'",
+            "Il colore"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Robusto: il contenuto va interpretato in modo affidabile da browser e tecnologie assistive."
+    },
+    {
+        "id": 47,
+        "categoria": "Fondamenti UX",
+        "domanda": "Quale attivita' appartiene alla UI e non alla UX?",
+        "risposte": [
+            "Lo studio dei bisogni reali tramite user research e interviste",
+            "La valutazione dell'usabilita' con i test con gli utenti",
+            "La progettazione dell'interazione e dei percorsi di navigazione",
+            "Il visual design"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il visual design (con branding, layout, mockup) appartiene alla UI; user research, interaction design e usability sono UX."
+    },
+    {
+        "id": 48,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Quale tasto apre la lista di tutti i form della pagina?",
+        "risposte": [
+            "Il tasto Tab",
+            "Il tasto F",
+            "Il tasto Esc",
+            "Il tasto H"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il tasto F apre la lista dei form; H i titoli, K i link, Tab gli elementi interattivi (variano per screen reader e lingua)."
+    },
+    {
+        "id": 49,
+        "categoria": "Responsive e reflow",
+        "domanda": "Che cos'e' il reflow?",
+        "risposte": [
+            "Un colore",
+            "La capacita' del layout di riorganizzarsi senza perdere contenuto quando il viewport si stringe",
+            "Un font",
+            "Un suono"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il reflow e' la capacita' del layout di riorganizzarsi senza perdere contenuto quando il viewport si restringe."
+    },
+    {
+        "id": 50,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Che cos'e' un'affordance?",
+        "risposte": [
+            "Un font",
+            "Un file",
+            "La proprieta' percepita di un oggetto che suggerisce come potrebbe essere utilizzato",
+            "Un colore"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "L'affordance e' la proprieta' percepita di un oggetto che ne suggerisce l'uso."
+    },
+    {
+        "id": 51,
+        "categoria": "Design Universale",
+        "domanda": "Secondo il corso, l'Universal Design e':",
+        "risposte": [
+            "Un approccio progettuale riservato esclusivamente alle persone con disabilita'",
+            "Una tecnica utilizzabile solo sui dispositivi mobili moderni",
+            "Design che funziona meglio per tutti",
+            "Un metodo pensato solo per gli utenti gia' molto esperti"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "L'Universal Design non e' 'design per disabili': e' design che funziona meglio per tutti (curb-cut effect)."
+    },
+    {
+        "id": 52,
+        "categoria": "Design Universale",
+        "domanda": "Perche' i sottotitoli sono un esempio di design universale?",
+        "risposte": [
+            "Nati per i sordi, vengono poi usati da tutti, ad esempio in treno o in ambienti rumorosi",
+            "Per legge",
+            "Per estetica",
+            "Costano poco"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "I sottotitoli sono un curb-cut effect: nati per i sordi, vengono usati da tutti in contesti rumorosi o silenziosi."
+    },
+    {
+        "id": 53,
+        "categoria": "Personas",
+        "domanda": "A cosa serve una persona durante la progettazione?",
+        "risposte": [
+            "A scegliere il nome a dominio piu' adatto per il sito",
+            "A modellare gli utenti reali",
+            "A scrivere materialmente il codice sorgente dell'applicazione",
+            "A realizzare campagne pubblicitarie efficaci per il prodotto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Le personas fungono da modello degli utenti reali durante l'intero processo, tenendo le persone al centro delle decisioni."
+    },
+    {
+        "id": 54,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Cosa cerca di capire l'utente nel 'Golfo dell'Esecuzione'?",
+        "risposte": [
+            "Chi ha creato",
+            "Cosa e' successo",
+            "Quanto si paga",
+            "Come deve agire"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Golfo dell'Esecuzione: l'utente cerca di capire come agire. Golfo della Valutazione: cosa e' successo dopo."
+    },
+    {
+        "id": 55,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Qual e' il primo metodo della maggioranza degli utenti di screen reader per esplorare una pagina?",
+        "risposte": [
+            "Stampare",
+            "Saltare tra i titoli con il tasto H",
+            "Usare il mouse",
+            "Avviare la lettura completa dall'inizio fino alla fine di tutto il testo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Oltre il 60-70% degli utenti di screen reader usa i titoli (tasto H) come primo metodo, ottenendo subito la mappa della struttura."
+    },
+    {
+        "id": 56,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "A cosa serve tipicamente il tasto H nello screen reader?",
+        "risposte": [
+            "Ad aprire la lista completa di tutti i campi dei moduli presenti",
+            "A saltare al titolo successivo",
+            "A salvare",
+            "A chiudere"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il tasto H salta al titolo successivo (H1, H2, H3) annunciando livello e testo: e' la 'mappa' della pagina."
+    },
+    {
+        "id": 57,
+        "categoria": "Personas",
+        "domanda": "Cosa indica il modello AFA per le accessibility personas?",
+        "risposte": [
+            "Abilita', Familiarita' e Attitudine",
+            "Analisi, Feedback e Avanzamento",
+            "Audio, Formato e Allineamento",
+            "Accesso, Filtro e Account utente"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "AFA = Abilita', Familiarita' tecnologica e Attitudine: le tre dimensioni di una accessibility persona."
+    },
+    {
+        "id": 58,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Come si applica il principio Gestalt della 'regione comune'?",
+        "risposte": [
+            "Solo col rosso",
+            "Posizionando gli elementi correlati vicini tra loro e lontani da quelli diversi",
+            "Con suoni",
+            "Con bordi o box che raggruppano elementi"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Per la regione comune, elementi nella stessa area delimitata da bordi o box sono percepiti come un gruppo."
+    },
+    {
+        "id": 59,
+        "categoria": "WCAG e POUR",
+        "domanda": "Cosa richiede il criterio WCAG 2.4.3 (Focus Order)?",
+        "risposte": [
+            "Un ordine cromatico",
+            "Un ordine logico",
+            "Un ordine casuale",
+            "Un ordine alfabetico"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il criterio 2.4.3 Focus Order richiede che la sequenza di navigazione da tastiera segua un ordine logico e significativo."
+    },
+    {
+        "id": 60,
+        "categoria": "Personas",
+        "domanda": "Qual e' la particolarita' di Valerio (bassa visione da glaucoma)?",
+        "risposte": [
+            "Non usa screen reader ma serve zoom e contrasto",
+            "Usa la voce",
+            "E' cieco",
+            "Comunica esclusivamente attraverso la lingua dei segni e gli interpreti"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Valerio non usa screen reader: gli servono ingrandimento, alto contrasto e informazione non trasmessa solo dal colore."
+    },
+    {
+        "id": 61,
+        "categoria": "Journey e Flow",
+        "domanda": "Qual e' la differenza tra task ed esperienza?",
+        "risposte": [
+            "Sono codice",
+            "Il task e' l'azione, l'esperienza il vissuto",
+            "La differenza sta unicamente nel dispositivo, mobile per uno e desktop per l'altro",
+            "Sono uguali"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il task e' 'cosa fai' (azioni osservabili); l'esperienza e' 'come lo vivi' (azioni + pensieri + emozioni + problemi)."
+    },
+    {
+        "id": 62,
+        "categoria": "Journey e Flow",
+        "domanda": "A quali cause vanno collegati i problemi nella journey map?",
+        "risposte": [
+            "Prezzo, Marchio e Mercato attuale",
+            "Velocita', Costo e Affidabilita'",
+            "Abilita', Familiarita' e Attitudine",
+            "Memoria, Processore e Schermo"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Ogni blocco ha una causa riconducibile al modello AFA: Abilita', Familiarita' tecnologica o Attitudine."
+    },
+    {
+        "id": 63,
+        "categoria": "WCAG e POUR",
+        "domanda": "A cosa serve la griglia P.O.U.R.?",
+        "risposte": [
+            "A registrare",
+            "A ragionare su ogni scelta progettuale analizzando pagine, componenti, contenuti, codice ed errori",
+            "A colorare",
+            "A misurare"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "P.O.U.R. e' una griglia di lettura per ragionare su ogni scelta progettuale: pagine, componenti, contenuti, codice ed errori."
+    },
+    {
+        "id": 64,
+        "categoria": "Personas",
+        "domanda": "Qual e' la differenza chiave tra persona e stereotipo?",
+        "risposte": [
+            "Il prezzo",
+            "La persona si basa su ricerca reale e guida le decisioni, lo stereotipo su assunzioni e le giustifica",
+            "Nessuna",
+            "Il genere"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La persona nasce da ricerca reale e guida le decisioni; lo stereotipo si basa su assunzioni non verificate e le giustifica."
+    },
+    {
+        "id": 65,
+        "categoria": "Responsive e reflow",
+        "domanda": "Perche' l'informazione non deve passare solo dal colore?",
+        "risposte": [
+            "Il colore e' vietato",
+            "Il colore e' lento",
+            "Non tutti lo vedono",
+            "Il colore e' caro"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il colore da solo non basta per daltonici o ipovedenti: serve almeno un secondo canale (testo, icona, bordo, posizione)."
+    },
+    {
+        "id": 66,
+        "categoria": "Personas",
+        "domanda": "Quale persona del corso ha l'autismo?",
+        "risposte": [
+            "Francesco",
+            "Emily",
+            "Valerio",
+            "Steven"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Francesco ha un disturbo dello spettro autistico: predilige siti familiari e prevedibili, label chiare e poche ambiguita'."
+    },
+    {
+        "id": 67,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quale criterio WCAG impone che tutto sia usabile da tastiera?",
+        "risposte": [
+            "WCAG 1.4.5",
+            "WCAG 1.4.3",
+            "WCAG 2.4.7",
+            "WCAG 2.1.1"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il criterio WCAG 2.1.1 (Keyboard) richiede che tutte le funzionalita' siano usabili da tastiera quando possibile."
+    },
+    {
+        "id": 68,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quando una pagina ha una barriera di accessibilita' legata alla tastiera?",
+        "risposte": [
+            "Quando non si riesce a usare senza il mouse",
+            "Quando contiene un numero molto elevato di immagini e contenuti multimediali",
+            "Con molti colori",
+            "Se e' lunga"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Quando una pagina non si riesce a usare senza mouse c'e' una barriera: vanno rispettati 2.1.1, 2.4.7 e 2.4.3."
+    },
+    {
+        "id": 69,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Cosa si costruisce nella mente l'utente quando interagisce con un sistema?",
+        "risposte": [
+            "Una password",
+            "Un backup",
+            "Un modello di come funziona",
+            "Un registro dettagliato di tutte le operazioni svolte durante la sessione"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "L'utente costruisce un modello mentale di come funziona il sistema; comprenderlo e' cruciale per il designer."
+    },
+    {
+        "id": 70,
+        "categoria": "Personas",
+        "domanda": "Che cos'e' una 'persona' in UX?",
+        "risposte": [
+            "Un font",
+            "Un personaggio fittizio ma realistico che sintetizza dati di ricerca su utenti reali",
+            "Un cookie",
+            "Un dipendente"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Una persona e' un personaggio fittizio ma realistico costruito sintetizzando dati di ricerca su utenti reali."
+    },
+    {
+        "id": 71,
+        "categoria": "Design Universale",
+        "domanda": "Cosa afferma il principio del Design Universale 'Simple and Intuitive Use'?",
+        "risposte": [
+            "E' veloce",
+            "Costa meno",
+            "Facile da capire a prescindere da esperienza e lingua",
+            "Garantisce uno spazio fisico adeguato per avvicinarsi e utilizzare l'oggetto"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Simple and Intuitive Use: l'uso e' facile da capire indipendentemente da esperienza, conoscenza o lingua; in digitale label chiare e linguaggio semplice."
+    },
+    {
+        "id": 72,
+        "categoria": "Fondamenti UX",
+        "domanda": "Cosa intende il corso con 'Designer diverso da Utente'?",
+        "risposte": [
+            "Che l'opinione dell'utente non va mai presa in considerazione",
+            "Che percepiscono compensi economici molto diversi tra loro",
+            "Che il designer e' un software e l'utente una persona reale",
+            "Che hanno bisogni diversi"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Designer != Utente: il progettista non conosce a priori i bisogni dell'utente; servono ascolto, empatia e osservazione."
+    },
+    {
+        "id": 73,
+        "categoria": "Responsive e reflow",
+        "domanda": "Soluzione consigliata per una tabella dati che non puo' fare reflow?",
+        "risposte": [
+            "Nasconderla",
+            "Metterla in un contenitore con overflow-x auto",
+            "Eliminarla",
+            "Trasformarla in un'immagine statica da scaricare separatamente dalla pagina"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Le tabelle dati non si appiattiscono: in un contenitore con overflow-x: auto hanno uno scroll proprio senza rompere il resto."
+    },
+    {
+        "id": 74,
+        "categoria": "Personas",
+        "domanda": "Chi e' Luca tra le personas del corso?",
+        "risposte": [
+            "Una persona con paralisi cerebrale e uso minimo delle mani",
+            "Una persona sorda che comunica con la lingua dei segni",
+            "Una persona ipovedente che usa un ingranditore di schermo",
+            "Cieco dalla nascita"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Luca e' cieco dalla nascita: usa screen reader, tastiera e display braille; ha bisogno di codice semantico e link descrittivi."
+    },
+    {
+        "id": 75,
+        "categoria": "Fondamenti UX",
+        "domanda": "Cosa accade quando l'utente esita davanti all'interfaccia?",
+        "risposte": [
+            "Significa che il branding sta funzionando molto bene",
+            "La UX sta fallendo",
+            "Vuol dire che il prodotto sta avendo grande successo",
+            "E' il segnale che il layout e' perfettamente ottimizzato"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Frase guida: se l'utente esita, la UX sta fallendo. L'esitazione segnala che l'esperienza non e' chiara."
+    },
+    {
+        "id": 76,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Che cos'e' un wireframe?",
+        "risposte": [
+            "Il codice",
+            "La rappresentazione strutturale di una schermata: blocchi, gerarchia, elementi interattivi e CTA",
+            "Un CSS",
+            "Un database"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il wireframe e' la rappresentazione strutturale di una schermata: blocchi, gerarchia, elementi interattivi e CTA."
+    },
+    {
+        "id": 77,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Dove deve stare 'Supporto studenti' in una buona sitemap?",
+        "risposte": [
+            "Nascosto in fondo alla pagina, dentro al footer del sito",
+            "All'interno di una sottosezione molto profonda del menu",
+            "Va eliminato perche' considerato poco utile agli utenti",
+            "Al primo livello"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il supporto non va nascosto: 'Supporto studenti' al primo livello, cosi' chi si blocca trova aiuto subito."
+    },
+    {
+        "id": 78,
+        "categoria": "Wireframe e Gestalt",
+        "domanda": "Cosa afferma il principio Gestalt della 'somiglianza'?",
+        "risposte": [
+            "Elementi simili per forma, dimensione o colore sono percepiti con la stessa funzione",
+            "Il testo vince",
+            "I bordi uniscono",
+            "I vicini contano"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Per la somiglianza, elementi simili per forma, dimensione o colore sono percepiti come aventi la stessa funzione."
+    },
+    {
+        "id": 79,
+        "categoria": "Processo di design",
+        "domanda": "A quale domanda risponde il piano 'Struttura' di Garrett?",
+        "risposte": [
+            "Chi paga",
+            "A come l'utente raggiunge l'obiettivo e quali percorsi compie nel sistema",
+            "Quale colore usare",
+            "Quanto costa"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il piano Struttura riguarda come l'utente raggiunge l'obiettivo e quali percorsi compie: qui vive l'architettura dell'informazione."
+    },
+    {
+        "id": 80,
+        "categoria": "Journey e Flow",
+        "domanda": "Che cosa descrive uno user flow?",
+        "risposte": [
+            "Il colore",
+            "La sequenza di schermate, connessioni e decisioni necessarie per completare un task",
+            "Le emozioni",
+            "Il prezzo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Lo user flow descrive il sistema: schermate, connessioni e condizioni per completare un task."
+    },
+    {
+        "id": 81,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Quali sono le due qualita' del buon design?",
+        "risposte": [
+            "Estetica e prezzo",
+            "Scoperta e comprensione",
+            "Sviluppo e collaudo",
+            "Marketing e vendite"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Buon design = Discoverability (capisco quali azioni posso fare) + Understanding (capisco come va usato il prodotto)."
+    },
+    {
+        "id": 82,
+        "categoria": "Journey e Flow",
+        "domanda": "In uno user flow, quale forma rappresenta una decisione?",
+        "risposte": [
+            "Il cerchio",
+            "La stella",
+            "Il rombo",
+            "Il rettangolo"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Nel diagramma il rombo rappresenta una decisione; il rettangolo una schermata; la freccia etichettata un'azione."
+    },
+    {
+        "id": 83,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "A cosa e' paragonata, per uno screen reader, una pagina senza heading?",
+        "risposte": [
+            "A una citta' senza cartelli stradali",
+            "A un libro",
+            "A una mappa stradale dettagliata con tutte le indicazioni ben segnalate",
+            "A un gioco"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Per Luca una pagina senza heading e' come una citta' senza cartelli: ci si arriva ma con sforzo enormemente maggiore."
+    },
+    {
+        "id": 84,
+        "categoria": "Design Universale",
+        "domanda": "Come si traduce in digitale il principio 'Flexibility in Use'?",
+        "risposte": [
+            "Font scalabile e layout adattivo",
+            "Colori accesi",
+            "Un font fisso",
+            "Una serie di conferme e di possibilita' di annullare le azioni accidentali"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Flexibility in Use: adattabilita' a preferenze e abilita' diverse; in digitale font scalabile e layout adattivo."
+    },
+    {
+        "id": 85,
+        "categoria": "Processo di design",
+        "domanda": "A cosa corrispondono i momenti 'divergenti' del Double Diamond?",
+        "risposte": [
+            "Alla fase conclusiva di consegna e rilascio del prodotto sul mercato",
+            "All'esplorazione delle possibili soluzioni",
+            "Alla sintesi",
+            "Al collaudo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "I momenti divergenti aprono il campo delle possibilita' (esplorazione); i convergenti restringono verso una scelta."
+    },
+    {
+        "id": 86,
+        "categoria": "Personas",
+        "domanda": "Il principio 'Stessa disabilita' != stesso bisogno' confronta:",
+        "risposte": [
+            "Francesco ed Emily",
+            "Emily e Steven",
+            "Luca e Valerio",
+            "Francesco e Steven"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Luca (cieco) ha bisogno di codice semantico e screen reader; Valerio (ipovedente) di zoom e contrasto: bisogni diversi."
+    },
+    {
+        "id": 87,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quale persona del corso usa lo screen reader, la tastiera e il braille?",
+        "risposte": [
+            "Steven",
+            "Luca",
+            "Emily",
+            "Valerio"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Luca, cieco dalla nascita, usa screen reader (JAWS/NVDA), tastiera e display braille; ha bisogno di codice semantico."
+    },
+    {
+        "id": 88,
+        "categoria": "WCAG e POUR",
+        "domanda": "Cosa richiede il principio WCAG 'Percepibile'?",
+        "risposte": [
+            "Animazioni",
+            "Solo inglese",
+            "Che le informazioni possano essere comprese attraverso canali sensoriali diversi",
+            "Colori vivaci"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Percepibile: le informazioni devono poter essere comprese attraverso canali diversi (non solo audio, non solo immagini)."
+    },
+    {
+        "id": 89,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Quali tasti spostano il focus da tastiera tra gli elementi?",
+        "risposte": [
+            "Le frecce su e giu'",
+            "Tab e Shift+Tab",
+            "I tasti F1 e F2",
+            "Ctrl e Alt"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Tab sposta il focus al successivo, Shift+Tab al precedente, Invio attiva: e' il modo base di navigare senza mouse."
+    },
+    {
+        "id": 90,
+        "categoria": "Fondamenti UX",
+        "domanda": "Che cosa indica la sigla UX?",
+        "risposte": [
+            "Un font",
+            "Un browser",
+            "Una pagina",
+            "User Experience, l'esperienza complessiva vissuta interagendo con un prodotto o servizio"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "UX = User Experience: l'esperienza complessiva vissuta interagendo con un prodotto o servizio."
+    },
+    {
+        "id": 91,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Che cos'e' l'Architettura dell'Informazione?",
+        "risposte": [
+            "L'hosting",
+            "La struttura del sistema: cosa esiste, come e' raggruppato, come ci si muove e come si chiama",
+            "Il colore",
+            "Il codice"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "L'IA e' l'organizzazione dei contenuti: cosa esiste, come e' raggruppato, come ci si muove e come si chiama ogni cosa."
+    },
+    {
+        "id": 92,
+        "categoria": "WCAG e POUR",
+        "domanda": "Quali sono i quattro principi riassunti dall'acronimo P.O.U.R.?",
+        "risposte": [
+            "Pagina e Rete",
+            "Percepibile, Utilizzabile, Comprensibile, Robusto",
+            "Pixel e Url",
+            "Privacy, Onesta', Usabilita' e Ricerca applicata all'esperienza utente"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "P.O.U.R. = Percepibile, Utilizzabile (Operable), Comprensibile (Understandable), Robusto: i quattro principi WCAG."
+    },
+    {
+        "id": 93,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Come e' caratterizzata una navigazione 'ampia'?",
+        "risposte": [
+            "Molte sezioni di primo livello",
+            "Da poche sezioni in evidenza e da molti livelli annidati",
+            "Esclusivamente da immagini cliccabili senza testo",
+            "Dall'assenza totale di un menu di navigazione visibile"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La struttura ampia ha molte sezioni di primo livello e poca profondita': tutto visibile subito, ma rischio menu sovraffollato."
+    },
+    {
+        "id": 94,
+        "categoria": "Buon design (Norman)",
+        "domanda": "Che cos'e' un signifier?",
+        "risposte": [
+            "Una pagina",
+            "Un errore",
+            "Un indizio esplicito, visivo o tattile, che comunica dove e come eseguire un'azione",
+            "Un menu"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il signifier e' un segnale esplicito che comunica dove e come agire, chiarendo l'affordance."
+    },
+    {
+        "id": 95,
+        "categoria": "Screen reader e tastiera",
+        "domanda": "Navigando da tastiera, quale domanda e' cruciale porsi?",
+        "risposte": [
+            "Che colore ha",
+            "Il focus e' visibile e l'ordine ha senso?",
+            "Quanto costa",
+            "Quale famiglia di caratteri e' stata scelta per il testo della pagina"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Navigando da tastiera ci si chiede: il focus e' visibile? L'ordine ha senso? C'e' un punto in cui non si capisce dove si e' finiti?"
+    },
+    {
+        "id": 96,
+        "categoria": "Fondamenti UX",
+        "domanda": "A cosa corrisponde il 'What' nel modello Why-What-How?",
+        "risposte": [
+            "Alla funzionalita' del prodotto",
+            "Al prezzo",
+            "All'estetica",
+            "Alle motivazioni profonde e ai valori che spingono l'utente a usarlo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il 'What' definisce la funzionalita': cio' che il prodotto permette concretamente di fare."
+    },
+    {
+        "id": 97,
+        "categoria": "Design Universale",
+        "domanda": "Qual e' il corrispettivo digitale del principio 'Perceptible Information'?",
+        "risposte": [
+            "Prezzo basso",
+            "Un'icona",
+            "Fornire alt text alle immagini e non affidare l'informazione al solo colore",
+            "Un menu"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Perceptible Information: l'informazione passa a prescindere dai sensi, quindi alt text e niente informazione affidata al solo colore."
+    },
+    {
+        "id": 98,
+        "categoria": "Journey e Flow",
+        "domanda": "In uno user flow, il rettangolo rappresenta:",
+        "risposte": [
+            "Una schermata",
+            "Un messaggio di errore che compare in modo improvviso",
+            "Una palette di colori scelta per l'intera applicazione",
+            "Una decisione condizionata tra piu' percorsi alternativi possibili"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il rettangolo rappresenta una schermata; il rombo una decisione; la freccia etichettata l'azione tra schermate."
+    },
+    {
+        "id": 99,
+        "categoria": "Journey e Flow",
+        "domanda": "Cosa significa 'prima la journey, poi la schermata'?",
+        "risposte": [
+            "Disegnare l'UI",
+            "Scrivere codice",
+            "Mappare l'esperienza prima di progettare",
+            "Partire sempre dalla scelta della palette di colori del prodotto finale"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Costruire interfacce senza aver mappato l'esperienza significa risolvere prima di aver capito il problema."
+    },
+    {
+        "id": 100,
+        "categoria": "Architettura dell'informazione",
+        "domanda": "Che cos'e' una sitemap?",
+        "risposte": [
+            "La rappresentazione visiva della struttura",
+            "Un backup",
+            "Un cookie",
+            "Un elenco riservato ai motori di ricerca con tutti gli indirizzi delle pagine"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La sitemap e' la rappresentazione visiva della struttura: sezioni, sottosezioni e relazioni. E' il progetto della casa prima dell'UI."
+    }
+]
