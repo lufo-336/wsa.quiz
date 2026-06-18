@@ -18,10 +18,12 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 **Port Android M1 + M2 completi (2026-06-18); M3 in corso.** M1 (struttura) +
 M2 (dati via risorse embedded: 7 materie / 1540 domande, incl. UX e Frontend
 ampliato) committati, build verde, APK firmato ~30 MB. **M3 parte 1 (dialoghi →
-overlay in-page) committata (`8b666eb`) e verificata a runtime headless
-(18/18 check OK, 2026-06-18)** — restano in M3 layout touch-friendly e
-icona/splash. Niente verificato su device fisico: emulatore non eseguibile su
-questa VM. Vedi roadmap "Port Android" e
+overlay in-page) committata (`8b666eb`) e verificata headless (18/18 OK).
+M3 parte 2 (layout touch-friendly) committata e verificata (build + smoke,
+2026-06-19): flag `AppEnv.TouchMode` + dizionari Sizes Desktop/Touch + stili
+globali MinHeight; tutte le schermate adattate, desktop invariato per
+costruzione** — restano in M3 icona/splash. Niente verificato su device fisico:
+emulatore non eseguibile su questa VM. Vedi roadmap "Port Android" e
 Trappole 14–16. La struttura ora è una **libreria UI condivisa
 (`Wsa.Quiz.App`) + 2 head** (`Wsa.Quiz.Desktop`, `Wsa.Quiz.Android`): le sezioni
 "Layout repo"/"Stack" più sotto parlano ancora di "tre progetti/csproj" — è
@@ -564,7 +566,32 @@ originale faceva `Dispatcher.UIThread.InvokeAsync(...).GetResult()` dopo
 della sessione precedente, NON un bug dei dialoghi). Corretto: il corpo gira sul
 thread UI pompando `Dispatcher.UIThread.RunJobs()` in un loop con timeout di 30s.
 Resta da verificare su **device fisico** (emulatore non eseguibile su questa VM).
-**Restano in M3**: layout touch-friendly, icona/splash definitivi.
+
+**Parte 2 — layout touch-friendly: committata e verificata (build + smoke headless,
+2026-06-19).** Meccanismo a **flag `AppEnv.TouchMode`** (acceso solo nel ramo
+`ISingleViewApplicationLifetime`/Android di `App.OnFrameworkInitializationCompleted`,
+`false` su desktop) + due `ResourceDictionary` con chiavi omonime
+(`Themes/Sizes.Desktop.axaml` / `Sizes.Touch.axaml`): il dizionario touch è
+merge-ato a runtime solo su Android (append; le chiavi vincono via
+`TryGetResource`, che è il path di `DynamicResource` — l'indexer
+`Resources["..."]` NON attraversa le MergedDictionaries in Avalonia 12). Stili
+globali in `App.axaml` danno `MinHeight={DynamicResource SzTapMin}` (32 desktop /
+48 touch) a Button/CheckBox/NumericUpDown/ListBoxItem/TabItem → target tap grandi
+ovunque su Android senza toccare ogni view. Schermate: **QuizView/SospesiView**
+solo sizing; **HomeView** impila Materie/Categorie in verticale su touch (reflow
+in code-behind gated da `TouchMode`); **RiepilogoView** dispone le 5 metriche in
+2×2; **StatisticheView** header `WrapPanel` + celle heatmap toccabili (chiavi
+`SzCellaPad`/`SzCellaMinH` touch-only, desktop pixel-identico); **CronologiaView**
+mostra **card verticali** su touch (secondo `DataTemplate` modellato su SospesiView,
+tabella desktop invariata; toggle reattivo via proprietà calcolate
+`MostraTabella`/`MostraCard`/`MostraHeaderColonne` legate a `NessunaSessione`).
+**MainView**: no-op (i `TabItem` ereditano `MinHeight` dallo stile globale; padding
+espliciti regredirebbero il desktop). Tutto a valori desktop = identici a prima →
+desktop invariato per costruzione. Spec/plan in `docs/superpowers/`
+(`2026-06-19-m3-touch-friendly-layout-*`). **Restano in M3**: icona/splash
+definitivi; e la **verifica visiva reale su device fisico** (qui niente emulatore)
+— inclusa la nota: le 4 tab in alto potrebbero affollarsi in orizzontale su schermo
+stretto (bottom-nav/scroll è fuori scope M3).
 
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
