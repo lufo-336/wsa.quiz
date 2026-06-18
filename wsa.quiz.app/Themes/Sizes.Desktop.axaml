@@ -8,4 +8,6 @@
     <Thickness x:Key="SzAnswerPadding">14,12</Thickness>
     <Thickness x:Key="SzBtnPadding">14,6</Thickness>
     <Thickness x:Key="SzPaginaMargin">20</Thickness>
+    <Thickness x:Key="SzCellaPad">8,4</Thickness>
+    <x:Double x:Key="SzCellaMinH">0</x:Double>
 </ResourceDictionary>

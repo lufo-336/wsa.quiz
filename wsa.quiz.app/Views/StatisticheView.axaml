@@ -17,13 +17,15 @@
             <StackPanel Spacing="6">
                 <TextBlock Text="Statistiche"
                            FontSize="22" FontWeight="SemiBold"/>
-                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <RadioButton Content="Tutto"
                                  GroupName="FiltroPeriodo"
-                                 IsChecked="{Binding ModalitaTutto}"/>
+                                 IsChecked="{Binding ModalitaTutto}"
+                                 Margin="0,0,10,0"/>
                     <RadioButton Content="Ultime"
                                  GroupName="FiltroPeriodo"
-                                 IsChecked="{Binding !ModalitaTutto}"/>
+                                 IsChecked="{Binding !ModalitaTutto}"
+                                 Margin="0,0,10,0"/>
                     <NumericUpDown Value="{Binding LimiteUltimeN}"
                                    Minimum="1"
                                    Maximum="9999"
@@ -31,11 +33,12 @@
                                    FormatString="0"
                                    Width="100"
                                    IsEnabled="{Binding !ModalitaTutto}"
-                                   ValueChanged="OnLimiteChanged"/>
+                                   ValueChanged="OnLimiteChanged"
+                                   Margin="0,0,10,0"/>
                     <TextBlock Text="partite"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
-                </StackPanel>
+                </WrapPanel>
                 <TextBlock Text="Categorie ordinate dalle piu' deboli alle piu' forti."
                            FontSize="12"
                            Foreground="{DynamicResource SystemBaseMediumColor}"/>
@@ -73,7 +76,8 @@
                                                     Background="{Binding ColoreSfondo}"
                                                     BorderThickness="1"
                                                     CornerRadius="2"
-                                                    Padding="8,4"
+                                                    Padding="{DynamicResource SzCellaPad}"
+                                                    MinHeight="{DynamicResource SzCellaMinH}"
                                                     Margin="2"
                                                     Cursor="Hand"
                                                     ToolTip.Tip="{Binding Tooltip}"
