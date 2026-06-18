@@ -27,9 +27,10 @@
                 CornerRadius="6"
                 Padding="20"
                 Margin="0,0,0,16">
-            <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="Auto,Auto">
+            <Grid x:Name="GrigliaStat" ColumnDefinitions="*,*,*,*,*" RowDefinitions="Auto,Auto">
 
-                <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                <StackPanel x:Name="BloccoPercentuale"
+                            Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             Spacing="2">
                     <TextBlock Text="{Binding PercentualeFormattata}"
@@ -40,14 +41,14 @@
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="2">
+                <StackPanel x:Name="BloccoTotale" Grid.Column="1" Grid.Row="0" Spacing="2">
                     <TextBlock Text="Totale"
                                FontSize="11"
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
                     <TextBlock Text="{Binding TotaleDomande}"
                                FontSize="18" FontWeight="SemiBold"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="0" Spacing="2">
+                <StackPanel x:Name="BloccoCorrette" Grid.Column="2" Grid.Row="0" Spacing="2">
                     <TextBlock Text="Corrette"
                                FontSize="11"
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
@@ -55,7 +56,7 @@
                                FontSize="18" FontWeight="SemiBold"
                                Foreground="#1F7A4D"/>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Grid.Row="0" Spacing="2">
+                <StackPanel x:Name="BloccoErrate" Grid.Column="3" Grid.Row="0" Spacing="2">
                     <TextBlock Text="Errate"
                                FontSize="11"
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
@@ -63,7 +64,7 @@
                                FontSize="18" FontWeight="SemiBold"
                                Foreground="#B85450"/>
                 </StackPanel>
-                <StackPanel Grid.Column="4" Grid.Row="0" Spacing="2">
+                <StackPanel x:Name="BloccoPunteggio" Grid.Column="4" Grid.Row="0" Spacing="2">
                     <TextBlock Text="Punteggio"
                                FontSize="11"
                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
@@ -71,7 +72,8 @@
                                FontSize="18" FontWeight="SemiBold"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"
+                <StackPanel x:Name="BloccoDurataModalita"
+                            Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"
                             Orientation="Horizontal" Spacing="20" Margin="0,12,0,0">
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <TextBlock Text="Durata:"
