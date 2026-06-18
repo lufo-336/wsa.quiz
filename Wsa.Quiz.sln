@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Cli", "wsa.quiz.cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.App", "wsa.quiz.app\Wsa.Quiz.App.csproj", "{AEE6EFFF-B267-43F5-AA3B-07693030CF45}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wsa.quiz.desktop", "wsa.quiz.desktop", "{7AF50B4F-FA16-92EB-9559-AEA5ECA2AA7C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Desktop", "wsa.quiz.desktop\Wsa.Quiz.Desktop.csproj", "{F9F7A277-D53D-4382-833C-64385D383BE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsa.Quiz.Android", "wsa.quiz.android\Wsa.Quiz.Android.csproj", "{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,11 +71,20 @@ Global
 		{F9F7A277-D53D-4382-833C-64385D383BE0}.Release|x64.Build.0 = Release|Any CPU
 		{F9F7A277-D53D-4382-833C-64385D383BE0}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9F7A277-D53D-4382-833C-64385D383BE0}.Release|x86.Build.0 = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|x64.Build.0 = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Debug|x86.Build.0 = Debug|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|x64.ActiveCfg = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|x64.Build.0 = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|x86.ActiveCfg = Release|Any CPU
+		{79CA3CFD-2DEE-4FB9-BFDB-69124DBB0807}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F9F7A277-D53D-4382-833C-64385D383BE0} = {7AF50B4F-FA16-92EB-9559-AEA5ECA2AA7C}
 	EndGlobalSection
 EndGlobal
