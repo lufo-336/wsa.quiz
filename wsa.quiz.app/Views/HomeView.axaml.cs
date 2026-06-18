@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -128,6 +129,16 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
         AggiornaRiepilogo();
+        if (AppEnv.TouchMode)
+        {
+            var g = GrigliaMaterieCategorie;
+            g.ColumnDefinitions = new ColumnDefinitions("*");
+            g.RowDefinitions = new RowDefinitions("Auto,Auto");
+            // ZonaMaterie resta in Row 0 / Col 0. Spostare ZonaCategorie sotto.
+            Grid.SetColumn(ZonaCategorie, 0);
+            Grid.SetRow(ZonaCategorie, 1);
+            ZonaCategorie.Margin = new Thickness(0, 12, 0, 0);
+        }
         // Step 15: Tunnel + handledEventsToo per intercettare anche eventi gia'
         // marcati Handled da controlli intermedi (ScrollViewer, ListBoxItem).
         AddHandler(KeyDownEvent, OnKeyDownTunnel, RoutingStrategies.Tunnel, handledEventsToo: true);

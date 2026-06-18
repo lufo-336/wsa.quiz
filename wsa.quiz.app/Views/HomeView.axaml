@@ -50,7 +50,7 @@
             <StackPanel Spacing="16" MaxWidth="980" HorizontalAlignment="Stretch">
 
                 <!-- Materie + Categorie -->
-                <Grid ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
+                <Grid x:Name="GrigliaMaterieCategorie" ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">
 
                     <!-- ============================== MATERIE ============================== -->
                     <Border x:Name="ZonaMaterie"
