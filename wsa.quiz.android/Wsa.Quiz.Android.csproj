@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- OutputType=Exe distingue un'APP Android (produce APK) da una libreria
+         (produce .aar). Senza, il build emette Wsa.Quiz.Android.aar e nessun
+         APK: il piano l'aveva omesso. -->
+    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0-android</TargetFramework>
     <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
