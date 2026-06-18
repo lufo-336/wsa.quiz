@@ -15,9 +15,11 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 
 ## Stato attuale
 
-**Port Android M1 completo a livello di codice (2026-06-18): APK firmato
-prodotto, emulatore non eseguibile su questa VM.** Vedi roadmap "Port Android —
-M1" e Trappole 14–16. La struttura ora è una **libreria UI condivisa
+**Port Android M1 + M2 completi a livello di codice (2026-06-18): APK firmato
+prodotto (~30 MB), dati (7 materie / 1540 domande, incl. UX e Frontend ampliato)
+caricati anche su Android via risorse embedded. Non ancora verificato su device:
+emulatore non eseguibile su questa VM.** Vedi roadmap "Port Android — M1/M2" e
+Trappole 14–16. La struttura ora è una **libreria UI condivisa
 (`Wsa.Quiz.App`) + 2 head** (`Wsa.Quiz.Desktop`, `Wsa.Quiz.Android`): le sezioni
 "Layout repo"/"Stack" più sotto parlano ancora di "tre progetti/csproj" — è
 stale rispetto a M1 (ora 5 progetti), non ancora riscritte.
@@ -454,6 +456,29 @@ macchina con accelerazione hardware. Spec/plan in `docs/superpowers/`
 (`2026-06-16-android-port-*`). Fuori scope M1 (→ M2/M3): asset dati impacchettati
 (oggi l'header materie/domande sarà 0 su Android finché i JSON non sono asset),
 overlay dei dialoghi modali, layout touch.
+
+### ✅ Port Android — M2 — Dati su Android (2026-06-18)
+I dati read-only (materie + domande) ora si caricano anche su Android. Astrazione
+**`IFonteDati`** (`Wsa.Quiz.Core.Services`) con `Esiste`/`LeggiTesto`/`ElencaJson`
+su percorsi relativi; due implementazioni:
+- **`FileSystemFonteDati`** (Core): legge dal bin via file system — desktop/CLI,
+  comportamento identico a prima. I costruttori legacy di `StorageService`
+  (`(cartella)`, `(cartellaDati, cartellaUtente)`) vi delegano; nuovo costruttore
+  `StorageService(IFonteDati, cartellaUtente)`.
+- **`AvaloniaResourceFonteDati`** (`Wsa.Quiz.App`): legge dalle risorse Avalonia
+  embedded via `AssetLoader`/`avares://Wsa.Quiz.App/Assets/…` — Android (i JSON
+  viaggiano nell'APK). `AssetLoader.GetAssets(dirUri, null)` enumera i `.json`.
+I dati sono `<AvaloniaResource Include="..\materie.json"/>` +
+`..\domande\**\*.json` **linkati** dalla radice repo nella libreria condivisa
+(niente duplicazione). `MainView.Caricamento` sceglie la fonte: file system se
+`materie.json` è nel bin (desktop), altrimenti risorse embedded (Android). I dati
+utente (cronologia/pausa) restano su file (`CartellaUtenteDefault()`; su Android
+è la app data dir scrivibile). **Materie: 7** (aggiunta **UX Design**, 100 dom.;
+**Frontend** ampliato a ~210) per **1540 domande** totali, verificate headless via
+`AssetLoader` (stesso path di Android). APK Release firmato ~30 MB. **Non
+verificato su device** (vedi M1: emulatore non eseguibile su questa VM): testare
+materie/domande su un dispositivo reale. Fuori scope (→ M3): dialoghi modali
+overlay, layout touch.
 
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
