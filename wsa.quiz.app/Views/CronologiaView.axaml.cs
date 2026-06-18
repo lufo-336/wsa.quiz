@@ -185,11 +185,7 @@ public partial class CronologiaView : TabellaViewBase<RisultatoCronologiaItem>
             "Si', cancella tutto",
             "danger");
 
-        var owner = TopLevel.GetTopLevel(this) as Window;
-        if (owner != null)
-            await dialog.ShowDialog(owner);
-        else
-            dialog.Show();
+        await dialog.ShowOverlayAsync(this);
 
         if (!dialog.Confermato) return;
 

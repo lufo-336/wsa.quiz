@@ -149,11 +149,7 @@ public partial class QuizView : UserControl
         _sessione.SospendiCronometro();
 
         var dialog = new PausaDialog();
-        var owner = TopLevel.GetTopLevel(this) as Window;
-        if (owner != null)
-            await dialog.ShowDialog(owner);
-        else
-            dialog.Show();
+        await dialog.ShowOverlayAsync(this);
 
         Focus();
 

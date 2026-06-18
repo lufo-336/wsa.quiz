@@ -12,11 +12,13 @@ public enum PausaDialogResult
 }
 
 /// <summary>
-/// Modale pausa unificata (step 6). Tre uscite: Annulla (default + ESC),
-/// Abbandona, Salva e esci. Frecce sx/dx muovono il focus ciclicamente fra i
-/// 3 bottoni; Ctrl+Tab e' bloccato per non cambiare tab con la modale aperta.
+/// Modale pausa unificata (step 6), resa come overlay in-page (M3). Tre uscite:
+/// Annulla (default + ESC), Abbandona, Salva e esci. Frecce sx/dx muovono il
+/// focus ciclicamente fra i 3 bottoni; Ctrl+Tab è bloccato per non cambiare tab
+/// con la modale aperta. Si legge <see cref="Risultato"/> dopo
+/// <c>await ShowOverlayAsync(...)</c>.
 /// </summary>
-public partial class PausaDialog : Window
+public partial class PausaDialog : OverlayDialogBase
 {
     public PausaDialogResult Risultato { get; private set; } = PausaDialogResult.Annulla;
 
@@ -31,7 +33,7 @@ public partial class PausaDialog : Window
             {
                 ke.Handled = true;
                 Risultato = PausaDialogResult.Annulla;
-                Close();
+                Chiudi();
                 return;
             }
             if (ke.Key == Key.Tab && ke.KeyModifiers.HasFlag(KeyModifiers.Control))
@@ -41,8 +43,8 @@ public partial class PausaDialog : Window
             }
             if (ke.Key == Key.Left || ke.Key == Key.Right)
             {
-                int idx = Array.IndexOf(bottoniInOrdine,
-                    FocusManager?.GetFocusedElement() as Button);
+                var focused = TopLevel.GetTopLevel(this)?.FocusManager?.GetFocusedElement() as Button;
+                int idx = Array.IndexOf(bottoniInOrdine, focused);
                 if (idx < 0) idx = 1; // default su Annulla
                 int delta = ke.Key == Key.Right ? +1 : -1;
                 int nuovo = (idx + delta + bottoniInOrdine.Length) % bottoniInOrdine.Length;
@@ -50,25 +52,25 @@ public partial class PausaDialog : Window
                 ke.Handled = true;
             }
         };
-
-        Opened += (_, _) => AnnullaBtn.Focus();
     }
+
+    protected override void OnShown() => AnnullaBtn.Focus();
 
     private void OnAbbandonaClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         Risultato = PausaDialogResult.Abbandona;
-        Close();
+        Chiudi();
     }
 
     private void OnAnnullaClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         Risultato = PausaDialogResult.Annulla;
-        Close();
+        Chiudi();
     }
 
     private void OnSalvaClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         Risultato = PausaDialogResult.Salva;
-        Close();
+        Chiudi();
     }
 }
