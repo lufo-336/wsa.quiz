@@ -138,13 +138,13 @@
                                             Classes="accent"
                                             Click="OnRiprendiClick"
                                             IsTabStop="False"
-                                            Padding="14,6"
+                                            Padding="{DynamicResource SzBtnPadding}"
                                             FontSize="12"/>
                                     <Button Content="Elimina"
                                             Click="OnEliminaClick"
                                             IsTabStop="False"
                                             Classes="danger"
-                                            Padding="14,6"
+                                            Padding="{DynamicResource SzBtnPadding}"
                                             FontSize="12"/>
                                 </StackPanel>
 
@@ -164,12 +164,12 @@
                                             Click="OnConfermaEliminaClick"
                                             IsTabStop="False"
                                             Classes="danger"
-                                            Padding="14,6"
+                                            Padding="{DynamicResource SzBtnPadding}"
                                             FontSize="12"/>
                                     <Button Content="Annulla"
                                             Click="OnAnnullaEliminaClick"
                                             IsTabStop="False"
-                                            Padding="14,6"
+                                            Padding="{DynamicResource SzBtnPadding}"
                                             FontSize="12"/>
                                 </StackPanel>
 
