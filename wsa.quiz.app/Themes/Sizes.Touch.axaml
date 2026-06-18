@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <x:Double x:Key="SzTapMin">48</x:Double>
+    <x:Double x:Key="SzFontBody">16</x:Double>
+    <x:Double x:Key="SzFontDomanda">19</x:Double>
+    <x:Double x:Key="SzFontTitolo">24</x:Double>
+    <x:Double x:Key="SzGap">18</x:Double>
+    <Thickness x:Key="SzAnswerPadding">18,16</Thickness>
+    <Thickness x:Key="SzBtnPadding">16,10</Thickness>
+    <Thickness x:Key="SzPaginaMargin">16</Thickness>
+</ResourceDictionary>
