@@ -121,6 +121,24 @@
                 </FocusAdornerTemplate>
             </Setter>
         </Style>
+
+        <!-- M3 touch: target tap minimi. Su desktop SzTapMin=32 (≈ come oggi),
+             su Android 48. MinHeight non altera i bottoni desktop (gia' ~32). -->
+        <Style Selector="Button">
+            <Setter Property="MinHeight" Value="{DynamicResource SzTapMin}"/>
+        </Style>
+        <Style Selector="CheckBox">
+            <Setter Property="MinHeight" Value="{DynamicResource SzTapMin}"/>
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="MinHeight" Value="{DynamicResource SzTapMin}"/>
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="MinHeight" Value="{DynamicResource SzTapMin}"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="MinHeight" Value="{DynamicResource SzTapMin}"/>
+        </Style>
     </Application.Styles>
 
 </Application>
