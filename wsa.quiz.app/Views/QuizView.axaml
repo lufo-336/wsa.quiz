@@ -14,8 +14,8 @@
         <Style Selector="Button.risposta">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Padding" Value="14,12"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="{DynamicResource SzAnswerPadding}"/>
+            <Setter Property="FontSize" Value="{DynamicResource SzFontBody}"/>
             <Setter Property="Margin" Value="0,4"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="6"/>
@@ -74,7 +74,7 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto" Margin="{DynamicResource SzPaginaMargin}">
 
         <!-- BANNER VIEW-MODE (step 7): visibile solo quando si sta rivedendo una passata -->
         <Border Grid.Row="0"
@@ -154,7 +154,7 @@
                         CornerRadius="6"
                         Padding="18,16">
                     <TextBlock Text="{Binding DomandaTesto}"
-                               FontSize="16"
+                               FontSize="{DynamicResource SzFontDomanda}"
                                TextWrapping="Wrap"
                                LineHeight="22"/>
                 </Border>
