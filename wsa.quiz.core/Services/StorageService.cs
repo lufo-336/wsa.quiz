@@ -13,10 +13,9 @@ namespace Wsa.Quiz.Core.Services;
 /// </summary>
 public class StorageService
 {
-    private readonly string _cartellaDati;
+    private readonly IFonteDati _fonte;
     private readonly string _cartellaUtente;
     private readonly string _fileCronologia;
-    private readonly string _fileMaterie;
     private readonly string _filePausa;
 
     private static readonly JsonSerializerOptions OpzioniScrittura = new()
@@ -38,22 +37,29 @@ public class StorageService
     public StorageService(string cartella) : this(cartella, cartella) { }
 
     /// <summary>
-    /// Costruttore con separazione fra dati read-only (materie, domande) e dati utente (cronologia, sospesi).
+    /// Costruttore con separazione fra dati read-only (materie, domande) e dati utente (cronologia, sospesi),
+    /// leggendo i dati read-only dal file system. Usato da desktop e CLI.
     /// </summary>
     /// <param name="cartellaDati">Cartella che contiene materie.json e la sottocartella domande/.</param>
     /// <param name="cartellaUtente">Cartella dove leggere/scrivere cronologia.json e quiz_in_pausa.json.</param>
     public StorageService(string cartellaDati, string cartellaUtente)
+        : this(new FileSystemFonteDati(cartellaDati), cartellaUtente) { }
+
+    /// <summary>
+    /// Costruttore generico: i dati read-only arrivano da una <see cref="IFonteDati"/>
+    /// qualsiasi (file system o risorse embedded su Android), i dati utente da cartella.
+    /// </summary>
+    /// <param name="fonte">Sorgente dei dati read-only (materie + domande).</param>
+    /// <param name="cartellaUtente">Cartella dove leggere/scrivere cronologia.json e quiz_in_pausa.json.</param>
+    public StorageService(IFonteDati fonte, string cartellaUtente)
     {
-        _cartellaDati = Path.GetFullPath(cartellaDati);
+        _fonte = fonte;
         _cartellaUtente = Path.GetFullPath(cartellaUtente);
-        _fileMaterie    = Path.GetFullPath(Path.Combine(_cartellaDati,   "materie.json"));
         _fileCronologia = Path.GetFullPath(Path.Combine(_cartellaUtente, "cronologia.json"));
         _filePausa      = Path.GetFullPath(Path.Combine(_cartellaUtente, "quiz_in_pausa.json"));
 
-        // Validazione anti-directory-traversal: i file risolti devono stare dentro le cartelle base.
+        // Validazione anti-directory-traversal sui file utente.
         static string ConSep(string dir) => dir.EndsWith(Path.DirectorySeparatorChar) ? dir : dir + Path.DirectorySeparatorChar;
-        if (!_fileMaterie.StartsWith(ConSep(_cartellaDati), StringComparison.Ordinal))
-            throw new ArgumentException("Percorso materie.json fuori dalla cartella dati.", nameof(cartellaDati));
         if (!_fileCronologia.StartsWith(ConSep(_cartellaUtente), StringComparison.Ordinal))
             throw new ArgumentException("Percorso cronologia.json fuori dalla cartella utente.", nameof(cartellaUtente));
         if (!_filePausa.StartsWith(ConSep(_cartellaUtente), StringComparison.Ordinal))
@@ -79,10 +85,10 @@ public class StorageService
 
     public List<Materia> CaricaMaterie()
     {
-        if (!File.Exists(_fileMaterie))
-            throw new FileNotFoundException("File materie.json non trovato.", _fileMaterie);
+        if (!_fonte.Esiste("materie.json"))
+            throw new FileNotFoundException("File materie.json non trovato.", "materie.json");
 
-        string json = LeggiFileCondiviso(_fileMaterie);
+        string json = _fonte.LeggiTesto("materie.json");
         var materie = JsonSerializer.Deserialize<List<Materia>>(json, OpzioniLettura)
                       ?? new List<Materia>();
         return materie;
@@ -107,15 +113,10 @@ public class StorageService
 
     public List<Domanda> CaricaDomandeMateria(Materia materia)
     {
-        string cartella = Path.Combine(_cartellaDati, materia.Cartella);
-        if (!Directory.Exists(cartella))
-        {
-            // Non blocco l'app: una materia senza cartella/domande verra' mostrata vuota.
-            return new List<Domanda>();
-        }
-
         var risultato = new List<Domanda>();
-        foreach (var file in Directory.EnumerateFiles(cartella, "*.json"))
+        // _fonte.ElencaJson restituisce sequenza vuota se la cartella non esiste:
+        // una materia senza domande verra' semplicemente mostrata vuota.
+        foreach (var file in _fonte.ElencaJson(materia.Cartella))
         {
             try
             {
@@ -168,7 +169,7 @@ public class StorageService
 
     private List<Domanda> LeggiFileDomande(string percorso, string formato)
     {
-        string json = LeggiFileCondiviso(percorso);
+        string json = _fonte.LeggiTesto(percorso);
         return formato switch
         {
             "nested" => ParseNested(json),

@@ -66,13 +66,29 @@ public partial class MainView : UserControl
 
     private void Caricamento()
     {
-        string cartellaDati = AppContext.BaseDirectory;
         string cartellaUtente = StorageService.CartellaUtenteDefault();
-        FooterText.Text = $"Dati read-only: {cartellaDati}    ·    Cartella utente: {cartellaUtente}";
+
+        // Scelta della sorgente dati read-only:
+        // - desktop/CLI: i JSON sono copiati nel bin → file system (identico a prima).
+        // - Android: nessun file accanto all'eseguibile → risorse embedded (avares://).
+        string cartellaDati = AppContext.BaseDirectory;
+        IFonteDati fonte;
+        string origine;
+        if (File.Exists(Path.Combine(cartellaDati, "materie.json")))
+        {
+            fonte = new FileSystemFonteDati(cartellaDati);
+            origine = $"file system: {cartellaDati}";
+        }
+        else
+        {
+            fonte = new AvaloniaResourceFonteDati();
+            origine = "risorse embedded (avares://)";
+        }
+        FooterText.Text = $"Dati read-only: {origine}    ·    Cartella utente: {cartellaUtente}";
 
         try
         {
-            _storage = new StorageService(cartellaDati, cartellaUtente);
+            _storage = new StorageService(fonte, cartellaUtente);
             _materie = _storage.CaricaMaterie();
             _tutteDomande = _storage.CaricaTutteLeDomande(_materie);
             _mappaDomande = _tutteDomande.ToDictionary(d => d.Id, d => d);

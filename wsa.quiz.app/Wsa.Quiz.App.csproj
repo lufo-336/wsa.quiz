@@ -19,4 +19,15 @@
     <ProjectReference Include="..\wsa.quiz.core\Wsa.Quiz.Core.csproj" />
   </ItemGroup>
 
+  <!-- M2: i dati read-only (materie + domande) sono incorporati come risorse
+       Avalonia sotto Assets/. Così viaggiano dentro l'assembly e sono leggibili
+       via avares:// su OGNI piattaforma (in particolare Android, dove non c'è
+       un file system di dati). La sorgente di verità resta in radice repo: qui
+       sono solo linkati, niente duplicazione. Desktop/CLI continuano a leggerli
+       dal bin via file system (vedi MainView.Caricamento). -->
+  <ItemGroup>
+    <AvaloniaResource Include="..\materie.json" Link="Assets\materie.json" />
+    <AvaloniaResource Include="..\domande\**\*.json" Link="Assets\domande\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
 </Project>
