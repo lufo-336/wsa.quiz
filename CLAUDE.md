@@ -550,6 +550,36 @@ Una volta capita la causa, applicare il fix minimo possibile.
     `Debug.WriteLine` o overlay diagnostico per vedere `e.Source`/
     `e.RoutedEvent`/`e.Handled` e l'elemento focused (suggerimento ripetuto
     da due tentativi, mai eseguito).
+14. **Avalonia 12 — bootstrap Android NON è `AvaloniaMainActivity<App>`**
+    *(scoperta porting M1, 2026-06-18)*: il plan/spec del porting erano scritti
+    per l'API Avalonia 11.x dove `MainActivity : AvaloniaMainActivity<App>` con
+    `CustomizeAppBuilder`. In **Avalonia 12.0.2** `AvaloniaMainActivity` è
+    **non generico** → `error CS0308`. La scelta dell'`App` e
+    `CustomizeAppBuilder` sono migrate in una sottoclasse di
+    `Android.App.Application`: `MainApplication : AvaloniaAndroidApplication<TApp>`
+    (con `[Application]`, ctor `(IntPtr, JniHandleOwnership)`, `WithInterFont()`
+    dentro `CustomizeAppBuilder`). `MainActivity` resta nudo
+    (`: AvaloniaMainActivity`). Vedi `wsa.quiz.android/MainApplication.cs`.
+15. **`dotnet sln` + solution folder omonima al progetto = `MSB5004`**
+    *(scoperta porting M1)*: lo schema "solution folder per head" introdotto nel
+    refactor creava folder lowercase (`wsa.quiz.app`/`wsa.quiz.android`/
+    `wsa.quiz.desktop`) con lo stesso nome **case-insensitive** dei progetti
+    reali (`Wsa.Quiz.App`...). `dotnet build Wsa.Quiz.sln` falliva con
+    "due progetti denominati wsa.quiz.app". Le solution folder sono solo
+    cosmetiche (organizzazione VS): rimosse, solution flat a 5 progetti.
+16. **`.NET Android SDK 36.1.69` + runtime .NET 10 = APK packaging rotto
+    (`XABAA7024`)** *(scoperta porting M1, **bug del SDK, ancora aperto**)*:
+    il task `BuildArchive` sceglie il path zip via un version-check che
+    interpreta ".NET 10.0.8" come "**non** .NET 6+" (log: *"Falling back to
+    LibZipSharp because we are not running on .NET 6+"*) — classico bug di
+    parsing della major a due cifre (legge '1' da "10"). Ripiega su LibZipSharp
+    nativo che poi non apre l'APK generato da aapt2 →
+    `Xamarin.Tools.Zip.ZipIOException`. Blocca **ogni** packaging APK
+    (`-t:SignAndroidPackage`, `-t:Run`, `publish`), quindi anche il deploy M1.
+    NON aggirabile via `_AndroidUseLibZipSharp` (già false, il check lo
+    sovrascrive). Fix atteso: `dotnet workload update` a un Android workload che
+    gestisce .NET 10. Il **build/compile** (`dotnet build`) invece è verde: il
+    bug è solo nello step di archiviazione zip.
 
 ## Note per i prossimi step
 
