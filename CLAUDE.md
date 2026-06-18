@@ -15,10 +15,13 @@ didattico, quindi le scelte privilegiano chiarezza e separazione dei concetti.
 
 ## Stato attuale
 
-**Port Android M1 + M2 completi a livello di codice (2026-06-18): APK firmato
-prodotto (~30 MB), dati (7 materie / 1540 domande, incl. UX e Frontend ampliato)
-caricati anche su Android via risorse embedded. Non ancora verificato su device:
-emulatore non eseguibile su questa VM.** Vedi roadmap "Port Android — M1/M2" e
+**Port Android M1 + M2 completi (2026-06-18); M3 in corso.** M1 (struttura) +
+M2 (dati via risorse embedded: 7 materie / 1540 domande, incl. UX e Frontend
+ampliato) committati, build verde, APK firmato ~30 MB. **M3 parte 1 (dialoghi →
+overlay in-page) committata come WIP (`8b666eb`) ma la verifica runtime NON è
+stata completata** — riprendere da lì (rieseguire l'harness headless in
+`%TEMP%\m2verify`; vedi roadmap "Port Android — M3"). Niente verificato su
+device: emulatore non eseguibile su questa VM. Vedi roadmap "Port Android" e
 Trappole 14–16. La struttura ora è una **libreria UI condivisa
 (`Wsa.Quiz.App`) + 2 head** (`Wsa.Quiz.Desktop`, `Wsa.Quiz.Android`): le sezioni
 "Layout repo"/"Stack" più sotto parlano ancora di "tre progetti/csproj" — è
@@ -479,6 +482,27 @@ utente (cronologia/pausa) restano su file (`CartellaUtenteDefault()`; su Android
 verificato su device** (vedi M1: emulatore non eseguibile su questa VM): testare
 materie/domande su un dispositivo reale. Fuori scope (→ M3): dialoghi modali
 overlay, layout touch.
+
+### 🚧 Port Android — M3 — UX mobile (in corso, 2026-06-18)
+**Parte 1 — dialoghi modali → overlay in-page: codice committato (WIP,
+`8b666eb`), verifica runtime ANCORA DA FARE.** `PausaDialog` e `ConfermaDialog`
+erano `Window` + `ShowDialog(owner as Window)`: su Android (single-view) `owner`
+è null e il fallback `Show()` non funziona → erano il blocco funzionale. Ora:
+- nuova base **`OverlayDialogBase : UserControl`** (`Views/`): `ShowOverlayAsync(Visual)`
+  inserisce il dialogo (card centrata) sopra uno scrim semitrasparente
+  nell'`OverlayLayer` del TopLevel e ritorna un `Task` che si completa su
+  `Chiudi()`. La root dell'overlay ha Width/Height vincolati ai `Bounds` del
+  layer (è un `Canvas`, non stira i figli).
+- i due dialoghi: root XAML `Window`→`UserControl` (card `Border`, sfondo chiaro
+  hardcoded → tema scuro a Step 10), `Close()`→`Chiudi()`, focus default in
+  `OnShown()`. Call site: `await dialog.ShowOverlayAsync(this)`, risultati letti
+  come prima.
+
+Build Debug verde. **NON ancora verificato a runtime**: l'harness headless
+(`Avalonia.Headless`, in `%TEMP%\m2verify`) non ha prodotto esito in sessione →
+rieseguirlo a inizio prossima sessione (instanzia i dialoghi nell'OverlayLayer,
+click/Esc, controlla `Risultato`/`Confermato` + rimozione overlay), poi su
+device. **Restano in M3**: layout touch-friendly, icona/splash definitivi.
 
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
