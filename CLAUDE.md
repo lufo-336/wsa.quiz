@@ -126,6 +126,62 @@ dotnet run --project wsa.quiz.cli
 dotnet run --project wsa.quiz.app
 ```
 
+`dotnet run` è il comando del **ciclo di sviluppo**: ricompila e riavvia ogni
+volta, non è ciò che si consegna. Per produrre eseguibili autonomi vedi sotto.
+
+## Distribuzione (publish desktop)
+
+L'head desktop è **`wsa.quiz.desktop`** (`net10.0`, `OutputType=WinExe` — vedi
+Trappola 4). Per consegnare un eseguibile che parta con doppio click si usa
+`dotnet publish`, **non** `dotnet run`.
+
+Tre opzioni, tre concetti distinti:
+
+| Flag | Effetto |
+|---|---|
+| `-r <RID>` | sceglie piattaforma + CPU di destinazione (Runtime Identifier) |
+| `--self-contained` | impacchetta **anche il runtime .NET** → gira su PC senza .NET installato (output più grande, ~70–80 MB) |
+| `-p:PublishSingleFile=true` | un solo file invece di una cartella di DLL |
+
+**Importante**: un binario è **specifico per OS+CPU**. Non esiste un unico file
+che giri sia su Windows sia su Mac: si pubblica una volta per ogni target. Stesso
+sorgente, pacchetti finali diversi. RID utili: `win-x64`, `win-arm64`,
+`osx-arm64` (Mac Apple Silicon), `osx-x64` (Mac Intel), `linux-x64`.
+
+### Windows (`.exe` singolo autonomo)
+
+```powershell
+dotnet publish wsa.quiz.desktop -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
+```
+
+Output: `wsa.quiz.desktop\bin\Release\net10.0\win-x64\publish\Wsa.Quiz.Desktop.exe`
+— copiabile e avviabile su qualsiasi Windows x64, senza installare .NET.
+(Per i PC ARM, es. Surface recenti, ripetere con `-r win-arm64`.)
+
+### Mac (eseguibile autonomo)
+
+```powershell
+dotnet publish wsa.quiz.desktop -c Release -r osx-arm64 --self-contained -p:PublishSingleFile=true
+```
+
+Output: `...\bin\Release\net10.0\osx-arm64\publish\Wsa.Quiz.Desktop` (Mach-O,
+niente `.exe`). Per Mac Intel usare `-r osx-x64`.
+
+**Caveat Mac (importante, dato che si compila da una VM Windows):**
+- Il `publish` da Windows **produce** il binario Mac (cross-compile ok), ma quel
+  binario **non si può eseguire né firmare da Windows**.
+- Su Mac va reso eseguibile (`chmod +x Wsa.Quiz.Desktop`) e di norma **firmato**
+  (`codesign`), altrimenti Gatekeeper lo blocca al primo avvio.
+- Quello prodotto è un **eseguibile nudo**, non un bundle `.app` cliccabile dal
+  Finder: il `.app` (con `Info.plist`, icona) e la notarizzazione vanno fatti
+  **su un Mac**. Per il progetto didattico l'eseguibile da terminale è
+  sufficiente; il packaging `.app` completo è materiale di Step 14.
+
+> Riduzione dimensioni: `-p:PublishTrimmed=true` rimuove il codice non usato, ma
+> il trimming può rompere il caricamento via reflection (Avalonia/`AssetLoader`).
+> Da provare e **verificare a runtime** prima di distribuire, non darlo per
+> scontato. Vedi anche Step 14 (icona, About, installer).
+
 ## Aggiungere materie/domande
 
 Editi `materie.json` e/o aggiungi file in `domande/<materia>/`. I csproj fanno
