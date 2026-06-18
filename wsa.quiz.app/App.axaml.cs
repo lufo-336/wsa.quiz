@@ -14,11 +14,9 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var mainView = new MainView();
-
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Desktop: la shell vive dentro una Window con le stesse dimensioni di prima.
+            AppEnv.TouchMode = false;
             desktop.MainWindow = new Window
             {
                 Title = "WSA Quiz",
@@ -27,13 +25,13 @@ public partial class App : Application
                 MinWidth = 780,
                 MinHeight = 540,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Content = mainView
+                Content = new MainView()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {
-            // Android / single-view: la shell è la view radice, niente Window.
-            singleView.MainView = mainView;
+            AppEnv.TouchMode = true;
+            singleView.MainView = new MainView();
         }
 
         base.OnFrameworkInitializationCompleted();
