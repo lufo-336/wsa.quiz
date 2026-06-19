@@ -31,13 +31,12 @@ public partial class CronologiaView : TabellaViewBase<RisultatoCronologiaItem>
         private set { if (_modoDettaglio != value) { _modoDettaglio = value; Raise(); } }
     }
 
-    // ------------------------------------------------------------------ COSTRUZIONE
-
     // ------------------------------------------------------------------ PROPRIETA' TOUCH
 
     /// <summary>
     /// True su desktop (TouchMode off) quando ci sono sessioni: mostra la tabella.
-    /// Reattivo a NessunaSessione (notificato dal base) e ad AppEnv.TouchMode.
+    /// Deciso una volta da AppEnv.TouchMode (statico); reattivo a NessunaSessione
+    /// (notificato dal base).
     /// </summary>
     public bool MostraTabella => !AppEnv.TouchMode && !NessunaSessione;
 
