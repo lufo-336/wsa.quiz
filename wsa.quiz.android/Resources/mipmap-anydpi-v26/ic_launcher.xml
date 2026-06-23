@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icona adattiva (API 26+): sfondo verde pieno + spunta bianca come foreground.
+     La spunta vive nella safe-zone centrale 72x72 (vedi ic_launcher_foreground). -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+  <background android:drawable="@color/ic_launcher_background" />
+  <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>

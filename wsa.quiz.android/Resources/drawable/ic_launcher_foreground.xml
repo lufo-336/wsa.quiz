@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground dell'icona adattiva: spunta bianca su viewport 108x108.
+     Tracciato e stroke ripresi 1:1 da branding/icon-foreground.svg
+     (M34 56 -> 48 70 -> 76 38, stroke 9, cap/join arrotondati), interamente
+     dentro la safe-zone centrale 72x72 (margine 18 per lato). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="108dp"
+        android:viewportWidth="108"
+        android:viewportHeight="108">
+  <path
+      android:pathData="M34,56 L48,70 L76,38"
+      android:strokeColor="#FFFFFF"
+      android:strokeWidth="9"
+      android:strokeLinecap="round"
+      android:strokeLinejoin="round" />
+</vector>

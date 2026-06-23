@@ -3,5 +3,7 @@
           android:versionCode="1"
           android:versionName="1.0">
   <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="36" />
-  <application android:label="WSA Quiz" android:allowBackup="true" />
+  <application android:label="WSA Quiz" android:allowBackup="true"
+               android:icon="@mipmap/ic_launcher"
+               android:roundIcon="@mipmap/ic_launcher_round" />
 </manifest>
