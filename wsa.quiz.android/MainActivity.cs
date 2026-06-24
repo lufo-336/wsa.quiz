@@ -9,7 +9,7 @@ namespace Wsa.Quiz.Droid;
 // una sottoclasse di Android.App.Application — vedi MainApplication.cs.
 [Activity(
     Label = "WSA Quiz",
-    Theme = "@android:style/Theme.Material.Light.NoActionBar",
+    Theme = "@style/WsaQuizTheme",
     MainLauncher = true,
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
 public class MainActivity : AvaloniaMainActivity

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Avalonia 12: AvaloniaMainActivity deriva da AppCompatActivity, che richiede
+     un tema discendente da Theme.AppCompat. Il tema framework Theme.Material usato
+     prima causava IllegalStateException all'avvio sul device. -->
+<resources>
+  <style name="WsaQuizTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+</resources>
