@@ -46,8 +46,9 @@
         </Border>
 
         <!-- ============================== CONTENUTO SCROLLABILE ============================== -->
-        <ScrollViewer Padding="20">
-            <StackPanel Spacing="16" MaxWidth="980" HorizontalAlignment="Stretch">
+        <!-- Padding da risorsa: desktop 20 (identico a prima), touch 12 (più denso). -->
+        <ScrollViewer Padding="{DynamicResource SzPaginaMargin}">
+            <StackPanel x:Name="ContenutoScroll" Spacing="16" MaxWidth="980" HorizontalAlignment="Stretch">
 
                 <!-- Materie + Categorie -->
                 <Grid x:Name="GrigliaMaterieCategorie" ColumnDefinitions="*,16,2*" RowDefinitions="Auto,Auto" Margin="0,4,0,0">

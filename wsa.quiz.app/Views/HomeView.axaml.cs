@@ -138,6 +138,10 @@ public partial class HomeView : UserControl, INotifyPropertyChanged
             Grid.SetColumn(ZonaCategorie, 0);
             Grid.SetRow(ZonaCategorie, 1);
             ZonaCategorie.Margin = new Thickness(0, 12, 0, 0);
+            // Respiro extra in fondo allo scroll così l'ultima opzione ("Modalità
+            // a tempo") si stacca dalla bottom navigation invece di restarle a
+            // ridosso. Solo su touch: su desktop non c'è la barra inferiore.
+            ContenutoScroll.Margin = new Thickness(0, 0, 0, 28);
         }
         // Step 15: Tunnel + handledEventsToo per intercettare anche eventi gia'
         // marcati Handled da controlli intermedi (ScrollViewer, ListBoxItem).

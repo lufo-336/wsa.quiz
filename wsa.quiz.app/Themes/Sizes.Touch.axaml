@@ -1,13 +1,16 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <x:Double x:Key="SzTapMin">48</x:Double>
-    <x:Double x:Key="SzFontBody">16</x:Double>
-    <x:Double x:Key="SzFontDomanda">19</x:Double>
-    <x:Double x:Key="SzFontTitolo">24</x:Double>
-    <x:Double x:Key="SzGap">18</x:Double>
-    <Thickness x:Key="SzAnswerPadding">18,16</Thickness>
-    <Thickness x:Key="SzBtnPadding">16,10</Thickness>
-    <Thickness x:Key="SzPaginaMargin">16</Thickness>
-    <Thickness x:Key="SzCellaPad">10,8</Thickness>
-    <x:Double x:Key="SzCellaMinH">44</x:Double>
+    <!-- Valori touch ridotti rispetto al primo giro M3 (erano troppo generosi e
+         non entravano bene su schermo stretto). Restano comunque tappabili.
+         Desktop invariato (Sizes.Desktop.axaml). -->
+    <x:Double x:Key="SzTapMin">44</x:Double>
+    <x:Double x:Key="SzFontBody">15</x:Double>
+    <x:Double x:Key="SzFontDomanda">17</x:Double>
+    <x:Double x:Key="SzFontTitolo">20</x:Double>
+    <x:Double x:Key="SzGap">14</x:Double>
+    <Thickness x:Key="SzAnswerPadding">14,12</Thickness>
+    <Thickness x:Key="SzBtnPadding">13,8</Thickness>
+    <Thickness x:Key="SzPaginaMargin">12</Thickness>
+    <Thickness x:Key="SzCellaPad">9,6</Thickness>
+    <x:Double x:Key="SzCellaMinH">40</x:Double>
 </ResourceDictionary>
