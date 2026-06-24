@@ -29,7 +29,49 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
+        ConfiguraNavigazione();
         Caricamento();
+    }
+
+    // ------------------------------------------------------------------ NAVIGAZIONE (touch vs desktop)
+
+    /// <summary>
+    /// Desktop: tab in alto + footer diagnostico (invariato). Touch: nasconde la
+    /// striscia di tab e il footer, mostra la bottom navigation che pilota lo
+    /// stesso TabControl. Il TabControl resta l'unico motore dei contenuti in
+    /// entrambi i casi (vedi Tabs.SelectedIndex usato altrove).
+    /// </summary>
+    private void ConfiguraNavigazione()
+    {
+        // Mantiene evidenziata la voce attiva anche su cambi programmatici
+        // (es. AvviaQuizView forza SelectedIndex = 0).
+        Tabs.SelectionChanged += (_, _) => AggiornaNav();
+
+        if (!AppEnv.TouchMode) return;
+
+        Tabs.Classes.Add("touchnav");   // nasconde la striscia di tab (vedi MainView.axaml)
+        FooterBar.IsVisible = false;    // footer diagnostico solo su desktop
+        BottomNav.IsVisible = true;
+        AggiornaNav();
+    }
+
+    private void OnNavClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is Control { Tag: string tag } && int.TryParse(tag, out int indice))
+            Tabs.SelectedIndex = indice;
+    }
+
+    /// <summary>Evidenzia la voce della bottom nav corrispondente alla tab attiva.</summary>
+    private void AggiornaNav()
+    {
+        if (!AppEnv.TouchMode) return;
+        var labels = new[] { NavHomeLabel, NavCronologiaLabel, NavSospesiLabel, NavStatisticheLabel };
+        for (int i = 0; i < labels.Length; i++)
+        {
+            bool attiva = i == Tabs.SelectedIndex;
+            labels[i].FontWeight = attiva ? Avalonia.Media.FontWeight.SemiBold : Avalonia.Media.FontWeight.Normal;
+            labels[i].Opacity = attiva ? 1.0 : 0.6;
+        }
     }
 
     // ------------------------------------------------------------------ TASTIERA GLOBALE
