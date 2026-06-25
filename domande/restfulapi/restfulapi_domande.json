@@ -1,0 +1,1094 @@
+[
+    {
+        "id": 1,
+        "categoria": "Metodi HTTP",
+        "domanda": "Cosa fa il metodo HEAD?",
+        "risposte": [
+            "Invia al server l'elenco delle capacità CORS supportate dal browser durante la fase di preflight cross-origin",
+            "Restituisce solo gli header della risposta, senza body (come GET ma senza corpo)",
+            "Crea una nuova risorsa nella collezione indicata",
+            "Elimina la risorsa indicata dalla URL"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "HEAD è identico a GET ma restituisce solo gli header, nessun body (in curl: -I). Utile per controllare esistenza, dimensione o cache. Il preflight CORS è OPTIONS."
+    },
+    {
+        "id": 2,
+        "categoria": "Codici di stato",
+        "domanda": "A cosa serve lo status 304 Not Modified?",
+        "risposte": [
+            "A creare una nuova risorsa nella collezione",
+            "A segnalare un errore interno del server",
+            "A indicare che il client deve autenticarsi prima di poter accedere alla risorsa richiesta",
+            "A dire al client che la risorsa non è cambiata e può usare la copia in cache"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "304 è il cuore del caching: in risposta a If-None-Match (ETag) o If-Modified-Since dice 'non è cambiato, usa la cache', senza ritrasmettere il body."
+    },
+    {
+        "id": 3,
+        "categoria": "JSON e validazione",
+        "domanda": "A cosa serve il 'replacer' (secondo parametro di JSON.stringify)?",
+        "risposte": [
+            "A comprimere il body della risposta",
+            "A indentare l'output su più righe",
+            "A filtrare o trasformare i campi durante la serializzazione, ad esempio per escludere una password",
+            "A riconvertire le stringhe in formato ISO in oggetti Date durante il parsing della stringa JSON ricevuta"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il replacer (array di chiavi o funzione) filtra/trasforma i campi in fase di serializzazione, es. per escludere campi sensibili. L'indentazione è il 3° parametro; riconvertire le date è compito del reviver in JSON.parse."
+    },
+    {
+        "id": 4,
+        "categoria": "Design delle URL",
+        "domanda": "Dove vanno gli identificatori e dove le opzioni di filtro/paginazione in una URL?",
+        "risposte": [
+            "Indifferentemente nell'uno o nell'altro",
+            "Tutto nella query string",
+            "Tutto nel path",
+            "Gli identificatori specifici nel path (es. /users/42), i filtri e la paginazione nella query string (es. ?ruolo=admin&page=2)"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Identificatore → path (/users/42); filtri e opzioni → query string (?ruolo=admin&page=2). Mischiarli (es. /users/admin) crea ambiguità."
+    },
+    {
+        "id": 5,
+        "categoria": "Error handling",
+        "domanda": "Dove va registrato l'error handler in app.js?",
+        "risposte": [
+            "Tra le route",
+            "In fondo a tutto",
+            "Prima di tutto",
+            "Fuori da app.js"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "L'error handler va in fondo, dopo tutte le route e il catch-all 404, perché Express lo raggiunge solo se nessuna route ha già risposto."
+    },
+    {
+        "id": 6,
+        "categoria": "REST e vincoli",
+        "domanda": "Quale vincolo REST permette allo stesso server di servire un sito web, un'app mobile e uno script senza saperlo?",
+        "risposte": [
+            "Il fatto che ogni metodo HTTP sia safe e quindi non modifichi mai nulla sul server",
+            "Code on demand, che invia al client il codice necessario",
+            "Cacheable",
+            "La separazione client-server, che lascia evolvere i due lati in modo indipendente"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il vincolo client-server separa i ruoli: il server non conosce il tipo di client, quindi li serve tutti allo stesso modo. Non tutti i metodi sono safe (POST/PUT/DELETE non lo sono)."
+    },
+    {
+        "id": 7,
+        "categoria": "REST e vincoli",
+        "domanda": "Qual è l'unico vincolo REST opzionale?",
+        "risposte": [
+            "Cacheable, perché non tutte le risposte si possono mettere in cache",
+            "Code on demand",
+            "Stateless, perché molti server in realtà mantengono lo stato",
+            "Uniform interface, raramente rispettata nelle API reali"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Code on demand (il server può inviare codice eseguibile al client) è l'unico vincolo opzionale. Gli altri cinque sono obbligatori per dirsi RESTful."
+    },
+    {
+        "id": 8,
+        "categoria": "Express",
+        "domanda": "Quale metodo registra un middleware globale valido per ogni metodo su un prefisso?",
+        "risposte": [
+            "app.use()",
+            "app.get()",
+            "app.put()",
+            "app.all()"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "app.use() registra middleware o monta router per ogni metodo su quel prefisso; app.get() definisce una route solo per le GET su quel path."
+    },
+    {
+        "id": 9,
+        "categoria": "Codici di stato",
+        "domanda": "Quale status code si usa quando un client supera il rate limit?",
+        "risposte": [
+            "422",
+            "403",
+            "429",
+            "409"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "429 Too Many Requests, accompagnato dall'header Retry-After. (GitHub: 60 richieste/ora senza token.)"
+    },
+    {
+        "id": 10,
+        "categoria": "Design delle URL",
+        "domanda": "Quale stile di scrittura è raccomandato per le URL di un'API?",
+        "risposte": [
+            "kebab-case",
+            "snake_case",
+            "PascalCase",
+            "camelCase"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "kebab-case minuscolo (es. /blog-posts): leggibile e universalmente supportato. camelCase/PascalCase sono ambigui, snake_case è meno diffuso."
+    },
+    {
+        "id": 11,
+        "categoria": "Express",
+        "domanda": "Cosa succede se un middleware non chiama next() e non invia una risposta?",
+        "risposte": [
+            "La richiesta si blocca: il client resta in attesa indefinitamente fino al timeout",
+            "Viene generato automaticamente un errore 500",
+            "Express lo salta automaticamente",
+            "Parte comunque il middleware successivo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Ogni middleware deve o rispondere o chiamare next(): altrimenti la richiesta resta appesa e il client va in timeout. È una domanda di verifica classica."
+    },
+    {
+        "id": 12,
+        "categoria": "Strumenti",
+        "domanda": "Perché un'URL con query string va racchiusa tra virgolette in un comando curl?",
+        "risposte": [
+            "Per renderla semplicemente più leggibile",
+            "Perché altrimenti la shell interpreta caratteri come '&' come operatori (es. esecuzione in background) invece di passarli a curl",
+            "Per cifrare la richiesta",
+            "Perché curl lo richiede sempre, per ogni URL"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La shell interpreta '&' (e altri caratteri) come operatori: senza virgolette spezza l'URL. Es: curl \"https://host/path?a=1&b=2\". Non serve per URL senza caratteri speciali."
+    },
+    {
+        "id": 13,
+        "categoria": "Design delle URL",
+        "domanda": "Qual è la strategia di versioning più diffusa per le API?",
+        "risposte": [
+            "Inserire un numero progressivo casuale dentro ogni singola risorsa",
+            "La versione nel path (es. /v1/users)",
+            "Non versionare mai, modificando direttamente le route esistenti",
+            "Cambiare il nome di dominio a ogni rilascio di una nuova versione"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Versione nel path (/v1/users): visibile, testabile dal browser, immediata in curl e Postman (es. api.stripe.com/v1/...)."
+    },
+    {
+        "id": 14,
+        "categoria": "Codici di stato",
+        "domanda": "Qual è la differenza sottile tra gli status code 400 e 422?",
+        "risposte": [
+            "422 si usa solo per le immagini",
+            "400 = richiesta illeggibile o malformata; 422 = sintassi valida ma dati non validi per le regole di business",
+            "Non c'è alcuna differenza: entrambi indicano che la risorsa richiesta dal client non è stata trovata sul server",
+            "400 è un errore del server, 422 del client"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "400: non riesco nemmeno a leggere la richiesta (JSON malformato, tipo errato). 422: leggo i dati ma non superano la validazione semantica (es. email malformata). Entrambi sono 4xx, non 5xx."
+    },
+    {
+        "id": 15,
+        "categoria": "HTTP e client-server",
+        "domanda": "Cosa separa gli header dal body in un messaggio HTTP?",
+        "risposte": [
+            "Una riga vuota",
+            "Un carattere di tabulazione posto all'inizio del body",
+            "L'header Content-Length che dichiara la dimensione del corpo",
+            "Una virgola seguita da uno spazio"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Header e body sono separati da una riga vuota. Content-Length dichiara la dimensione del corpo ma non fa da separatore."
+    },
+    {
+        "id": 16,
+        "categoria": "Metodi HTTP",
+        "domanda": "Con quale flag di curl si invia una richiesta HEAD (solo header)?",
+        "risposte": [
+            "-X POST seguito dall'URL completo della risorsa",
+            "-v per attivare la modalità dettagliata completa",
+            "-d con il body della richiesta in formato JSON",
+            "-I"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "curl -I invia una HEAD e mostra solo gli header. -X imposta il metodo, -d aggiunge un body, -v è verbose."
+    },
+    {
+        "id": 17,
+        "categoria": "Design delle URL",
+        "domanda": "Quale convenzione di naming è corretta per la collezione degli utenti?",
+        "risposte": [
+            "/user, al singolare perché più conciso da scrivere",
+            "/getUsers, così il nome esprime chiaramente l'azione svolta",
+            "/listUsers per indicare che restituisce un elenco",
+            "/users"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Plurale per le collezioni: /users. Niente verbi nell'URL (il verbo è già il metodo HTTP) e niente singolare per le collezioni."
+    },
+    {
+        "id": 18,
+        "categoria": "Strumenti",
+        "domanda": "Quale header di risposta di GitHub indica quante richieste restano nella finestra oraria?",
+        "risposte": [
+            "L'header Retry-After, che dice tra quanti secondi riprovare",
+            "L'header Cache-Control, che governa il caching della risposta",
+            "L'header Content-Type, che dichiara il formato del corpo",
+            "X-RateLimit-Remaining"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "X-RateLimit-Remaining indica le richieste residue (su 60/ora senza token). È un header custom (prefisso X-)."
+    },
+    {
+        "id": 19,
+        "categoria": "Error handling",
+        "domanda": "In quale variabile d'ambiente si controlla se mostrare o nascondere lo stack trace?",
+        "risposte": [
+            "NODE_PATH",
+            "NODE_DEBUG",
+            "NODE_ENV",
+            "NODE_HOME"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "NODE_ENV: con 'development' si può includere lo stack nei 500 per il debug; con 'production' va nascosto."
+    },
+    {
+        "id": 20,
+        "categoria": "REST e vincoli",
+        "domanda": "Qual è la differenza tra 'risorsa' e 'rappresentazione'?",
+        "risposte": [
+            "Sono sinonimi",
+            "La risorsa è il concetto astratto identificato dalla URL; la rappresentazione è la forma concreta (JSON, XML...) con cui viene trasmessa al client",
+            "La risorsa è il file su disco, la rappresentazione è la sua URL",
+            "La risorsa è sempre in XML"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La risorsa è l'astrazione (vive sul server, identificata dalla URL); la rappresentazione è la sua 'fotografia' trasmessa in un formato negoziato. La stessa risorsa può avere più rappresentazioni."
+    },
+    {
+        "id": 21,
+        "categoria": "Codici di stato",
+        "domanda": "Qual è la differenza pratica tra un errore 4xx e un errore 5xx per il client?",
+        "risposte": [
+            "Il 5xx significa che la risorsa non esiste",
+            "Il 4xx richiede sempre il login",
+            "Con un 4xx il problema è nella richiesta e ritentarla darà lo stesso errore; con un 5xx il problema è sul server e un retry (dopo un intervallo) ha senso",
+            "Nessuna, sono equivalenti"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "4xx = colpa del client: ritentare la stessa richiesta è inutile. 5xx = colpa del server: può essersi ripreso, quindi il retry (idealmente con backoff) è sensato."
+    },
+    {
+        "id": 22,
+        "categoria": "Strumenti",
+        "domanda": "Cosa rappresenta il TTFB (Time To First Byte) nelle DevTools?",
+        "risposte": [
+            "Il tempo totale impiegato dal browser per scaricare, interpretare e disegnare l'intera pagina",
+            "Il numero di richieste fallite della pagina",
+            "Il tempo tra l'invio della richiesta e la ricezione del primo byte della risposta",
+            "La dimensione del body della risposta"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "TTFB = tempo tra invio della richiesta e primo byte di risposta: la metrica chiave della latenza dell'API, visibile in Network → Timing."
+    },
+    {
+        "id": 23,
+        "categoria": "Codici di stato",
+        "domanda": "A quale famiglia appartengono gli status code di errore del CLIENT?",
+        "risposte": [
+            "1xx",
+            "3xx",
+            "4xx",
+            "5xx"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "4xx = errore del client (richiesta sbagliata). 5xx = errore del server. 1xx informational, 3xx redirection."
+    },
+    {
+        "id": 24,
+        "categoria": "Metodi HTTP",
+        "domanda": "Quale status code dovrebbe restituire una POST che crea con successo una nuova risorsa?",
+        "risposte": [
+            "201 Created",
+            "202 Accepted, perché la risorsa è stata accettata dal server",
+            "204 No Content, dato che la creazione non restituisce dati",
+            "200 OK, perché la richiesta è comunque andata a buon fine"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "201 Created (accompagnato dall'header Location). 200 è generico, 204 è per risposte senza body (es. DELETE), 202 è per operazioni asincrone non ancora completate."
+    },
+    {
+        "id": 25,
+        "categoria": "Express",
+        "domanda": "Di che tipo sono SEMPRE i valori di req.params e req.query?",
+        "risposte": [
+            "Booleani",
+            "Oggetti",
+            "Stringhe",
+            "Numeri"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Sempre stringhe: per ottenere un numero serve una conversione esplicita, es. parseInt(req.params.id)."
+    },
+    {
+        "id": 26,
+        "categoria": "Metodi HTTP",
+        "domanda": "Quale terna di metodi HTTP è 'safe' (non modifica lo stato del server)?",
+        "risposte": [
+            "GET, POST e PUT, perché tutti possono leggere dati dal server",
+            "Solo GET, perché è l'unico usato per la lettura dei dati",
+            "POST, PUT, PATCH e DELETE, in quanto operano sulle risorse",
+            "GET, HEAD, OPTIONS"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Safe = nessun effetto collaterale osservabile sul server: GET, HEAD, OPTIONS. POST/PUT/PATCH/DELETE modificano lo stato."
+    },
+    {
+        "id": 27,
+        "categoria": "Codici di stato",
+        "domanda": "Quale status code indica un conflitto, tipicamente un duplicato (es. email già registrata)?",
+        "risposte": [
+            "400",
+            "409",
+            "404",
+            "410"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "409 Conflict: conflitto con lo stato attuale della risorsa, tipicamente un duplicato."
+    },
+    {
+        "id": 28,
+        "categoria": "JSON e validazione",
+        "domanda": "Cosa fa JSON.parse() se riceve una stringa che non è JSON valido?",
+        "risposte": [
+            "Lancia un'eccezione, perciò va racchiuso in un blocco try/catch per gestire l'errore",
+            "Ignora silenziosamente l'errore",
+            "Restituisce null",
+            "Restituisce una stringa vuota"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "JSON.parse lancia un'eccezione su input non valido: va gestito con try/catch. (In Express, un body malformato finisce nell'error handler → 400.)"
+    },
+    {
+        "id": 29,
+        "categoria": "HTTP e client-server",
+        "domanda": "A cosa serve l'header Authorization in una richiesta a un'API stateless?",
+        "risposte": [
+            "A indicare il formato del body della richiesta",
+            "A dichiarare la lingua preferita e i formati che il client può accettare in risposta",
+            "A trasportare le credenziali (es. un Bearer token) a ogni richiesta",
+            "A comprimere il body"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Essendo HTTP stateless, le credenziali viaggiano a ogni richiesta nell'header Authorization. Il formato è Content-Type, la lingua Accept-Language, la compressione Content-Encoding."
+    },
+    {
+        "id": 30,
+        "categoria": "HTTP e client-server",
+        "domanda": "Perché la proprietà 'stateless' di HTTP favorisce la scalabilità orizzontale?",
+        "risposte": [
+            "Perché il server tiene in RAM tutte le sessioni attive",
+            "Perché riduce il numero di header",
+            "Perché ogni richiesta è autosufficiente, così qualunque server della farm può gestirla senza conoscere le precedenti",
+            "Perché usa sempre HTTPS"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Stateless = ogni richiesta porta con sé tutto il necessario; nessun server deve ricordare lo stato, quindi le richieste si distribuiscono liberamente. Le altre confondono lo stateless con sessioni server, header o cifratura."
+    },
+    {
+        "id": 31,
+        "categoria": "Metodi HTTP",
+        "domanda": "Quale di questi metodi HTTP NON è idempotente?",
+        "risposte": [
+            "PUT",
+            "DELETE",
+            "POST",
+            "GET"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "POST non è idempotente: due POST identiche creano due risorse distinte. GET, PUT e DELETE sono idempotenti."
+    },
+    {
+        "id": 32,
+        "categoria": "Express",
+        "domanda": "Quale status code restituisce correttamente res.status(204).send()?",
+        "risposte": [
+            "404, se la risorsa indicata non è stata trovata sul server",
+            "500, in presenza di un errore interno non gestito",
+            "204",
+            "200, perché send implica sempre un corpo nella risposta"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "204 No Content: successo senza body, tipico del DELETE. Su un 204 un eventuale body viene ignorato."
+    },
+    {
+        "id": 33,
+        "categoria": "Metodi HTTP",
+        "domanda": "Quale status code accompagna tipicamente un DELETE riuscito senza body?",
+        "risposte": [
+            "204",
+            "201",
+            "200",
+            "202"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "204 No Content: successo senza corpo nella risposta. Su un 204 non si mette mai un body."
+    },
+    {
+        "id": 34,
+        "categoria": "HTTP e client-server",
+        "domanda": "Da quante parti è composto ogni messaggio HTTP (request o response)?",
+        "risposte": [
+            "Cinque",
+            "Tre",
+            "Quattro",
+            "Due"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Tre parti: start line, headers e body (quest'ultimo separato dagli header da una riga vuota)."
+    },
+    {
+        "id": 35,
+        "categoria": "Express",
+        "domanda": "A cosa serve express.Router()?",
+        "risposte": [
+            "A cifrare le rotte dell'applicazione",
+            "A creare mini-applicazioni di route modulari, montabili su un prefisso",
+            "A generare automaticamente la documentazione OpenAPI di tutte le route definite",
+            "A connettersi al database"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "express.Router() crea 'mini-app' indipendenti (es. routes/users.js) montabili con app.use('/api/v1/users', router), per non far esplodere app.js."
+    },
+    {
+        "id": 36,
+        "categoria": "Error handling",
+        "domanda": "Cosa comunica a Express chiamare next(err) con un argomento?",
+        "risposte": [
+            "Di riavviare il server",
+            "Di saltare i middleware normali e andare dritto all'error handler",
+            "Di ignorare l'errore",
+            "Di inviare immediatamente al client una risposta con status 200 e un corpo vuoto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "next(err), con un argomento, salta i middleware normali e va all'error handler centralizzato. next() senza argomenti passa al middleware successivo."
+    },
+    {
+        "id": 37,
+        "categoria": "Express",
+        "domanda": "Cosa fa il middleware express.json()?",
+        "risposte": [
+            "Serve i file statici da una cartella",
+            "Parsa il body JSON della richiesta e popola req.body",
+            "Abilita la compressione gzip di tutte le risposte in uscita dal server",
+            "Converte ogni risposta in formato JSON"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "express.json() parsa il body JSON in arrivo e popola req.body; senza di esso req.body è undefined. Non serve file statici (è express.static) né comprime le risposte."
+    },
+    {
+        "id": 38,
+        "categoria": "Codici di stato",
+        "domanda": "Qual è la differenza tra gli status code 401 e 403?",
+        "risposte": [
+            "Sono sinonimi",
+            "401 = non autenticato (non so chi sei, fai login); 403 = autenticato ma senza i permessi necessari (so chi sei, ma non puoi)",
+            "401 è un errore del server, 403 del client",
+            "401 riguarda solo le connessioni HTTPS"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "401 Unauthorized in realtà significa 'non autenticato'; 403 Forbidden = autenticato ma privo di permessi. Entrambi sono errori 4xx (del client)."
+    },
+    {
+        "id": 39,
+        "categoria": "Metodi HTTP",
+        "domanda": "Qual è l'errore più comune nell'uso di PUT?",
+        "risposte": [
+            "Usarlo come fosse PATCH, inviando solo i campi da aggiornare, col risultato di azzerare i campi omessi",
+            "Usarlo senza HTTPS",
+            "Usarlo per leggere i dati di una risorsa",
+            "Usarlo al posto di GET"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "PUT sostituisce l'INTERA risorsa: i campi omessi vengono cancellati/riportati al default. Per aggiornamenti parziali si usa PATCH."
+    },
+    {
+        "id": 40,
+        "categoria": "Metodi HTTP",
+        "domanda": "Perché un proxy può ritentare automaticamente una GET ma non una POST?",
+        "risposte": [
+            "Perché la POST non ha header",
+            "Perché GET è idempotente e ripetere una POST rischia di creare la risorsa due volte",
+            "Perché GET è più veloce da eseguire",
+            "Perché la specifica HTTP vieta esplicitamente di inviare due volte qualsiasi richiesta che contenga un body"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Solo le richieste idempotenti si possono ritentare in sicurezza: ripetere una POST (non idempotente) creerebbe duplicati. La velocità e gli header non c'entrano; HTTP non vieta i body ripetuti in sé."
+    },
+    {
+        "id": 41,
+        "categoria": "JSON e validazione",
+        "domanda": "Quale funzione converte una stringa JSON in un oggetto JavaScript?",
+        "risposte": [
+            "JSON.stringify(), che esegue esattamente la stessa operazione",
+            "JSON.parse()",
+            "La funzione fetch() applicata direttamente alla stringa",
+            "Il costruttore new Object() passando la stringa come argomento"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "JSON.parse() deserializza (stringa → oggetto). JSON.stringify() fa l'operazione inversa (oggetto → stringa)."
+    },
+    {
+        "id": 42,
+        "categoria": "Design delle URL",
+        "domanda": "Quando si usa il nesting delle route (es. /users/42/posts)?",
+        "risposte": [
+            "Solo quando l'identificatore della risorsa figlia è un numero intero e non una stringa",
+            "Sempre, per ogni risorsa",
+            "Quando una risorsa esiste solo nel contesto di un'altra (relazione di appartenenza)",
+            "Mai, è vietato dalla specifica HTTP"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il nesting esprime appartenenza (i post DI un utente). Regola pratica: non superare un livello, oltre l'URL diventa illeggibile e fragile."
+    },
+    {
+        "id": 43,
+        "categoria": "JSON e validazione",
+        "domanda": "A cosa serve JSON Schema usato con la libreria ajv?",
+        "risposte": [
+            "A comprimere il body delle risposte",
+            "A trasformare automaticamente ogni richiesta XML in arrivo nel corrispondente documento JSON equivalente",
+            "A descrivere la struttura attesa del JSON e validare i dati in ingresso in modo dichiarativo",
+            "A indentare il JSON in uscita"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "JSON Schema descrive tipi, campi obbligatori, range e formati; ajv compila lo schema e valida ogni body (es. come middleware), sostituendo decine di if. Non indenta, non converte XML, non comprime."
+    },
+    {
+        "id": 44,
+        "categoria": "JSON e validazione",
+        "domanda": "Quale valore JavaScript fa lanciare un TypeError a JSON.stringify?",
+        "risposte": [
+            "Un numero",
+            "Un booleano",
+            "Una stringa",
+            "Un BigInt, oppure un oggetto con un riferimento circolare a sé stesso"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "BigInt e riferimenti circolari fanno lanciare un TypeError. (NaN/Infinity diventano null; undefined e funzioni vengono omessi o convertiti in null.)"
+    },
+    {
+        "id": 45,
+        "categoria": "JSON e validazione",
+        "domanda": "Quanti tipi di valore ammette JSON?",
+        "risposte": [
+            "Quattro",
+            "Sei",
+            "Cinque",
+            "Otto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Sei tipi: string, number, boolean, null, object e array."
+    },
+    {
+        "id": 46,
+        "categoria": "Design delle URL",
+        "domanda": "Quale di queste modifiche è un breaking change che richiede una nuova versione dell'API?",
+        "risposte": [
+            "Aggiungere un campo opzionale nella risposta",
+            "Rinominare o rimuovere un campo esistente dalla risposta",
+            "Documentare meglio un endpoint già esistente senza cambiarne il comportamento osservabile",
+            "Aggiungere una nuova route all'API"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Rinominare/rimuovere un campo o una route, o cambiarne il tipo, rompe i client esistenti → nuova versione. Aggiungere un campo opzionale o una route nuova NON è breaking."
+    },
+    {
+        "id": 47,
+        "categoria": "HTTP e client-server",
+        "domanda": "Cos'è il 'layered system' come vincolo di REST?",
+        "risposte": [
+            "Un sistema in cui client e server devono usare lo stesso linguaggio",
+            "La possibilità di avere intermediari (proxy, CDN, gateway) trasparenti tra client e server, di cui il client non è consapevole",
+            "L'obbligo di usare almeno tre server",
+            "La suddivisione del codice in livelli MVC"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Layered system: tra client e server possono esserci più strati (proxy, CDN, gateway) che il client non vede. Non riguarda linguaggi comuni, numero minimo di server o pattern MVC."
+    },
+    {
+        "id": 48,
+        "categoria": "Strumenti",
+        "domanda": "Cosa distingue JSONPlaceholder da JSON Server quanto alla persistenza delle scritture?",
+        "risposte": [
+            "Entrambi persistono sempre le modifiche",
+            "JSONPlaceholder simula le scritture ma NON le persiste; JSON Server invece riscrive il file db.json, quindi le modifiche persistono davvero",
+            "Sono identici",
+            "Nessuno dei due accetta richieste POST"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "JSONPlaceholder risponde correttamente (es. 201 con id:101) ma non salva nulla; JSON Server riscrive db.json e quindi persiste davvero le modifiche."
+    },
+    {
+        "id": 49,
+        "categoria": "REST e vincoli",
+        "domanda": "Cos'è la 'content negotiation'?",
+        "risposte": [
+            "La cifratura del canale",
+            "Il processo con cui un load balancer decide a quale istanza del server inoltrare ciascuna richiesta in arrivo",
+            "La scelta della porta TCP da usare per la connessione",
+            "L'accordo sul formato della rappresentazione tramite gli header Accept e Content-Type"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Content negotiation: il client dichiara i formati che accetta con Accept, il server risponde con il Content-Type scelto (o 406 se non può soddisfarlo). Non riguarda porte, load balancing o cifratura."
+    },
+    {
+        "id": 50,
+        "categoria": "Express",
+        "domanda": "Quali tre cose fornisce Express (e solo quelle)?",
+        "risposte": [
+            "Un ORM completo, un sistema di autenticazione e un validatore di schemi integrati",
+            "Routing, middleware e API di convenienza su req/res",
+            "Un database, un server web e un sistema di template HTML preconfigurato",
+            "Un compilatore TypeScript e un bundler per il frontend"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Express dà routing, middleware e metodi di convenienza su req/res. È unopinionated: ORM, auth, validazione e database si aggiungono con librerie esterne."
+    },
+    {
+        "id": 51,
+        "categoria": "REST e vincoli",
+        "domanda": "Se un server non supporta nessuno dei formati richiesti nell'header Accept, quale status code è formalmente corretto?",
+        "risposte": [
+            "406",
+            "404",
+            "400",
+            "415"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "406 Not Acceptable: il server non può produrre nessuna delle rappresentazioni accettate dal client."
+    },
+    {
+        "id": 52,
+        "categoria": "REST e vincoli",
+        "domanda": "Perché si dice che 'REST non è HTTP'?",
+        "risposte": [
+            "Perché HTTP è più recente di REST",
+            "Perché REST è uno stile architetturale che si appoggia su HTTP, ma in teoria potrebbe basarsi su altri protocolli",
+            "Perché REST sostituisce completamente HTTP",
+            "Perché REST usa solo HTTPS e mai HTTP in chiaro"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "REST è uno stile (insieme di vincoli), HTTP è il protocollo su cui di fatto si realizza. Tecnicamente REST potrebbe poggiare su altri protocolli, ma HTTP è l'unica implementazione diffusa."
+    },
+    {
+        "id": 53,
+        "categoria": "Codici di stato",
+        "domanda": "Quale status code indica una risorsa o un endpoint inesistente?",
+        "risposte": [
+            "404",
+            "Il 409, usato in caso di conflitto con lo stato attuale",
+            "Il 401, che viene restituito quando manca l'autenticazione",
+            "Il 500, generato da un errore interno non gestito dal server"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "404 Not Found = risorsa o endpoint inesistente. 401 = non autenticato, 500 = errore del server, 409 = conflitto."
+    },
+    {
+        "id": 54,
+        "categoria": "Metodi HTTP",
+        "domanda": "In quale situazione il browser invia automaticamente una richiesta OPTIONS (preflight)?",
+        "risposte": [
+            "Prima di una richiesta cross-origin con metodi non-safe o header custom",
+            "Prima di ogni richiesta GET",
+            "Solo quando il server risponde con un errore 500",
+            "Ogni volta che l'utente ricarica manualmente la pagina del browser premendo il tasto di aggiornamento"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La preflight OPTIONS precede le richieste cross-origin 'non semplici' (metodi non-safe o header custom) per verificare i permessi CORS. Non precede ogni GET né dipende dagli errori 500."
+    },
+    {
+        "id": 55,
+        "categoria": "Strumenti",
+        "domanda": "Quale tab delle DevTools mostra in tempo reale tutte le richieste HTTP di una pagina?",
+        "risposte": [
+            "Sources",
+            "Elements",
+            "Console",
+            "Network"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il tab Network (F12) elenca tutte le richieste HTTP; il filtro Fetch/XHR isola le chiamate AJAX."
+    },
+    {
+        "id": 56,
+        "categoria": "Strumenti",
+        "domanda": "In Postman, dove conviene salvare le richieste per riusarle e documentare l'API?",
+        "risposte": [
+            "In un file di testo esterno da reimportare ogni volta a mano",
+            "Da nessuna parte: vanno riscritte a ogni esecuzione",
+            "Negli appunti del sistema operativo, copiando e incollando ogni URL",
+            "In una Collection"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Le Collection raggruppano richieste riutilizzabili e condivisibili, e diventano la documentazione pratica dell'API."
+    },
+    {
+        "id": 57,
+        "categoria": "Codici di stato",
+        "domanda": "Perché in produzione non si devono esporre stack trace in una risposta 500?",
+        "risposte": [
+            "Perché rallentano la risposta",
+            "Perché occupano troppa banda di rete",
+            "Perché rivelano struttura del codice, percorsi dei file e versioni delle librerie: informazioni preziose per un attaccante",
+            "Perché non sono in formato JSON"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Lo stack trace espone dettagli interni sfruttabili da un attaccante. Si logga lato server e si risponde con un messaggio generico; lo stack si mostra solo in sviluppo (in base a NODE_ENV)."
+    },
+    {
+        "id": 58,
+        "categoria": "HTTP e client-server",
+        "domanda": "Quale componente del modello client-server inizia sempre la comunicazione?",
+        "risposte": [
+            "L'intermediario proxy posto tra i due estremi",
+            "Il client",
+            "Il server, che invia per primo i dati al client",
+            "Il load balancer che smista le richieste in arrivo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Nel modello client-server è sempre il client a iniziare la richiesta; il server risponde. Proxy e load balancer sono intermediari, non iniziatori."
+    },
+    {
+        "id": 59,
+        "categoria": "JSON e validazione",
+        "domanda": "Perché un oggetto JavaScript e un documento JSON non sono la stessa cosa?",
+        "risposte": [
+            "Perché in realtà sono identici",
+            "Perché JSON usa gli apici singoli",
+            "Perché JSON è più veloce",
+            "Perché un oggetto JavaScript può contenere funzioni, undefined e riferimenti circolari, che JSON non ammette"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "JSON è un formato testuale con regole rigide; l'oggetto JS è una struttura in memoria che può avere funzioni, undefined e cicli — tutti vietati in JSON."
+    },
+    {
+        "id": 60,
+        "categoria": "REST e vincoli",
+        "domanda": "Quanti sono i vincoli architetturali di REST?",
+        "risposte": [
+            "Sei",
+            "Sette",
+            "Quattro",
+            "Cinque"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Sei: client-server, stateless, cacheable, uniform interface, layered system e code on demand (l'unico opzionale)."
+    },
+    {
+        "id": 61,
+        "categoria": "Error handling",
+        "domanda": "A cosa serve il middleware 'catch-all 404' posto prima dell'error handler?",
+        "risposte": [
+            "A loggare tutte le richieste",
+            "A validare il formato del corpo JSON di tutte le richieste POST e PUT che arrivano al server",
+            "A creare nuove risorse",
+            "A rispondere 404 alle richieste che non hanno trovato nessuna route definita"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il catch-all 404 intercetta le route non definite e risponde con {error:'Endpoint non trovato'}. È un middleware normale, dopo le route ma prima dell'error handler."
+    },
+    {
+        "id": 62,
+        "categoria": "Express",
+        "domanda": "Quale firma distingue l'error handler dagli altri middleware in Express?",
+        "risposte": [
+            "Quella a due parametri, ovvero solo la richiesta e la risposta",
+            "Quella che non accetta alcun parametro in ingresso",
+            "Quella che restituisce esplicitamente una Promise risolta",
+            "Quella a quattro parametri (err, req, res, next)"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "L'error handler ha la firma speciale a 4 parametri (err, req, res, next) e va registrato in fondo, dopo tutte le route. Ci si arriva chiamando next(err)."
+    },
+    {
+        "id": 63,
+        "categoria": "JSON e validazione",
+        "domanda": "Quale standard di formato si usa per le date nelle API JSON?",
+        "risposte": [
+            "ISO 8601",
+            "Il timestamp Unix espresso in millisecondi a partire dal 1970",
+            "Il formato locale gg/mm/aaaa del paese del server",
+            "Una stringa libera decisa caso per caso dallo sviluppatore"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Lo standard de facto è ISO 8601 (es. 2026-06-03T10:00:00Z). JSON.stringify converte i Date in stringa ISO; al parse serve un reviver per ritrasformarli in Date."
+    },
+    {
+        "id": 64,
+        "categoria": "Metodi HTTP",
+        "domanda": "Cosa significa che un metodo HTTP è 'idempotente'?",
+        "risposte": [
+            "Che eseguirlo N volte produce lo stesso stato finale del server di eseguirlo una sola volta",
+            "Che non ha mai un body",
+            "Che è sicuro da usare in produzione",
+            "Che restituisce sempre lo stesso codice HTTP"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Idempotente riguarda lo STATO finale del server, non il codice di risposta: N esecuzioni = una. (Un secondo DELETE dà 404 ma lo stato è identico.)"
+    },
+    {
+        "id": 65,
+        "categoria": "JSON e validazione",
+        "domanda": "In cosa si converte 'undefined' quando si trova DENTRO un array serializzato con JSON.stringify?",
+        "risposte": [
+            "In null",
+            "In una stringa vuota",
+            "In false",
+            "In zero"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "undefined (e le funzioni) dentro un array diventano null; in un oggetto, invece, il campo viene del tutto omesso."
+    },
+    {
+        "id": 66,
+        "categoria": "Error handling",
+        "domanda": "Nella classe AppError del corso, a cosa serve la proprietà status?",
+        "risposte": [
+            "A salvare lo stack trace dell'errore",
+            "A contare gli errori avvenuti",
+            "A memorizzare lo status HTTP da usare nella risposta, così l'error handler lo legge invece di rispondere sempre 500",
+            "A registrare la data dell'errore"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "AppError porta con sé lo status (404, 400, 409...) tramite factory come notFound()/conflict(); l'error handler usa err.status||500 per impostare la risposta."
+    },
+    {
+        "id": 67,
+        "categoria": "Error handling",
+        "domanda": "Qual è il vantaggio della gestione centralizzata degli errori rispetto a un try/catch in ogni controller?",
+        "risposte": [
+            "Rende inutile il logging",
+            "È semplicemente più veloce",
+            "Evita di ripetere la stessa logica in ogni controller: si definisce un solo error handler che trasforma ogni errore in risposta HTTP",
+            "Elimina del tutto la possibilità di errori"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Centralizzare evita la duplicazione (try/catch + res.status(500) ovunque): i controller passano l'errore con next(err) e un unico handler lo formatta. Non elimina gli errori né il logging."
+    },
+    {
+        "id": 68,
+        "categoria": "JSON e validazione",
+        "domanda": "Quale di questi NON è ammesso in JSON?",
+        "risposte": [
+            "Gli array",
+            "I booleani",
+            "I commenti",
+            "Il valore null"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "JSON non ammette commenti (né // né /* */). null, array e booleani invece sì."
+    },
+    {
+        "id": 69,
+        "categoria": "Strumenti",
+        "domanda": "Quante richieste/ora concede la GitHub API senza token di autenticazione?",
+        "risposte": [
+            "60",
+            "100",
+            "30",
+            "10"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "60 richieste/ora senza token; il residuo è nell'header X-RateLimit-Remaining. Esaurito, l'API risponde 403/429 fino al reset."
+    },
+    {
+        "id": 70,
+        "categoria": "JSON e validazione",
+        "domanda": "Cosa fa JSON.stringify(oggetto, null, 2)?",
+        "risposte": [
+            "Converte la stringa JSON ricevuta in un oggetto JavaScript pronto da usare nel codice",
+            "Valida l'oggetto contro uno schema",
+            "Serializza l'oggetto in JSON indentato di 2 spazi (versione leggibile su più righe)",
+            "Elimina dall'oggetto i campi con valore null"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il terzo parametro è l'indentazione (2 spazi): produce JSON leggibile. Il secondo (qui null) è il replacer. Convertire da stringa a oggetto è JSON.parse, non stringify."
+    },
+    {
+        "id": 71,
+        "categoria": "Express",
+        "domanda": "Nella struttura a cartelle raccomandata, qual è il compito dei 'controllers'?",
+        "risposte": [
+            "Avviare il server sulla porta",
+            "Servire i file statici e i contenuti multimediali della cartella pubblica del progetto",
+            "Mappare le coppie URL+metodo sulle funzioni",
+            "Contenere la logica di business delle route: leggere req, elaborare e scrivere res"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "I controller contengono la logica: leggono req, elaborano, scrivono res. Le routes mappano solo URL+metodo→controller; index.js avvia il server."
+    },
+    {
+        "id": 72,
+        "categoria": "Codici di stato",
+        "domanda": "Quale codice indica che è stata creata una risorsa e va accompagnato dall'header Location?",
+        "risposte": [
+            "200, che però non comunica la creazione di nulla",
+            "301, che indica uno spostamento permanente della risorsa",
+            "204, che non prevede alcun corpo nella risposta",
+            "201"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "201 Created + header Location con l'URL della nuova risorsa. 200 è generico, 301 è un redirect, 204 è senza body."
+    },
+    {
+        "id": 73,
+        "categoria": "Express",
+        "domanda": "Quale metodo di res imposta lo status code in modo concatenabile (chainable)?",
+        "risposte": [
+            "res.end()",
+            "res.status()",
+            "res.json()",
+            "res.send()"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "res.status(code) imposta lo status ed è chainable: res.status(201).json(...). send/json inviano il body, end chiude la risposta."
+    },
+    {
+        "id": 74,
+        "categoria": "Design delle URL",
+        "domanda": "Perché una URL pubblicata è considerata una 'decisione di lungo periodo'?",
+        "risposte": [
+            "Perché una volta pubblicata cambiarla rompe tutti i client che la usano, quindi le convenzioni vanno scelte con cura fin dall'inizio",
+            "Perché è difficile da scrivere",
+            "Perché è memorizzata per sempre nella cache del browser",
+            "Perché è cifrata"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Cambiare una URL pubblicata rompe i client esistenti (è parte del contratto): perciò naming al plurale, kebab-case e versioning sono scelte durature."
+    },
+    {
+        "id": 75,
+        "categoria": "Strumenti",
+        "domanda": "Qual è la differenza tra 'Response' e 'Preview' nel dettaglio di una richiesta nelle DevTools?",
+        "risposte": [
+            "Preview mostra esclusivamente le immagini contenute nella pagina web, mai i dati JSON eventualmente restituiti",
+            "Response mostra il body come testo grezzo; Preview lo mostra formattato e navigabile ad albero",
+            "Non c'è alcuna differenza",
+            "Response è semplicemente più veloce da caricare"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Response = body come testo grezzo; Preview = JSON formattato ed espandibile ad albero. Stesso dato, due viste diverse."
+    },
+    {
+        "id": 76,
+        "categoria": "HTTP e client-server",
+        "domanda": "Come si chiama la parte di una URL che segue il '?' e contiene coppie chiave=valore?",
+        "risposte": [
+            "Query string",
+            "Il fragment, ovvero la porzione gestita solo dal browser",
+            "Il path che identifica la risorsa sul server",
+            "Lo schema che precede i due punti e gli slash"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La query string è la parte dopo '?' (es. ?page=2&limit=20), usata per filtri, paginazione e opzioni. Fragment, path e schema sono altre componenti della URL."
+    },
+    {
+        "id": 77,
+        "categoria": "REST e vincoli",
+        "domanda": "Chi ha definito lo stile architetturale REST e in quale anno?",
+        "risposte": [
+            "Tim Berners-Lee, all'inizio degli anni Novanta con il primo browser web",
+            "L'IETF, nella RFC che descrive il protocollo HTTP/2",
+            "Il W3C, con la pubblicazione della specifica ufficiale del protocollo SOAP",
+            "Roy Fielding, nel 2000"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "REST è stato definito da Roy Fielding nella sua dissertazione di dottorato del 2000. Berners-Lee ha inventato il web (non REST); SOAP e HTTP/2 sono altre cose."
+    },
+    {
+        "id": 78,
+        "categoria": "Express",
+        "domanda": "In Express 4, perché serve un try/catch esplicito nelle route async?",
+        "risposte": [
+            "Per poter registrare la route",
+            "Perché senza try/catch Express 4 chiude immediatamente la connessione TCP verso il client prima ancora di leggere la richiesta",
+            "Per rendere la risposta più veloce",
+            "Perché in Express 4 gli errori delle funzioni async non sono catturati in automatico e vanno passati a next()"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "In Express 4 un errore lanciato in una funzione async non finisce automaticamente nell'error handler: serve try/catch + next(err) (oppure express-async-errors). Express 5 lo cattura da solo."
+    },
+    {
+        "id": 79,
+        "categoria": "JSON e validazione",
+        "domanda": "Quale carattere è obbligatorio attorno alle chiavi e alle stringhe in JSON?",
+        "risposte": [
+            "Gli apici singoli, esattamente come negli oggetti JavaScript",
+            "I backtick usati per i template literal in JavaScript",
+            "Le parentesi graffe poste a inizio e fine di ogni valore",
+            "I doppi apici"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "JSON ammette solo i doppi apici, sia per le chiavi sia per le stringhe. Apici singoli e backtick sono validi in JS ma non in JSON."
+    },
+    {
+        "id": 80,
+        "categoria": "HTTP e client-server",
+        "domanda": "Quale parte della URL NON viene mai inviata al server?",
+        "risposte": [
+            "Il fragment",
+            "L'host",
+            "La query string",
+            "Il path"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il fragment (la parte dopo #) è gestito solo dal browser e non arriva al server. Path, query string e host invece sì."
+    },
+    {
+        "id": 81,
+        "categoria": "Error handling",
+        "domanda": "Quale status code usa il middleware validateBody quando mancano campi obbligatori?",
+        "risposte": [
+            "500, trattandosi di un errore imprevisto lato server",
+            "201, perché la richiesta viene comunque registrata dal server",
+            "400",
+            "403, in quanto l'utente non dispone dei permessi necessari"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Campi obbligatori mancanti = errore del client → 400 Bad Request, con l'elenco dei campi mancanti. Non è 403 (permessi) né 500 (server)."
+    },
+    {
+        "id": 82,
+        "categoria": "REST e vincoli",
+        "domanda": "Tra REST, SOAP e gRPC, quale usa Protocol Buffers (formato binario)?",
+        "risposte": [
+            "SOAP",
+            "REST",
+            "GraphQL",
+            "gRPC"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "gRPC usa Protocol Buffers su HTTP/2. REST usa JSON/XML, SOAP solo XML."
+    },
+    {
+        "id": 83,
+        "categoria": "HTTP e client-server",
+        "domanda": "Cosa rappresenta una 'risorsa' in REST?",
+        "risposte": [
+            "Il codice JavaScript inviato dal server al browser per l'esecuzione",
+            "Un file statico",
+            "Esclusivamente una riga di una tabella di database",
+            "Qualsiasi concetto dotato di identità e indirizzabile tramite una URL"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Una risorsa è un'astrazione con identità, indirizzabile via URL (es. /users/42) — non necessariamente una riga di DB né un file. Il codice inviato al client riguarda il vincolo 'code on demand'."
+    },
+    {
+        "id": 84,
+        "categoria": "Design delle URL",
+        "domanda": "Qual è il massimo livello di nesting raccomandato in una URL?",
+        "risposte": [
+            "Cinque",
+            "Zero",
+            "Uno",
+            "Tre"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Non superare un livello di nesting; oltre (es. /users/42/posts/7/comments/3) l'URL diventa illeggibile e fragile: meglio una risorsa di primo livello con un filtro."
+    }
+]
