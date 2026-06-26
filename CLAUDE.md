@@ -22,9 +22,14 @@ overlay in-page) committata (`8b666eb`) e verificata headless (18/18 OK).
 M3 parte 2 (layout touch-friendly) committata e verificata (build + smoke,
 2026-06-19): flag `AppEnv.TouchMode` + dizionari Sizes Desktop/Touch + stili
 globali MinHeight; tutte le schermate adattate, desktop invariato per
-costruzione** — restano in M3 icona/splash. Niente verificato su device fisico:
-emulatore non eseguibile su questa VM. Vedi roadmap "Port Android" e
-Trappole 14–16. La struttura ora è una **libreria UI condivisa
+costruzione.** **M3 parte 3 (bottom-nav + swipe + safe-area edge-to-edge):
+implementata e VERIFICATA SU DEVICE FISICO (Samsung Galaxy S21 5G, 2026-06-26).**
+La bottom navigation a icone sta sopra i tasti Android grazie alle insets **native**
+(non più `IInsetsManager.SafeAreaPadding`, che su device reale riporta `bottom=0` —
+vedi Trappola 17); lo swipe fra tab usa lo **scroll orizzontale nativo con snap**
+(non più gesture manuale né `Carousel` — vedi Trappola 18). Restano in M3
+icona/splash. Vedi roadmap "Port Android", Trappole 14–18 e la memory
+`android-device-testing` per il workflow adb. La struttura ora è una **libreria UI condivisa
 (`Wsa.Quiz.App`) + 2 head** (`Wsa.Quiz.Desktop`, `Wsa.Quiz.Android`): le sezioni
 "Layout repo"/"Stack" più sotto parlano ancora di "tre progetti/csproj" — è
 stale rispetto a M1 (ora 5 progetti), non ancora riscritte.
@@ -589,9 +594,28 @@ tabella desktop invariata; toggle reattivo via proprietà calcolate
 espliciti regredirebbero il desktop). Tutto a valori desktop = identici a prima →
 desktop invariato per costruzione. Spec/plan in `docs/superpowers/`
 (`2026-06-19-m3-touch-friendly-layout-*`). **Restano in M3**: icona/splash
-definitivi; e la **verifica visiva reale su device fisico** (qui niente emulatore)
-— inclusa la nota: le 4 tab in alto potrebbero affollarsi in orizzontale su schermo
-stretto (bottom-nav/scroll è fuori scope M3).
+definitivi.
+
+**Parte 3 — bottom-nav + swipe + safe-area: implementata e VERIFICATA SU DEVICE
+FISICO (Samsung Galaxy S21 5G, SM-G991B, density 480, 3-button nav; 2026-06-26).**
+Su touch `MainView` nasconde il `TabControl` e mostra: (a) una **bottom navigation
+a icone** (`BottomNav`, 4 `Path`) ancorata in basso, attiva in blu via `AggiornaNav`;
+(b) **`SwipeHost`**, uno **ScrollViewer orizzontale** con le 4 pagine affiancate
+(larghe/alte quanto il viewport, impostato in `DimensionaPagine` su `SizeChanged`),
+`HorizontalSnapPointsType=MandatorySingle` → swipe col dito + inerzia + aggancio a
+una tab per volta (`SwipePages` è uno `StackPanel` orizzontale; lo scroll verticale
+è disabilitato sull'host, ogni pagina ha il proprio ScrollViewer → assi ortogonali,
+nessun conflitto). Il tap su un'icona fa uno **scroll animato** (`ScorriAllaPagina`,
+easeOutCubic 220ms via `DispatcherTimer` sull'`Offset`); `ScrollChanged` mantiene
+sincronizzata l'icona attiva. **Safe-area edge-to-edge** (targetSdk 36 → forzato):
+la `MainActivity` (`View.IOnApplyWindowInsetsListener` sulla decor view) legge le
+insets native `WindowInsets.systemBars()` e le passa a `MainView` via
+`AppEnv.SystemBarInsetsPx` (px fisici); `ApplicaSafeArea` riserva header (status bar)
+e padding-bottom della bottom nav convertendo px→unità con `f = ScalaTouch ×
+RenderScaling`, `RenderScaling` letto a runtime. **Perché non `IInsetsManager` né
+`Carousel`**: vedi Trappole 17–18. Workflow di test su device (adb, screencap+pull,
+`EmbedAssembliesIntoApk` per un Debug installabile a mano): memory
+`android-device-testing`.
 
 ### ⏳ Step 10 — Dark mode
 Toggle Fluent chiaro/scuro. Posizione del toggle da decidere. Persistenza
@@ -738,11 +762,14 @@ Una volta capita la causa, applicare il fix minimo possibile.
     Avalonia/Android la include sempre; il piano M1 l'aveva omessa. Aggiunta →
     APK prodotto. Altri due punti correlati:
     - **Debug = fast-deployment** (`EmbedAssembliesIntoApk=false`): non produce
-      un APK autonomo senza un device. Per un APK installabile su dispositivo:
-      **`dotnet build -c Release`** (embed + sign in un colpo solo) →
+      un APK autonomo senza un device. Installato a mano con `adb install` crasha
+      con `monodroid: No assemblies found ... Exiting`. Per un APK installabile su
+      dispositivo: **`dotnet build -c Release`** (embed + sign in un colpo solo) →
       `bin/Release/net10.0-android/it.eduits.wsaquiz-Signed.apk` (~29 MB,
       firmato con la Android Debug key, verificato con `apksigner`). Installa
-      con `adb install <file>-Signed.apk`.
+      con `adb install <file>-Signed.apk`. Per testare modifiche **in Debug**
+      installandolo via adb (senza IDE): `dotnet build -c Debug -t:Build
+      -p:EmbedAssembliesIntoApk=true -p:AndroidUseFastDeployment=false`.
     - **NON invocare `-t:SignAndroidPackage` come target standalone**: dà
       `XACAF7009 "Assembly compression info not found"` perché
       `__CompressedAssembliesInfo` è registrato in-memory da un target a monte e
@@ -755,6 +782,29 @@ Una volta capita la causa, applicare il fix minimo possibile.
       quello il problema; il `ZipIOException "errore lettura ...apk"` era solo il
       sintomo dell'APK base mai creato (per i punti sopra). Non sprecare tempo su
       `dotnet workload update` o su `_AndroidUseLibZipSharp`.
+17. **Safe-area Android: `IInsetsManager.SafeAreaPadding` di Avalonia riporta
+    `bottom=0` su device reale** *(M3 parte 3, **risolto** 2026-06-26 su Galaxy
+    S21)*: con edge-to-edge forzato (targetSdk 36) la bottom nav finiva **sotto i
+    tasti Android** perché Avalonia non vede l'inset della nav bar (`SafeAreaPadding`
+    → top=80, **bottom=0**). In più `TopLevel.RenderScaling` **varia** (1 al boot,
+    3 a regime), quindi un fattore di conversione costante oscillava tra barra
+    coperta e barra gigante. Soluzione: leggere le insets **native** nella
+    `MainActivity` (`View.IOnApplyWindowInsetsListener` sulla decor view →
+    `WindowInsets.GetInsetsIgnoringVisibility(SystemBars())`, in **px fisici**:
+    status 80, nav 224) e passarle a `MainView` via `AppEnv.SystemBarInsetsPx`.
+    Conversione px→unità di layout = `px / (ScalaTouch × RenderScaling)`, con
+    `RenderScaling` letto **a runtime a ogni apply** (robusto al variare). NON
+    consumare le insets: `return v.OnApplyWindowInsets(insets)`.
+18. **Swipe fra tab: la gesture manuale "non funziona quasi mai"** *(M3 parte 3,
+    **risolto** 2026-06-26)*: intercettare `PointerMoved` in tunnel per cambiare
+    pagina è inaffidabile — il `ScrollGestureRecognizer` dello ScrollViewer interno
+    cattura il tocco e i move non arrivano (lo ammetteva il commento del vecchio
+    codice). Soluzione: niente gesture manuale, niente `Carousel`. Uno **ScrollViewer
+    orizzontale** (`SwipeHost`) con le pagine affiancate e
+    `HorizontalSnapPointsType=MandatorySingle`: lo scroll nativo dà trascinamento col
+    dito + inerzia + snap (feeling pager), affidabile perché è il gesto nativo. Assi
+    ortogonali (host solo orizzontale, pagine solo verticale) → nessun conflitto.
+    Tap-nav animato via `ScrollViewer.Offset`.
 
 ## Note per i prossimi step
 

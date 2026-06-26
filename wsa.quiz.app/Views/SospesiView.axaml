@@ -88,20 +88,29 @@
                                     </Border>
                                 </Grid>
 
-                                <!-- Riga 2: modalita' + materia -->
-                                <StackPanel Grid.Column="0" Grid.Row="1"
-                                            Orientation="Horizontal"
-                                            Margin="0,4,0,0"
-                                            Spacing="8">
-                                    <TextBlock Text="{Binding Modalita}"
+                                <!-- Riga 2: modalita' + materia. Grid (non StackPanel
+                                     orizzontale) così la materia in colonna * resta
+                                     vincolata alla larghezza disponibile e viene troncata
+                                     con ellissi invece di sovrapporsi ai bottoni Riprendi/
+                                     Elimina della colonna a fianco. Margine destro per
+                                     staccarla dai bottoni. -->
+                                <Grid Grid.Column="0" Grid.Row="1"
+                                      ColumnDefinitions="Auto,Auto,*"
+                                      Margin="0,4,8,0">
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Modalita}"
                                                FontSize="12"/>
-                                    <TextBlock Text="·"
+                                    <TextBlock Grid.Column="1"
+                                               Text="·"
                                                FontSize="12"
+                                               Margin="8,0"
                                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
-                                    <TextBlock Text="{Binding MateriaEtichetta}"
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding MateriaEtichetta}"
                                                FontSize="12"
+                                               TextTrimming="CharacterEllipsis"
                                                Foreground="{DynamicResource SystemBaseMediumColor}"/>
-                                </StackPanel>
+                                </Grid>
 
                                 <!-- Riga 3: avanzamento + tempo -->
                                 <StackPanel Grid.Column="0" Grid.Row="2"
@@ -132,6 +141,7 @@
                                 <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                                             Orientation="Horizontal"
                                             Spacing="6"
+                                            Margin="8,0,0,0"
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding NonInAttesaConferma}">
                                     <Button Content="Riprendi"
@@ -152,6 +162,7 @@
                                 <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                                             Orientation="Horizontal"
                                             Spacing="6"
+                                            Margin="8,0,0,0"
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding InAttesaConfermaEliminazione}">
                                     <TextBlock Text="Sicuro?"

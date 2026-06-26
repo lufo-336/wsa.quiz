@@ -6,13 +6,6 @@
              x:Class="Wsa.Quiz.App.MainView">
 
     <UserControl.Styles>
-        <!-- Touch: nasconde la striscia di tab in alto del TabControl (la classe
-             "touchnav" viene aggiunta in code-behind solo su TouchMode). Il
-             TabControl resta il motore dei contenuti, ma la navigazione passa
-             dalla barra inferiore. Desktop: nessuna classe → tab visibili. -->
-        <Style Selector="TabControl.touchnav /template/ ItemsPresenter#PART_ItemsPresenter">
-            <Setter Property="IsVisible" Value="False"/>
-        </Style>
         <!-- Pulsanti della bottom navigation (touch). -->
         <Style Selector="Button.nav">
             <Setter Property="Background" Value="Transparent"/>
@@ -21,17 +14,19 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="2,8"/>
-            <!-- Altezza fissa della barra, indipendente da SzTapMin: la bottom
-                 nav resta comoda anche se le altre dimensioni touch calano. -->
-            <Setter Property="MinHeight" Value="54"/>
+            <Setter Property="Padding" Value="2,1"/>
+            <!-- Altezza guidata dal testo (font 12): MinHeight 0, padding minimo.
+                 Barra compatta ma etichette leggibili. L'altezza non scende oltre
+                 perché è legata alla dimensione del testo (54->44->22->qui). -->
+            <Setter Property="MinHeight" Value="0"/>
         </Style>
     </UserControl.Styles>
 
-    <DockPanel>
+    <DockPanel x:Name="RootDock">
 
         <!-- Header -->
-        <Border DockPanel.Dock="Top"
+        <Border x:Name="HeaderBorder"
+                DockPanel.Dock="Top"
                 Background="{DynamicResource SystemAccentColorBrush}"
                 Padding="20,12">
             <Grid ColumnDefinitions="*,Auto">
@@ -61,30 +56,46 @@
 
         <!-- Bottom navigation (touch). Nascosta su desktop; resa visibile e
              cablata a Tabs.SelectedIndex in code-behind quando TouchMode. -->
+        <!-- Border esterno trasparente: il padding-bottom (= inset di sistema, da
+             ApplicaSafeArea) spinge in alto la riga icone, ma la fascia dietro i tasti
+             Android resta TRASPARENTE → non sembra parte della barra (stile Instagram). -->
         <Border x:Name="BottomNav"
                 DockPanel.Dock="Bottom"
                 IsVisible="False"
-                Background="{DynamicResource SystemChromeMediumColor}"
-                BorderBrush="{DynamicResource SystemBaseLowColor}"
-                BorderThickness="0,1,0,0">
+                Background="Transparent">
+            <!-- Riga icone compatta: sfondo chrome + separatore in alto solo QUI. -->
+            <Border Background="{DynamicResource SystemChromeMediumColor}"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderThickness="0,1,0,0">
+            <!-- Solo icone (Path stroke). Colore/opacità gestiti da AggiornaNav:
+                 attiva = blu pieno, inattive = bianco smorzato. -->
             <Grid ColumnDefinitions="*,*,*,*">
                 <Button x:Name="NavHome" Grid.Column="0" Classes="nav" Tag="0" Click="OnNavClick">
-                    <TextBlock x:Name="NavHomeLabel" Text="Home"
-                               FontSize="13" TextAlignment="Center"/>
+                    <Path x:Name="NavHomeIcon" Width="24" Height="24" Stretch="Uniform"
+                          Stroke="White" StrokeThickness="2"
+                          StrokeJoin="Round" StrokeLineCap="Round"
+                          Data="M4 11 L12 4 L20 11 M6 9.5 V20 H18 V9.5"/>
                 </Button>
                 <Button x:Name="NavCronologia" Grid.Column="1" Classes="nav" Tag="1" Click="OnNavClick">
-                    <TextBlock x:Name="NavCronologiaLabel" Text="Cronologia"
-                               FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+                    <Path x:Name="NavCronologiaIcon" Width="24" Height="24" Stretch="Uniform"
+                          Stroke="White" StrokeThickness="2"
+                          StrokeJoin="Round" StrokeLineCap="Round"
+                          Data="M12 3 A9 9 0 1 1 11.99 3 Z M12 7.5 V12 L15.5 14"/>
                 </Button>
                 <Button x:Name="NavSospesi" Grid.Column="2" Classes="nav" Tag="2" Click="OnNavClick">
-                    <TextBlock x:Name="NavSospesiLabel" Text="Sospesi"
-                               FontSize="13" TextAlignment="Center"/>
+                    <Path x:Name="NavSospesiIcon" Width="24" Height="24" Stretch="Uniform"
+                          Stroke="White" StrokeThickness="2.6"
+                          StrokeLineCap="Round"
+                          Data="M9 5 V19 M15 5 V19"/>
                 </Button>
                 <Button x:Name="NavStatistiche" Grid.Column="3" Classes="nav" Tag="3" Click="OnNavClick">
-                    <TextBlock x:Name="NavStatisticheLabel" Text="Statistiche"
-                               FontSize="13" TextAlignment="Center" TextWrapping="Wrap"/>
+                    <Path x:Name="NavStatisticheIcon" Width="24" Height="24" Stretch="Uniform"
+                          Stroke="White" StrokeThickness="2.6"
+                          StrokeLineCap="Round"
+                          Data="M5 20 V13 M12 20 V6 M19 20 V11"/>
                 </Button>
             </Grid>
+            </Border>
         </Border>
 
         <!-- Errore globale (visibile solo se il caricamento dati fallisce) -->
@@ -106,20 +117,45 @@
             </StackPanel>
         </Border>
 
-        <TabControl x:Name="Tabs" Padding="0">
-            <TabItem Header="Home">
-                <ContentControl x:Name="HomeArea"/>
-            </TabItem>
-            <TabItem Header="Cronologia">
-                <ContentControl x:Name="CronologiaArea"/>
-            </TabItem>
-            <TabItem Header="Sospesi">
-                <ContentControl x:Name="SospesiArea"/>
-            </TabItem>
-            <TabItem Header="Statistiche">
-                <ContentControl x:Name="StatisticheArea"/>
-            </TabItem>
-        </TabControl>
+        <!-- Cella unica di riempimento: desktop usa il TabControl (tab in alto), touch
+             usa SwipeHost, uno ScrollViewer orizzontale con snap. La visibilità è
+             impostata in ConfiguraNavigazione secondo AppEnv.TouchMode; i due host non
+             sono mai visibili insieme. -->
+        <Grid>
+            <TabControl x:Name="Tabs" Padding="0">
+                <TabItem Header="Home">
+                    <ContentControl x:Name="HomeArea"/>
+                </TabItem>
+                <TabItem Header="Cronologia">
+                    <ContentControl x:Name="CronologiaArea"/>
+                </TabItem>
+                <TabItem Header="Sospesi">
+                    <ContentControl x:Name="SospesiArea"/>
+                </TabItem>
+                <TabItem Header="Statistiche">
+                    <ContentControl x:Name="StatisticheArea"/>
+                </TabItem>
+            </TabControl>
+
+            <!-- Touch: le 4 pagine affiancate in orizzontale, ciascuna larga quanto il
+                 viewport (impostato in code-behind). Lo scroll orizzontale nativo dà
+                 trascinamento col dito + inerzia; HorizontalSnapPointsType=MandatorySingle
+                 fa agganciare a una pagina per volta (feeling pager/Instagram). Lo scroll
+                 verticale è disabilitato qui: ogni pagina ha il proprio ScrollViewer
+                 interno, quindi gli assi non si pestano. -->
+            <ScrollViewer x:Name="SwipeHost" IsVisible="False"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Disabled"
+                          HorizontalSnapPointsType="MandatorySingle"
+                          HorizontalSnapPointsAlignment="Near">
+                <StackPanel x:Name="SwipePages" Orientation="Horizontal">
+                    <ContentControl x:Name="HomeAreaTouch"/>
+                    <ContentControl x:Name="CronologiaAreaTouch"/>
+                    <ContentControl x:Name="SospesiAreaTouch"/>
+                    <ContentControl x:Name="StatisticheAreaTouch"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
 
     </DockPanel>
 

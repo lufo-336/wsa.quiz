@@ -2,7 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Wsa.Quiz.App.Views.ConfermaDialog">
 
-  <!-- Card del dialogo (overlay in-page, M3). -->
+  <UserControl.Styles>
+    <!-- Accent con blu esplicito: SystemAccentColorBrush non rende affidabile
+         nell'overlay (vedi PausaDialog). -->
+    <Style Selector="Button.accent /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#2D6FB8"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderBrush" Value="#2D6FB8"/>
+    </Style>
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#3A7FCC"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderBrush" Value="#3A7FCC"/>
+    </Style>
+  </UserControl.Styles>
+
+  <!-- Card del dialogo (overlay in-page, M3). Forzo Light sul sottoalbero così i
+       Button default restano leggibili anche con app in tema scuro (vedi PausaDialog). -->
+  <ThemeVariantScope RequestedThemeVariant="Light">
   <Border Background="#FAFAFA"
           BorderBrush="#D6D6D6"
           BorderThickness="1"
@@ -32,5 +49,6 @@
       </StackPanel>
     </StackPanel>
   </Border>
+  </ThemeVariantScope>
 
 </UserControl>

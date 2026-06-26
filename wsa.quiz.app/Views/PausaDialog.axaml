@@ -2,8 +2,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Wsa.Quiz.App.Views.PausaDialog">
 
-  <!-- Card del dialogo (overlay in-page, M3). Sfondo chiaro hardcoded coerente
-       con il resto dell'app; il tema scuro è rinviato a Step 10. -->
+  <UserControl.Styles>
+    <!-- L'accent via SystemAccentColorBrush non rende in modo affidabile dentro
+         l'overlay (sfondo trasparente → testo bianco illeggibile sulla card chiara).
+         Forzo un blu esplicito, stesso approccio dei bottoni danger (hex). -->
+    <Style Selector="Button.accent /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#2D6FB8"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderBrush" Value="#2D6FB8"/>
+    </Style>
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#3A7FCC"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="BorderBrush" Value="#3A7FCC"/>
+    </Style>
+  </UserControl.Styles>
+
+  <!-- Card del dialogo (overlay in-page, M3). Sfondo chiaro hardcoded; forzo il
+       sottoalbero a tema Light così i Button default (es. "Annulla") restano
+       leggibili anche quando l'app gira in tema scuro (altrimenti testo chiaro
+       su card chiara). Il tema scuro vero della card è rinviato a Step 10. -->
+  <ThemeVariantScope RequestedThemeVariant="Light">
   <Border Background="#FAFAFA"
           BorderBrush="#D6D6D6"
           BorderThickness="1"
@@ -46,5 +65,6 @@
       </Grid>
     </StackPanel>
   </Border>
+  </ThemeVariantScope>
 
 </UserControl>

@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Platform;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using Avalonia.Threading;
 using Wsa.Quiz.App.State;
 using Wsa.Quiz.App.Views;
 using Wsa.Quiz.Core.Models;
@@ -26,6 +31,23 @@ public partial class MainView : UserControl
     private SospesiView? _sospesiView;
     private StatisticheView? _statisticheView;
 
+    // Aree contenuto dell'host attivo: su desktop puntano ai ContentControl dentro
+    // il TabControl, su touch a quelli dentro il Carousel. Impostate in
+    // ConfiguraNavigazione; tutta la logica di swap passa di qui (vedi _homeArea.Content).
+    private ContentControl _homeArea = null!;
+    private ContentControl _cronologiaArea = null!;
+    private ContentControl _sospesiArea = null!;
+    private ContentControl _statisticheArea = null!;
+
+    // Brush icone bottom nav (esplicite: il system accent su questo device rende
+    // scuro — come l'header — quindi userei un colore poco visibile sulla barra).
+    private static readonly IBrush NavAttiva = new SolidColorBrush(Color.Parse("#5AA0F0"));
+    private static readonly IBrush NavInattiva = Brushes.White;
+
+    // Animazione dello scroll orizzontale per il tap sulla bottom nav (lo swipe col
+    // dito usa l'inerzia nativa, qui serve solo per il cambio tab da bottone).
+    private DispatcherTimer? _scrollAnim;
+
     public MainView()
     {
         InitializeComponent();
@@ -35,43 +57,179 @@ public partial class MainView : UserControl
 
     // ------------------------------------------------------------------ NAVIGAZIONE (touch vs desktop)
 
+    /// <summary>Larghezza di una pagina = viewport dello SwipeHost. Le pagine sono
+    /// affiancate, quindi lo scroll-offset orizzontale è (indice × larghezza).</summary>
+    private double LarghezzaPagina => SwipeHost.Bounds.Width;
+
+    /// <summary>Indice della sezione attiva, indipendente dall'host: TabControl su
+    /// desktop, posizione dello scroll orizzontale su touch.</summary>
+    private int IndiceSezione
+    {
+        get
+        {
+            if (!AppEnv.TouchMode) return Tabs.SelectedIndex;
+            double w = LarghezzaPagina;
+            if (w <= 0) return 0;
+            return Math.Clamp((int)Math.Round(SwipeHost.Offset.X / w), 0, 3);
+        }
+        set
+        {
+            if (AppEnv.TouchMode) ScorriAllaPagina(value, animato: true);
+            else Tabs.SelectedIndex = value;
+        }
+    }
+
     /// <summary>
-    /// Desktop: tab in alto + footer diagnostico (invariato). Touch: nasconde la
-    /// striscia di tab e il footer, mostra la bottom navigation che pilota lo
-    /// stesso TabControl. Il TabControl resta l'unico motore dei contenuti in
-    /// entrambi i casi (vedi Tabs.SelectedIndex usato altrove).
+    /// Desktop: tab in alto + footer diagnostico (TabControl, invariato). Touch:
+    /// SwipeHost (ScrollViewer orizzontale con snap) pilotato da swipe nativo + bottom
+    /// navigation a icone; il TabControl viene nascosto. Le 4 aree contenuto vengono
+    /// instradate ai ContentControl dell'host attivo via i campi _*Area.
     /// </summary>
     private void ConfiguraNavigazione()
     {
-        // Mantiene evidenziata la voce attiva anche su cambi programmatici
-        // (es. AvviaQuizView forza SelectedIndex = 0).
-        Tabs.SelectionChanged += (_, _) => AggiornaNav();
+        if (AppEnv.TouchMode)
+        {
+            _homeArea = HomeAreaTouch;
+            _cronologiaArea = CronologiaAreaTouch;
+            _sospesiArea = SospesiAreaTouch;
+            _statisticheArea = StatisticheAreaTouch;
 
-        if (!AppEnv.TouchMode) return;
+            Tabs.IsVisible = false;
+            SwipeHost.IsVisible = true;
+            FooterBar.IsVisible = false;    // footer diagnostico solo su desktop
+            BottomNav.IsVisible = true;
 
-        Tabs.Classes.Add("touchnav");   // nasconde la striscia di tab (vedi MainView.axaml)
-        FooterBar.IsVisible = false;    // footer diagnostico solo su desktop
-        BottomNav.IsVisible = true;
-        AggiornaNav();
+            // Ogni pagina larga/alta quanto il viewport: lo snap aggancia ai bordi pagina
+            // e il contenuto verticale resta dentro il proprio ScrollViewer.
+            SwipeHost.SizeChanged += (_, _) => DimensionaPagine();
+            // Lo scroll (swipe o animazione) aggiorna l'icona attiva nella bottom nav.
+            SwipeHost.AddHandler(ScrollViewer.ScrollChangedEvent,
+                new EventHandler<ScrollChangedEventArgs>((_, _) => AggiornaNav()));
+
+            AggiornaNav();
+        }
+        else
+        {
+            _homeArea = HomeArea;
+            _cronologiaArea = CronologiaArea;
+            _sospesiArea = SospesiArea;
+            _statisticheArea = StatisticheArea;
+
+            // Evidenzia (no-op su desktop) tenuta per simmetria; AggiornaNav esce subito.
+            Tabs.SelectionChanged += (_, _) => AggiornaNav();
+        }
     }
 
-    private void OnNavClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    /// <summary>Allinea larghezza e altezza delle 4 pagine al viewport dello SwipeHost,
+    /// così lo snap orizzontale cade esattamente su un confine di pagina.</summary>
+    private void DimensionaPagine()
+    {
+        double w = SwipeHost.Bounds.Width;
+        double h = SwipeHost.Bounds.Height;
+        if (w <= 0 || h <= 0) return;
+        foreach (var pagina in new[] { HomeAreaTouch, CronologiaAreaTouch, SospesiAreaTouch, StatisticheAreaTouch })
+        {
+            pagina.Width = w;
+            pagina.Height = h;
+        }
+    }
+
+    /// <summary>Porta lo SwipeHost sulla pagina <paramref name="indice"/>. Con
+    /// <paramref name="animato"/> anima l'offset (tap su bottom nav); lo swipe col dito
+    /// usa invece l'inerzia nativa e non passa di qui.</summary>
+    private void ScorriAllaPagina(int indice, bool animato)
+    {
+        double w = LarghezzaPagina;
+        if (w <= 0) return;
+        double target = Math.Clamp(indice, 0, 3) * w;
+        _scrollAnim?.Stop();
+
+        if (!animato)
+        {
+            SwipeHost.Offset = new Vector(target, 0);
+            return;
+        }
+
+        double start = SwipeHost.Offset.X;
+        if (Math.Abs(target - start) < 0.5) return;
+        var orologio = System.Diagnostics.Stopwatch.StartNew();
+        const double durataMs = 220;
+        _scrollAnim = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(15) };
+        _scrollAnim.Tick += (_, _) =>
+        {
+            double t = Math.Min(1.0, orologio.Elapsed.TotalMilliseconds / durataMs);
+            double e = 1 - Math.Pow(1 - t, 3); // easeOutCubic
+            SwipeHost.Offset = new Vector(start + (target - start) * e, 0);
+            if (t >= 1.0) _scrollAnim!.Stop();
+        };
+        _scrollAnim.Start();
+    }
+
+    private void OnNavClick(object? sender, RoutedEventArgs e)
     {
         if (sender is Control { Tag: string tag } && int.TryParse(tag, out int indice))
-            Tabs.SelectedIndex = indice;
+            IndiceSezione = indice;
     }
 
-    /// <summary>Evidenzia la voce della bottom nav corrispondente alla tab attiva.</summary>
+    /// <summary>Evidenzia l'icona della bottom nav corrispondente alla sezione attiva.</summary>
     private void AggiornaNav()
     {
         if (!AppEnv.TouchMode) return;
-        var labels = new[] { NavHomeLabel, NavCronologiaLabel, NavSospesiLabel, NavStatisticheLabel };
-        for (int i = 0; i < labels.Length; i++)
+        var icone = new[] { NavHomeIcon, NavCronologiaIcon, NavSospesiIcon, NavStatisticheIcon };
+        for (int i = 0; i < icone.Length; i++)
         {
-            bool attiva = i == Tabs.SelectedIndex;
-            labels[i].FontWeight = attiva ? Avalonia.Media.FontWeight.SemiBold : Avalonia.Media.FontWeight.Normal;
-            labels[i].Opacity = attiva ? 1.0 : 0.6;
+            bool attiva = i == IndiceSezione;
+            icone[i].Stroke = attiva ? NavAttiva : NavInattiva;
+            icone[i].Opacity = attiva ? 1.0 : 0.45;
         }
+    }
+
+    // ------------------------------------------------------------------ SAFE AREA (edge-to-edge Android)
+
+    /// <summary>
+    /// Su Android con targetSdk 35+ l'edge-to-edge è forzato: l'app disegna dietro
+    /// status bar e barra di navigazione di sistema, che altrimenti coprono header
+    /// e bottom navigation. Le insets reali arrivano da <see cref="AppEnv.SystemBarInsetsPx"/>,
+    /// popolate dalla MainActivity Android via <c>WindowInsets.systemBars()</c> (fonte
+    /// autorevole: l'InsetsManager di Avalonia qui riporta bottom=0). Le applico come
+    /// padding: header accent e bottom nav si estendono DIETRO le barre di sistema, ma
+    /// il loro contenuto resta nell'area sicura. Solo su touch (desktop: return anticipato).
+    /// </summary>
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (!AppEnv.TouchMode) return;
+
+        AppEnv.SystemBarInsetsChanged += OnSystemBarInsetsChanged;
+        ApplicaSafeArea();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        AppEnv.SystemBarInsetsChanged -= OnSystemBarInsetsChanged;
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    // Le insets Android arrivano su thread UI ma le rimando comunque sul dispatcher
+    // per disaccoppiarle dal dispatch di sistema.
+    private void OnSystemBarInsetsChanged() => Dispatcher.UIThread.Post(ApplicaSafeArea);
+
+    private void ApplicaSafeArea()
+    {
+        if (!AppEnv.TouchMode) return;
+        var s = AppEnv.SystemBarInsetsPx;
+        // Prima del primo dispatch di WindowInsets le insets sono tutte-zero: non applico
+        // nulla (eviterei comunque divisioni inutili) e attendo l'evento reale.
+        if (s.Top == 0 && s.Bottom == 0 && s.Left == 0 && s.Right == 0) return;
+        // s è in PIXEL FISICI. Le Thickness sono in unità di layout della MainView, che
+        // vive dentro un LayoutTransformControl scalato ScalaTouch su un TopLevel con
+        // RenderScaling: 1 unità locale = ScalaTouch × RenderScaling pixel fisici. Per
+        // riservare S px servono S/(ScalaTouch×RenderScaling) unità. RenderScaling è letto
+        // a runtime (su questo device vale 1, non la densità).
+        double f = AppEnv.ScalaTouch * (TopLevel.GetTopLevel(this)?.RenderScaling ?? 1.0);
+        HeaderBorder.Padding = new Thickness(20, 12 + s.Top / f, 20, 12);
+        BottomNav.Padding = new Thickness(0, 0, 0, s.Bottom / f);
+        RootDock.Margin = new Thickness(s.Left / f, 0, s.Right / f, 0);
     }
 
     // ------------------------------------------------------------------ TASTIERA GLOBALE
@@ -85,18 +243,17 @@ public partial class MainView : UserControl
     {
         if (e.Key == Key.Tab && e.KeyModifiers.HasFlag(KeyModifiers.Control))
         {
-            int n = Tabs.ItemCount;
-            if (n <= 0) { base.OnKeyDown(e); return; }
+            const int n = 4;
             int delta = e.KeyModifiers.HasFlag(KeyModifiers.Shift) ? -1 : +1;
-            Tabs.SelectedIndex = (Tabs.SelectedIndex + delta + n) % n;
+            IndiceSezione = (IndiceSezione + delta + n) % n;
             // Sposto il focus nella view appena attivata cosi' le scorciatoie locali
             // partono immediate senza dover cliccare.
-            switch (Tabs.SelectedIndex)
+            switch (IndiceSezione)
             {
-                case 0: (HomeArea.Content as Control)?.Focus(); break;
-                case 1: (CronologiaArea.Content as Control)?.Focus(); break;
-                case 2: (SospesiArea.Content as Control)?.Focus(); break;
-                case 3: (StatisticheArea.Content as Control)?.Focus(); break;
+                case 0: (_homeArea.Content as Control)?.Focus(); break;
+                case 1: (_cronologiaArea.Content as Control)?.Focus(); break;
+                case 2: (_sospesiArea.Content as Control)?.Focus(); break;
+                case 3: (_statisticheArea.Content as Control)?.Focus(); break;
             }
             e.Handled = true;
             return;
@@ -141,29 +298,29 @@ public partial class MainView : UserControl
             _homeView = new HomeView();
             _homeView.Inizializza(_materie, _tutteDomande);
             _homeView.QuizAvviato += OnQuizAvviato;
-            HomeArea.Content = _homeView;
+            _homeArea.Content = _homeView;
 
             // ---------- Tab Cronologia ----------
             _cronologiaView = new CronologiaView();
             _cronologiaView.Inizializza(_storage);
-            CronologiaArea.Content = _cronologiaView;
+            _cronologiaArea.Content = _cronologiaView;
 
             // ---------- Tab Sospesi ----------
             _sospesiView = new SospesiView();
             _sospesiView.Inizializza(_storage);
             _sospesiView.RiprendiRichiesto += OnRiprendiSospesa;
-            SospesiArea.Content = _sospesiView;
+            _sospesiArea.Content = _sospesiView;
 
             // ---------- Tab Statistiche ----------
             _statisticheView = new StatisticheView();
             _statisticheView.Inizializza(_storage);
-            StatisticheArea.Content = _statisticheView;
+            _statisticheArea.Content = _statisticheView;
         }
         catch (Exception ex)
         {
             ErrorePanel.IsVisible = true;
             ErroreText.Text = ex.Message;
-            HomeArea.Content = new PlaceholderView(
+            _homeArea.Content = new PlaceholderView(
                 "Impossibile avviare",
                 "Verifica la presenza di materie.json e della cartella domande/ accanto all'eseguibile.");
         }
@@ -182,8 +339,8 @@ public partial class MainView : UserControl
         var quizView = new QuizView(sessione, _storage);
         quizView.QuizConcluso += OnQuizConcluso;
         quizView.QuizMessoInPausa += OnQuizMessoInPausa;
-        HomeArea.Content = quizView;
-        Tabs.SelectedIndex = 0; // resta sulla tab Home, ma sostituisce il contenuto
+        _homeArea.Content = quizView;
+        IndiceSezione = 0; // resta sulla sezione Home, ma sostituisce il contenuto
     }
 
     private void OnQuizConcluso(object? sender, SessioneQuiz sessione)
@@ -223,7 +380,7 @@ public partial class MainView : UserControl
 
         var riep = new RiepilogoView(sessione.Risultato);
         riep.TornaAllaHome += (_, _) => RitornaAllaHome();
-        HomeArea.Content = riep;
+        _homeArea.Content = riep;
     }
 
     private void OnQuizMessoInPausa(object? sender, EventArgs e)
@@ -261,6 +418,6 @@ public partial class MainView : UserControl
             _homeView.Inizializza(_materie, _tutteDomande);
             _homeView.QuizAvviato += OnQuizAvviato;
         }
-        HomeArea.Content = _homeView;
+        _homeArea.Content = _homeView;
     }
 }
