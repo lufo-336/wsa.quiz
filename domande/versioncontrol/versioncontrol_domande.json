@@ -1,0 +1,3070 @@
+[
+    {
+        "id": 1,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Cosa va sempre messo prima e dopo un'intestazione in Markdown?",
+        "risposte": [
+            "Il simbolo della chiocciola",
+            "Un blocco di codice racchiuso tra i backtick",
+            "Tre trattini",
+            "Una riga vuota"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Va sempre lasciata una riga vuota prima e dopo un'intestazione, altrimenti alcuni parser non la rendono correttamente."
+    },
+    {
+        "id": 2,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Cosa significa l'avviso 'LF will be replaced by CRLF' su Windows?",
+        "risposte": [
+            "Significa che i file di testo sono ormai corrotti e diventati illeggibili",
+            "Bisogna reinstallare completamente Git da zero per riuscire a risolverlo",
+            "Non e' un errore",
+            "E' un errore grave che impedisce di completare il commit in corso"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Non e' un errore: conferma solo che Git converte i line ending (LF<->CRLF) su Windows e si puo' ignorare; file e commit restano a posto."
+    },
+    {
+        "id": 3,
+        "categoria": "Remote e GitHub",
+        "domanda": "Dando accesso 'Write' a un collaboratore su GitHub, cosa puo' fare?",
+        "risposte": [
+            "Push del codice ed eventualmente cancellare o cambiare la storia",
+            "Solamente leggere il codice",
+            "Nulla finche' non versa un pagamento per l'accesso al repository",
+            "Solo aprire delle issue"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Con accesso Write il collaboratore puo' pushare codice e anche cancellare/modificare la storia; per evitare danni si usano i protected branch."
+    },
+    {
+        "id": 4,
+        "categoria": "Branching e merging",
+        "domanda": "Quali sono le quattro fasi del ciclo di vita di un branch?",
+        "risposte": [
+            "Crea, sviluppa, merge, elimina",
+            "Si scarica il branch, lo si modifica, lo si invia e infine si archivia",
+            "Apri e chiudi",
+            "Lo si apre, lo si blocca, poi lo si sblocca e infine lo si chiude"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Ciclo di vita: create (crei il branch), develop (aggiungi commit), merge (riporti in main), delete (rimuovi il puntatore; i commit restano)."
+    },
+    {
+        "id": 5,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Perche' Git non tiene traccia delle cartelle vuote e come si risolve?",
+        "risposte": [
+            "Le rinomina; basta un trattino",
+            "Git traccia il contenuto e non le cartelle: per convenzione si mette dentro un file segnaposto .gitkeep",
+            "Le cancella; non c'e' rimedio",
+            "Si risolve solo con git init"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Git traccia il contenuto dei file, non le cartelle: per forzare il tracciamento di una cartella vuota si mette dentro un file convenzionale .gitkeep."
+    },
+    {
+        "id": 6,
+        "categoria": "Appendice: Unix",
+        "domanda": "In nano, quale combinazione esce dall'editor?",
+        "risposte": [
+            "Ctrl+X",
+            "Ctrl+O",
+            "Ctrl+K",
+            "Ctrl+W"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "In nano Ctrl+X esce; Ctrl+O salva (Write Out), Ctrl+W cerca testo, Ctrl+K taglia la riga corrente."
+    },
+    {
+        "id": 7,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si inseriscono i commenti (non renderizzati) in un file Markdown?",
+        "risposte": [
+            "Con la coppia /* ... */",
+            "Con i tag di commento HTML <!-- ... -->",
+            "Anteponendo il simbolo cancelletto a inizio riga del commento",
+            "Con il doppio slash //"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "In Markdown si usano i tag di commento HTML <!-- ... -->: non appaiono nella pagina renderizzata ma si vedono nel file raw."
+    },
+    {
+        "id": 8,
+        "categoria": "Appendice: Unix",
+        "domanda": "Perche' il comando 'rm -rf' e' considerato uno dei piu' pericolosi?",
+        "risposte": [
+            "Perche' gira solo su macOS",
+            "Perche' chiede troppe conferme",
+            "Perche' e' molto lento",
+            "Perche' -f sopprime gli avvisi e in Unix non c'e' cestino: i file spariscono subito e non si recuperano"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "rm -rf cancella ricorsivamente e forzatamente: -f toglie gli avvisi e in Unix non c'e' cestino, quindi i file spariscono e non si recuperano."
+    },
+    {
+        "id": 9,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Perche' per annullare un commit gia' pushato si usa git revert e non git reset?",
+        "risposte": [
+            "Reset cancella il branch",
+            "Reset e' piu' lento",
+            "Revert chiede una password",
+            "Perche' git revert crea un nuovo commit che annulla l'effetto del precedente, preservando la storia condivisa"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Su un branch condiviso non si usa reset (riscrive la storia altrui): git revert aggiunge un commit che annulla l'effetto, preservando la storia."
+    },
+    {
+        "id": 10,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "A cosa viene paragonato un commit nell'appendice sui commit atomici?",
+        "risposte": [
+            "A una fotografia",
+            "A un messaggio email",
+            "A un punto di salvataggio in un videogioco, a cui puoi tornare se qualcosa va storto",
+            "A un backup notturno"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Un commit e' come un save point di un videogioco: se il codice si rompe, torni all'ultimo commit in cui funzionava."
+    },
+    {
+        "id": 11,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Quali sono alcune delle sezioni essenziali di un README?",
+        "risposte": [
+            "Solo il titolo",
+            "Titolo, descrizione, installazione, uso, licenza e contatto",
+            "Solo i badge",
+            "Solamente la licenza scelta per il progetto e i relativi termini d'uso"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Sezioni essenziali: titolo (H1), descrizione, installazione, uso con esempi, licenza e contatto; quelle opzionali includono badge, screenshot e features."
+    },
+    {
+        "id": 12,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Cosa rappresenta HEAD in Git?",
+        "risposte": [
+            "Il primo commit assoluto",
+            "Il server remoto principale",
+            "La cartella radice del progetto sul disco della macchina locale",
+            "Il punto attivo corrente nella storia del repository"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "HEAD punta alla posizione attiva corrente: di solito a un branch, ma puo' puntare direttamente a un commit (detached HEAD)."
+    },
+    {
+        "id": 13,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa sono le remote tracking branch (es. origin/main)?",
+        "risposte": [
+            "Copie di backup dei file",
+            "Tag di rilascio",
+            "Riferimenti locali che registrano l'ultimo stato noto di ogni branch sul remoto, aggiornati da fetch o pull",
+            "Branch dove committi"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Le remote tracking branch (origin/main, ecc.) registrano l'ultimo stato noto del remoto; non ci si committa, si aggiornano con fetch/pull."
+    },
+    {
+        "id": 14,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa serve per copiare una cartella con tutto il suo contenuto?",
+        "risposte": [
+            "Il flag -r, cioe' cp -r origine/ destinazione/",
+            "Il comando touch sulla cartella",
+            "Il semplice comando cp",
+            "Il comando mv con l'aggiunta del flag -r"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "cp da solo copia file; per una cartella e tutto il suo contenuto serve cp -r (ricorsivo)."
+    },
+    {
+        "id": 15,
+        "categoria": "Appendice: version history",
+        "domanda": "Quante versioni con nome si possono salvare al massimo in un documento Google Docs?",
+        "risposte": [
+            "Soltanto 10 versioni con nome in tutto l'arco di vita del documento",
+            "Una sola versione con nome, che corrisponde sempre a quella originale",
+            "Un numero illimitato di versioni con nome per ciascun documento",
+            "40"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si possono aggiungere fino a 40 versioni con nome per documento; il toggle 'Solo versioni con nome' le mostra senza l'intera timeline."
+    },
+    {
+        "id": 16,
+        "categoria": "Remote e GitHub",
+        "domanda": "Qual e' la differenza tra Git e GitHub?",
+        "risposte": [
+            "Git serve per i siti",
+            "Git e' lo strumento di version control locale; GitHub e' un servizio che ospita i repo e aggiunge collaborazione",
+            "GitHub gira sul PC",
+            "Sono la stessa cosa"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Git e' lo strumento locale di version control; GitHub e' un servizio che ospita i repo Git e aggiunge funzionalita' di collaborazione."
+    },
+    {
+        "id": 17,
+        "categoria": "Appendice: Unix",
+        "domanda": "In Unix, come vengono considerate le operazioni di spostamento e rinomina?",
+        "risposte": [
+            "Sempre piu' lente",
+            "Operazioni del tutto diverse",
+            "La stessa operazione: mv cambia nome o posizione nell'indice del file system, senza copiare i dati",
+            "Sono possibili solo come root"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "In Unix spostare e rinominare sono la stessa operazione: mv cambia nome/posizione nell'indice del file system senza copiare i dati."
+    },
+    {
+        "id": 18,
+        "categoria": "Branching e merging",
+        "domanda": "Qual e' il rischio del detached HEAD?",
+        "risposte": [
+            "Blocca i push altrui",
+            "I commit fatti in quello stato non sono attaccati a un branch e, cambiando ramo, diventano irraggiungibili",
+            "Cancella il remoto",
+            "Rallenta i comandi"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "In detached HEAD i commit non appartengono a nessun branch: cambiando branch diventano unreachable e Git li elimina."
+    },
+    {
+        "id": 19,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa non bisogna mai fare su un branch condiviso?",
+        "risposte": [
+            "Eseguire una normale operazione di git pull dal remoto",
+            "Scaricare gli aggiornamenti dal server usando il comando git fetch",
+            "Controllare lo stato del repository con il comando git status",
+            "Un force push"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Mai force-push su un branch condiviso: riscrive la storia del remoto e rompe le copie di tutti gli altri."
+    },
+    {
+        "id": 20,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale scorciatoia interrompe (uccide) il processo in esecuzione?",
+        "risposte": [
+            "Ctrl+A",
+            "Ctrl+L",
+            "Ctrl+D",
+            "Ctrl+C"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Ctrl+C interrompe il processo in corso; Ctrl+D invia EOF, Ctrl+L pulisce lo schermo, Ctrl+A va a inizio riga."
+    },
+    {
+        "id": 21,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Cosa indica il type 'refactor' nei Conventional Commits?",
+        "risposte": [
+            "Una correzione urgente di un bug critico in produzione",
+            "Una modifica al codice che non corregge un bug ne' aggiunge una feature",
+            "Una nuova funzionalita'",
+            "Una modifica alla sola documentazione"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "refactor e' una modifica al codice che non aggiunge feature ne' corregge bug; chore riguarda invece manutenzione e configurazione."
+    },
+    {
+        "id": 22,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa fa 'git fetch'?",
+        "risposte": [
+            "Apre una nuova pull request direttamente sul sito di GitHub",
+            "Scarica i nuovi dati dal remoto e fa subito il merge nel branch locale",
+            "Solo scarica i dati",
+            "Invia i tuoi commit locali verso il repository remoto condiviso"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git fetch scarica i nuovi dati dal remoto e aggiorna le tracking branch, ma non tocca i tuoi file/branch locali: e' un controllo di sicurezza."
+    },
+    {
+        "id": 23,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Quali sono due esempi tipici di VCS centralizzati citati nella dispensa?",
+        "risposte": [
+            "Git e Mercurial",
+            "GitHub e GitLab",
+            "SVN e CVS",
+            "Docker e Podman"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "SVN (Subversion) e CVS sono i principali esempi di sistemi centralizzati; Git e Mercurial sono distribuiti."
+    },
+    {
+        "id": 24,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Perche' esistono le pull request?",
+        "risposte": [
+            "Per la review prima del merge",
+            "Per cancellare automaticamente i branch dopo essere stati creati",
+            "Per cifrare il codice sorgente prima che venga caricato sul server",
+            "Per poter rallentare di proposito il lavoro degli altri membri del team"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Le PR evitano che le modifiche vadano in main senza controllo: almeno un revisore le esamina e resta un record permanente con i commenti."
+    },
+    {
+        "id": 25,
+        "categoria": "Branching e merging",
+        "domanda": "Cosa caratterizza un detached HEAD?",
+        "risposte": [
+            "Il push e' bloccato",
+            "HEAD punta direttamente a un commit specifico invece che a un branch (es. checkout di un hash)",
+            "main e' stato eliminato",
+            "Il repo e' corrotto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il detached HEAD avviene quando HEAD punta direttamente a un commit (es. checkout di un hash o tag) anziche' a un branch."
+    },
+    {
+        "id": 26,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Per annullare un commit locale non condiviso, mantenendo le modifiche staged?",
+        "risposte": [
+            "Si invia tutto al remoto con un push forzato usando git push --force",
+            "Si crea un nuovo commit di annullamento con il comando git revert HEAD",
+            "Si scarica nuovamente il progetto da capo con git clone",
+            "git reset --soft HEAD~1"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git reset --soft HEAD~1 annulla l'ultimo commit locale lasciando le modifiche nella staging area."
+    },
+    {
+        "id": 27,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Cosa significa che il grafo dei commit e' 'aciclico'?",
+        "risposte": [
+            "Che e' lineare",
+            "Che si aggiorna da solo",
+            "Che un commit non puo' mai essere antenato di se stesso",
+            "Che la storia viene cancellata a intervalli regolari di tempo"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "'Aciclico' significa nessun ciclo: un commit non puo' essere antenato di se stesso, il che rende la storia coerente e prevedibile."
+    },
+    {
+        "id": 28,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Dentro la cartella .git, a cosa serve la sottocartella objects/?",
+        "risposte": [
+            "Tiene un log dei comandi",
+            "Memorizza contenuti dei file, strutture di directory e commit come dati compressi",
+            "Salva le password",
+            "Contiene l'editor"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "objects/ memorizza tutto il contenuto (file, alberi di directory, commit) come dati compressi."
+    },
+    {
+        "id": 29,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Qual e' il test piu' semplice per capire se un commit non e' atomico?",
+        "risposte": [
+            "Se manca il numero di versione semantica nel suo messaggio",
+            "Se non lo descrivi senza usare la parola 'e' (and)",
+            "Se non compila correttamente",
+            "Se non ha un branch"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Se per descrivere il commit ti serve la parola 'e' (es. 'fixa il login e aggiorna il readme'), non e' atomico: vanno divisi."
+    },
+    {
+        "id": 30,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Come si applicano le regole di .gitignore a tanti file gia' committati per errore?",
+        "risposte": [
+            "Non si puo' fare",
+            "Dopo aver committato il lavoro: git rm -r --cached . poi git add . e infine un nuovo commit",
+            "Si cancella il repo",
+            "Si rinomina .gitignore"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Si svuota l'index con git rm -r --cached . (i file restano su disco), si ri-aggiunge tutto con git add . (gli ignorati vengono esclusi) e si committa."
+    },
+    {
+        "id": 31,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Quale terminale per Windows include Git e una shell Unix?",
+        "risposte": [
+            "Paint",
+            "Git Bash",
+            "Excel",
+            "Notepad"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Git Bash e' un terminale per Windows che porta il comando git e diverse utility Unix assenti nel Prompt dei comandi."
+    },
+    {
+        "id": 32,
+        "categoria": "Remote e GitHub",
+        "domanda": "Dove si invita un collaboratore in un repository GitHub personale?",
+        "risposte": [
+            "Nella tab Code",
+            "Nella tab Settings del repository, sezione Collaborators",
+            "Nel proprio profilo utente",
+            "Aprendo una nuova issue e taggando la persona col simbolo @"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Si va nella tab Settings del repository (non quella del profilo), poi Collaborators, e si aggiunge la persona col bottone Add people."
+    },
+    {
+        "id": 33,
+        "categoria": "Remote e GitHub",
+        "domanda": "A cosa serve il Git Credential Manager incluso in Git for Windows?",
+        "risposte": [
+            "A fare il merge",
+            "A cifrare i file",
+            "A salvare in modo sicuro il PAT nel Windows Credential Vault, per non riscriverlo a ogni push",
+            "A creare i branch"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il Git Credential Manager memorizza il PAT in modo sicuro nel Windows Credential Vault, cosi' non va reinserito a ogni push."
+    },
+    {
+        "id": 34,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quali sono i 'tre livelli di Git' descritti nella dispensa sui remoti?",
+        "risposte": [
+            "Remote, Remote-Tracking (origin/main) e Local",
+            "frontend, backend, database",
+            "Le tre fasi di bozza, revisione e poi messa in produzione",
+            "init, add, commit"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "I tre livelli: Remote (source of truth su GitHub), Remote-Tracking (origin/main, mirror locale aggiornato solo da fetch) e Local (il tuo main)."
+    },
+    {
+        "id": 35,
+        "categoria": "Appendice: Unix",
+        "domanda": "Qual e' la differenza tra > e >> nella redirezione?",
+        "risposte": [
+            "Sono perfettamente identici",
+            "Entrambi cancellano subito il contenuto del file di destinazione",
+            "> sovrascrive il file, >> aggiunge in coda",
+            "> aggiunge, >> sovrascrive"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "> redirige l'output sovrascrivendo il file (contenuto perso), >> aggiunge in coda mantenendo il contenuto esistente."
+    },
+    {
+        "id": 36,
+        "categoria": "Branching e merging",
+        "domanda": "In un file con conflitto, cosa rappresenta la sezione sotto '<<<<<<< HEAD'?",
+        "risposte": [
+            "La versione incoming proveniente dall'altro branch che si sta unendo",
+            "Il branch corrente",
+            "Il messaggio testuale del commit di merge che verra' creato",
+            "Una riga di semplice commento che Git inserisce automaticamente"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La sezione tra '<<<<<<< HEAD' e '=======' e' la versione del branch corrente; sotto '=======' c'e' la versione incoming."
+    },
+    {
+        "id": 37,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Cosa conta piu' della scelta tra bracket style e Conventional Commits?",
+        "risposte": [
+            "Il numero totale di caratteri usati nel messaggio del commit",
+            "La pura velocita' di digitazione",
+            "La lingua scelta",
+            "La coerenza: tutti usano lo stesso stile per ogni commit"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Nessuno stile e' oggettivamente migliore: cio' che conta e' la coerenza, usare lo stesso stile in tutto il progetto."
+    },
+    {
+        "id": 38,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Come si annulla il primissimo commit, quando 'git reset --soft HEAD~1' non funziona?",
+        "risposte": [
+            "Cancellando manualmente la cartella nascosta dei file di configurazione",
+            "Inviando il commit al remoto e poi scaricandolo di nuovo con un pull",
+            "Con git update-ref -d HEAD",
+            "Eseguendo semplicemente di nuovo lo stesso identico comando git reset"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "reset --soft HEAD~1 non puo' annullare il primo commit (non c'e' un genitore): in quel caso si usa git update-ref -d HEAD."
+    },
+    {
+        "id": 39,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Qual e' l'ordine corretto del 'forward flow' per salvare le modifiche?",
+        "risposte": [
+            "push, commit, add, edit",
+            "Prima il commit, poi il push, poi l'add e infine la modifica del file",
+            "Modifica file, git add, git commit, git push",
+            "add, push, commit, edit"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Flusso in avanti: modifichi il file (working dir), git add (staging), git commit (repo locale), git push (remoto)."
+    },
+    {
+        "id": 40,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa il flag -r in 'grep -r searchterm cartella/'?",
+        "risposte": [
+            "Ignora completamente la differenza tra lettere maiuscole e minuscole",
+            "Conta i match",
+            "Colora ed evidenzia il testo che corrisponde al pattern cercato",
+            "Cerca ricorsivamente"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "grep -r cerca ricorsivamente dentro tutti i file di una cartella e delle sue sottocartelle; -i ignora maiuscole/minuscole."
+    },
+    {
+        "id": 41,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Che cos'e' un file README?",
+        "risposte": [
+            "La prima cosa che si vede visitando un progetto: spiega cosa fa, perche' esiste e come usarlo",
+            "Un elenco dei bug noti",
+            "Una copia del codice",
+            "Un file di config di Git"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il README e' la 'porta d'ingresso' del progetto: spiega cosa fa, perche' esiste e come usarlo."
+    },
+    {
+        "id": 42,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "In quale posizione GitHub cerca per primo il README?",
+        "risposte": [
+            "Nella radice del repository, che e' anche la posizione piu' usata in assoluto",
+            "Nella cartella .github",
+            "Esclusivamente all'interno della cartella docs del progetto principale",
+            "Nella cartella temp"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "GitHub cerca il README in quest'ordine: cartella .github, poi la root (posizione piu' comune) e infine la cartella docs."
+    },
+    {
+        "id": 43,
+        "categoria": "Branching e merging",
+        "domanda": "Che cos'e' tecnicamente un branch in Git?",
+        "risposte": [
+            "Un puntatore leggero e mobile che fa riferimento a uno specifico commit della storia",
+            "Una copia del progetto",
+            "Un backup compresso",
+            "Una cartella sul server"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Un branch e' un puntatore leggero e mobile a un commit: non duplica i file."
+    },
+    {
+        "id": 44,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Quale comando mostra la storia con un grafo ASCII di tutti i rami?",
+        "risposte": [
+            "git show HEAD",
+            "git status",
+            "git diff HEAD",
+            "git log --oneline --graph --all"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "'git log --oneline --graph --all' disegna il grafo ASCII di branch e merge per tutti i rami."
+    },
+    {
+        "id": 45,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si scrive il testo in grassetto in Markdown?",
+        "risposte": [
+            "~~testo~~",
+            "`testo`",
+            "**testo**",
+            "*testo*"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "**testo** = grassetto; *testo* = corsivo; ~~testo~~ = barrato; `testo` = codice inline."
+    },
+    {
+        "id": 46,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si scrive una task list con checkbox interattive su GitHub?",
+        "risposte": [
+            "Con - [ ] e - [x]",
+            "Usando un numero seguito da un punto davanti a ogni voce della lista",
+            "Mettendo il simbolo maggiore all'inizio di ogni voce del compito",
+            "Usando un singolo asterisco davanti a ciascuna voce dell'elenco"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Le task list usano - [ ] (incompleto) e - [x] (completato) e su GitHub diventano checkbox interattive."
+    },
+    {
+        "id": 47,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Cosa caratterizza un VCS distribuito?",
+        "risposte": [
+            "Conserva solo l'ultima versione",
+            "Ogni sviluppatore ha una copia completa del repository e della storia",
+            "Richiede sempre la connessione costante al server per ogni operazione",
+            "Un solo server centrale"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Nel distribuito (es. Git) ogni macchina ha l'intero repo e la storia: si lavora offline e non esiste un singolo point of failure."
+    },
+    {
+        "id": 48,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Dove si mettono le regole di ignore personali, valide solo sulla propria macchina?",
+        "risposte": [
+            "Nel file .git/info/exclude, mai condiviso",
+            "In un file README dedicato",
+            "Nel file config.json",
+            "Direttamente dentro il file .gitignore condiviso col team"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": ".gitignore e' condiviso col team; per regole solo locali si usa .git/info/exclude, che non viene mai committato ne' condiviso."
+    },
+    {
+        "id": 49,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Cosa indica il pattern '**/debug/' in un .gitignore?",
+        "risposte": [
+            "Soltanto la cartella debug che si trova nella radice del progetto",
+            "Ogni cartella debug a qualsiasi profondita'",
+            "Tutti i file il cui nome contiene la parola debug al suo interno",
+            "Un singolo file di testo che si chiama esattamente debug"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il pattern ricorsivo ** corrisponde a cartelle a qualsiasi profondita': **/debug/ ignora ogni cartella chiamata debug ovunque si trovi."
+    },
+    {
+        "id": 50,
+        "categoria": "Branching e merging",
+        "domanda": "Dopo un rebase di un branch gia' pushato, cosa serve per aggiornare il remoto?",
+        "risposte": [
+            "Un git pull semplice",
+            "Un nuovo git clone",
+            "Non serve fare nulla, perche' il remoto si aggiorna in automatico",
+            "Un force push, perche' le storie sono divergenti"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Dopo un rebase le storie divergono (hash diversi): serve un force push. Per questo e' pericoloso su branch di team."
+    },
+    {
+        "id": 51,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Cosa fa il flag --cached in 'git rm --cached filename'?",
+        "risposte": [
+            "Rimuove il file dall'index ma lo lascia sul disco",
+            "Sposta il file selezionato dentro un altro branch del repository",
+            "Cifra il contenuto del file",
+            "Cancella il file dal disco"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "--cached rimuove il file dall'index (Git smette di tracciarlo) ma lo lascia sul disco."
+    },
+    {
+        "id": 52,
+        "categoria": "Git: comandi base",
+        "domanda": "Quale comando va eseguito sempre per primo, per vedere lo stato del repo?",
+        "risposte": [
+            "git merge",
+            "git push",
+            "git status",
+            "git clone"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git status mostra cosa e' staged, modified e untracked: va eseguito prima di operare."
+    },
+    {
+        "id": 53,
+        "categoria": "Branching e merging",
+        "domanda": "Quale regola di naming dei branch indica la dispensa?",
+        "risposte": [
+            "Nomi brevi e minuscoli, parole separate da trattino o slash",
+            "Solo numeri progressivi",
+            "Nomi lunghi tutti in maiuscolo, con spazi tra le parole del nome",
+            "Sempre il nome dell'autore"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Usare nomi brevi e minuscoli (es. feature/user-login), parole separate da '-' o '/', niente spazi ne' maiuscole."
+    },
+    {
+        "id": 54,
+        "categoria": "Branching e merging",
+        "domanda": "Qual e' la differenza chiave tra merge e rebase per aggiornare un branch?",
+        "risposte": [
+            "Sono identici",
+            "Il rebase e' sicuro sui rami condivisi",
+            "Il merge crea un merge commit e storia non lineare; il rebase rigioca i commit su main riscrivendo gli hash",
+            "Il merge riscrive gli hash"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il merge aggiunge un merge commit (storia non lineare, sicuro su rami condivisi); il rebase rigioca i commit su main (storia lineare) ma riscrive gli hash."
+    },
+    {
+        "id": 55,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale scorciatoia da tastiera invia un EOF e di solito esce dall'input testuale?",
+        "risposte": [
+            "Ctrl+D",
+            "Ctrl+C",
+            "Ctrl+L",
+            "Ctrl+Z"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Ctrl+D invia EOF (end of file); Ctrl+C interrompe il processo, Ctrl+Z lo sospende, Ctrl+L pulisce lo schermo."
+    },
+    {
+        "id": 56,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Quale di questi e' un formato di nome corretto per un feature branch?",
+        "risposte": [
+            "Feature Login",
+            "feature/user-login",
+            "FEATURE_LOGIN",
+            "login branch 1"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Formati comuni: feature/user-login, bugfix/missing-header, docs/update-readme: minuscolo, senza spazi, con / o -."
+    },
+    {
+        "id": 57,
+        "categoria": "Remote e GitHub",
+        "domanda": "Che cos'e' un repository remoto?",
+        "risposte": [
+            "Una cartella nascosta locale",
+            "Una copia del repository su un altro computer o server, che permette di condividere e sincronizzare",
+            "Un file di log dei commit",
+            "Una copia compressa offline"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il remoto e' una copia del repo su un altro computer/server: consente di condividere e sincronizzare e fa da backup della storia."
+    },
+    {
+        "id": 58,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quale variante di pull mantiene una storia lineare evitando un merge commit?",
+        "risposte": [
+            "git pull --rebase",
+            "git pull --squash",
+            "git pull --force",
+            "git pull --all"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git pull --rebase rigioca i tuoi commit locali sopra quelli remoti, mantenendo una storia lineare senza merge commit."
+    },
+    {
+        "id": 59,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa mostra in piu' 'git branch -vv' rispetto a 'git branch'?",
+        "risposte": [
+            "Soltanto l'elenco dei nomi dei branch locali senza altre informazioni",
+            "Dettagli e upstream",
+            "Solo HEAD",
+            "Esclusivamente i branch che si trovano sul server remoto condiviso"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git branch -vv mostra per ogni branch locale i dettagli del commit e lo stato dell'upstream (la tracking branch collegata)."
+    },
+    {
+        "id": 60,
+        "categoria": "Appendice: installazione",
+        "domanda": "Durante l'installazione di Git for Windows, a quale valore va impostato il default branch?",
+        "risposte": [
+            "master",
+            "trunk",
+            "main",
+            "dev"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La guida di installazione indica di impostare 'main' come nome del branch di default."
+    },
+    {
+        "id": 61,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa mostra 'git diff --staged'?",
+        "risposte": [
+            "Le modifiche in staging confrontate con l'ultimo commit",
+            "Le modifiche non aggiunte",
+            "Le differenze che esistono tra il branch HEAD e il branch remoto",
+            "I file ignorati"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git diff --staged confronta la staging area con l'ultimo commit: mostra cio' che e' gia' staged."
+    },
+    {
+        "id": 62,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Dentro .git, cosa registra il file HEAD?",
+        "risposte": [
+            "L'indirizzo URL completo del repository remoto chiamato origin",
+            "Il nome e l'email dell'autore dell'ultimo commit",
+            "La lista di tutti i file che vengono ignorati da Git",
+            "Il branch corrente"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "HEAD registra quale branch (o commit) e' attualmente attivo; refs/ contiene i nomi di branch e tag, config le impostazioni."
+    },
+    {
+        "id": 63,
+        "categoria": "Appendice: version history",
+        "domanda": "Qual e' la differenza tra 'Ripristina questa versione' e 'Crea una copia'?",
+        "risposte": [
+            "Ripristina sostituisce il documento corrente, Crea una copia genera un nuovo file indipendente",
+            "Sono identiche",
+            "Crea una copia cancella la versione originale del documento",
+            "Ripristina funziona solo offline"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Ripristina sostituisce il documento attuale con la versione scelta; Crea una copia estrae quella versione in un nuovo documento indipendente, senza toccare l'originale."
+    },
+    {
+        "id": 64,
+        "categoria": "Remote e GitHub",
+        "domanda": "Su GitHub, qual e' il nome del branch di default per i nuovi repository?",
+        "risposte": [
+            "trunk",
+            "base",
+            "main",
+            "master"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "GitHub usa 'main' come branch di default; se git init crea 'master', va rinominato in main (git branch -M main)."
+    },
+    {
+        "id": 65,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "A cosa serve l'alt text di un'immagine in Markdown?",
+        "risposte": [
+            "A comprimerla",
+            "A ingrandire l'immagine",
+            "A cambiare colore",
+            "A descrivere l'immagine: gli screen reader lo usano per le persone che non possono vederla"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "L'alt text (il testo tra parentesi quadre dell'immagine) descrive l'immagine ed e' usato dagli screen reader per l'accessibilita'."
+    },
+    {
+        "id": 66,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Dove sono memorizzate le issue di GitHub?",
+        "risposte": [
+            "In un branch nascosto chiamato issues",
+            "Nella cartella .git locale",
+            "Dentro il file README del progetto",
+            "Solo su GitHub: non stanno nel repo locale ne' nella storia dei commit"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Le issue sono una funzione di GitHub: non sono nel repository locale ne' compaiono nella commit history; il loro numero appare col simbolo #."
+    },
+    {
+        "id": 67,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Secondo la convenzione, com'e' fatto un buon messaggio di commit?",
+        "risposte": [
+            "Solo la parola 'update' ripetuta piu' volte una dietro l'altra ogni volta",
+            "Una sequenza di numeri di versione",
+            "Un unico paragrafo lunghissimo",
+            "Riga di sintesi <= 50 caratteri, riga vuota, poi spiegazione"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Convenzione diffusa: riga di sintesi <= 50 caratteri, riga vuota, poi descrizione piu' dettagliata se necessaria."
+    },
+    {
+        "id": 68,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa filtra il comando 'git log --author=\"Maria\"'?",
+        "risposte": [
+            "Tutti i branch che contengono la lettera M nel nome",
+            "I commit fatti da uno specifico autore",
+            "Gli ultimi cinque commit",
+            "I file piu' grandi"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git log --author=\"Maria\" mostra solo i commit fatti dall'autore indicato."
+    },
+    {
+        "id": 69,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come va nominato il file e qual e' la posizione piu' comune?",
+        "risposte": [
+            "README.md tutto maiuscolo nella root del repo",
+            "Un file chiamato Readme messo dentro la cartella nascosta .git",
+            "index.md nella home",
+            "readme.txt nella cartella docs"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Si nomina README.md tutto in maiuscolo; la posizione piu' comune e' la root del repo, dove GitHub lo trova e lo mostra automaticamente."
+    },
+    {
+        "id": 70,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale comando porta alla home directory da qualunque posizione?",
+        "risposte": [
+            "cd -",
+            "cd ~",
+            "cd ..",
+            "cd /"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "cd ~ porta alla home da ovunque; cd .. risale di un livello e cd - torna alla cartella precedente."
+    },
+    {
+        "id": 71,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Cosa crea il comando git init in una cartella?",
+        "risposte": [
+            "Un nuovo account personale sulla piattaforma GitHub",
+            "Una copia di backup compressa di tutti i file presenti",
+            "Un file README compilato automaticamente con il titolo",
+            "La cartella .git"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git init crea la cartella nascosta .git nel progetto: quella cartella E' il repository."
+    },
+    {
+        "id": 72,
+        "categoria": "Branching e merging",
+        "domanda": "Qual e' la differenza tra 'git branch -d' e 'git branch -D'?",
+        "risposte": [
+            "-d e' una cancellazione sicura, -D forza la cancellazione anche se non e' stato fatto il merge",
+            "-D crea un branch invece di cancellarlo del tutto",
+            "Non c'e' differenza",
+            "-d funziona solo online"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "-d e' il safe delete (fallisce se ci sono commit non uniti); -D forza la cancellazione anche di un branch non ancora mergiato."
+    },
+    {
+        "id": 73,
+        "categoria": "Branching e merging",
+        "domanda": "Quanti genitori ha un merge commit?",
+        "risposte": [
+            "Due: l'ultimo commit di ciascuno dei due branch",
+            "Sempre tre o piu' genitori, a seconda dei rami coinvolti",
+            "Uno soltanto",
+            "Nessun genitore"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Un merge commit ha due genitori, gli ultimi commit dei due branch uniti; Git considera il primo come percorso ufficiale."
+    },
+    {
+        "id": 74,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Quali sono le quattro zone attraverso cui passano le modifiche in Git?",
+        "risposte": [
+            "Bozza, revisione, approvazione e rilascio",
+            "Working directory, staging area, repository locale e remoto",
+            "RAM, cache del disco, archivio locale e spazio sul cloud condiviso",
+            "init, add, commit e push"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Le quattro zone sono: working directory, staging area (index), repository locale e repository remoto."
+    },
+    {
+        "id": 75,
+        "categoria": "Branching e merging",
+        "domanda": "Cosa fa 'git merge --squash feature-branch'?",
+        "risposte": [
+            "Esegue un push automatico",
+            "Condensa tutti i commit del feature branch nella staging area, per poi fare un singolo commit pulito",
+            "Cancella subito il branch",
+            "Crea due genitori"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Squash & merge condensa tutti i commit del branch in un unico commit: storia lineare e senza rumore, ma si perde la storia atomica."
+    },
+    {
+        "id": 76,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa fa il flag -u in 'git push -u origin main'?",
+        "risposte": [
+            "Forza la riscrittura della storia presente sul repository remoto",
+            "Aggiorna l'installazione di Git all'ultima versione disponibile",
+            "Cancella dal server il branch remoto che ha quel nome",
+            "Imposta l'upstream"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "-u (--set-upstream) collega il branch locale a quello remoto: si esegue una volta, poi basta 'git push'."
+    },
+    {
+        "id": 77,
+        "categoria": "Appendice: installazione",
+        "domanda": "Quali editor di default suggerisce di scegliere la guida durante l'installazione di Git?",
+        "risposte": [
+            "nano o VS Code",
+            "Excel",
+            "Il blocco note classico incluso nel sistema operativo Windows",
+            "Un qualsiasi programma di videoscrittura come un foglio di calcolo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La guida consiglia di scegliere come editor di default nano oppure VS Code durante l'installazione di Git for Windows."
+    },
+    {
+        "id": 78,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Che cos'e' una issue su GitHub?",
+        "risposte": [
+            "Un file di log",
+            "Una nota allegata al repo che registra un bug, una feature request, una domanda o un task da svolgere",
+            "Un branch speciale",
+            "Un commit non riuscito"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Una issue e' una nota nel repo (feature di GitHub, non di Git) per bug, richieste o task, identificata da un numero come #42."
+    },
+    {
+        "id": 79,
+        "categoria": "Branching e merging",
+        "domanda": "Quale comando apre l'editor interattivo per fare lo squash dei commit?",
+        "risposte": [
+            "git squash main",
+            "git merge -i main",
+            "git rebase -i main",
+            "git commit -i"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git rebase -i main apre l'editor interattivo dove si cambia 'pick' in 'squash' per combinare i commit."
+    },
+    {
+        "id": 80,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Qual e' la sintassi corretta per un link in Markdown?",
+        "risposte": [
+            "<testo=url>",
+            "{testo:url}",
+            "[testo](url)",
+            "(testo)[url]"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Un link usa [testo da mostrare](URL); un'immagine usa la stessa forma con un ! davanti: ![alt](percorso)."
+    },
+    {
+        "id": 81,
+        "categoria": "Appendice: installazione",
+        "domanda": "Quale estensione di VS Code mostra chi ha modificato per ultimo ogni riga di codice?",
+        "risposte": [
+            "GitLens",
+            "Prettier",
+            "Git Graph",
+            "Live Server"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "GitLens mostra chi ha cambiato per ultimo ogni riga e offre viste di storia; Git Graph disegna la mappa visuale di branch e commit."
+    },
+    {
+        "id": 82,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Entro quale dimensione GitHub continua a renderizzare un README?",
+        "risposte": [
+            "Entro 50 KiB",
+            "Non c'e' alcun limite",
+            "Entro 500 KiB",
+            "Entro 5 MiB per ciascun file Markdown del repository"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "GitHub smette di renderizzare un README oltre i 500 KiB: per documentazione piu' ampia si usa il README come ingresso e si rimanda a file nella cartella docs."
+    },
+    {
+        "id": 83,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Cosa fa 'git reset --mixed HEAD~1' (comportamento di default)?",
+        "risposte": [
+            "Invia le modifiche al remoto",
+            "Cancella tutto in modo definitivo",
+            "Annulla l'ultimo commit e riporta le modifiche nel working directory",
+            "Crea un nuovo commit aggiuntivo che serve ad annullare quello precedente"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "--mixed (default) annulla l'ultimo commit e riporta le modifiche nel working directory (non staged)."
+    },
+    {
+        "id": 84,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Su GitHub, quali sono le tre opzioni per concludere una review?",
+        "risposte": [
+            "Comment, Approve, Request changes",
+            "Le tre opzioni disponibili sono Accept, poi Deny e infine Wait",
+            "Le opzioni previste sono Merge, poi Push e infine Pull",
+            "Open, Close, Lock"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Concludendo la review si sceglie: Comment (feedback senza decisione), Approve (ok per il merge) o Request changes (va corretto)."
+    },
+    {
+        "id": 85,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "A quanti caratteri va mandato a capo il body di un messaggio di commit?",
+        "risposte": [
+            "A 72 caratteri per riga",
+            "Non c'e' alcun limite",
+            "A 50 caratteri",
+            "A 100 caratteri per ciascuna riga del corpo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il body va spezzato a 72 caratteri per riga: standard ereditato dai terminali a 80 colonne, dato che Git indenta il body di 4 spazi per lato."
+    },
+    {
+        "id": 86,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa il comando 'cd ..' ?",
+        "risposte": [
+            "Risale di un livello alla cartella genitore",
+            "Elenca i file",
+            "Torna indietro alla cartella precedente in cui ci si trovava prima",
+            "Va nella cartella home"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "cd .. risale di un livello alla cartella genitore; cd ~ va alla home, cd - alla cartella precedente."
+    },
+    {
+        "id": 87,
+        "categoria": "Remote e GitHub",
+        "domanda": "Qual e' la sequenza per collegare un repo locale a un nuovo remoto vuoto?",
+        "risposte": [
+            "pull, add, status",
+            "git remote add origin <url>, poi git branch -M main, poi git push -u origin main",
+            "clone, init, push",
+            "fetch, merge, commit"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Sequenza: aggiungi il remoto (git remote add origin <url>), rinomina il branch in main (git branch -M main), poi git push -u origin main."
+    },
+    {
+        "id": 88,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Che cos'e' la code review?",
+        "risposte": [
+            "Leggere il codice prima del merge",
+            "La compilazione del codice sorgente per verificare che non vi siano errori",
+            "Un test automatico che si puo' solamente superare oppure fallire del tutto",
+            "La cancellazione definitiva di un branch dopo che e' stato unito al main"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La code review e' una conversazione, non un test pass/fail: il revisore cerca bug, codice poco chiaro e violazioni degli standard del team."
+    },
+    {
+        "id": 89,
+        "categoria": "Git: comandi base",
+        "domanda": "Secondo la dispensa, quando un commit andrebbe diviso in due?",
+        "risposte": [
+            "Sempre",
+            "Mai",
+            "Quando il messaggio per descriverlo ha bisogno della parola 'and' (e)",
+            "Ogni venerdi'"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Ogni commit dovrebbe essere un'unica unita' logica: se il messaggio richiede la parola 'and', conviene dividerlo in due commit."
+    },
+    {
+        "id": 90,
+        "categoria": "Branching e merging",
+        "domanda": "Secondo la dispensa, in che modo (mood) va scritto un buon messaggio di commit?",
+        "risposte": [
+            "Espresso sotto forma di una domanda rivolta agli altri membri del team",
+            "All'imperativo",
+            "Sempre coniugato al tempo passato, per esempio 'Added login form'",
+            "Coniugato al tempo futuro, indicando cosa si fara' nel commit seguente"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Si scrive all'imperativo: 'Add login form', non 'Added login form'; prima riga sotto i 50 caratteri, corpo sotto i 72."
+    },
+    {
+        "id": 91,
+        "categoria": "Branching e merging",
+        "domanda": "Cosa non si deve mai fare con un file che contiene ancora i marker '<<<<<<<'?",
+        "risposte": [
+            "Committarlo",
+            "Salvarlo su disco dopo averlo aperto nell'editor di testo",
+            "Aprirlo dentro l'editor di codice per poterlo leggere meglio",
+            "Leggerlo attentamente per capire quali parti sono in conflitto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Non bisogna mai committare un file che contiene ancora i marker di conflitto: il codice sarebbe rotto."
+    },
+    {
+        "id": 92,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Perche' non si deve modificare a mano la cartella .git?",
+        "risposte": [
+            "Perche' la cartella viene comunque ricreata da zero a ogni commit",
+            "Perche' e' protetta dal sistema operativo e non e' possibile aprirla",
+            "La gestisce Git",
+            "Perche' si trova sul server remoto e non sulla macchina locale"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La cartella .git e' gestita interamente da Git tramite i comandi: non va mai modificata manualmente."
+    },
+    {
+        "id": 93,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "In che modo (mood) va scritta la subject line di un commit?",
+        "risposte": [
+            "Espressa sempre sotto forma di una domanda diretta",
+            "Coniugata al tempo futuro",
+            "Sempre coniugata al tempo passato",
+            "All'imperativo presente, come un comando (Add, non Added)"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si usa l'imperativo: 'Add login validation'. Test: 'If applied, this commit will ___' deve completarsi correttamente."
+    },
+    {
+        "id": 94,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Nell'analogia con Google Docs, a cosa corrisponde un commit di Git?",
+        "risposte": [
+            "Al menu Aiuto",
+            "Al cestino",
+            "A un salvataggio",
+            "Al conteggio"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Ogni versione salvata in Google Docs corrisponde a un commit; la lista delle versioni e' la commit history."
+    },
+    {
+        "id": 95,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Quale frase completa il test per una buona subject line?",
+        "risposte": [
+            "This commit was made because...",
+            "If applied, this commit will...",
+            "Yesterday I changed...",
+            "The file now contains..."
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Test utile: la subject line deve completare 'If applied, this commit will ___', il che spinge a usare l'imperativo."
+    },
+    {
+        "id": 96,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quale comando elenca anche le remote tracking branch (es. origin/main)?",
+        "risposte": [
+            "git branch -a",
+            "git branch -m",
+            "git branch -d",
+            "git branch -c"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git branch -a elenca tutti i branch, inclusi quelli di tracking remoto come origin/main."
+    },
+    {
+        "id": 97,
+        "categoria": "Branching e merging",
+        "domanda": "Quale comando elenca i branch locali, con un asterisco su quello corrente?",
+        "risposte": [
+            "git log",
+            "git status",
+            "git switch",
+            "git branch"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git branch da solo elenca i branch locali e segna con un * quello su cui ti trovi."
+    },
+    {
+        "id": 98,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Quale opzione di git reset cancella le modifiche in modo permanente?",
+        "risposte": [
+            "--keep",
+            "--hard",
+            "--mixed",
+            "--soft"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "--soft tiene le modifiche staged, --mixed le rimette nel working directory (default), --hard le cancella per sempre."
+    },
+    {
+        "id": 99,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Che struttura formano i commit in Git?",
+        "risposte": [
+            "Un albero binario",
+            "Una tabella per data",
+            "Un grafo aciclico diretto (DAG) in cui ogni commit punta al proprio commit genitore",
+            "Una lista semplice"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "I commit formano un DAG (directed acyclic graph): ogni commit punta al genitore e 'aciclico' significa che un commit non puo' mai essere antenato di se stesso."
+    },
+    {
+        "id": 100,
+        "categoria": "Appendice: Unix",
+        "domanda": "Qual e' la caratteristica di un percorso assoluto?",
+        "risposte": [
+            "Parte dalla radice",
+            "Funziona solamente se prima si esegue il comando pwd per verifica",
+            "Parte sempre dalla posizione in cui ci si trova al momento attuale",
+            "Indica i nascosti"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Un percorso assoluto parte dalla radice del file system (con /) e funziona da qualsiasi posizione; quello relativo parte dalla cartella corrente."
+    },
+    {
+        "id": 101,
+        "categoria": "Git: comandi base",
+        "domanda": "A cosa serve 'git commit --amend'?",
+        "risposte": [
+            "A creare un nuovo branch",
+            "A unire due branch diversi",
+            "A sostituire il commit corrente con uno nuovo che include le modifiche staged e il messaggio aggiornato",
+            "A cancellare la storia"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "--amend rimpiazza l'ultimo commit con uno nuovo, utile per correggere un typo o aggiungere un file dimenticato senza creare un commit extra."
+    },
+    {
+        "id": 102,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Dove deve trovarsi il file .gitignore per essere riconosciuto da Git?",
+        "risposte": [
+            "Dentro la cartella .git",
+            "Nella directory radice del progetto, dove c'e' .git",
+            "Nella cartella home personale dell'utente del sistema operativo",
+            "In node_modules"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il .gitignore va nella root del progetto, la stessa posizione della cartella .git, per essere riconosciuto."
+    },
+    {
+        "id": 103,
+        "categoria": "Branching e merging",
+        "domanda": "Quando conviene usare squash & merge invece di un merge normale?",
+        "risposte": [
+            "Solo offline",
+            "Quando si vuole condensare la storia di una feature in un unico commit per una timeline piu' pulita",
+            "Sempre, in ogni caso",
+            "Mai, e' deprecato"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Squash & merge condensa la feature in un solo commit: utile per una storia di main lineare e senza rumore, a costo di perdere la storia atomica."
+    },
+    {
+        "id": 104,
+        "categoria": "Branching e merging",
+        "domanda": "Nel workflow di team piu' comune, come si combinano rebase e merge?",
+        "risposte": [
+            "Si usa rebase per tenere aggiornato il branch, poi merge --no-ff per integrarlo in main",
+            "Si fa esclusivamente il merge a fine giornata",
+            "Non si usano mai insieme",
+            "Si usa solo il rebase sempre"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Pratica comune: rebase per mantenere il feature branch aggiornato durante lo sviluppo, poi merge --no-ff per registrare il punto di integrazione in main."
+    },
+    {
+        "id": 105,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Dentro .git, cosa contiene la sottocartella refs/?",
+        "risposte": [
+            "Nomi di branch e tag",
+            "Le impostazioni personali dell'editor di codice usato dall'utente",
+            "Tutti i contenuti dei file del progetto compressi in formato binario",
+            "La cronologia completa dei comandi digitati nella shell"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "refs/ memorizza i nomi di branch e tag come file di testo che puntano a commit specifici."
+    },
+    {
+        "id": 106,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si scrive il corsivo in Markdown?",
+        "risposte": [
+            "**testo**",
+            "*testo*",
+            "`testo`",
+            "~~testo~~"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "*testo* produce il corsivo; **testo** il grassetto, ~~testo~~ il barrato e `testo` il codice inline."
+    },
+    {
+        "id": 107,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "A cosa servono i badge in un README?",
+        "risposte": [
+            "Sono obbligatori e senza di essi GitHub non mostra il README",
+            "Mostrano informazioni sul progetto",
+            "Servono unicamente a rendere il documento piu' colorato e gradevole",
+            "Sostituiscono il titolo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "I badge (di solito Shields.io) sono piccole immagini in cima al README che mostrano info come build status, licenza o versione."
+    },
+    {
+        "id": 108,
+        "categoria": "Git: comandi base",
+        "domanda": "Quale comando mostra solo gli ultimi 5 commit in forma compatta?",
+        "risposte": [
+            "git log --last 5",
+            "git log --oneline -5",
+            "git show -5",
+            "git diff -5"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git log --oneline -5 mostra in una riga ciascuno solo gli ultimi 5 commit."
+    },
+    {
+        "id": 109,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa l'operatore pipe | tra due comandi?",
+        "risposte": [
+            "Cancella l'output prodotto",
+            "Salva tutto l'output del comando dentro un file di testo",
+            "Esegue i comandi in parallelo",
+            "Manda l'output di un comando nell'input del successivo"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "La pipe | invia l'output di un comando come input del successivo, permettendo di concatenare comandi semplici (es. ls | wc -l)."
+    },
+    {
+        "id": 110,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale comando apre il manuale completo di un comando?",
+        "risposte": [
+            "man",
+            "doc",
+            "help",
+            "info"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "man <comando> apre la pagina di manuale (si esce con q); in alternativa <comando> --help mostra un aiuto sintetico."
+    },
+    {
+        "id": 111,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale comando stampa il percorso completo della cartella di lavoro corrente?",
+        "risposte": [
+            "cat",
+            "cd",
+            "ls",
+            "pwd"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "pwd (print working directory) stampa il percorso assoluto della cartella corrente."
+    },
+    {
+        "id": 112,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Qual e' la lunghezza consigliata per la subject line di un commit?",
+        "risposte": [
+            "Deve avere come minimo almeno duecento caratteri di lunghezza",
+            "E' sufficiente che contenga una sola lettera dell'alfabeto",
+            "50 caratteri o meno",
+            "Deve essere composta esattamente da dieci parole, ne' di piu' ne' di meno"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La subject line va tenuta a <= 50 caratteri (massimo assoluto 72, oltre il quale GitHub tronca con i puntini)."
+    },
+    {
+        "id": 113,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Perche' uno spazio finale dopo una regola di .gitignore e' un problema?",
+        "risposte": [
+            "Crea un commento",
+            "Cambia il colore",
+            "Rompe la regola in modo silenzioso: Git cerca un nome di file che include quello spazio e non trova nulla",
+            "Rende il file piu' grande"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Uno spazio finale rompe la regola senza errori: Git cerca un file il cui nome contiene quello spazio, e la regola non corrisponde mai a nulla."
+    },
+    {
+        "id": 114,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa il comando 'touch filename.txt' se il file non esiste?",
+        "risposte": [
+            "Lo rinomina aggiungendo un suffisso numerico progressivo al nome",
+            "Crea un file vuoto",
+            "Lo cancella subito dal disco senza chiedere nessuna conferma",
+            "Lo apre immediatamente dentro l'editor di testo predefinito"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "touch crea un file vuoto se non esiste; se esiste gia', ne aggiorna solo il timestamp senza cambiarne il contenuto."
+    },
+    {
+        "id": 115,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Qual e' la categoria di file piu' importante da ignorare?",
+        "risposte": [
+            "I normali file di testo semplice presenti nel progetto",
+            "I file di immagine usati all'interno del progetto",
+            "I file scritti nel linguaggio di formattazione Markdown",
+            "Segreti e credenziali"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "La regola piu' importante: ignorare sempre segreti e credenziali (.env, API key, password, token)."
+    },
+    {
+        "id": 116,
+        "categoria": "Git: comandi base",
+        "domanda": "Quale type di commit indica una modifica solo alla documentazione?",
+        "risposte": [
+            "docs",
+            "perf",
+            "feat",
+            "fix"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "docs indica modifiche alla sola documentazione; feat = feature, fix = bug fix, perf = performance."
+    },
+    {
+        "id": 117,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa permette di fare la scorciatoia Ctrl+R nel terminale?",
+        "risposte": [
+            "Interrompe il processo che e' attualmente in esecuzione",
+            "Completa il nome di un file",
+            "Pulisce lo schermo subito",
+            "Cerca all'indietro nella cronologia dei comandi mentre si digita"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Ctrl+R avvia la ricerca all'indietro nella cronologia dei comandi; il tasto Tab serve invece per l'autocompletamento."
+    },
+    {
+        "id": 118,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa fa 'git add src/'?",
+        "risposte": [
+            "Crea una nuova cartella chiamata src dentro la radice del progetto",
+            "Mette in staging la cartella src",
+            "Sposta la cartella src all'interno del repository remoto",
+            "Cancella tutti i file che sono contenuti dentro la cartella src"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git add src/ mette in staging tutti i file contenuti nella cartella src."
+    },
+    {
+        "id": 119,
+        "categoria": "Branching e merging",
+        "domanda": "In un merge commit, quale genitore Git considera il percorso 'ufficiale'?",
+        "risposte": [
+            "Il primo",
+            "Nessuno dei due, perche' il merge commit non ha alcun genitore",
+            "Il secondo genitore, cioe' il branch che e' stato unito a quello corrente",
+            "Entrambi i genitori vengono considerati allo stesso modo da Git"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Git tratta il primo genitore come percorso ufficiale (il branch da cui partivi); il tilde ~ segue il primo genitore."
+    },
+    {
+        "id": 120,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Quale comando aiuta a trovare il commit che ha introdotto un bug?",
+        "risposte": [
+            "git fetch",
+            "git clone",
+            "git bisect",
+            "git stash"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git bisect permette di camminare a ritroso tra i commit per individuare esattamente quale ha introdotto un bug."
+    },
+    {
+        "id": 121,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cos'e' 'origin' in Git?",
+        "risposte": [
+            "Il nome convenzionale che viene dato sempre al branch principale",
+            "L'alias del remoto",
+            "Una parola chiave speciale e riservata interna al funzionamento di Git",
+            "Il primissimo commit che viene creato all'avvio di ogni progetto"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "origin non e' una keyword speciale: e' solo l'alias convenzionale per l'URL del remoto, cosi' non lo devi digitare per intero."
+    },
+    {
+        "id": 122,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa mostra 'git log main..origin/main --oneline'?",
+        "risposte": [
+            "I commit su origin/main non ancora in locale",
+            "Tutti i commit dell'intera storia del progetto a partire dal primo",
+            "I file modificati",
+            "Solamente i commit che hai creato tu in locale e non hai ancora inviato"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Mostra i commit presenti su origin/main ma non ancora sul main locale: utile come controllo di sicurezza dopo un fetch."
+    },
+    {
+        "id": 123,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa significa il simbolo tilde in 'HEAD~2'?",
+        "risposte": [
+            "Mostra contemporaneamente i due branch principali del repository",
+            "Vai avanti di due commit",
+            "Crea due nuovi tag",
+            "Torna indietro di 2 commit dal punto corrente"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "HEAD~N significa 'vai indietro di N commit dal punto corrente'; HEAD~2 e' due commit prima di HEAD."
+    },
+    {
+        "id": 124,
+        "categoria": "Appendice: installazione",
+        "domanda": "Come va trattato il file Cmder (Full version) dopo il download?",
+        "risposte": [
+            "Va caricato su GitHub prima dell'uso",
+            "Va aperto direttamente dall'interno del file zip compresso",
+            "Va eseguito come installer",
+            "Va semplicemente decompresso (unzip) in una nuova cartella"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Cmder (Full version) si usa decomprimendo lo zip in una cartella; la dispensa raccomanda di non aprire mai i file .zip direttamente."
+    },
+    {
+        "id": 125,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Cosa significa che 'i commenti della review sono sul codice, non sulla persona'?",
+        "risposte": [
+            "Significa che durante la review e' consentito essere offensivi",
+            "Significa che i commenti lasciati dai revisori possono essere ignorati",
+            "Non vanno presi sul personale",
+            "Significa che in pratica i commenti non hanno nessun valore reale"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La review e' una conversazione: i commenti riguardano il codice. Non vanno presi sul personale, e chi commenta deve spiegare cosa cambiare e perche'."
+    },
+    {
+        "id": 126,
+        "categoria": "Collaborazione e PR",
+        "domanda": "A cosa serve una release branch?",
+        "risposte": [
+            "A cancellare i tag esistenti",
+            "Serve principalmente a contenere e ospitare la documentazione",
+            "A finalizzare una versione stabile dove sono ammessi solo bug fix",
+            "A sviluppare nuove feature"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La release branch (es. release/v1.0) e' un ambiente stabile dove si fanno solo bug fix, mentre su main prosegue lo sviluppo di nuove feature."
+    },
+    {
+        "id": 127,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Quale nome del file e' valido perche' Git lo riconosca?",
+        "risposte": [
+            ".Gitignore",
+            ".gitignore.txt",
+            "gitignore",
+            ".gitignore"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il nome deve essere esattamente .gitignore: .Gitignore o .gitignore.txt non vengono riconosciuti (attenzione al .txt aggiunto da alcuni editor)."
+    },
+    {
+        "id": 128,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale comando mostra solo le prime 5 righe di un file?",
+        "risposte": [
+            "cat -5",
+            "less -5",
+            "head -n 5",
+            "tail -n 5"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "head -n 5 stampa le prime 5 righe; tail mostra le ultime, less scorre i file lunghi (q per uscire)."
+    },
+    {
+        "id": 129,
+        "categoria": "Branching e merging",
+        "domanda": "Cos'e' lo squashing dei commit prima di un merge?",
+        "risposte": [
+            "Cancellare il branch",
+            "Combinare piu' commit piccoli o poco chiari in uno solo",
+            "Spostarli nel remoto",
+            "Duplicare tutti i commit del branch corrente su un altro ramo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Lo squash combina commit piccoli/confusi in uno solo pulito, di solito con git rebase -i, cambiando 'pick' in 'squash'."
+    },
+    {
+        "id": 130,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Come aiuta un VCS contro le sovrascritture accidentali?",
+        "risposte": [
+            "Vieta ogni modifica",
+            "Salva sul cloud",
+            "Rende ogni stato salvato recuperabile, cosi' nessuna singola azione resta permanente",
+            "Blocca l'editor"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Senza versioning salvare sostituisce cio' che c'era; un VCS rende ogni stato salvato recuperabile, quindi nessuna azione e' definitiva."
+    },
+    {
+        "id": 131,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Cosa creano tre trattini --- su una riga a se' stante?",
+        "risposte": [
+            "Un blocco di codice",
+            "Un titolo principale",
+            "Una linea orizzontale",
+            "Un elenco numerato"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Tre trattini --- su una riga propria creano una linea orizzontale di separazione (horizontal rule)."
+    },
+    {
+        "id": 132,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa fa 'git clone <url> my-folder'?",
+        "risposte": [
+            "Sposta my-folder nel cloud",
+            "Rinomina il repository remoto in my-folder sul server",
+            "Crea un remoto chiamato my-folder",
+            "Clona il repository dentro una cartella chiamata my-folder invece del nome di default"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git clone <url> <folder> scarica il repo in una cartella dal nome scelto, invece di usare il nome di default del repository."
+    },
+    {
+        "id": 133,
+        "categoria": "Git: architettura e zone",
+        "domanda": "In quali tre stati Git classifica i file del working directory?",
+        "risposte": [
+            "Locale e remoto",
+            "Pubblico per tutti, privato per l'autore e infine condiviso col team",
+            "Untracked, modified, staged",
+            "Aperto sul disco, chiuso nell'editor e poi salvato definitivamente"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Git classifica ogni file come untracked (mai visto), modified (cambiato dall'ultimo commit) o staged (pronto per il commit)."
+    },
+    {
+        "id": 134,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Nel 'simple team workflow', qual e' la regola sul branch main?",
+        "risposte": [
+            "Il branch main va cancellato subito dopo ogni rilascio di versione",
+            "Si committa direttamente su main piu' volte al giorno durante il lavoro",
+            "Non committarci mai direttamente",
+            "Il branch main e' considerato un ramo temporaneo e di passaggio"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Nel simple team workflow main e' long-lived, contiene sempre codice funzionante e non ci si committa mai direttamente: si lavora su feature branch via PR."
+    },
+    {
+        "id": 135,
+        "categoria": "Remote e GitHub",
+        "domanda": "A cosa serve un file .gitignore?",
+        "risposte": [
+            "A cifrare i file segreti che contengono le credenziali del progetto",
+            "A creare automaticamente nuovi branch a ogni operazione di commit",
+            "A dire a Git cosa ignorare",
+            "A elencare tutti gli autori che hanno contribuito al progetto"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": ".gitignore elenca i file/cartelle da ignorare (es. node_modules/, .env, *.log): non vengono mai staged ne' committati, anche con git add ."
+    },
+    {
+        "id": 136,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Quali sono le quattro tab di GitHub citate come quelle da conoscere?",
+        "risposte": [
+            "Code, Pull requests, Issues, Settings",
+            "Solo le due tab principali, cioe' la tab Code e la tab Settings del progetto",
+            "La tab dei file, quella dei test automatici, quella del wiki e quella delle azioni",
+            "Le tab dedicate a profilo, notifiche, organizzazioni e impostazioni personali"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Le tab da conoscere sono Code (file e commit), Pull requests, Issues e Settings (accessi, branch di default, protezioni)."
+    },
+    {
+        "id": 137,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Quale comando mostra quale regola di .gitignore sta ignorando un file?",
+        "risposte": [
+            "git diff filename",
+            "git check-ignore -v",
+            "git log filename",
+            "git status filename"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git check-ignore -v filename mostra percorso, numero di riga e regola esatta che ignora il file; output vuoto = non ignorato."
+    },
+    {
+        "id": 138,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa fa 'git add .'?",
+        "risposte": [
+            "Invia al remoto",
+            "Crea un commit",
+            "Cancella i file",
+            "Mette in staging"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git add . mette in staging tutte le modifiche della cartella corrente e delle sue sottocartelle."
+    },
+    {
+        "id": 139,
+        "categoria": "Appendice: version history",
+        "domanda": "Che cos'e' la version history di un documento?",
+        "risposte": [
+            "La cifratura del file",
+            "Un backup settimanale",
+            "La condivisione via email",
+            "L'idea che ogni modifica venga registrata in automatico, cosi' da poter tornare a qualsiasi stato precedente"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "La version history registra automaticamente ogni modifica, come un album fotografico del documento, permettendo di tornare a stati precedenti."
+    },
+    {
+        "id": 140,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "In un repository senza ancora nessun commit, come si toglie un file dallo staging?",
+        "risposte": [
+            "Con un semplice git revert",
+            "Con git rm --cached <file>, che funziona anche senza commit",
+            "Con git reset --hard",
+            "Eseguendo un push forzato verso il repository remoto condiviso"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "In un repo nuovo senza commit, 'git restore --staged' puo' fallire: si usa git rm --cached, che funziona con o senza commit."
+    },
+    {
+        "id": 141,
+        "categoria": "Branching e merging",
+        "domanda": "Cosa fa 'git config --global merge.tool vscode'?",
+        "risposte": [
+            "Crea un branch",
+            "Apre VS Code",
+            "Cancella i conflitti",
+            "Imposta VS Code come strumento visuale predefinito per risolvere i conflitti di merge"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Quel comando imposta VS Code come merge tool; poi 'git mergetool' apre lo strumento visuale sui file in conflitto."
+    },
+    {
+        "id": 142,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa mostra 'git show HEAD~1 --name-only'?",
+        "risposte": [
+            "Solo i nomi dei file cambiati",
+            "La lista completa di tutti i branch e tag presenti nel repository locale",
+            "Tutte le righe modificate riga per riga nel commit precedente con i colori",
+            "Il messaggio dettagliato di ogni commit dell'intera storia del progetto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "--name-only elenca solo quali file sono cambiati nel commit (qui quello prima di HEAD), senza mostrare il diff."
+    },
+    {
+        "id": 143,
+        "categoria": "Branching e merging",
+        "domanda": "Cos'e' un fast-forward merge?",
+        "risposte": [
+            "Un merge che cancella il branch",
+            "Un merge che richiede conflitti",
+            "Crea sempre un commit extra",
+            "Quando main non e' cambiato dalla creazione del branch, Git sposta in avanti il puntatore senza nuovo commit"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Se main non ha nuovi commit dalla creazione del branch, il merge e' fast-forward: il puntatore di main avanza, senza nuovo commit."
+    },
+    {
+        "id": 144,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Quale di questi e' un messaggio di commit da evitare perche' vago?",
+        "risposte": [
+            "Sistema l'allineamento della barra di navigazione sui dispositivi mobili",
+            "Aggiunge la validazione del campo email nel modulo di registrazione",
+            "Corregge il crash che avveniva all'invio di una password vuota",
+            "fix stuff"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Messaggi come 'fix stuff', 'updates', 'wip' o 'saved' sono validi ma inutili come documentazione: mesi dopo nessuno ne capisce il senso."
+    },
+    {
+        "id": 145,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Quali sono i tre benefici principali dei commit atomici?",
+        "risposte": [
+            "Meno spazio occupato sul disco, maggiore velocita' e piu' branch",
+            "Backup e cifratura",
+            "La compilazione automatica del codice, i test e il deploy continuo",
+            "Reversioni, debug e review"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Vantaggi: reversioni sicure (revert mirato), debugging piu' veloce (snapshot piccoli) e review piu' leggibili."
+    },
+    {
+        "id": 146,
+        "categoria": "Fondamenti VCS",
+        "domanda": "A quali tre domande di base risponde un sistema di version control?",
+        "risposte": [
+            "Quanto pesa il progetto, dove e' archiviato e a che ora e' stato aperto",
+            "Se il codice compila, se viene eseguito e se supera tutti i test previsti",
+            "Cosa, chi e quando",
+            "Chi paga il lavoro, chi lo approva e chi si occupa poi del rilascio"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Un VCS registra le modifiche nel tempo rispondendo a: cosa e' cambiato, chi l'ha cambiato e quando."
+    },
+    {
+        "id": 147,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Che cos'e' un repository in Git?",
+        "risposte": [
+            "Il contenitore del progetto e della sua storia completa: file, versioni, messaggi, branch e tag",
+            "Una copia compressa",
+            "Solo i file sorgente",
+            "Un server a pagamento"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il repository contiene il progetto e tutta la sua storia: ogni file, ogni versione, i messaggi di commit, i branch e i tag."
+    },
+    {
+        "id": 148,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Perche' fare 'git pull origin main' prima di creare un nuovo feature branch?",
+        "risposte": [
+            "Se main e' obsoleto il branch nasce privo di commit recenti",
+            "Per cifrare i file",
+            "Per cancellare i vecchi branch",
+            "Perche' questa operazione velocizza notevolmente il push successivo"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Se il main locale e' vecchio, il branch creato manca di commit recenti: questo aumenta i conflitti futuri. Sempre pull di main prima."
+    },
+    {
+        "id": 149,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Perche' i Conventional Commits sono pensati per essere machine-readable?",
+        "risposte": [
+            "Per occupare meno spazio",
+            "Per cifrare i messaggi",
+            "Per essere piu' corti",
+            "Per permettere a strumenti automatici di generare release notes e decidere il numero di versione"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il formato strutturato dei Conventional Commits permette a tool automatici di generare le release notes e di decidere se serve un nuovo numero di versione."
+    },
+    {
+        "id": 150,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Come si elimina un file mai tracciato (untracked) da Git?",
+        "risposte": [
+            "Si toglie dall'index con git restore --staged del file",
+            "Lo si cancella dal disco",
+            "Si usa il comando git revert indicando il nome del file da rimuovere",
+            "Si esegue un git reset --hard per ripulire completamente lo stato"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Un file untracked non e' noto a Git: si elimina semplicemente dal file system; Git non ha nulla da annullare."
+    },
+    {
+        "id": 151,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Quale scorciatoia apre l'anteprima Markdown in VS Code?",
+        "risposte": [
+            "Ctrl+P",
+            "Ctrl+S",
+            "Ctrl+Shift+V",
+            "Ctrl+B"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "In VS Code, aprendo un file .md, Ctrl+Shift+V apre il pannello di anteprima live."
+    },
+    {
+        "id": 152,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa 'ls | wc -l'?",
+        "risposte": [
+            "Cancella tutto",
+            "Mostra i primi",
+            "Ordina i nomi",
+            "Conta i file"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "ls elenca i file e la pipe li passa a wc -l, che conta le righe: cosi' si contano i file nella cartella."
+    },
+    {
+        "id": 153,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Quale parola chiave nella descrizione di una PR chiude la issue #42 al merge?",
+        "risposte": [
+            "Delete #42",
+            "Cancel #42",
+            "Closes #42",
+            "Remove #42"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Parole come Closes #42, Fixes #42 o Resolves #42 nella descrizione della PR chiudono la issue al momento del merge."
+    },
+    {
+        "id": 154,
+        "categoria": "Git: comandi base",
+        "domanda": "Nell'output di un diff, cosa indicano le righe che iniziano con + ?",
+        "risposte": [
+            "Righe aggiunte",
+            "Righe rimosse",
+            "Righe uguali",
+            "Righe rotte"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Nel diff: '-' = righe rimosse, '+' = righe aggiunte, nessun prefisso = righe invariate."
+    },
+    {
+        "id": 155,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "A cosa serve il carattere # in una riga di .gitignore?",
+        "risposte": [
+            "Forza il tracciamento del file",
+            "Ignora la cartella indicata",
+            "Crea un'eccezione a una regola scritta in precedenza",
+            "Indica un commento: la riga viene ignorata da Git"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Le righe che iniziano con # sono commenti e vengono ignorate da Git."
+    },
+    {
+        "id": 156,
+        "categoria": "Appendice: version history",
+        "domanda": "Perche' conviene dare un nome a una versione in Google Docs?",
+        "risposte": [
+            "Perche' le versioni con nome non vengono mai unite in automatico, a differenza di quelle vecchie senza nome",
+            "Per poterla condividere",
+            "Per poterla cifrare",
+            "Per poterla stampare"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Docs puo' fondere versioni vecchie per risparmiare spazio; nominare una versione la preserva, perche' quelle con nome non vengono mai unite."
+    },
+    {
+        "id": 157,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa permette di fare 'git commit' senza il flag -m?",
+        "risposte": [
+            "Salta il messaggio",
+            "Annulla il commit",
+            "Apre l'editor di testo di default per scrivere comodamente un messaggio multi-riga",
+            "Crea due commit"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Senza -m, git commit apre l'editor predefinito (Vim, Nano o VS Code) per scrivere un messaggio su piu' paragrafi."
+    },
+    {
+        "id": 158,
+        "categoria": "Appendice: Unix",
+        "domanda": "Come si esce dal comando 'less' mentre si scorre un file?",
+        "risposte": [
+            "Chiudendo completamente la finestra del terminale che si sta usando",
+            "Premendo la combinazione di tasti Ctrl piu' Alt piu' Canc",
+            "Digitando la parola exit seguita dalla pressione del tasto Invio",
+            "Premendo q"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si esce da less premendo il tasto q (quit)."
+    },
+    {
+        "id": 159,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Qual e' la differenza tra git init e git clone?",
+        "risposte": [
+            "init scarica da GitHub",
+            "Sono sinonimi",
+            "clone cancella i file",
+            "git init crea un repo vuoto senza storia, mentre git clone copia un repo esistente con tutta la sua storia"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git init parte da un repo vuoto senza storia; git clone scarica un repo esistente completo di storia e configura il remoto origin."
+    },
+    {
+        "id": 160,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa il comando 'diff file1.txt file2.txt'?",
+        "risposte": [
+            "Unisce i due file",
+            "Mostra le differenze tra i due file",
+            "Copia file1 dentro file2 sovrascrivendolo",
+            "Cancella il secondo file indicato nel comando"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "diff confronta due file e ne mostra le differenze."
+    },
+    {
+        "id": 161,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Cosa garantisce in un VCS l'audit trail (tracciabilita')?",
+        "risposte": [
+            "Sapere chi e perche'",
+            "La compressione della storia per occupare meno spazio sul disco",
+            "La cifratura",
+            "L'invio dei commit verso un secondo server di riserva remoto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "In ambienti professionali o regolati serve sapere chi ha cambiato cosa e perche': il VCS crea un record permanente e attribuito."
+    },
+    {
+        "id": 162,
+        "categoria": "Branching e merging",
+        "domanda": "Perche' non si deve fare il rebase di un branch usato da altre persone?",
+        "risposte": [
+            "Perche' e' un'operazione molto piu' lenta rispetto a un normale merge",
+            "Riscrive la storia condivisa",
+            "Perche' richiede sempre i privilegi di amministratore del repository",
+            "Perche' cancella fisicamente tutti i file presenti nel branch"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il rebase riscrive la storia: su un branch condiviso rompe le copie degli altri. Si fa solo su commit locali non pubblicati."
+    },
+    {
+        "id": 163,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa mostra 'git diff' senza altri argomenti?",
+        "risposte": [
+            "Le modifiche gia' committate",
+            "La lista dei remoti",
+            "Le modifiche fatte ma non ancora staged, confrontando working directory e staging area",
+            "Le differenze tra due branch"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git diff confronta il working directory con la staging area: mostra le modifiche non ancora staged."
+    },
+    {
+        "id": 164,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Come si chiama, in modo alternativo, la staging area?",
+        "risposte": [
+            "cache",
+            "index",
+            "stash",
+            "buffer"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La staging area e' chiamata anche 'index': i due termini indicano la stessa cosa."
+    },
+    {
+        "id": 165,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Perche' in molti team non e' chi apre la PR a cliccare 'Merge pull request'?",
+        "risposte": [
+            "Perche' eseguire il merge richiede di pagare un abbonamento a GitHub",
+            "Perche' il bottone per fare il merge non e' visibile all'autore della richiesta",
+            "Solo da CLI",
+            "Lo fa il revisore"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Nella maggior parte dei team e' il revisore o un membro senior a fare il merge, dopo che la PR e' stata approvata e concordata."
+    },
+    {
+        "id": 166,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Perche' nel README conviene usare link relativi invece di URL assoluti?",
+        "risposte": [
+            "Perche' restano funzionanti quando il repository viene clonato e non si rompono se cambiano i nomi dei branch",
+            "Perche' sono piu' corti",
+            "Perche' caricano prima",
+            "GitHub blocca quelli assoluti"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "I link relativi (es. ./docs/setup.md) restano validi al clone del repo e non si rompono se cambiano i nomi dei branch."
+    },
+    {
+        "id": 167,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Nella subject line di un commit, cosa non si deve fare?",
+        "risposte": [
+            "Cercare di tenerla il piu' breve e sintetica possibile",
+            "Scriverla usando il modo imperativo come fosse un comando",
+            "Terminarla con un punto",
+            "Usare un verbo all'inizio per descrivere l'azione svolta"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "La subject line e' un titolo: non va terminata con il punto, e si evitano parole vaghe come 'fix stuff' o 'wip'."
+    },
+    {
+        "id": 168,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Cosa contiene il file config dentro la cartella .git?",
+        "risposte": [
+            "I contenuti compressi",
+            "La lista completa di tutti i commit con autore e data",
+            "I nomi dei branch",
+            "Le impostazioni del repository, come l'URL del remoto"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il file config tiene le impostazioni del repository, per esempio l'URL del remoto."
+    },
+    {
+        "id": 169,
+        "categoria": "Branching e merging",
+        "domanda": "Quale comando annulla un merge in corso, ripristinando lo stato precedente?",
+        "risposte": [
+            "git merge --abort",
+            "git merge --undo",
+            "git revert --stop",
+            "git reset --merge"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git merge --abort cancella il merge in corso e ripristina lo stato precedente."
+    },
+    {
+        "id": 170,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Su GitHub, in quale tab si commentano le modifiche di una PR riga per riga?",
+        "risposte": [
+            "Settings",
+            "Files changed",
+            "Insights",
+            "Actions"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Nella tab 'Files changed' le righe verdi sono aggiunte e le rosse rimosse; passando sul numero di riga si apre il box per commentare."
+    },
+    {
+        "id": 171,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si crea un'intestazione (heading) in Markdown?",
+        "risposte": [
+            "Con # seguito da spazio",
+            "Anteponendo il simbolo @ alla riga che fa da titolo del documento",
+            "Mettendo tre asterischi prima e dopo il testo del titolo",
+            "Racchiudendo il titolo tra una coppia di parentesi quadre"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Si usa # seguito da spazio; il numero di # indica il livello. Usare un solo H1 per documento e non saltare livelli."
+    },
+    {
+        "id": 172,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Quale simbolo crea un blockquote (citazione) in Markdown?",
+        "risposte": [
+            "#",
+            ">",
+            "-",
+            "*"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il simbolo > a inizio riga crea un blockquote, usato per note o callout importanti."
+    },
+    {
+        "id": 173,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Qual e' un errore comune nella code review descritto dalla dispensa?",
+        "risposte": [
+            "Recensire troppo in fretta",
+            "Spiegare sempre con chiarezza cosa andrebbe cambiato e per quale motivo",
+            "Leggere con attenzione ogni singola riga di codice che e' stata modificata",
+            "Ammettere onestamente di non aver compreso una certa parte del codice"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Errori tipici: recensire troppo in fretta saltando righe, dire 'e' sbagliato' senza spiegare, approvare codice non capito e prendere i commenti sul personale."
+    },
+    {
+        "id": 174,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Perche' Git ha valore anche per uno sviluppatore solitario?",
+        "risposte": [
+            "Serve solo per le PR",
+            "Permette di sperimentare in sicurezza, tracciare la storia, trovare bug e avere un backup remoto",
+            "Sostituisce il compilatore",
+            "Non ne ha alcuno"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Anche da solo: sperimenti senza rischi (ogni stato e' recuperabile), hai un diario del progetto, usi git bisect per i bug e un backup offsite col push."
+    },
+    {
+        "id": 175,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Perche' l'appendice suggerisce di usare 'git commit' senza -m?",
+        "risposte": [
+            "Perche' -m e' deprecato",
+            "Perche' apre l'editor di default e permette di scrivere messaggi multi-riga vedendo il conteggio dei caratteri",
+            "Perche' e' piu' veloce",
+            "Perche' crea piu' commit"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Senza -m, git commit apre l'editor (es. VS Code): si scrivono facilmente messaggi multi-riga e si vede il conteggio dei caratteri."
+    },
+    {
+        "id": 176,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale flag di ls mostra anche i file nascosti (che iniziano con un punto)?",
+        "risposte": [
+            "-l",
+            "-a",
+            "-r",
+            "-h"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "ls -a elenca tutti i file, inclusi quelli nascosti che iniziano con il punto (es. .gitignore, .env)."
+    },
+    {
+        "id": 177,
+        "categoria": "Appendice: installazione",
+        "domanda": "Cosa permette di fare l'alias 'git config --global alias.lg ...' suggerito dalla guida?",
+        "risposte": [
+            "Cancella la storia",
+            "Digitando 'git lg' ottieni un log ad albero colorato del repository",
+            "Invia i commit",
+            "Crea un branch"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "L'alias lg viene impostato su 'log --graph --oneline --decorate --all', cosi' bastera' scrivere git lg per vedere un log ad albero del repo."
+    },
+    {
+        "id": 178,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Nel .gitignore, cosa fa il pattern '*.log' ?",
+        "risposte": [
+            "Ignora un file che si chiama esattamente con il nome log",
+            "Ignora i file che finiscono in .log",
+            "Crea automaticamente un nuovo file di log dentro il progetto",
+            "Ignora l'intera cartella che ha come nome la parola log"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "L'asterisco e' un wildcard: *.log ignora ogni file che termina in .log."
+    },
+    {
+        "id": 179,
+        "categoria": "Remote e GitHub",
+        "domanda": "Di quali due comandi e' una scorciatoia 'git pull'?",
+        "risposte": [
+            "Il comando git clone seguito immediatamente da git init",
+            "Prima git add e subito dopo il comando git commit",
+            "git fetch e git merge",
+            "Il comando git status seguito poi dal comando git log"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git pull = git fetch (scarica) + git merge (unisce) della branch remota nella branch locale corrente."
+    },
+    {
+        "id": 180,
+        "categoria": "Appendice: version history",
+        "domanda": "Confrontando dove vive la storia, come si descrivono Google Docs e Git?",
+        "risposte": [
+            "In questo confronto Git risulta centralizzato",
+            "Sono entrambi distribuiti",
+            "Sono entrambi sistemi centralizzati sui server dell'azienda",
+            "Docs e' centralizzato, Git e' distribuito"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Google Docs e' centralizzato sui server Google; Git e' distribuito: ognuno ha l'intera storia in locale e lavora anche offline."
+    },
+    {
+        "id": 181,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Che cos'e' una pull request (PR)?",
+        "risposte": [
+            "Un file di config",
+            "Un branch protetto",
+            "Un comando di Git",
+            "Una richiesta formale, funzione di GitHub, per unire il tuo branch in un altro branch (di solito main)"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Una PR e' una funzione di GitHub (non un comando Git) per chiedere di unire il tuo branch in un altro, abilitando commenti e review."
+    },
+    {
+        "id": 182,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Confrontando Git e SVN, come sono i branch in Git?",
+        "risposte": [
+            "Puntatori leggeri",
+            "Copie di directory pesanti che vengono create direttamente sul server centrale",
+            "Disponibili soltanto quando esiste una connessione attiva verso il server",
+            "Cartelle fisicamente duplicate dentro il working directory del progetto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "In Git i branch sono puntatori leggeri ai commit: creazione cheap e veloce. In SVN sono copie di directory sul server, piu' pesanti."
+    },
+    {
+        "id": 183,
+        "categoria": "Appendice: version history",
+        "domanda": "Quando non e' accessibile la version history in Google Docs?",
+        "risposte": [
+            "Solamente durante le ore notturne, per via della manutenzione",
+            "Con soli permessi di lettura",
+            "Quando si e' rimasti offline da meno di un'ora di tempo",
+            "Quando il documento e' troppo lungo e contiene molte pagine di testo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La version history e' disponibile solo con permesso di modifica; con sola visualizzazione o commento non vi si accede."
+    },
+    {
+        "id": 184,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Quante intestazioni H1 dovrebbe avere un documento Markdown?",
+        "risposte": [
+            "Nessuna, perche' l'H1 non e' supportato dai parser piu' comuni",
+            "Almeno tre, una per ciascuna delle parti iniziali del testo",
+            "Tante quante sono le sezioni principali presenti nel documento",
+            "Una sola"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si usa un solo H1 per documento (e' il titolo); le sezioni principali usano H2, senza saltare livelli (non da H2 a H4)."
+    },
+    {
+        "id": 185,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quale scope va selezionato creando un PAT per il normale lavoro con i repository?",
+        "risposte": [
+            "admin:org",
+            "gist",
+            "delete_repo",
+            "repo, che copre il lavoro di base con i repository"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Per il lavoro git di base si seleziona lo scope 'repo'; la dispensa suggerisce anche una scadenza (es. 90 giorni) invece di 'No expiration'."
+    },
+    {
+        "id": 186,
+        "categoria": "Git: comandi base",
+        "domanda": "Qual e' il formato del messaggio di commit suggerito in Git Fundamentals?",
+        "risposte": [
+            "Un hashtag iniziale seguito da una breve descrizione testuale",
+            "Un numero progressivo seguito da un titolo descrittivo del commit",
+            "La data, poi l'ora e infine il nome dell'autore del commit",
+            "type(scope): descrizione"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il formato e' 'type(scope): short description', con type come feat, fix, docs, style, refactor, chore."
+    },
+    {
+        "id": 187,
+        "categoria": "Branching e merging",
+        "domanda": "Quale comando moderno crea un nuovo branch e ci si sposta subito sopra?",
+        "risposte": [
+            "git branch feature/login",
+            "git switch -c feature/login",
+            "git merge feature/login",
+            "git tag feature/login"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git switch -c <branch> crea il branch e vi sposta HEAD; 'git branch' lo crea soltanto senza spostarsi."
+    },
+    {
+        "id": 188,
+        "categoria": "Appendice: installazione",
+        "domanda": "Quale comando imposta 'main' come branch di default per i nuovi repository?",
+        "risposte": [
+            "E' sufficiente eseguire il comando git init main",
+            "git config --global init.defaultBranch main",
+            "Si usa il comando git branch indicando il nome main",
+            "Lo imposta il comando git switch main da solo"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git config --global init.defaultBranch main imposta main come default globale per i nuovi repo."
+    },
+    {
+        "id": 189,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Come si toglie un file dalla staging area mantenendo le modifiche?",
+        "risposte": [
+            "git rm <file>",
+            "git reset --hard del file desiderato dalla cartella",
+            "git restore --staged <file>",
+            "git revert <file>"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "git restore --staged <file> riporta il file dalla staging area al working directory senza perdere le modifiche."
+    },
+    {
+        "id": 190,
+        "categoria": "Appendice: Unix",
+        "domanda": "Quale comando cerca un pattern di testo all'interno di un file?",
+        "risposte": [
+            "mkdir",
+            "wc",
+            "touch",
+            "grep"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "grep cerca una parola o pattern dentro un file; con -i ignora maiuscole/minuscole, con -r cerca ricorsivamente."
+    },
+    {
+        "id": 191,
+        "categoria": "Appendice: version history",
+        "domanda": "In Google Docs, come si scopre chi ha modificato per ultimo una riga specifica?",
+        "risposte": [
+            "Esportando il documento in formato PDF e controllando i metadati",
+            "Aprendo il pannello dei commenti laterale e cercando tra le risposte",
+            "Scorrendo manualmente l'intera cronologia delle versioni del documento",
+            "Con 'Mostra editor'"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si clicca col tasto destro sulla parola o riga e si sceglie 'Mostra editor': compare chi ha cambiato per ultimo quel contenuto e quando."
+    },
+    {
+        "id": 192,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa si usa al posto della password quando si fa push via HTTPS su GitHub?",
+        "risposte": [
+            "Un Personal Access Token",
+            "La stessa password che si usa per accedere alla casella email",
+            "Una chiave del prodotto del sistema operativo Windows installato",
+            "Il numero di telefono collegato all'account personale di GitHub"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "GitHub non accetta piu' password in chiaro: via HTTPS si usa un Personal Access Token (PAT) al posto della password."
+    },
+    {
+        "id": 193,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Cosa dovrebbe spiegare il body di un messaggio di commit?",
+        "risposte": [
+            "Quante righe sono cambiate",
+            "I nomi di tutti i file",
+            "La data e l'ora esatte",
+            "Il perche' del cambiamento (il problema risolto, l'intento), non il come, che il diff mostra gia'"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il diff mostra gia' il 'come'; il body deve spiegare il 'perche'': il problema risolto o la decisione presa."
+    },
+    {
+        "id": 194,
+        "categoria": "Appendice: Unix",
+        "domanda": "Cosa fa 'mkdir -p projects/myapp/src'?",
+        "risposte": [
+            "Cancella le cartelle",
+            "Crea la cartella e tutte le cartelle genitore mancanti in un colpo solo",
+            "Elenca il contenuto delle cartelle indicate nel percorso",
+            "Rinomina la cartella src"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "mkdir -p crea l'intera catena di cartelle, comprese quelle genitore mancanti, in un unico comando."
+    },
+    {
+        "id": 195,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Quale comando riporta un file tracciato all'ultimo stato committato?",
+        "risposte": [
+            "git restore <file>",
+            "git push <file>",
+            "git commit <file>",
+            "git clone <file>"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git restore <file> scarta le modifiche nel working directory riportando il file all'ultimo stato committato (operazione permanente)."
+    },
+    {
+        "id": 196,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quale sito genera automaticamente regole .gitignore in base a OS, editor e linguaggio?",
+        "risposte": [
+            "npmjs.com",
+            "readme.so",
+            "gitignore.io",
+            "shields.io"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "gitignore.io (Toptal) genera template .gitignore in base a sistema operativo, IDE/editor e linguaggi usati."
+    },
+    {
+        "id": 197,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa indica il type 'feat' in un messaggio di commit?",
+        "risposte": [
+            "Nuova feature",
+            "Formattazione",
+            "Un bug fix",
+            "Solo docs"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "feat = nuova feature; fix = bug fix; docs = documentazione; style = formattazione; refactor = ristrutturazione; chore = manutenzione."
+    },
+    {
+        "id": 198,
+        "categoria": "Remote e GitHub",
+        "domanda": "Perche' conviene creare il repo su GitHub vuoto se si ha gia' un progetto locale?",
+        "risposte": [
+            "Perche' i file aggiunti occupano troppo spazio sul server remoto",
+            "Perche' GitHub li cancellerebbe comunque al momento del primo push",
+            "Perche' altrimenti la creazione del repository diventa molto piu' lenta",
+            "Altrimenti il primo push fallisce"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Inizializzando il remoto con dei file, la sua storia differisce dalla locale e il primo push fallisce ('unrelated histories'): meglio partire vuoti."
+    },
+    {
+        "id": 199,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Cosa cerca tipicamente un revisore durante una code review?",
+        "risposte": [
+            "Se il codice fa cio' che la PR dichiara, se ci sono bug, se e' chiaro e se segue gli standard del team",
+            "Solo errori di battitura",
+            "Solo i nomi dei file",
+            "Il numero di righe"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Il revisore verifica che il codice faccia cio' che la PR dice, che non abbia bug evidenti, che sia chiaro e che rispetti naming e formattazione del team."
+    },
+    {
+        "id": 200,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Quali sono i tre motivi principali per usare un .gitignore?",
+        "risposte": [
+            "Poter rinominare, spostare e copiare piu' facilmente i file",
+            "Repo pulito, segreti, conflitti",
+            "Velocizzare i push, cifrare i file e creare in automatico nuovi branch",
+            "Permettere di compilare il codice, eseguire i test e fare il deploy"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Un .gitignore tiene il repo pulito (niente file temporanei/build), protegge i segreti (API key, .env) e riduce i conflitti su file machine-specific."
+    },
+    {
+        "id": 201,
+        "categoria": "Branching e merging",
+        "domanda": "A cosa serve l'opzione --no-ff in 'git merge --no-ff'?",
+        "risposte": [
+            "A cancellare il branch",
+            "A unire piu' branch",
+            "A creare sempre un merge commit anche quando il fast-forward sarebbe possibile, per tracciare il branch",
+            "A saltare i conflitti"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "--no-ff forza la creazione di un merge commit anche quando il fast-forward sarebbe possibile, per tenere traccia dell'esistenza del branch."
+    },
+    {
+        "id": 202,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Come si fa correttamente a NON ignorare un file dentro una cartella altrimenti ignorata?",
+        "risposte": [
+            "Ignorando il contenuto con logs/* e poi aggiungendo l'eccezione !logs/config.php",
+            "Scrivendo logs/ e poi !logs/config.php",
+            "Non e' possibile in nessun modo fare un'eccezione del genere",
+            "Eliminando del tutto il file .gitignore dal progetto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Se ignori l'intera cartella (logs/) Git non guarda piu' dentro e la negazione non funziona: si ignora il contenuto (logs/*) e poi si fa l'eccezione."
+    },
+    {
+        "id": 203,
+        "categoria": "Git: comandi base",
+        "domanda": "Quale comando verifica la versione di Git installata?",
+        "risposte": [
+            "git check",
+            "git ver",
+            "git info",
+            "git version"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git version stampa la versione di Git installata sulla macchina."
+    },
+    {
+        "id": 204,
+        "categoria": "Remote e GitHub",
+        "domanda": "Quale comando elenca i remoti con i loro URL completi?",
+        "risposte": [
+            "git remote -v",
+            "git remote -a",
+            "git remote -l",
+            "git remote -u"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git remote -v (verbose) elenca i remoti con i rispettivi URL completi."
+    },
+    {
+        "id": 205,
+        "categoria": "Branching e merging",
+        "domanda": "Quando si verifica un merge conflict?",
+        "risposte": [
+            "Quando due branch del repository hanno per caso lo stesso identico nome",
+            "Quando il server remoto risulta offline durante l'operazione di merge",
+            "Quando nel commit manca completamente il messaggio descrittivo",
+            "Stesse righe, stesso file"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Un conflitto nasce quando due branch cambiano le stesse righe dello stesso file: Git si ferma e chiede all'utente di decidere."
+    },
+    {
+        "id": 206,
+        "categoria": "Appendice: installazione",
+        "domanda": "Cos'e' Git Bash, citato tra gli strumenti?",
+        "risposte": [
+            "Un'estensione del browser",
+            "Un servizio cloud online",
+            "Un editor di codice",
+            "Un terminale per Windows che include Git e una shell Unix con utility assenti nel Prompt dei comandi"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Git Bash e' un terminale per Windows che include Git e una shell Unix, con utility assenti nel Command Prompt: il modo piu' semplice di usare Git su Windows."
+    },
+    {
+        "id": 207,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Qual e' l'ultimo passo del ciclo di vita di una pull request?",
+        "risposte": [
+            "Si crea una issue",
+            "Si scrive il codice della feature facendo i primi commit in locale",
+            "Si apre la PR",
+            "Dopo l'approvazione e il merge, si elimina il feature branch"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Ciclo: push del branch, apertura PR, review, eventuali modifiche, approvazione, merge e infine eliminazione del feature branch."
+    },
+    {
+        "id": 208,
+        "categoria": "Remote e GitHub",
+        "domanda": "Qual e' il ciclo del workflow quotidiano con un remoto?",
+        "risposte": [
+            "Reset e revert",
+            "Si fa il clone, poi l'init e infine il merge del progetto",
+            "Prima il push, poi il pull e infine la cancellazione del branch",
+            "Pull, work, push"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Ogni sessione: Pull (scarichi le novita'), Work (modifichi e committi in locale), Push (invii i commit al remoto)."
+    },
+    {
+        "id": 209,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Quando e' obbligatoria la riga vuota tra subject e body di un commit?",
+        "risposte": [
+            "Esclusivamente quando il commit modifica piu' di un singolo file sorgente",
+            "Soltanto se si usa lo stile dei Conventional Commits con tanto di scope",
+            "Quando si scrive un body",
+            "Solamente quando il messaggio del commit supera i settantadue caratteri"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Se c'e' un body, la riga vuota tra subject e body e' obbligatoria: senza, alcuni strumenti trattano tutto come un'unica subject line."
+    },
+    {
+        "id": 210,
+        "categoria": "Appendice: version history",
+        "domanda": "Confrontando Google Docs e Git, come funziona il salvataggio degli snapshot?",
+        "risposte": [
+            "In tutti e due i casi gli snapshot vengono salvati automaticamente",
+            "Docs salva in automatico, Git ti fa scegliere quando (commit)",
+            "In Git il salvataggio e' automatico",
+            "Entrambi salvano a mano"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Google Docs fa snapshot automatici; Git richiede un commit manuale e deliberato con un messaggio che spiega il cambiamento."
+    },
+    {
+        "id": 211,
+        "categoria": "Branching e merging",
+        "domanda": "Come si recuperano i commit fatti in stato di detached HEAD?",
+        "risposte": [
+            "Cancellando la cartella nascosta .git e poi rifacendo git init",
+            "Scaricando di nuovo l'intero progetto con il comando git clone",
+            "Con git switch -c <nome>",
+            "Eseguendo un push forzato verso il remoto con git push --force"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Per conservarli si crea un branch dove ci si trova: git switch -c my-recovery-branch."
+    },
+    {
+        "id": 212,
+        "categoria": "Git: comandi base",
+        "domanda": "A cosa serve il doppio trattino -- in un comando come 'git add -- -config.json'?",
+        "risposte": [
+            "A ignorare completamente il file indicato subito dopo il comando",
+            "A creare un commit",
+            "A forzare il push",
+            "A separare le opzioni dai nomi dei file (protegge nomi che iniziano con -)"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Il -- separa i flag dai nomi di file: serve, per esempio, ad aggiungere un file il cui nome inizia con un trattino."
+    },
+    {
+        "id": 213,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Qual e' il modo corretto di chiudere piu' issue dalla descrizione di una PR?",
+        "risposte": [
+            "Non e' possibile chiuderne piu' di una",
+            "Ripetere la parola chiave: Closes #42, Closes #67",
+            "Elencare solo i numeri delle issue separati da una virgola",
+            "Scrivere semplicemente Closes #42, #67"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Va ripetuta la keyword per ciascuna: 'Closes #42, Closes #67'. La forma 'Closes #42, #67' chiude solo la #42."
+    },
+    {
+        "id": 214,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Cosa identifica in modo univoco ogni commit?",
+        "risposte": [
+            "L'indirizzo IP della macchina dell'autore del commit",
+            "Il numero della riga di codice che e' stata cambiata",
+            "Un hash SHA",
+            "Il nome del file che e' stato modificato per ultimo nel commit"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Ogni commit ha un hash SHA univoco (impronta digitale), oltre a timestamp, autore e messaggio."
+    },
+    {
+        "id": 215,
+        "categoria": "Appendice: version history",
+        "domanda": "Cosa succede alla storia quando si ripristina una versione precedente in Google Docs?",
+        "risposte": [
+            "Si crea un nuovo file",
+            "La versione ripristinata diventa quella corrente, ma la storia non viene cancellata e resta tutto disponibile",
+            "Sparisce tutto",
+            "La storia viene cancellata"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "Il ripristino rende corrente la versione scelta ma non cancella la storia: tutte le versioni precedenti restano e si puo' annullare ripristinandone una piu' recente."
+    },
+    {
+        "id": 216,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Cos'e' il Markdown?",
+        "risposte": [
+            "Un linguaggio compilato",
+            "Un protocollo di rete",
+            "Un database relazionale",
+            "Un linguaggio di formattazione leggero che si scrive come testo semplice e diventa pagina formattata"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Markdown e' un linguaggio di formattazione leggero: si scrive in testo semplice con simboli da tastiera e viene reso come pagina formattata."
+    },
+    {
+        "id": 217,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Quale comando si usa una sola volta per creare un repo locale da uno remoto?",
+        "risposte": [
+            "git clone",
+            "git status",
+            "git diff",
+            "git add"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git clone e' un comando di setup una tantum che crea il repository locale a partire da uno remoto: non fa parte del flusso quotidiano."
+    },
+    {
+        "id": 218,
+        "categoria": "Git: comandi base",
+        "domanda": "Quale flag di git log mostra una riga per commit con SHA breve e messaggio?",
+        "risposte": [
+            "--stat",
+            "--oneline",
+            "--patch",
+            "--verbose"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git log --oneline mostra una riga compatta per commit con SHA abbreviato e messaggio."
+    },
+    {
+        "id": 219,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Quale comando forza l'aggiunta di un file che sarebbe ignorato?",
+        "risposte": [
+            "git add -u",
+            "git add -i",
+            "git add -p",
+            "git add -f"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git add -f (force) aggiunge un file anche se corrisponde a una regola di .gitignore."
+    },
+    {
+        "id": 220,
+        "categoria": "Fondamenti VCS",
+        "domanda": "A cosa serve la staging area?",
+        "risposte": [
+            "A scegliere le modifiche da committare",
+            "A cancellare i file",
+            "A inviare automaticamente i file verso il server remoto condiviso",
+            "A comprimere e ridurre la dimensione della storia del progetto"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "La staging area (o index) e' la zona di preparazione: permette di scegliere selettivamente quali modifiche entrano nel commit successivo."
+    },
+    {
+        "id": 221,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Perche' aggiungere un file gia' committato a .gitignore non ha effetto?",
+        "risposte": [
+            "Perche' .gitignore e' disattivato",
+            "Perche' serve riavviare Git",
+            "Perche' .gitignore agisce solo sui file mai tracciati: per uno gia' tracciato serve prima git rm --cached",
+            "Perche' il file e' grande"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": ".gitignore ignora solo i file mai tracciati. Per uno gia' committato bisogna toglierlo dall'index con git rm --cached (il file resta su disco)."
+    },
+    {
+        "id": 222,
+        "categoria": "Appendice: .gitignore",
+        "domanda": "Cosa fa il carattere ! in una regola di .gitignore?",
+        "risposte": [
+            "Crea un'eccezione a una regola precedente",
+            "Indica che la regola va applicata in modo ricorsivo a ogni cartella",
+            "Commenta la riga corrente",
+            "Forza il commit del file"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "! crea un'eccezione: dopo '*.log', '!important.log' fa si' che tutti i log siano ignorati tranne quello."
+    },
+    {
+        "id": 223,
+        "categoria": "Collaborazione e PR",
+        "domanda": "Cosa fare se hai pushato dei commit su main per sbaglio in un repo condiviso?",
+        "risposte": [
+            "Cancellare il repository",
+            "Eseguire git reset --hard",
+            "Non usare reset --hard ne' push --force perche' riscrivono la storia, ma contattare subito il team lead",
+            "Fare un nuovo clone"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Su un repo condiviso reset --hard o push --force riscrivono la storia e rompono le copie altrui: in quel caso si contatta subito il team lead."
+    },
+    {
+        "id": 224,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Qual e' la differenza tra un VCS e un semplice backup?",
+        "risposte": [
+            "Il VCS salva checkpoint deliberati e descritti che rappresentano lavoro significativo, non solo copie a intervalli",
+            "Nessuna differenza",
+            "Il backup e' cifrato",
+            "Il VCS e' piu' lento"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "Un backup salva copie a intervalli; un VCS salva checkpoint deliberati e descritti (un fix, una feature), e la descrizione conta quanto lo snapshot."
+    },
+    {
+        "id": 225,
+        "categoria": "Git: comandi base",
+        "domanda": "Qual e' la differenza tra git add \"*.txt\" e git add *.txt?",
+        "risposte": [
+            "Solo il primo cancella",
+            "Il secondo crea i file",
+            "Sono uguali",
+            "Con le virgolette il pattern lo gestisce Git (ricorsivo e cross-platform); senza, lo espande il terminale"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git add \"*.txt\" fa gestire il pattern a Git (sicuro e ricorsivo); git add *.txt fa espandere il pattern alla shell, meno portabile su Windows e non ricorsivo."
+    },
+    {
+        "id": 226,
+        "categoria": "Git: comandi base",
+        "domanda": "Perche' la dispensa sconsiglia di lanciare 'git add .' alla cieca?",
+        "risposte": [
+            "Perche' quel comando e' ormai deprecato nelle versioni recenti di Git",
+            "Perche' cancella senza chiedere conferma tutti i file modificati",
+            "Perche' funziona solamente sui sistemi operativi basati su Linux",
+            "Meglio prima git status"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Va lanciato git status prima, per sapere con precisione quali file finiranno in staging."
+    },
+    {
+        "id": 227,
+        "categoria": "Git: comandi base",
+        "domanda": "Cosa fa l'opzione interattiva 'git add -p'?",
+        "risposte": [
+            "Mette in staging blocchi di modifica singoli dentro un file, chiedendo y/n/s per ciascuno",
+            "Crea una pull request",
+            "Cancella i file staged",
+            "Comprime i commit"
+        ],
+        "rispostaCorretta": 0,
+        "spiegazione": "git add -p (patch) divide le modifiche di un file in blocchi e chiede per ognuno y (si'), n (no) o s (split), per commit piu' puliti."
+    },
+    {
+        "id": 228,
+        "categoria": "Branching e merging",
+        "domanda": "Nell'analogia, a cosa corrisponde il branch main 'pubblicato'?",
+        "risposte": [
+            "Un foglio di brutta copia che viene buttato via alla fine del lavoro",
+            "Una cartella temporanea creata dal sistema operativo per i file",
+            "Una bozza privata su cui si fanno tutte le modifiche e gli esperimenti",
+            "Un libro pubblicato"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Main e' come un libro pubblicato; un branch e' come una bozza privata: pubblichi (merge) solo quando la bozza e' pronta."
+    },
+    {
+        "id": 229,
+        "categoria": "Appendice: installazione",
+        "domanda": "Quali comandi configurano nome ed email per Git a livello globale?",
+        "risposte": [
+            "git remote add user",
+            "git set name e git set email",
+            "git config --global user.name e git config --global user.email",
+            "git init --user"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Si configurano con git config --global user.name \"nome cognome\" e git config --global user.email \"...\"."
+    },
+    {
+        "id": 230,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Cos'e' la 'Bracket Style' per i messaggi di commit?",
+        "risposte": [
+            "Una data inserita tra parentesi quadre all'inizio della riga",
+            "[area][type] descrizione",
+            "Il nome dell'autore racchiuso tra due parentesi tonde all'inizio",
+            "Un hashtag iniziale seguito subito dal numero della issue collegata"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "La bracket style mette le info chiave all'inizio: [area][type] descrizione imperativa, per scorrere velocemente la lista commit."
+    },
+    {
+        "id": 231,
+        "categoria": "Git: annullare modifiche",
+        "domanda": "Qual e' la vecchia sintassi, ancora valida, per scartare le modifiche di un file?",
+        "risposte": [
+            "git undo file",
+            "git checkout -- <file>, sostituita oggi dalla piu' chiara git restore",
+            "git drop file",
+            "git erase file"
+        ],
+        "rispostaCorretta": 1,
+        "spiegazione": "git checkout -- <file> e' la vecchia sintassi per scartare le modifiche; oggi si preferisce git restore, piu' chiara."
+    },
+    {
+        "id": 232,
+        "categoria": "Appendice: commit atomici",
+        "domanda": "Cos'e' un commit atomico?",
+        "risposte": [
+            "Un commit senza messaggio",
+            "Un commit che cancella file",
+            "Un commit che svolge esattamente un singolo task logico e nient'altro, indivisibile come un atomo",
+            "Un commit gigante"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Un commit atomico fa esattamente un task logico: l'atomo come unita' indivisibile applicato a Git."
+    },
+    {
+        "id": 233,
+        "categoria": "Git: architettura e zone",
+        "domanda": "Nell'analogia delle quattro zone, a cosa corrisponde mettere gli oggetti sul letto?",
+        "risposte": [
+            "Al push verso il remoto",
+            "Al working directory",
+            "Alla staging area: hai scelto cosa portare, ma non hai ancora chiuso la valigia",
+            "Al commit finale"
+        ],
+        "rispostaCorretta": 2,
+        "spiegazione": "Il guardaroba e' il working directory, gli oggetti sul letto sono la staging area (scelti ma non 'impacchettati'), la valigia chiusa e' il commit."
+    },
+    {
+        "id": 234,
+        "categoria": "Remote e GitHub",
+        "domanda": "Cosa fa 'git remote add origin <url>'?",
+        "risposte": [
+            "Cambia l'URL di un remoto che esisteva gia' in precedenza",
+            "Cancella il remoto origin",
+            "Scarica il repository",
+            "Aggiunge un nuovo remoto chiamato origin che punta all'URL indicato"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "git remote add origin <url> collega al repo locale un nuovo remoto chiamato origin; remote remove lo toglie e set-url ne cambia l'URL."
+    },
+    {
+        "id": 235,
+        "categoria": "Fondamenti VCS",
+        "domanda": "Nell'analogia della dispensa, perche' il centralizzato e' come una biblioteca pubblica?",
+        "risposte": [
+            "Apre solo di notte",
+            "I membri hanno copie",
+            "Si paga l'ingresso",
+            "C'e' un solo edificio con tutti i libri: se brucia o e' chiuso, nessuno puo' lavorare"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Centralizzato = una sola biblioteca: se brucia (server perso) i libri spariscono, se e' chiusa (server down) nessuno lavora."
+    },
+    {
+        "id": 236,
+        "categoria": "Appendice: README e Markdown",
+        "domanda": "Come si crea un blocco di codice con evidenziazione della sintassi?",
+        "risposte": [
+            "Racchiudendo l'intero blocco dentro due coppie di parentesi quadre",
+            "Anteponendo il simbolo maggiore all'inizio di ogni riga di codice",
+            "Mettendo tre trattini consecutivi prima e dopo il codice",
+            "Con tre backtick e il linguaggio"
+        ],
+        "rispostaCorretta": 3,
+        "spiegazione": "Si usano triple backtick su righe a se' stanti, scrivendo subito dopo l'apertura il nome del linguaggio per il syntax highlighting."
+    }
+]
